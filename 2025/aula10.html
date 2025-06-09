@@ -1,0 +1,1547 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+		
+		<!-- and it's easy to individually load additional languages -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/arduino.min.js"></script>
+		
+		<script>hljs.highlightAll();</script>
+		
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+        <div class="reveal">
+            <div class="slides">
+                
+               	<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>Introduction to $\mathcal{H}_2$ Robust Control via LMI</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">May 28, 2025</p>
+				</div>
+
+				</section>
+                
+
+
+
+                        
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Objectives</h2>
+            </div>
+            <div class="slide-content">
+                <p>The objectives of this lecture are to understand:
+                        <ul>
+                        <li>Definition of $\mathcal{H}_2$ norm;</li>
+                        <li>LMI computation of $\mathcal{H}_2$ norm;</li>
+                        <li>Definition of Optimal $\mathcal{H}_2$ control;</li>
+                        <li>Definition of Robust $\mathcal{H}_2$ control;</li>
+                        <li>Example;</li>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>References</h2>
+                <p>&nbsp;</p>
+            </div>
+            <div class="slide-content">
+                        <ul>
+                        <li>S. BOYD, L. GHAOUI, E. FERON, and V. BALAKRISHNAN. Linear Matrix Inequalities in System and Control Theory. SIAM, 1994.</li>
+                        <li>Notas de aula da disciplina <b>IA892 - Análise e Controle de Sistemas Lineares por Desigualdades Matriciais Lineares (LMIs)</b>, <br>Profs. Ricardo C. L. F. Oliveira e Pedro L. D. Peres, da Faculdade de Engenharia Elétrica e de Computação (FEEC) da Universidade Estadual de Campinas (Unicamp) oferecida no 2º sem. de 2017. 
+                        <a href="https://ricfow.fee.unicamp.br/IA892/ia892.htm" target="_blank">https://ricfow.fee.unicamp.br/IA892/ia892.htm</a>
+                        </li>
+                    </div>
+
+        </section>
+
+
+        
+                <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}&=Ax+Bu\\ 
+                y&=Hx
+                \end{aligned}
+                $$
+                with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
+            </p>
+            <p>
+                In order to have a well-defined $\mathcal{H}_2$ norm, the system cannot posses the transmission term $D$ of $u$ to $y$.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>MIMO Transfer Function</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+            <p class="lightup">
+
+                $$
+                G(s)=H(sI-A)^{-1}B=\begin{bmatrix}
+                G_{11}(s)  & \cdots & G_{1m}(s)\\
+                G_{21}(s)  & \cdots & G_{2m}(s)\\
+                \vdots  & \ddots & \vdots\\
+                G_{p1}(s) & \cdots & G_{pm}(s)
+                \end{bmatrix}
+                $$
+            </p>
+            <p>
+                such that $G_{ij}(s)$ is the transfer function from the $j$-th input to the $i$-th output.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Frequency domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+            <p class="lightup">
+
+                $$
+                \|G\|_2=\frac{1}{2\pi}\sqrt{\int_{-\infty}^{\infty} \text{tr}(G(j\omega)^*G(j\omega))d\omega}
+                $$
+            </p>
+            <p>
+                For a SISO system, the $\mathcal{H}_2$ norm is given by:
+                $$                \|G\|_2=\frac{1}{2\pi}\sqrt{\int_{-\infty}^{\infty} |G(j\omega)|^2d\omega}
+                $$                
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        From Parseval's Theorem:
+            <p class="lightup">
+
+                $$
+                \|G\|_2=\sqrt{\int_{-\infty}^{\infty} \text{tr}(g(t)^\trp g(t))dt}
+                $$
+            </p>
+            <p>
+                For a SISO system, the $\mathcal{H}_2$ norm is given by:
+                $$                \|G\|_2=\sqrt{\int_{-\infty}^{\infty} g(t)^2dt}
+                $$                
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        From Parseval's Theorem:
+            <p class="lightup">
+
+                $$
+                \|G\|_2=\sqrt{\int_{0}^{\infty} \text{tr}(g(t)^\trp g(t))dt}
+                $$
+            </p>
+            <p>
+                For a SISO system, the $\mathcal{H}_2$ norm is given by:
+                $$                \|G\|_2=\sqrt{\int_{0}^{\infty} |g(t)|^2dt}
+                $$                
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+        <p>&nbsp;</p>
+            <p>
+             <img src="../images/impulse_response_diagram.png" width="900" alt="">   
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain) in SS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                  
+                     <p class="lightup">
+
+                $$
+                \|G\|_2^2=\int_{0}^{\infty} \text{tr}(g(t)^\trp g(t))dt
+                $$
+            </p>
+            <p>
+                with $g(t)=\mathcal{L}^{-1}\{G(s)\}$ is the impulse response of the system.
+          
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        
+       
+
+
+         
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain) in SS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                   From SS representation, we have:
+                     <p class="lightup">
+                $$
+                        g(t)=\begin{cases} 
+                            He^{At}B, & \text{if } t\geq 0\\
+                            0, & \text{if } t<0
+                        \end{cases}
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain) in SS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                      <p>
+                   $$
+                \|G\|_2^2=\int_{0}^{\infty} \text{tr}(B^\trp \underbrace{e^{A^\trp t}H^\trp H e^{At}}_{W_o} B) dt\\
+                =\int_{0}^{\infty} \text{tr}(  H \underbrace{e^{At} B B^\trp e^{A^\trp t}}_{W_c}H^\trp ) dt
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+                   <section>
+            
+            <div class="slide-title">
+                <h2>Gramians of Observability and Controlability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p class="lightup">
+                        Controllability Gramian:
+                   $$
+               W_c=\int_0^\infty e^{At} B B^\trp e^{A^\trp t} dt
+                $$
+            </p>
+
+            <p class="lightup">
+                        Observability Gramian:
+                   $$
+               W_o=\int_0^\infty e^{A^\trp t} H^\trp H e^{A t} dt
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+        <section>
+
+
+          <div class="slide-title">
+                <h2>Lyapunov Matrix Equations</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p class="lightup">
+                        Controllability Gramian:
+                   $$
+              AW_c+W_cA^\trp+BB^\trp=0
+                $$
+            </p>
+
+            <p class="lightup">
+                        Observability Gramian:
+                   $$
+               A^\trp W_o+W_oA+H^\trp H=0
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+        
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain) in SS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G\|_2^2=\text{tr}(B^\trp W_o B)=\text{tr}(HW_cH^\trp)
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                     A^\trp W_o+W_oA+H^\trp H=0    
+                $$</p>
+                or
+               <p class="lightup2"> $$
+                     AW_c+W_cA^\trp+BB^\trp=0    
+                $$</p> 
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm via LMI (Case 1)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G\|_2^2=\text{tr}(B^\trp P B)
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                    \min_{P=P^\trp \succ 0}   \text{tr}(B^\trp P B) \\
+\text{s. t.} \\
+ AP+PA^\trp+BB^\trp\preceq 0  
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm via LMI (Case 2)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G\|_2^2=\text{tr}(H P H^\trp )
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                    \min_{P=P^\trp \succ 0}  \text{tr}(H P H^\trp ) \\
+\text{s. t.} \\
+ A^\trp P+PA+H^\trp H\preceq 0  
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>Discrete-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                x_{k+1}&=Ax_k+Bu_k\\ 
+                y_k&=Hx_k+Du_k
+                \end{aligned}
+                $$
+                with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
+            </p>
+            <p>
+                In discrete-time, the system can posses the transmission term $D$! However, we need to account for $\tr[D^\trp D]$ in the $\mathcal{H}_2$ norm.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>MIMO Transfer Function</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+            <p class="lightup">
+
+                $$
+                G(z)=H(zI-A)^{-1}B=\begin{bmatrix}
+                G_{11}(z)  & \cdots & G_{1m}(z)\\
+                G_{21}(zs)  & \cdots & G_{2m}(z)\\
+                \vdots  & \ddots & \vdots\\
+                G_{p1}(z) & \cdots & G_{pm}(z)
+                \end{bmatrix}
+                $$
+            </p>
+            <p>
+                such that $G_{ij}(z)$ is the transfer function from the $j$-th input to the $i$-th output.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Frequency domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+            <p class="lightup">
+
+                $$
+                \|G\|_2=\frac{1}{2\pi}\sqrt{\int_{-\pi}^{\pi} \text{tr}(G(e^{j\omega})^*G(e^{j\omega}))d\omega}
+                $$
+            </p>
+            <p>
+                For a SISO system, the $\mathcal{H}_2$ norm is given by:
+                $$                \|G\|_2=\frac{1}{2\pi}\sqrt{\int_{-\pi}^{\pi} |G(e^{j\omega})|^2d\omega}
+                $$                
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        From Parseval's Theorem:
+            <p class="lightup">
+
+                $$
+                \|G\|_2=\sqrt{\sum_{k=-\infty}^{\infty} \text{tr}(g_k^\trp g_k)}
+                $$
+            </p>
+            <p>
+                For a SISO system, the $\mathcal{H}_2$ norm is given by:
+                $$                \|G\|_2=\sqrt{\sum_{k=-\infty}^{\infty} g_k^2}
+                $$                
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                  
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain) in SS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                   From SS representation, we have:
+                     <p class="lightup">
+                $$
+                        g_k=\begin{cases} 
+                            HA^{k-1}B, & \text{if } k> 0\\
+                            0, & \text{if } k\leq 0
+                        \end{cases}
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+         
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        From Parseval's Theorem:
+            <p class="lightup">
+
+                $$
+                \|G\|_2=\sqrt{\sum_{k=1}^{\infty} \text{tr}(g_k^\trp g_k)}
+                $$
+            </p>
+            <p>
+                For a SISO system, the $\mathcal{H}_2$ norm is given by:
+                $$                \|G\|_2=\sqrt{\sum_{k=1}^{\infty} g_k^2}
+                $$                
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+        
+            <p>
+                <img src="../images/impulse_response_discrete.png" alt="" width="650">           
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain) in SS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                      <p>
+                   $$
+                \|G\|_2^2=\sum_{k=1}^{\infty} \text{tr}(B^\trp \underbrace{(A^{k-1})^\trp H^\trp H A^{k-1}}_{W_o} B)\\
+                =\sum_{k=1}^{\infty} \text{tr}(  H \underbrace{A^{k-1} B B^\trp (A^{k-1})^\trp }_{W_c}H^\trp )
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+                   <section>
+            
+            <div class="slide-title">
+                <h2>Gramians of Observability and Controlability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p class="lightup2">
+                        Controllability Gramian:
+                   $$
+               W_c=\sum_{k=1}^\infty A^{k-1} B B^\trp (A^{k-1})^\trp 
+                $$
+            </p>
+
+            <p class="lightup2">
+                        Observability Gramian:
+                   $$
+               W_o=\sum_{k=1}^\infty (A^{k-1})^\trp H^\trp H A^{k-1}
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+        <section>
+
+
+          <div class="slide-title">
+                <h2>Lyapunov Matrix Equations</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p class="lightup">
+                        Controllability Gramian:
+                   $$
+              AW_cA^\trp -W_c+BB^\trp=0
+                $$
+            </p>
+
+            <p class="lightup">
+                        Observability Gramian:
+                   $$
+               A^\trp W_o A-W_o+H^\trp H=0
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+        
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (discrete-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G\|_2^2=\text{tr}(B^\trp W_o B)=\text{tr}(HW_cH^\trp)
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                     A^\trp W_o A-W_o+H^\trp H=0
+                $$</p>
+                or
+               <p class="lightup2"> $$
+                    AW_cA^\trp -W_c+BB^\trp=0
+                $$</p> 
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm via LMI (Case 1)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G\|_2^2=\text{tr}(B^\trp P B)
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                    \min_{P=P^\trp \succ 0}   \text{tr}(B^\trp P B) \\
+\text{s. t.} \\
+ APA^\trp-P+BB^\trp\preceq 0  
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm via LMI (Case 2)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G\|_2^2=\text{tr}(H P H^\trp )
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                    \min_{P=P^\trp \succ 0}  \text{tr}(H P H^\trp ) \\
+\text{s. t.} \\
+ A^\trp PA-P+H^\trp H\preceq 0  
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm: examples</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+        <p>&nbsp;</p>
+            <p>
+            Examples in Matlab
+            </p>
+            <p>
+            <img src="../images/matlab_logo.png" alt="">
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+            <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+Consider the system in state-space representation:
+            </p>
+            <p class="lightup">
+$$
+\begin{aligned}
+& x(t)=A x(t)+B_2 u(t)+B_1 w(t) \\
+& y(t)=H x(t)+D u(t)
+\end{aligned}
+$$
+with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$, $w\in\mathbb{R}^q$.
+
+               
+            </p>
+        
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                 
+           Problem: find $K \in \mathbb{R}^{m \times n}$ such that $u(t)=K x(t)$ stabilize and minimize the $\mathscr{H}_2$ norm of the closed-loop system:
+<p class="lightup">
+$$
+\begin{aligned}
+\dot{x}(t) & =\left(A+B_2 K\right) x(t)+B_1 w(t) \\
+y(t) & =(H+D K) x(t) \\
+G(s) & =(H+D K)\left(s I-\left(A+B_2 K\right)\right)^{-1} B_1
+\end{aligned}
+$$
+</p>
+            
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p class="lightup2">
+$$
+\begin{gathered}
+\min & \|G\|_2^2 \\
+K & 
+\end{gathered}
+$$
+with 
+$$
+G(s) =(H+D K)\left(s I-\left(A+B_2 K\right)\right)^{-1} B_1
+$$
+</p>
+Obs: LQR with $Q=H^\trp H, R=D^\trp D$ e $S=H^\trp D$ and <br> $x_0x_0^\trp=B_1B_1^\trp$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ vs LQR</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p class="lightup2">
+$$
+J=\int_0^\infty \left(x^\trp Q x+u^\trp R u+2x^\trp S u\right) dt
+$$
+with 
+$Q=H^\trp H, R=D^\trp D$ e $S=H^\trp D$ </p>
+</p>
+
+$$
+    \Rightarrow J=\int_0^\infty \|Hx+Du\|^2_2 dt\\
+    =\int_0^\infty \|y\|^2_2 dt
+$$
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ vs LQR</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Note that
+                    <p class="lightup2">
+                    $$
+                        J=x_0^\trp P x_0.
+                    $$
+                    </p>
+For  $x_0x_0^\trp=B_1B_1^\trp$, one has
+<p class="lightup2">
+$$
+    J=\int_0^\infty \|y\|^2_2 dt = x_0^\trp P x_0 = \text{tr}(B_1^\trp P B_1)
+$$
+</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p class="lightup2">
+$$
+\begin{gathered}
+\min & \|G\|_2^2 \\
+K & 
+\end{gathered}
+$$
+with 
+$$
+G(s) =(H+D K)\left(s I-\left(A+B_2 K\right)\right)^{-1} B_1
+$$
+</p>
+Solve using LMIs!
+
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Define 
+$$ 
+\tilde{A}=A+B_2 K, \quad \tilde{H}=H+D K
+$$
+Thus, the $\mathcal{H}_2$ control problem can be written as:
+<p class="lightup2">
+$$
+\begin{gathered}
+\min & \tr[B_1^\trp PB_1] \\
+K,P & \\
+\text{s. t.} & 
+\tilde{A}^\trp P+P \tilde{A}+ \tilde{H}^\trp \tilde{H} \preceq 0
+\end{gathered}
+$$
+</p>
+
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Therefore,
+
+$$
+(A+B_2 K)^\trp P+P (A+B_2 K)+ (H+D K)^\trp (H+D K) \preceq 0
+$$
+
+which is not a LMI! However, using Schur's complement we can rewrite it as    
+
+$$
+\begin{bmatrix}
+(A+B_2 K)^\trp P+P (A+B_2 K) &  (H+D K)^\trp \\
+(H+D K) & -I
+\end{bmatrix} \preceq 0
+$$
+
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+        
+          <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+In addition, we can apply a congruence transformation to the matrix inequality,
+
+$$
+\small
+\begin{bmatrix}
+P^{-1} & 0 \\
+0 & I
+\end{bmatrix}
+\begin{bmatrix}
+(A+B_2 K)^\trp P+P (A+B_2 K) &  (H+D K)^\trp \\
+(H+D K) & -I
+\end{bmatrix} \Bigr ( \star \Bigl) \preceq 0
+$$
+which leads to the following 
+$$
+\small
+\begin{bmatrix}
+P^{-1}A^\trp +AP^{-1}+P^{-1}K^\trp B_2^\trp+B_2 K P^{-1} &  P^{-1}H^\trp+ P^{-1}K^\trp D^\trp  \\
+HP^{-1}+D KP^{-1} & -I
+\end{bmatrix}  \preceq 0
+$$
+
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Now, introduce the change of variables $Z=KP^{-1}$ and $W=P^{-1}$, we then can rewrite:
+<p class="lightup">
+$$
+\small
+\Rightarrow
+\begin{bmatrix}
+WA^\trp +AW+Z^\trp B_2^\trp+B_2 Z &  WH^\trp+ Z^\trp D^\trp  \\
+HW+DZ & -I
+\end{bmatrix}  \preceq 0
+$$
+</p>
+Now it is a LMI in the variables $W, Z$ !  and
+$$
+K=Z W^{-1}
+$$
+
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Accordingly, the optimal $\mathcal{H}_2$ control problem can be formulated as:
+<p class="lightup">
+$$
+\small
+\begin{gathered}
+\min & \tr[B_1^\trp W^{-1}B_1] \\
+W,Z & \\
+\text{s. t.} & 
+\begin{bmatrix}
+WA^\trp +AW+Z^\trp B_2^\trp+B_2 Z &  WH^\trp+ Z^\trp D^\trp  \\
+HW+DZ & -I
+\end{bmatrix}  \preceq 0
+\end{gathered}
+$$
+
+</p>
+Is this a convex optimization problem? 
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Note that,
+<p class="lightup">
+$$
+\small
+\begin{gathered}
+\min & \tr[X] \\
+W,Z,X & \\
+\text{s. t.} & 
+\begin{bmatrix}
+WA^\trp +AW+Z^\trp B_2^\trp+B_2 Z &  WH^\trp+ Z^\trp D^\trp  \\
+HW+DZ & -I
+\end{bmatrix}  \preceq 0\\
+& X\succeq B_1^\trp  W^{-1} B_1
+\end{gathered}
+$$
+
+</p>
+Is this a convex optimization problem? 
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Note that,
+<p class="lightup">
+$$
+\small
+\begin{gathered}
+\min & \tr[X] \\
+W,Z,X & \\
+\text{s. t.} & 
+\begin{bmatrix}
+WA^\trp +AW+Z^\trp B_2^\trp+B_2 Z &  WH^\trp+ Z^\trp D^\trp  \\
+HW+DZ & -I
+\end{bmatrix}  \preceq 0\\
+& \begin{bmatrix}
+X &  B_1^\trp  \\
+B_1  & W
+\end{bmatrix}\succeq 0
+\end{gathered}
+$$
+</p>
+
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+   
+
+
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p class="lightup2">
+$$
+\begin{gathered}
+\min \tr[X]\\
+X=X^\trp, Z, W=W^\trp>0 \\
+{\left[\begin{array}{cc}
+X & B_1^{\trp} \\
+B_1 & W
+\end{array}\right]\succeq 0} \\
+{\left[\begin{array}{cc}
+A W+W A^{\trp}+Z^{\trp}B_2^{\trp} + B_2 Z & W H^{\trp}+Z^{\trp} D^{\trp} \\
+H W+D Z & -I
+\end{array}\right]\preceq 0}
+\end{gathered}
+$$
+and $\|G\|_2^2=\tr[X], K=Z W^{-1}$.
+</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+      <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ control: examples</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+        <p>&nbsp;</p>
+            <p>
+            Examples in Matlab
+            </p>
+            <p>
+            <img src="../images/matlab_logo.png" alt="">
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Robust $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p class="lightup2">
+$$
+\small
+\begin{gathered}
+\min \tr[X]\\
+X=X^\trp, Z, W=W^\trp>0 \\
+{\left[\begin{array}{cc}
+X & B_1^{\trp}(\alpha) \\
+\star & W
+\end{array}\right]\succeq 0} \\
+{\left[\begin{array}{cc}
+A(\alpha) W+ B_2(\alpha) Z + (\star)^\trp  & W H^{\trp}(\alpha)+Z^{\trp} D(\alpha)^{\trp} \\
+\star & -I
+\end{array}\right]\preceq 0}
+\end{gathered}
+$$
+and $\|G\|_2^2=\tr[X], K=Z W^{-1}$.
+</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Robust $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p class="lightup2">
+$$
+\small
+\begin{gathered}
+\min \tr[X]\\
+X=X^\trp, Z, W=W^\trp>0 \\
+{\left[\begin{array}{cc}
+X & B_{1,i}^{\trp} \\
+\star & W
+\end{array}\right]\succeq 0} \\
+{\left[\begin{array}{cc}
+A_i W+ B_{2,i} Z + (\star)^\trp  & W H_i^{\trp}+Z^{\trp} D_i^{\trp} \\
+\star & -I
+\end{array}\right]\preceq 0}
+\end{gathered}
+$$
+for all $i=1,\ldots,N$ and $\|G\|_2^2\le \tr[X], K=Z W^{-1}$.
+</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>Robust $\mathcal{H}_2$ control: examples</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+        <p>&nbsp;</p>
+            <p>
+            Examples in Matlab
+            </p>
+            <p>
+            <img src="../images/matlab_logo.png" alt="">
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+        
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+            
+
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+

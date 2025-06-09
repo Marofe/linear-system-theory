@@ -1,0 +1,1635 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>Controllability and Observability</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">March 26, 2025</p>
+				</div>
+
+				</section>
+
+				
+				<section>
+
+				<div class="slide-title">
+					<h2>Objectives:</h2>
+				</div>
+				<div class="slide-content">
+					<p>The objectives of this class are:
+						<ul>
+							<li>Understand the properties of controllability and observability;</li> 
+							<li>Understand the relation of stabilizability and detectability;</li> 
+							<li>Show examples</li>
+						</ul>
+						
+						</p>
+						</div>
+
+			</section>
+
+
+
+			<section>
+			
+				<div class="slide-title">
+					<h2>State-Space Model in Discrete Time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+
+						<p>&nbsp;</p>
+										
+				<p class="lightup">
+	
+					$$
+					\begin{aligned} 
+					x_{k+1}&=A_dx_k+B_du_k\\ 
+					y_k&=Cx_k+Du_k
+					\end{aligned}
+					$$
+				</p>
+			
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>State-Space Model in Discrete Time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+				<img src="../images/modelo_ss_discreto.png" width="1000">
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Solution of the State Equation in Discrete Time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+				<p class="lightup">
+	
+					$$
+					\begin{aligned} 
+					x_k=A_d^kx_0+\sum_{j=0}^{k-1}A_d^{k-j-1}B_d u_j, \quad k=1,2,3,\ldots
+					\end{aligned}
+					$$
+				</p>
+			
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Solution of the State Equation in Discrete Time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+				<p class="lightup">
+					Output:
+	
+					$$
+					\begin{aligned} 
+					y_k=CA_d^kx_0+C\sum_{j=0}^{k-1}A_d^{k-1-j}B_d u_j+Du_k, \\k=1,2,3,\ldots
+					\end{aligned}
+					$$
+				</p>
+			
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+				<p class="lightup">
+					Is it possible to drive the system to any desired state in finite time?
+				</p>
+				<img src="../images/controlabilidade.png" width="500">
+		
+				</center>
+						</div>
+	
+			</section>
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+				<p class="lightup">
+					Is it possible to drive the system to any desired state in finite time?
+				</p>
+				$$
+	\text{There exists a sequence of control actions } u_0,u_1,\ldots,u_{k-1} \\ \text{ such that: } \\x_k=A_d^kx_0+\sum_{j=0}^{k-1}A_d^{k-1-j}Bu_j
+				$$
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					$$					
+				\begin{aligned}
+						x_1&=Ax_0+Bu_0\\
+						x_2&=A^2x_0+ABu_0+Bu_1\\
+						x_3&=A^3x_0+A^2Bu_0+ABu_1+Bu_2\\
+						\vdots& \\ 
+						x_k&=A^kx_0+A^{k-1}Bu_0+\cdots+ABu_{k-2}+Bu_{k-1}
+			\end{aligned}
+		$$
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					$$					
+				\begin{aligned}
+						x_1-Ax_0&=Bu_0\\
+						x_2-A^2x_0&=ABu_0+Bu_1\\
+						x_3-A^3x_0&=A^2Bu_0+ABu_1+Bu_2\\
+						\vdots& \\ 
+						x_k-A^kx_0&=A^{k-1}Bu_0+\cdots+ABu_{k-2}+Bu_{k-1}
+			\end{aligned}
+		$$
+				</center>
+						</div>
+	
+			</section>
+	
+	
+		
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+					$$					
+				\begin{aligned}
+				
+				x_k-A^kx_0
+				=\begin{bmatrix}
+						
+						B & AB & \cdots & A^{k-1}B
+						\end{bmatrix}\begin{bmatrix}
+						u_{k-1}\\
+						u_{k-2}\\
+						\vdots\\
+						u_{0}
+						\end{bmatrix}
+			\end{aligned}
+		$$
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+					$$					
+				\begin{aligned}
+				
+				x_k-A^kx_0
+				=\underbrace{\begin{bmatrix}
+				B & AB & \cdots & A^{k-1}B
+				\end{bmatrix}}_{\mathcal{C}}\begin{bmatrix}
+				u_{k-1}\\
+				u_{k-2}\\
+				\vdots\\
+				u_{0}
+						\end{bmatrix}
+			\end{aligned}
+		$$
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+					$$					
+				\begin{aligned}
+				
+				x_k-A^kx_0
+				=\mathcal{C}\begin{bmatrix}
+				u_{k-1}\\
+				u_{k-2}\\
+				\vdots\\
+				u_{0}
+						\end{bmatrix}
+			\end{aligned}
+		$$
+				</center>
+						</div>
+	
+			</section>
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Suppose $x_k\in\mathbb{R}^n$ and $u_k\in\mathbb{R}^m$, then
+					$$					
+				\begin{aligned}
+				
+				(x_k-A^kx_0)_{n\times 1}
+				=\mathcal{C}_{n\times mk}\begin{bmatrix}
+				u_{k-1}\\
+				u_{k-2}\\
+				\vdots\\
+				u_{0}
+						\end{bmatrix}_{mk\times 1}
+			\end{aligned}
+		$$
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Suppose $x_k\in\mathbb{R}^n$ and $u_k\in\mathbb{R}^m$, then
+					$$					
+				\begin{aligned}
+				
+				\underbrace{(x_k-A^kx_0)_{n\times 1}}_{\Delta x}
+				=\mathcal{C}_{n\times mk}\begin{bmatrix}
+				u_{k-1}\\
+				u_{k-2}\\
+				\vdots\\
+				u_{0}
+						\end{bmatrix}_{mk\times 1}
+			\end{aligned}
+		$$
+				</center>
+						</div>
+	
+			</section>
+	
+		
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	<p class="lightup2">
+					$$					
+				\Delta x\in \mathcal{Range}\{\mathcal{C}\}
+			
+		$$
+	</p>
+		<img src="../images/controlabilidade2.png" width="620">
+				</center>
+	
+	
+						</div>
+	
+			</section>
+	
+	
+		
+	
+			
+						
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="lightup2">
+						Therefore, if $\text{rank}(\mathcal{C})=n$ then there exists a sequence $\{u_j\}_{j=0}^{k-1}$ that drives the system from state $x_0$ to $x_k$.
+					</p>
+							
+					<img src="../images/controlabilidade2.png" width="620">
+				</center>
+						</div>
+	
+			</section>
+
+
+							
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="lightup">
+						Lemma: The par $(A,B)$ for a discrete-time system is controllable if and only if the matrix 
+						$$
+						\mathcal{C}=\begin{bmatrix}
+B & AB & \cdots & A^{n-1}B	
+\end{bmatrix}\in\mathbb{R}^{n\times mn}
+$$
+has full rank.
+					</p>
+							
+					
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="">
+						If $u_k\in\mathbb{R}$ (single-input) and $x_k\in\mathbb{R}^n$, then it is sufficient that there exists $u_0,u_1,\ldots,u_{n-1}$ control actions to drive the system to any state. 
+						<p class="lightup2">
+					$$					
+				\begin{aligned}
+				
+				\begin{bmatrix}
+				u_{k-1}\\
+				u_{k-2}\\
+				\vdots\\
+				u_{0}
+				\end{bmatrix}= \mathcal{C}^{-1}\Delta x
+				
+			\end{aligned}
+		$$
+	</p>
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="">
+						If $u_k\in\mathbb{R^m}$ (multiple-input), with $m\le n$, then it is sufficient that there exists $u_0,u_1,\ldots,u_{\lceil\frac{n}{m}\rceil-1}$ control actions to drive the system to any state. 
+					</p>
+					$					
+		
+				
+				\begin{bmatrix}
+				u_0\\
+				u_1\\
+				u_2\\
+				\vdots \\
+				u_{\lceil\frac{n}{m}\rceil-1}
+				\end{bmatrix}= \mathcal{C}^{\dagger}\Delta x
+				
+	
+		$
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability:example</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="lightup">
+						$x_k\in\mathbb{R}^5$ and $u_k\in\mathbb{R}^2$
+					</p>
+					So, $n=5$ and $m=2$, then
+					$$				
+		
+				
+				\begin{bmatrix}
+				u_0\\
+				u_1\\
+				u_2
+				\end{bmatrix}_{6\times 1}= \mathcal{C}^{\dagger} \Delta x_{n\times 1}
+				
+	
+		$$
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="">
+						$$
+							\dot{x}=Ax+Bu
+						$$
+					</p>
+
+					<p class="lightup">
+						Is it possible to drive the system to any desired state in finite time?
+					</p>
+					<img src="../images/controlabilidade.png" width="450">
+					
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="">
+						$$
+							\dot{x}=Ax+Bu
+						$$
+					</p>
+
+					<p class="lightup">
+						Is it possible to drive the system to any desired state in finite time?
+					</p>
+					$$
+	\text{There exists a of control law } u(t), \forall t \in[0,T] \\ \text{ such that: } \\x(T)=e^{AT}x_0+\int_0^T e^{A(T-t)}Bu(t)dt
+				$$
+		
+					
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="lightup">
+						Lemma: The par $(A,B)$ for a continuous-time system is controllable if and only if the matrix 
+						$$
+						\mathcal{C}=\begin{bmatrix}
+B & AB & \cdots & A^{n-1}B	
+\end{bmatrix}\in\mathbb{R}^{n\times mn}
+$$
+has full rank.
+					</p>
+							
+					
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="">
+						Proof: Define a similarity transformation $T$ such that $TAT^{-1}=\tilde{A}$ and $TB=\tilde{B}$ is a controllable canonical form. Then, the controllability matrix of the pair $(\tilde{A},\tilde{B})$ is given by
+						$$
+						\tilde{\mathcal{C}}=\begin{bmatrix}
+\tilde{B} & \tilde{A}\tilde{B} & \cdots & \tilde{A}^{n-1}\tilde{B}
+\end{bmatrix}
+$$
+which implies 
+$$
+\tilde{\mathcal{C}}=T\mathcal{C} \Rightarrow T=\tilde{\mathcal{C}}\mathcal{C}^{-1}	\square
+$$
+					</p>
+							
+					
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: gramian</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="">
+					Assume that $x(0)=0$, then the state transition matrix is given by
+					$$
+					x(t)=\int_0^t e^{A(t-\tau)}Bu(\tau)d\tau
+					$$
+					</p>
+					Suppose that exists a control law given by 
+					<p class="lightup2">
+					$$
+						u(\tau)=B^\trp e^{A^\trp(t-\tau)}W_c^{-1}x(t)
+					$$
+					</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: gramian</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="">
+					The matrix $W_c$ is defined as
+					<p class="lightup">
+					$$
+					W_c=\int_0^t e^{A\eta}B B^\trp e^{A^\trp\eta}d\eta \in\mathbb{R}^{n\times n}
+					$$
+				</p>
+				must be non-singular!
+					</p>
+					
+					</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: gramian</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						$$
+						\forall v\neq 0, \quad v^\trp W_c v>0
+						$$
+						<p class="">
+					Thus,
+			
+					$$
+					W_c=\int_0^t z(\eta)^\trp z(\eta) d\eta\ge 0
+					$$
+			with 
+			<p class="lightup2">
+			$$
+			z(\eta)=B^\trp e^{A^\trp \eta}v=0,\quad \eta \in [0,t]
+			$$
+		</p>
+					</p>
+					
+					</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: gramian</h2>
+				</div>
+				<div class="slide-content">
+	Note that
+	$$z(\eta)=B^\trp e^{A^\trp \eta}v=0,\quad \eta \in [0,t]$$ also holds for the successive derivatives at $\eta=0$,
+					<center>
+		$$
+						\underbrace{\begin{bmatrix}
+						B^\trp \\
+						B^\trp A^\trp \\  
+						\vdots \\
+						B^\trp (A^{n-1})^\trp
+						\end{bmatrix}}_{\mathcal{C}^\trp }v=0
+				
+		$$
+
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability: gramian</h2>
+				</div>
+				<p>&nbsp;</p>
+				<div class="slide-content">
+	Therefore, provided that $\text{rank}(\mathcal{C})=n$, then 
+					<center>
+						<p class="lightup">
+		$$
+					W_c=\int_0^t e^{A\eta}B B^\trp e^{A^\trp\eta}d\eta >0
+				
+		$$
+	</p>
+	Putting it in another way,
+	$$
+	W_c > 0 \Leftrightarrow \text{rank}(\mathcal{C})=n
+	$$
+
+				</center>
+						</div>
+	
+			</section>
+	
+	
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+				<p class="lightup">
+					Is it possible to determine the initial condition of the system given a finite set of output measurements and the input signal?
+				</p>
+			
+				<img src="../images/observabilidade.png" width="600">
+				
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				$$
+				\begin{aligned} 
+				y_0&=Cx_0+Du_0\\ 
+				y_1&=Cx_1+Du_1=CAx_0+CBu_0+Du_1\\
+				\vdots \\
+				y_k&=CA^kx_0+CA^{k-1}Bu_0+\cdots+CBu_{k-1}+Du_k
+				\end{aligned}
+				$$
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				$$
+				\begin{aligned} 
+				y_0-Du_0&=Cx_0\\ 
+				y_1-CBu_0-Du_1&=CAx_0\\
+				\vdots \\
+				y_k-C\sum_{j=0}^{k-1}A^{k-1-j}Bu_j-Du_k&=CA^kx_0
+				\end{aligned}
+				$$
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				$$
+				\begin{aligned} 
+				\begin{bmatrix}
+				y_0-Du_0\\
+				y_1-CBu_0-Du_1\\
+				\vdots\\
+				y_k-C\sum_{j=0}^{k-1}A^{k-1-j}Bu_j-Du_k
+				\end{bmatrix}
+				&=
+				\begin{bmatrix}
+				Cx_0\\ 
+				CAx_0\\
+				\vdots \\
+				CA^kx_0
+				\end{bmatrix}
+				\end{aligned}
+				$$
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				$$
+				\begin{aligned} 
+				\begin{bmatrix}
+				y_0-Du_0\\
+				y_1-CBu_0-Du_1\\
+				\vdots\\
+				y_k-C\sum_{j=0}^{k-1}A^{k-1-j}Bu_j-Du_k
+				\end{bmatrix}
+				&=
+				\begin{bmatrix}
+				C\\ 
+				CA\\
+				\vdots \\
+				CA^k
+				\end{bmatrix}x_0
+				\end{aligned}
+				$$
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				$$
+				\begin{aligned} 
+				\begin{bmatrix}
+				y_0-Du_0\\
+				y_1-CBu_0-Du_1\\
+				\vdots\\
+				y_k-C\sum_{j=0}^{k-1}A^{k-1-j}Bu_j-Du_k
+				\end{bmatrix}
+				&=
+				\underbrace{\begin{bmatrix}
+				C\\ 
+				CA\\
+				\vdots \\
+				CA^k
+				\end{bmatrix}}_{\mathcal{O}}x_0
+				\end{aligned}
+				$$
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+		
+	Suppose $x_k\in \mathbb{R}^n$ and $y_k\in\mathbb{R}^p$, then									
+				$$
+				\begin{aligned} 
+				\begin{bmatrix}
+				y_0-Du_0\\
+				y_1-CBu_0-Du_1\\
+				\vdots\\
+				y_k-C\sum_{j=0}^{k-1}A^{k-1-j}Bu_j-Du_k
+				\end{bmatrix}_{p(k+1)\times 1}
+				&=
+				\mathcal{O}_{p(k+1)\times n}x_0
+				\end{aligned}
+				$$
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	Suppose $x_k\in \mathbb{R}^n$ and $y_k\in\mathbb{R}^p$, then									
+				$$
+				\begin{aligned} 
+				\underbrace{\begin{bmatrix}
+				y_0-Du_0\\
+				y_1-CBu_0-Du_1\\
+				\vdots\\
+				y_k-C\sum_{j=0}^{k-1}A^{k-1-j}Bu_j-Du_k
+				\end{bmatrix}_{p(k+1)\times 1}}_{\Delta y}
+				&=
+				\mathcal{O}_{p(k+1)\times n}x_0
+				\end{aligned}
+				$$
+	
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	<p class="lightup2">
+					$$					
+				\Delta y\in \mathcal{Range}\{\mathcal{O}\}
+			
+		$$
+	</p>
+		<img src="../images/observabilidade.png" width="620">
+				</center>
+	
+	
+						</div>
+	
+			</section>
+	
+	
+	
+	
+			
+						
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="lightup">
+						Therefore, if $\text{rank}(\mathcal{O})=n$ then it is possible to reconstruct $x_0$ through the measurements $\{y_j\}_{j=0}^{k}$ and $\{u_j\}_{j=0}^{k}$.
+					</p>
+							
+					<img src="../images/observabilidade.png" width="600">
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="lightup2">
+						Lemma: The par $(A,C)$ for a discrete-time system is observable if and only if the matrix 
+						$$
+						\mathcal{O}=\begin{bmatrix}
+						C\\ 
+						CA\\
+						\vdots \\
+						CA^{n-1}
+						\end{bmatrix}\in\mathbb{R}^{pn\times n}
+$$
+has full rank.
+					</p>
+							
+					
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="">
+						If $y_k\in\mathbb{R}$ (single-output), then it is sufficient to have a set of measurements $y_0,y_1,\ldots,y_{n-1}$ to reconstruct $x_0$. 
+					</p>
+					<p class="lightup">
+					$$					
+				\begin{aligned}
+				
+				x_0= \mathcal{O}^{-1}\Delta y
+				
+			\end{aligned}
+		$$
+	</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+					<p>&nbsp;</p>
+					<center>
+						Consider the dynamic system in continuous-time,
+						$$
+							\dot{x}=Ax+Bu\\
+							y=Cx+Du
+						$$
+										
+				<p class="lightup">
+					Is it possible to determine the initial condition of the system given a finite interval of output measurements $y(t),\forall t\in[0,T]$ and the input signal $u(t),\forall t\in[0,T]$?
+				</p>
+			
+
+				
+			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="lightup2">
+						Lemma: The par $(A,C)$ for a continuous-time system is observable if and only if the matrix 
+						$$
+						\mathcal{O}=\begin{bmatrix}
+						C\\ 
+						CA\\
+						\vdots \\
+						CA^{n-1}
+						\end{bmatrix}\in\mathbb{R}^{pn\times n}
+$$
+has full rank.
+					</p>
+							
+					
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p class="">
+						Proof: Define
+						$$
+						x_0=W_o^{-1}\int_0^t e^{A\tau}C^\trp y(\tau)d\tau
+$$
+such that
+$$
+W_o=\int_0^t e^{A^\trp\tau}C^\trp C e^{A\tau}d\tau \in \mathbb{R}^{n\times n}
+$$
+must be non-singular.
+					</p>
+							
+					
+				</center>
+						</div>
+	
+			</section>
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="">
+						We need to test if $W_o$ is non-singular. Therefore, we need to show that
+						$$
+		\forall v\neq 0 ,\quad v^\trp W_0 v >0
+		$$
+					</p>
+Let's choose, in particular, $v=x_0\neq 0$, Thus
+$$
+x_0^\trp W_o x_0=\int_0^t y^\trp(\tau)y(\tau)d\tau \ge 0
+$$							
+					
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="">
+					The only way to get $x_0^\trp W_ox_0=0$ is $y(t)=0,\forall t\in[0,T]$. Thus,
+					<p class="lightup">
+						$$
+y(t)=Ce^{At}x_0=0,\quad\forall t\in[0,T]		$$
+</p>
+which holds for all successive derivatives at $t=0$.
+					</p>
+				
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability: continuous-time</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+		
+						<p class="">
+				Accordingly, we get
+					<p class="lightup">
+						$$
+						\underbrace{\begin{bmatrix}
+						C\\ 
+						CA\\
+						\vdots \\
+						CA^{n-1}
+						\end{bmatrix}}_{\mathcal{O}}x_0=0	
+						$$
+</p>
+					</p>
+				
+				</center>
+						</div>
+	
+			</section>
+
+			
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability: gramian</h2>
+				</div>
+				<div class="slide-content">
+	Therefore, provided that $\text{rank}(\mathcal{O})=n$, then 
+					<center>
+						<p class="lightup">
+		$$
+					W_o=\int_0^t e^{A^\trp\eta}C^\trp C e^{A\eta}d\eta >0
+				
+		$$
+	</p>
+	Putting it in another way,
+	$$
+	W_o> 0 \Leftrightarrow \text{rank}(\mathcal{O})=n
+	$$
+
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Stabilizability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	<p>&nbsp;</p>
+	<p class="lightup">
+		Definition: We say that the pair $(A,B)$ is stabilizable if for any $x(0)=x_0$, there exsits a control law $u(t)$ such that
+		$$
+		\lim_{t\to\infty}x(t)=0
+		$$
+	</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Partially Controllable Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	Suppose that the system is not fully controllable, then
+	$$
+	x=\begin{bmatrix}
+	x^c \\
+	x^{nc} \\
+	\end{bmatrix}
+	$$
+	where $x^c$ is the controllable part and $x^{nc}$ is the non-controllable part. 
+	Rewrite the dynamic system using a similarity transformation as follows:
+	$$
+	\begin{bmatrix}
+	\dot{x}^c \\
+	\dot{x}^{nc} \\
+	\end{bmatrix}= \underbrace{\begin{bmatrix}
+	A_{11} & A_{12} \\
+	0 & A_{22}
+	\end{bmatrix}}_{TAT^{-1}}\begin{bmatrix}
+	x^c \\	
+	x^{nc} \\
+	\end{bmatrix}+\underbrace{\begin{bmatrix}
+	B_c \\
+	0	
+	\end{bmatrix}}_{TB}u
+	$$
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Stabilizability of Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	<p class="lightup2">
+	If there exists a similarity transformation such that the dynamic system follows
+	$$
+	\begin{bmatrix}
+	\dot{x}^c \\
+	\dot{x}^{nc} \\
+	\end{bmatrix}= \underbrace{\begin{bmatrix}
+	A_{11} & A_{12} \\
+	0 & A_{22}
+	\end{bmatrix}}_{TAT^{-1}}\begin{bmatrix}
+	x^c \\	
+	x^{nc} \\
+	\end{bmatrix}+\underbrace{\begin{bmatrix}
+	B_c \\
+	0	
+	\end{bmatrix}}_{TB}u
+	$$
+	then the pair $(A,B)$ is stabilizable if and only if $$\text{real}(\lambda\{A_{22}\})<0 $$
+</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Stabilizability of Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+	<p class="lightup2">
+	Hautus Lemma: A pair $(A,B)$ is stabilizable if and only if 
+	$$
+	\text{rank}(\begin{bmatrix}\lambda I-A & B\end{bmatrix})=n
+	$$
+	for all $\lambda\in\mathbb{C}$ such that $\text{real}(\lambda)\ge 0$.
+	
+</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+					
+			<section>
+				
+				<div class="slide-title">
+					<h2>Stabilizability of Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+	<p class="lightup2">
+	Lemma: A pair $(A,B)$ is stabilizable if and only if there exist a matrix $P=P^\trp >0$ such that
+	$$
+	AP+PA^\trp -BB^\trp <0
+	$$
+	
+	
+</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Detectability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	<p>&nbsp;</p>
+	<p class="lightup">
+		Definition: We say that the pair $(A,C)$ is detectable if all non-detectable states are asymptotically stable.
+	
+	</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Detectability of Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	<p class="lightup2">
+	If there exists a similarity transformation such that the dynamic system follows
+	$$
+	\begin{bmatrix}
+	\dot{x}^o \\
+	\dot{x}^{no} \\
+	\end{bmatrix}= \underbrace{\begin{bmatrix}
+	A_{11} & 0 \\
+	A_{21} & A_{22}
+	\end{bmatrix}}_{TAT^{-1}}\begin{bmatrix}
+	x^o \\	
+	x^{no} \\
+	\end{bmatrix}+\underbrace{\begin{bmatrix}
+	B_c \\
+	0	
+	\end{bmatrix}}_{TB}u\\
+	y=\underbrace{\begin{bmatrix}
+	C_o & 0\\
+	\end{bmatrix}}_{CT^{-1}}\begin{bmatrix}
+	x^o \\
+	x^{no} \\
+	\end{bmatrix}
+	$$
+	and $A_{22}$ is stable then $(A,C)$ is detectable.
+</p>
+
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Detectability of Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+	<p class="lightup2">
+	Hautus Lemma: A pair $(A,C)$ is detectable if and only if 
+	$$
+	\text{rank}(\begin{bmatrix}A-\lambda I \\ C\end{bmatrix})=n
+	$$
+	for all $\lambda\in\mathbb{C}$ such that $\text{real}(\lambda)\ge 0$.
+	
+</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+					
+			<section>
+				
+				<div class="slide-title">
+					<h2>Detectability of Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+	<p class="lightup2">
+	Lemma: A pair $(A,C)$ is detectable if and only if there exist a matrix $P=P^\trp >0$ such that
+	$$
+	A^\trp P+PA -C^\trp C <0
+	$$
+	
+	
+</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+		
+
+
+
+		
+
+
+			
+
+
+	
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Homework (T4)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				<p class="lightup">
+				Check if the system is full-controllable. Assume the voltages in capacitor C1 and C2 as state variables.
+					<br>
+				<img src="../images/ampOp_sistema_non_controllable.png" width="600">
+				</p>
+
+Write the models and equations in $\LaTeX$ and send to e-discipline platform.			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>

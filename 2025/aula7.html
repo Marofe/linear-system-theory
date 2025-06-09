@@ -1,0 +1,963 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>Optimal Linear Control</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">April 30, 2025</p>
+				</div>
+
+				</section>
+
+				
+				<section>
+			
+					<div class="slide-title">
+						<h2>Objectives</h2>
+					</div>
+					<div class="slide-content">
+						<p>The objectives of this lecture are to understand:
+								<ul>
+								<li>Optimal control problem;</li>
+								<li>Quadratic cost;</li>
+								<li>Dynamic programming: Bellman equation;</li>
+								<li>Riccati equation;</li>
+								<li>Optimal cost;</li>
+							</p>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Optimal Control: discrete-time</h2>
+					</div>
+					<div class="slide-content">
+						<p class="lightup2">
+							Objective:
+		Obtain a sequence of control actions $\{u_k\}_{k=0}^{N-1}$ that drives $x\to x_N$ and minimizes a performance criterion (cost function).
+						</p>
+						<center>
+							<img src="../images/controle_otimo.png" width="500">
+						</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Optimal Control: discrete-time</h2>
+					</div>
+					<div class="slide-content">
+						<p class="lightup2">
+							Objective:
+							Obtain a sequence of control actions $\{u_k\}_{k=0}^{N-1}$ that drives $x\to x_N$ and minimizes a performance criterion (cost function).
+						</p>
+						<center>
+							<img src="../images/controle_otimo2.png" width="500">
+						</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Optimal Control: discrete-time</h2>
+					</div>
+					<div class="slide-content">
+						<p class="lightup2">
+							Objective:
+							Obtain a sequence of control actions $\{u_k\}_{k=0}^{N-1}$ that drives $x\to x_N$ and minimizes a performance criterion (cost function).
+						</p>
+						<center>
+							<img src="../images/controle_otimo3.png" width="500">
+						</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Optimal Control: discrete-time</h2>
+					</div>
+					<div class="slide-content">
+						<p class="lightup2">
+							Objective:
+							Obtain a sequence of control actions $\{u_k\}_{k=0}^{N-1}$ that drives $x\to x_N$ and minimizes a performance criterion (cost function).
+						</p>
+						<center>
+							<img src="../images/controle_otimo4.png" width="500">
+						</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Optimal Control: discrete-time</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p class="lightup">
+								Mathematical programming (optimization) problem:
+						$$
+							\min_{u_0,u_1,\ldots,u_{N-1}} \quad J\\
+							\text{subject to} \\
+							 x_{k+1}=f(x_k,u_k)\\
+							 x_k\in\mathcal{X}\\
+							 u_k\in\mathcal{U}
+						$$
+					</p>
+						</center>
+							</div>
+		
+				</section>
+
+
+				<section>
+					
+					<div class="slide-title">
+						<h2>Optimal Control: continuous-time</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p class="lightup">
+								Mathematical programming (optimization) problem:
+						$$
+							\min_{u(t)\in\mathcal{T}} \quad J\\
+							\text{subject to} \\
+							\dot{x}=f(x,u)\\
+							 x\in\mathcal{X}\\
+							 u\in\mathcal{U}\\
+							 \forall t\in[0,T]
+						$$
+					</p>
+						</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Linear Quadratic Regulator</h2>
+					</div>
+					
+							Linear dynamics:
+							<p class="lightup2">
+				
+							
+						$$
+							 x_{k+1}=Ax_k+Bu_k\\
+							 x_k\in\mathbb{R}^n\\
+							 u_k\in\mathbb{R}^m
+						$$
+					</p>
+					<div class="slide-content">
+						<center>
+							Quadratic cost:
+							<p class="lightup">
+					
+									$
+		J_{0\to N}=\sum_{k=0}^{N-1} x_k^T Qx_k+u_k^TRu_k+x_N^T P_N x_N
+								$
+							</p>
+							$Q=Q^T\succeq 0,\quad R=R^\trp \succ 0$
+						</center>
+							</div>
+		
+				</section>
+
+
+
+				<section>
+			
+					<div class="slide-title">
+						<h2>Optimal Control: LQR</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p class="lightup">
+								Mathematical programming (optimization) problem:
+						$$
+							\min_{u_0,u_1,\ldots,u_{N-1}} \quad \sum_{k=0}^{N-1} x_k^T Qx_k+u_k^TRu_k+x_N^T P_N x_N \\
+							\text{subject to} \\
+							 x_{k+1}=Ax_k+Bu_k\\
+							 x_k\in\mathbb{R}^n\\
+							 u_k\in\mathbb{R}^m
+						$$
+					</p>
+						</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman's Principle of Optimality</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+			<img src="../images/controle_otimo_bellman.png" width="700">
+						</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman's Principle of Optimality</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+			<img src="../images/controle_otimo_bellman2.png" width="700">
+						</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman's Principle of Optimality</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+			<img src="../images/controle_otimo_bellman3.png" width="730">
+						</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman's Principle of Optimality</h2>
+					</div>
+					<div class="slide-content">
+						<p>&nbsp;</p>
+						<center>
+			Let $\{x_0^*,x_1^*,\ldots,x_N^*\}$ and $\{u_0^*,u_1^*,\ldots,u_{N-1}^*\}$ be the optimal state trajectory and the optimal control actions, respectively, that minimize $J_{0\to N}$.
+				<p class="lightup">
+					Then, for any $k\in (0,N)$, we have:
+			$\{x_k^*,x_{k+1}^*,\ldots,x_N^*\}$ and $\{u_k^*,u_{k+1}^*,\ldots,u_{N-1}^*\}$ are the optimal state trajectory and the optimal control actions, respectively, that minimize $J_{k\to N}$			
+		</p>
+						</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman Equation</h2>
+					</div>
+					<div class="slide-content">
+						<p>&nbsp;</p>
+						<center>
+			Let $V_k(x_k)=J_{k\to N}^*$, then 
+			<p class="lightup">
+			$$
+							V_k(x_k)=\min_{u_k} [\underbrace{x_k^\trp Q x_k + u_k^\trp R u_k}_{\text{stage cost}} + \underbrace{V_{k+1}(x_{k+1})}_{\text{``to-go'' cost}}]
+			$$
+		</p>
+		<p>Basis of dynamic programming! (Reinforcement Learning, etc)</p>
+							</div>
+		
+				</section>
+		
+		
+		
+						
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman Equation</h2>
+					</div>
+					<div class="slide-content">
+						
+						<center>
+		<img src="../images/custo_estagio.png" width="700">
+		
+			</center>
+		
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman Equation</h2>
+					</div>
+					<div class="slide-content">
+						
+						<center>
+		<img src="../images/custo_to_go.png" width="700">
+			</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman Equation</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							<p>&nbsp;</p>
+			<p class="lightup">
+			$$
+							V_k(x_k)=\min_{u_k} [x_k^\trp Q x_k + u_k^\trp R u_k + V_{k+1}(x_{k+1})]
+			$$
+		</p>
+		<p>Hypothesis:</p>
+		<p class="lightup2">
+		$$
+			V_{k+1}(x_{k+1})=x_{k+1}^\trp P_{k+1}x_{k+1}
+		$$
+	</p>
+		$P_{k+1}=P_{k+1}^\trp \succ 0$
+							</div>
+		
+				</section>
+		
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman Equation</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							<p>&nbsp;</p>
+			<p class="lightup">
+			$$
+							V_k(x_k)=\min_{u_k} [x_k^\trp Q x_k + u_k^\trp R u_k + x_{k+1}^\trp P_{k+1}x_{k+1}]
+			$$
+		</p>
+		<p>LQR: Quadratic cost + linear dynamics results in a <b>convex</b> problem! (has only one minimum)</p>
+		$$
+			\frac{\partial V_k(x_k)}{\partial u_k}=0
+		$$
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Properties of Derivatives in $\mathbb{R}^n$</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							
+		$$
+			\frac{\partial }{\partial y}(y^\trp A y)=(A+A^\trp)y
+		$$
+		</center>
+							</div>
+		
+				</section>
+			
+		
+				
+			
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>Optimal Control Solution (LQR):</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							<p>&nbsp;</p>
+			<p class="lightup">
+			$$
+							u^*_k=-\underbrace{(R+B^\trp P_{k+1}B)^{-1}B^\trp P_{k+1}A}_{K}x_k
+			$$
+		</p>
+		<ul>
+			<li>State feedback!</li>
+			<li>Gain depends on $P_{k+1}$.</li>
+		</ul>
+		
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman Equation</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							<p>&nbsp;</p>
+			<p class="lightup">
+			$$
+							V_k(x_k)=x_k^\trp Q x_k + (u_k^*)^\trp R u_k^* + x_{k+1}^\trp P_{k+1}x_{k+1}\\
+							x_{k+1}=Ax_k+Bu^*_k
+			$$
+		</p>
+		
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Bellman Equation</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							<p>&nbsp;</p>
+			<p class="">
+			$$
+							x_k^\trp P_k x_k \\=x_k^\trp(Q +A^\trp P_{k+1}A-A^\trp P_{k+1}B(R+B^\trp P_{k+1}B)^{-1}B^\trp P_{k+1}A )x_k 
+			$$
+		</p>
+		Thus,
+		<p class="lightup2">
+			Discrete-Time Riccati Equation:
+			$$
+							P_k =Q +A^\trp P_{k+1}A-A^\trp P_{k+1}B(R+B^\trp P_{k+1}B)^{-1}B^\trp P_{k+1}A  
+			$$
+		</p>
+		
+							</div>
+		
+				</section>
+				
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Solution of the Riccati Equation</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							For $k=N-1$,
+		<p class="">
+			$$
+							P_{N-1} =Q +A^\trp P_{N}A-A^\trp P_{N}B(R+B^\trp P_{N}B)^{-1}B^\trp P_{N}A  
+			$$
+		</p>
+		For $k=N-2$,
+		<p class="">
+			$$
+							P_{N-2} =Q +A^\trp P_{N-1}A-A^\trp P_{N-1}B(R+B^\trp P_{N-1}B)^{-1}B^\trp P_{N-1}A  
+			$$
+		</p>
+		For $k=N-3,\ldots, 1, 0$,
+		<p class="">
+			$$
+			P_k =Q +A^\trp P_{k+1}A-A^\trp P_{k+1}B(R+B^\trp P_{k+1}B)^{-1}B^\trp P_{k+1}A  
+			$$
+		</p>
+		
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>LQR Control (Linear Quadratic Regulator) </h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							Quadratic cost (Infinite Horizon):
+							<p class="lightup">
+					
+									$$
+		J_\infty = \lim_{N\to \infty} \sum_{k=0}^{N-1} x_k^T Qx_k+u_k^TRu_k+x_N^T P_N x_N,
+								$$
+							</p>
+							with 
+							$$
+							Q=Q^T\succeq 0,\quad R=R^\trp \succ 0
+							$$
+						</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Stationary Solution of the Riccati Equation</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							If $(A,B)$ is controllable then there exists:
+		<p class="lightup">
+			$$
+			P_\infty =Q +A^\trp P_\infty A-A^\trp P_\infty B(R+B^\trp P_\infty B)^{-1}B^\trp P_\infty A  
+			$$
+		</p>
+		<p class="lightup">
+			Optimal Control Law:
+			$$
+							u^*_k=-\underbrace{(R+B^\trp P_\infty B)^{-1}B^\trp P_\infty A}_{K}x_k
+			$$
+		</p>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Stationary Solution of the Riccati Equation</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							If $(A,B)$ is controllable then there exists:
+		<p class="lightup">
+			$$
+			P_\infty =Q +A^\trp P_\infty A-A^\trp P_\infty B(R+B^\trp P_\infty B)^{-1}B^\trp P_\infty A  
+			$$
+		</p>
+		
+		<p></p>
+		
+			<ul>
+				<li>LQR control ensures stability!</li>
+			</ul>
+			$$
+			u_k=-Kx_k
+			$$
+						</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>LQR Control (Linear Quadratic Regulator) </h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							Quadratic cost (Infinite Horizon):
+							<p class="lightup">
+					Stability implies
+									$$
+		J_\infty = \lim_{N\to \infty} \sum_{k=0}^{N-1} x_k^T Qx_k+u_k^TRu_k+x_N^T P_N x_N < \infty 
+								$$
+							</p>
+							with 
+							$$
+							Q=Q^T\succeq 0,\quad R=R^\trp \succ 0
+							$$
+						</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Performance Matrices $Q$ and $R$ </h2>
+					</div>
+					<div class="slide-content">
+						<center>
+						Bryson's Criterion:
+							<p class="">
+					
+								$$
+								Q=\begin{bmatrix}q_{11}\\
+								& q_{22} \\
+								& & \ddots \\
+								& & & q_{nn}\end{bmatrix},\quad R=\begin{bmatrix}r_{11}\\
+								& r_{22} \\
+								& & \ddots \\
+								& & & r_{mm}\end{bmatrix}
+								$$
+							</p>
+							with 
+							$$
+							q_{ii}=\frac{1}{(x_i^\text{max})^2},\quad r_{ii}=\frac{1}{(u_i^\text{max})^2}
+							$$
+						</center>
+							</div>
+		
+				</section>
+		
+		
+					
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>LQR Control (Linear Quadratic Regulator) </h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							Optimal cost:
+							<p class="lightup">
+			
+									$$
+		V_0(x_0) = \lim_{N\to \infty} \sum_{k=0}^{N-1} x_k^T Qx_k+u_k^TRu_k+x_N^T P_N x_N = x_0^\trp P_\infty x_0
+								$$
+							</p>
+							with 
+							$$
+							Q=Q^T\succeq 0,\quad R=R^\trp \succ 0
+							$$
+						</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>LQR Control (Linear Quadratic Regulator) </h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							Optimal cost:
+							<p class="">
+			
+									$
+		J_\infty = x_0^\trp P_\infty x_0
+								$
+							</p>
+							<img src="../images/LQR_cost.gif" alt="">
+						</center>
+							</div>
+		
+				</section>
+
+
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>Optimal Control: continuous-time</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p class="lightup">
+								Mathematical programming (optimization) problem:
+						$$
+							\min_{u(t)\in\mathcal{T}} \quad J\\
+							\text{subject to} \\
+							\dot{x}=f(x,u)\\
+							 x\in\mathcal{X}\\
+							 u\in\mathcal{U}\\
+							 \forall t\in[0,T]
+						$$
+					</p>
+						</center>
+							</div>
+		
+				</section>
+
+
+				<section>
+					
+					<div class="slide-title">
+						<h2>Linear Quadratic Regulator: continuous-time</h2>
+					</div>
+					
+							Linear dynamics:
+							<p class="lightup2">
+				
+							
+						$$
+							 \dot{x}=Ax+Bu\\
+							 x(t)\in\mathbb{R}^n\\
+							 u(t)\in\mathbb{R}^m
+						$$
+					</p>
+					<div class="slide-content">
+						<center>
+							Quadratic cost: 
+							<p class="lightup">
+					
+									$
+		J_{0\to T}=\int_{0}^{T} (x^T Qx+u^TRu)dt+g(X_T)
+								$
+							</p>
+							$Q=Q^T\succeq 0,\quad R=R^\trp \succ 0$
+						</center>
+							</div>
+		
+				</section>
+
+
+
+				<section>
+			
+					<div class="slide-title">
+						<h2>Optimal Control LQR in continuous-time</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p class="lightup">
+								Mathematical programming (optimization) problem:
+						$$
+							\min_{u(t)\in\mathcal{T}} \quad \int_{0}^{T} (x^T Qx+u^TRu)dt+g(X_T) \\
+							\text{subject to} \\
+							 \dot{x}=Ax+Bu\\
+							 x\in\mathbb{R}^n\\
+							 u\in\mathbb{R}^m
+						$$
+					</p>
+						</center>
+							</div>
+		
+				</section>
+
+
+				<section>
+			
+					<div class="slide-title">
+						<h2>Cost to go</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p class="lightup">
+						$$
+							V(x(t),t)=\min_{u(t)\in\mathcal{T}}\Bigl[ \int_{t}^{T} (x^T Qx+u^TRu)dt+g(X_T)\Bigr]\\
+						$$
+					</p>
+					Thus,
+					$$
+					V(x_0,0)=\min_{u(t)\in\mathcal{T}}\Bigl[ \int_{0}^{T} (x^T Qx+u^TRu)dt+g(X_T)\Bigr]\\
+					$$
+						</center>
+							</div>
+		
+				</section>
+
+
+				<section>
+			
+					<div class="slide-title">
+						<h2>Optimality Principle</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+					
+						$$
+							V(x(t),t)=\min_{u(t)\in\mathcal{T}}\Bigl[ \int_{t}^{t+\delta t} (x^T Qx+u^TRu)dt+\\\int_{t+\delta t}^{T} (x^T Qx+u^TRu)dt+g(X_T)\Bigr]\\
+						$$
+		Results in 
+		<p class="">
+		$$
+		V(x(t),t)=\min_{u(t)\in\mathcal{T}}\Bigl[(x^T Qx+u^TRu)\delta t+V(x(t+\delta t),t+\delta t)\Bigr]\\
+		$$
+	</p>
+						</center>
+							</div>
+		
+				</section>
+
+
+
+				<section>
+			
+					<div class="slide-title">
+						<h2>Equation of Hamilton-Jacobi-Bellman</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+					<p class="lightup">
+						$$
+							-\frac{\partial V}{\partial t}=\min_{u(t)\in\mathcal{T}}\Bigl[ x^T Qx+u^TRu+\frac{\partial V}{\partial x}^\trp (Ax+Bu)\Bigr]\\
+						$$
+					</p>
+		Hypothesis:
+		$$
+					V(x,t)=x(t)^\trp P(t)x(t)\\
+					P(t)=P(t)^\trp \succ 0
+		$$
+						</center>
+							</div>
+		
+				</section>
+
+
+
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>Stationary Solution of the Riccati Equation</h2>
+					</div>
+					<div class="slide-content">
+			
+						<center>
+							If $(A,B)$ is controllable then there exists:
+		<p class="lightup">
+			$$
+			Q +A^TP_\infty +P_\infty A -P_\infty BR^{-1}B^\trp P_\infty =0
+			$$
+		</p>
+		<p class="lightup">
+			Optimal Control Law:
+			$$
+							u^*=-\underbrace{R^{-1}B^\trp P_\infty}_{K}x
+			$$
+		</p>
+							</div>
+		
+				</section>
+
+
+
+				<section>
+				
+					<div class="slide-title">
+						<h2>Homework (T7)</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+					<p class="">
+						<ul>
+							<li>Design a LQR state feedback control for the inverted pendulum in discrete time.</li>
+							<li>Next, consider an uncertainty in the mass of the inverted pendulum and evaluate the robustness of the LQR controller.</li>
+					</ul>
+					</p>
+					<img src="images/pendulum.png" alt="">
+					</center>
+							</div>
+		
+				</section>
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>
