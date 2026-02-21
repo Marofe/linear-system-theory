@@ -1,0 +1,1335 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+		
+		<!-- and it's easy to individually load additional languages -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/arduino.min.js"></script>
+		
+		<script>hljs.highlightAll();</script>
+		
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+        <div class="reveal">
+            <div class="slides">
+                
+               	<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>The Kalman Filter</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">May 21, 2025</p>
+				</div>
+
+				</section>
+                
+
+
+
+                        
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Objectives</h2>
+            </div>
+            <div class="slide-content">
+                <p>The objectives of this lecture are to understand:
+                        <ul>
+                        <li>What is the Kalman Filter;</li>
+                        <li>Recursive implementation;</li>
+                        <li>Implementation with infinite horizon;</li>
+                        <li>Applications of the Kalman Filter;</li>
+                    </div>
+
+        </section>
+
+
+        
+        <section>
+            
+            <div class="slide-title">
+                <h2>Discrete-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                x_{k+1}&=Ax_k+Bu_k\\ 
+                y_k&=Hx_k+Du_k
+                \end{aligned}
+                $$
+            </p>
+            <p>
+                $A$ and $B$ are equivalent matrices in discrete time.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>State Observer</h2>
+            </div>
+            <div class="slide-content">
+                <p>&nbsp;</p>
+                <center>
+                                    
+                    <img src="../images/state_observer.png" width="600" alt="">
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Optimal State Observer</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+                             
+                    <img src="../images/state_observer.png" width="600" alt="">
+                    <br>
+      What is the best gain $L$? 
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Optimal State Observer</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+                Cost function (SE):
+                <p class="lightup">
+                $$
+                    J=\sum_{k=0}^\infty \|x_k-\hat{x}_{k}\|^2
+                $$
+                </p>
+    Thus,
+    $$
+                L^*=\arg\min_L J
+    $$
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic discrete-time state-space model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                      <p>&nbsp;</p>   
+            <p class="lightup">
+Stochastic model
+                $$
+                \begin{aligned} 
+                x_{k+1}&=Ax_k+Bu_k+w_k\\ 
+                y_k&=Hx_k+Du_k+\epsilon_k
+                \end{aligned}
+                $$
+            </p>
+            <ul>
+                <li>$w_k \to $ process noise</li>
+                <li>$\epsilon_k \to $ measurement noise</li>
+            </ul>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Discrete-time Stochastic State-space Model</h2>
+            </div>
+              <p>&nbsp;</p>   
+            <div class="slide-content">
+                <center>
+                                    
+        <img src="../images/modelo_ss_discreto_estocastico.png" width="1000">
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic Optimal State Observer <br>= Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+                Cost function (MSE):
+                <p class="lightup">
+                $$
+                    J=\sum_{k=0}^\infty \mathbb{E}\{\|x_k-\hat{x}_{k}\|^2\}
+                $$
+                </p>
+    Thus,
+    $$
+                L^*=\arg\min_L J
+    $$
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Noise</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                    
+            <p class="lightup">
+                $$
+                w_k\sim\mathcal{N}(0,Q),\quad \epsilon_k\sim\mathcal{N}(0,R),\quad i.i.d.
+                $$
+            </p>
+            Note: for $x\in\mathbb{R}$:<br>
+            $$
+            \mathcal{N}(\mu,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\exp\Bigl(-\frac{(x-\mu)^2}{2\sigma^2}\Bigr)
+            $$
+        <ul>
+            <li>$\mu \to $ mean  </li>
+            <li>$\sigma^2 \to $ variance </li>
+        </ul>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Distribution</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p>
+$
+\mu=0,\quad \sigma=1;
+$
+</p>											
+            <img src="../images/gaussiana_escalar.png" alt="">
+
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Distribution</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p>
+$
+\mu=2,\quad \sigma=1;
+$
+</p>											
+            <img src="../images/gaussiana_escalar2.png" alt="">
+
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Distribution</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p>
+$
+\mu=0,\quad \sigma=2;
+$
+</p>											
+            <img src="../images/gaussiana_escalar3.png" alt="">
+
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Distribution</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p>
+$
+\mu=0,\quad \sigma=1/2;
+$
+</p>											
+            <img src="../images/gaussiana_escalar4.png" alt="">
+
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Multidimensional Gaussian Noise</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                    
+            <p class="lightup">
+                $$
+                w_k\sim\mathcal{N}(0,Q),\quad \epsilon_k\sim\mathcal{N}(0,R),\quad i.i.d.
+                $$
+            </p>
+            Note: for $x\in\mathbb{R}^n$:
+            $$
+            \mathcal{N}(\mu,\Sigma)=\frac{1}{\sqrt{(2\pi)^n \det{\Sigma}}}\exp(-\frac{1}{2}\|x-\mu\|^2_{\Sigma^{-1}})
+            $$
+        <ul>
+            <li>$\mu \to $ mean  </li>
+            <li>$\Sigma \to $ covariance </li>
+        </ul>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Multidimensional Gaussian</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p class="lightup2">
+            $$
+            \mathcal{N}(\mu,\Sigma)=\frac{1}{\sqrt{(2\pi)^n \det{\Sigma}}}\exp(-\frac{1}{2}\|x-\mu\|^2_{\Sigma^{-1}})
+            $$
+        </p>			
+    Notation for weighted norm:
+    $$
+\|x-\mu\|^2_{\Sigma^{-1}}=(x-\mu)^\trp \Sigma^{-1}(x-\mu)
+    $$
+    and 
+    $$
+    \det(\Sigma) \to \text{matrix determinant operator}
+    $$
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Multidimensional Gaussian</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p class="lightup2">
+            $$
+            \mathcal{N}(\mu,\Sigma)=\frac{1}{\sqrt{(2\pi)^n \det{\Sigma}}}\exp(-\frac{1}{2}\|x-\mu\|^2_{\Sigma^{-1}})
+            $$
+        </p>			
+        Example for $\mathbb{R}^2$:
+            $$
+            \mu=\begin{bmatrix}\mu_1\\ \mu_2\end{bmatrix},\quad		\Sigma=\begin{bmatrix}
+            \sigma_1^2 & \sigma_{12}\\ 
+            \sigma_{21} & \sigma_2^2			
+                    \end{bmatrix}
+            $$
+    note: $\Sigma=\Sigma^\trp >0$
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Multidimensional Gaussian</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            <img src="../images/2d_gaussian.gif" width="700">
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Mean and Covariance</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Let $x\sim\mathcal{N}(\mu,\Sigma)$ be a Gaussian random vector, then 
+            <p class="lightup2">
+                Mean:
+                $$
+                \mathbb{E}\{x\}=\int xp(x)dx = \mu
+                $$
+
+            </p>
+            <p class="lightup2">
+                Covariance:
+                $$
+                \mathbb{E}\{(x-\mu)(x-\mu)^\trp \}=\int (x-\mu)(x-\mu)^\trp p(x)dx = \Sigma
+                $$
+
+            </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+
+            
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            <img src="../images/Rudolf_Kalman.jpg" width="300"><br>
+            Rudolf Emil Kalman (1930-2016)
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+                            
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Paper in 1960<br>
+            <img src="../images/paper_1960_kf.png" width="750">
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Performance criterion: Minimum Mean Squared Error
+            $$
+            \min_{\{\hat{x}_k\}_{k=1}^N} \sum_{k=1}^N \mathbb{E}\{\|x_k-\hat{x}_k\|^2\}
+            $$
+
+            <p class="lightup">
+                The optimal solution for linear dynamics with Gaussian noise is the Kalman filter!
+            </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                  
+            <p class="lightup">
+                Optimal for linear dynamics with Gaussian noise.
+            </p>
+            <img src="../images/kf_recursive_diagram.png" width="600">
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+                Assuming $x_0\sim\mathcal{N}(\hat{x}_{0|0},P_{0|0})$, then
+            <p class="lightup">
+                Prediction:
+                $$
+                \begin{aligned}
+                \hat{x}_{k+1|k}&=\mathbb{E}\{x_{k+1}|y_{1:k}\}\\
+                P_{k+1|k}&=\mathbb{E}\{(x_{k+1}-\hat{x}_{k+1|k})(x_{k+1}-\hat{x}_{k+1|k})^\trp |y_{1:k}\}
+                \end{aligned}
+                $$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+                Assuming $x_0\sim\mathcal{N}(\hat{x}_{0|0},P_{0|0})$, then
+            <p class="lightup">
+                Prediction:
+                $$
+                \begin{align*}
+                \hat{x}_{k+1|k}&=A\hat{x}_{k|k}+Bu_k\\
+                P_{k+1|k}&=AP_{k|k}A^\trp + Q
+                \end{align*}
+                $$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+                Assuming $x_0\sim\mathcal{N}(\hat{x}_{0|0},P_{0|0})$, then
+            <p class="lightup">
+                Correction:
+                $$
+                \begin{aligned}
+                \hat{x}_{k+1|k+1}&=\mathbb{E}\{x_{k+1}|y_{1:k+1}\}\\
+                P_{k+1|k+1}&=\mathbb{E}\{(x_{k+1}-\hat{x}_{k+1|k+1})(x_{k+1}-\hat{x}_{k+1|k+1})^\trp |y_{1:k+1}\}
+                \end{aligned}
+                $$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+                Assuming $x_0\sim\mathcal{N}(\hat{x}_{0|0},P_{0|0})$, then
+            <p class="lightup">
+                Correction:
+                $$
+                \begin{align*}
+                \hat{x}_{k+1|k+1}&=\hat{x}_{k+1|k}+K_f(y_{k+1}-H\hat{x}_{k+1|k})\\
+                K_f&=P_{k+1|k}H^\trp(R+HP_{k+1|k}H^\trp )^{-1}\\
+                P_{k+1|k+1}&=(I-K_fH)P_{k+1|k}
+                \end{align*}
+                $$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Assuming $x_0\sim\mathcal{N}(\hat{x}_{0|0},P_{0|0})$, then
+            <p class="lightup">
+            $$
+                \begin{align}
+                \hat{x}_{k+1|k}&=A\hat{x}_{k|k}+Bu_k\\
+                P_{k+1|k}&=AP_{k|k}A^\trp + Q\\
+                \hat{x}_{k+1|k+1}&=\hat{x}_{k+1|k}+K_f(y_{k+1}-H\hat{x}_{k+1|k})\\
+                K_f&=P_{k+1|k}H^\trp(R+HP_{k+1|k}H^\trp )^{-1}\\
+                P_{k+1|k+1}&=(I-K_fH)P_{k+1|k}
+                \end{align}
+            $$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Time-varying systems:
+            <p class="lightup">
+            $$
+                \begin{align*}
+                \hat{x}_{k+1|k}&=A_k\hat{x}_{k|k}+B_ku_k\\
+                P_{k+1|k}&=A_kP_{k|k}A_k^\trp + Q_k\\
+                \hat{x}_{k+1|k+1}&=\hat{x}_{k+1|k}+K_f(y_{k+1}-H_k\hat{x}_{k+1|k})\\
+                K_f&=P_{k+1|k}H_k^\trp(R_k+H_kP_{k+1|k}H_k^\trp )^{-1}\\
+                P_{k+1|k+1}&=(I-K_fH_k)P_{k+1|k}
+                \end{align*}
+            $$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Nonlinear Systems:
+                $$
+                        x_{k+1}=f(x_k,u_k)+w_k\\
+                        y_k=h(x_k,u_k)+\varepsilon_k
+                $$
+            <p class="lightup">
+            $$
+                A_k=\frac{\partial f}{\partial x}\Bigr|_{x=\hat{x}_{k|k},u=u_k},\quad
+                
+                H_k=\frac{\partial h}{\partial x}\Bigr|_{x=\hat{x}_{k|k-1},u=u_k}
+                
+            $$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+        <section>
+            
+            <div class="slide-title">
+                <h2>Extended Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Time-varying systems:
+            <p class="lightup">
+            $$
+                \begin{align*}
+                \hat{x}_{k+1|k}&=f(\hat{x}_{k|k},u_k)\\
+                P_{k+1|k}&=A_kP_{k|k}A_k^\trp + Q_k\\
+                \hat{x}_{k+1|k+1}&=\hat{x}_{k+1|k}+K_f(y_{k+1}-h(\hat{x}_{k+1|k},u_{k+1}))\\
+                K_f&=P_{k+1|k}H_k^\trp(R_k+H_kP_{k+1|k}H_k^\trp )^{-1}\\
+                P_{k+1|k+1}&=(I-K_fH_k)P_{k+1|k}
+                \end{align*}
+            $$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+            <p class="">
+            <img src="../images/kf_1d_tracking_gaussian0.png" width="1000">
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter: Prediction</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+            <p class="">
+            <img src="../images/kf_1d_tracking_gaussian2.png" width="1000">
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter: Measurement</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+            <p class="">
+            <img src="../images/kf_1d_tracking_gaussian3.png" width="1000">
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter: Correction</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+            <p class="">
+            <img src="../images/kf_1d_tracking_gaussian4.png" width="1000">
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter: $Q$ vs $R$</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                $$
+                K=P_{k+1|k} H^\trp (R+HP_{k+1|k} H^\trp )^{-1}
+                $$
+</p>
+Scalar case:
+$$
+\begin{aligned}
+    x_{k+1}&=ax_k+bu_k+w_k\\
+    y_k&=x_k+\epsilon_k
+\end{aligned}
+$$
+with $w_k\sim\mathcal{N}(0,\sigma_Q^2)$ and $\epsilon_k\sim\mathcal{N}(0,\sigma_R^2)$
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter: $Q$ vs $R$</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                $$
+                K_f=\frac{a(a^2p+\sigma_Q^2)}{\sigma_R^2+a^2p+\sigma_Q^2}
+                $$
+</p>
+Note that:
+$$
+K_f\propto \frac{\text{process uncertainty (Q)}}{\text{process uncertainty (Q) + measurement uncertainty (R)}}
+$$
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter: $Q$ vs $R$</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="">
+                $$
+                K_f\propto \frac{\text{process uncertainty (Q)}}{\text{process uncertainty (Q) + measurement uncertainty (R)}}
+                $$
+</p>
+Therefore:
+$$
+\uparrow Q \downarrow R \to \text{trust in measurement > trust in model}
+$$
+$$
+\downarrow Q \uparrow R \to \text{trust in measurement < trust in model}
+$$
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Recursive Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+            <p class="">
+            <img src="../images/kf_1d_tracking_gaussian4.png" width="1000">
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter: $\downarrow Q \uparrow R$</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+            <p class="">
+            <img src="../images/kf_1d_tracking_gaussian_q.png" width="970">
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter: $\uparrow Q \downarrow R$</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+            <p class="">
+            <img src="../images/kf_1d_tracking_gaussian_r.png" width="970">
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Infinite Horizon Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                For Linear Time-Invariant Systems (LTI):
+            
+                <img src="../images/kf_recursive_diagram.png" alt="">
+    
+            </center>
+                    </div>
+
+        </section>
+        
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Infinite Horizon Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                For Linear Time-Invariant Systems (LTI):
+            <p>&nbsp;</p>
+                <img src="../images/kf_recursive_diagram_inf.png" alt="">
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Infinite Horizon Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Assuming $x_0\sim\mathcal{N}(\hat{x}_{0|0},P_{0|0})$, then
+            <p class="">
+            $$
+                \begin{align}
+                \hat{x}_{k+1|k}&=A\hat{x}_{k|k}+Bu_k\\
+                P_{k+1|k}&=AP_{k|k}A^\trp + Q\\
+                \hat{x}_{k+1|k+1}&=\hat{x}_{k+1|k}+K_f(y_{k+1}-H\hat{x}_{k+1|k})\\
+                K_f&=P_{k+1|k}H^\trp(R+HP_{k+1|k}H^\trp )^{-1}\\
+                P_{k+1|k+1}&=(I-K_fH)P_{k+1|k}
+                \end{align}
+            $$
+            </p>
+    
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+        <section>
+            
+            <div class="slide-title">
+                <h2>Infinite Horizon Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Assuming $x_0\sim\mathcal{N}(\hat{x}_{0|0},P_{0|0})$, then
+            <p class="">
+            $$
+                \begin{align*}
+                \hat{x}_{k+1|k}&=A\hat{x}_{k|k}+Bu_{k}\\
+                P_{k+1|k}&=AP_{k|k}A^\trp + Q\\
+                \hat{x}_{k|k}&=\hat{x}_{k|k-1}+K_f(y_{k}-H\hat{x}_{k|k-1})\\
+                K_f&=P_{k|k-1}H^\trp(R+HP_{k|k-1}H^\trp )^{-1}\\
+                P_{k|k}&=(I-K_fH)P_{k|k-1}
+                \end{align*}
+            $$
+            </p>
+        
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+        <section>
+            
+            <div class="slide-title">
+                <h2>Infinite Horizon Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Assuming $x_0\sim\mathcal{N}(\hat{x}_{0|0},P_{0|0})$, then
+            <p class="">
+            $$
+                \begin{align*}
+                P_{k+1|k}&=A(I-K_fH)P_{k|k-1}A^\trp + Q\\
+                K_f&=P_{k|k-1}H^\trp(R+HP_{k|k-1}H^\trp )^{-1}	
+                \end{align*}
+            $$
+            </p>
+            Thus,
+            <p class="lightup2">
+                $$
+                    P_{k+1}=AP_{k}A^\trp - AP_{k}H^\trp(R+HP_{k}H^\trp )^{-1}HP_{k}A^\trp + Q
+                $$
+                </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Infinite Horizon Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                Riccati Equation for the Kalman Filter
+                $$
+                    P_{k+1}=AP_{k}A^\trp - AP_{k}H^\trp(R+HP_{k}H^\trp )^{-1}HP_{k}A^\trp + Q
+                $$
+                </p>
+                Taking $k\to \infty$, we have 
+<p class="lightup2">
+                $$
+                P_\infty=AP_{\infty} A^\trp - AP_{\infty} H^\trp(R+HP_{\infty} H^\trp )^{-1}HP_{\infty} A^\trp + Q
+                $$
+            
+            </p>
+            If $(A,H)$ is observable, then $P_\infty$ exists!
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Infinite Horizon Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                $$
+                    \hat{x}_{k+1}=\underbrace{A\hat{x}_k+Bu_k}_{\text{prediction}}+\underbrace{L(y_k-H\hat{x}_k)}_{\text{correction}}
+                $$
+                with 
+                $$
+                L=AP_\infty H^\trp (R+HP_\infty H^\trp )^{-1}
+                $$
+            </p>
+            note: $u_k$ and $y_k$ must have the same sampling frequency!
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>LQR vs Kalman Filter Duality</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                Kalman Filter:<br>
+                $$
+                P_\infty=AP_{\infty} A^\trp - AP_{\infty} H^\trp(R+HP_{\infty} H^\trp )^{-1}HP_{\infty} A^\trp + Q\\
+$$
+</p>
+<p class="lightup2">
+LQR:<br>
+$$P_\infty=A^\trp P_{\infty} A - A^\trp P_{\infty} B (R+B^\trp  P_{\infty} B )^{-1}B^\trp P_{\infty} A + Q$$
+            </p>
+$$
+A\to A^\trp, \quad H^\trp \to B
+$$
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>LQR vs Kalman Filter Duality</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                Kalman Filter:<br>
+                $$
+                L=AP_\infty H^\trp (R+HP_\infty H^\trp )^{-1}
+                $$
+</p>
+<p class="lightup2">
+LQR:<br>
+$$K^\trp =A^\trp P_\infty B(R+B^\trp P_\infty B )^{-1}$$
+                
+            </p>
+            $$
+A\to A^\trp, \quad H^\trp \to B
+$$
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Applications of the Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                    
+                    <p>&nbsp;</p>
+            <ul>
+                <li>State observer for control systems;</li>
+                <li>Navigation of airplanes, drones, autonomous cars, etc.;</li>
+                <li>GPS processing;</li>
+                <li>Target tracking using radars;</li>
+                <li>Finance: stock market, etc.;</li>
+                <li>Medical field: estimation of biological signals EEG, ECG, etc.;</li>
+                <li>etc...</li>
+            </ul>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        
+    
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter + LQR = LQG <br>(Linear Quadratic Gaussian Regulator)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                
+            <img src="../images/state_observer_kf.png" width="550">
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Example: Inverted Pendulum</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                
+            <img src="../images/pendulo_invertido.png" width="350">
+        <p>Only noisy measurements of position $x$!</p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+
+
+				<section>
+				
+					<div class="slide-title">
+						<h2>Homework (T9)</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+					<p class="">
+						<ul class="homework-list">
+							<li>Implement a LQR control using the Kalman Filter to obtain the full state of the inverted pendulum (LQG control).</li>
+							<li>Write a summary with your own words about the performance of the LQG control (compare with the LQR control when there is direct full state access) in LaTex and send it via e-disciplina.</li>
+
+					</ul>
+					</p>
+					<img src="images/pendulum.png" alt="">
+					</center>
+							</div>
+		
+				</section>
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+            
+
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+

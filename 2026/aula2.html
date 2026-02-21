@@ -1,0 +1,1779 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>State-space models</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">March 12, 2025</p>
+				</div>
+
+				</section>
+
+				
+				<section>
+
+				<div class="slide-title">
+					<h2>Objectives:</h2>
+				</div>
+				<div class="slide-content">
+					<p>The objectives of this class are:
+						<ul>
+							<li>Develop a reasoning behind state-space models;</li> 
+							<li>Evaluate different representations</li> 
+							<li>Show examples of state-space models</li>
+						</ul>
+						
+						</p>
+						</div>
+
+			</section>
+
+
+		
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Ordinary Differential Equation</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System without input derivatives:
+						$$
+						\frac{d^ny}{dt^n}+a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}+\cdots+a_{1}\frac{dy}{dt}+a_{0}y(t)=u(t)
+						$$
+					</p>
+					<p>Transfer Function:
+						$$
+						G(s)=\frac{Y(s)}{U(s)}
+						$$
+					</p>
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						$$
+						y(t)=c_{1}x_1(t)+c_{2}x_2(t)+\cdots+c_nx_n(t)
+						$$
+					</p>
+					where $x_1,x_2,\ldots,x_n$ are the <b>state variables</b> (internal signals) of the system.
+					
+			</center>
+						</div>
+
+			</section>
+			
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						State-model
+						$$
+						\dot{x}_{1}=a_{11}x_1(t)+a_{12}x_2(t)+\cdots+a_{1n}x_n(t)+b_1u(t)\\
+						\dot{x}_{2}=a_{21}x_1(t)+a_{22}x_2(t)+\cdots+a_{2n}x_n(t)+b_2u(t)\\
+						\vdots\\
+						\dot{x}_{n}=a_{n1}x_1(t)+a_{n2}x_2(t)+\cdots+a_{nn}x_n(t)+b_nu(t)\\
+						$$
+					</p>
+					$u(t)\in\mathbb{R}$ is the <b>exogenous</b> input to the system.
+					
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				
+								<p class="lightup">
+									State-model 
+									$$
+									\begin{bmatrix} 
+									\dot{x}_{1}\\
+									\dot{x}_{2}\\
+									\vdots\\
+									\dot{x}_{n}
+									\end{bmatrix}=\begin{bmatrix}
+									a_{11} & a_{12} & \cdots & a_{1n}\\
+									a_{21} & a_{22} & \cdots & a_{2n}\\
+									\vdots\\
+									a_{n1} & a_{n2} & \cdots & a_{nn}
+									\end{bmatrix}\begin{bmatrix} 
+									{x}_{1}\\
+									{x}_{2}\\
+									\vdots\\
+									{x}_{n}
+									\end{bmatrix}+\begin{bmatrix} 
+									{b}_{1}\\
+									{b}_{2}\\
+									\vdots\\
+									{b}_{n}
+									\end{bmatrix}u(t)
+									$$
+								</p>
+								$u(t)\in\mathbb{R}$ is the <b>exogenous</b> input to the system.
+								
+								
+							</center>
+							</div>
+						
+						</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						State-model
+						$$
+						\dot{x}=Ax+Bu
+						$$
+					</p>
+					$u(t)\in\mathbb{R}$ is the <b>exogenous</b> input to the system.
+					
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						Output-model
+						$$
+						y(t)=\begin{bmatrix}c_1 & c_2 & \cdots & c_n \end{bmatrix}\begin{bmatrix} 
+						{x}_{1}\\
+						{x}_{2}\\
+						\vdots\\
+						{x}_{n}
+						\end{bmatrix}+Du
+						$$
+					</p>
+					$u(t)\in\mathbb{R}$ is the <b>exogenous</b> input to the system.
+					
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						State-space (SS) model
+						$$
+						\dot{x}=Ax+Bu\\
+						y=Cx+Du
+						$$
+					</p>
+					
+				<p>&nbsp;</p>
+				<p>How can we convert a ODE to SS model?</p>
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description (Discrete-time)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						State-space (SS) model
+						$$
+						x_{k+1}=A_dx_k+B_du_k\\
+						y_k=Cx_k+Du_k
+						$$
+					</p>
+					
+				<p>&nbsp;</p>
+				<p>How can we convert a <B>Difference Equation</B> (DE) to SS model?</p>
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>SS from ODE (not unique)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				$$
+					x_1=y; \quad x_2=\frac{dy}{dt}=\dot{x}_1,\quad x_3=\frac{d^2y}{dt^2}=\dot{x}_2, \quad \ldots
+				$$
+				Following the pattern, we have
+				<p class="lightup">
+				$$
+						x_j=\frac{d^{j-1}y}{dt^{j-1}}=\dot{x}_{j-1}
+				$$
+			</p>
+						
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Ordinary Differential Equation</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						$$
+						\dot{x}_n+a_{n-1}x_{n}+\cdots+a_{1}x_2+a_{0}x_1=u(t)
+						$$
+					</p>
+ with 
+ $$
+x_1=y(t),\quad x_2=\frac{dy}{dt},\quad \cdots, \quad x_n=\frac{d^{n-1}y}{dt^{n-1}}
+ $$
+ and 
+ $$
+ x_{j+1}=\dot{x}_{j}
+ $$
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>State-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						$$
+						\dot{x}_1=x_2\\
+						\dot{x}_2=x_3\\ 
+						\vdots\\
+						\dot{x}_n=-(a_{n-1}x_{n}+\cdots+a_{1}x_2+a_{0}x_1)+u(t)
+						$$
+ 
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>State-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+					<p class="">
+						$$
+						\begin{bmatrix} 
+						\dot{x}_{1}\\
+						\dot{x}_{2}\\
+						\vdots\\
+						\dot{x}_{n}
+						\end{bmatrix}=\underbrace{\begin{bmatrix}
+						0 & 1 & 0 &\cdots & 0\\
+						0 & 0 & 1 & \cdots & 0\\
+						\vdots & \vdots & \vdots & \ddots & \vdots\\
+						-a_{0} & -a_{1} & -a_{2} & \cdots & -a_{n-1}
+						\end{bmatrix}}_{A}\begin{bmatrix} 
+						{x}_{1}\\
+						{x}_{2}\\
+						\vdots\\
+						{x}_{n}
+						\end{bmatrix}+\underbrace{\begin{bmatrix} 
+						0\\
+						0\\
+						\vdots\\
+						1
+						\end{bmatrix}}_{B}u(t)
+						$$
+			</center>
+						</div>
+<p>Controllable canonical form!</p>
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				
+ $$
+y=\underbrace{\begin{bmatrix}1 & 0 & \cdots & 0\end{bmatrix}}_{C}\begin{bmatrix} 
+{x}_{1}\\
+{x}_{2}\\
+\vdots\\
+{x}_{n}
+\end{bmatrix}
+ $$
+ and $$D=0$$
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Ordinary Differential Equation</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						\frac{d^ny}{dt^n}+a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}+\cdots+a_{1}\frac{dy}{dt}+a_{0}y(t)=\\ 
+						b_n\frac{d^nu}{dt^n}+b_{n-1}\frac{d^{n-1}u}{dt^{n-1}}+\cdots+b_{1}\frac{du}{dt}+b_{0}u(t)
+						$$
+					</p>
+					<p>&nbsp;</p>
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{Y(s)}{U(s)}=\frac{b_ns^n+b_{n-1}s^{n-1}+\cdots+b_{1}s+b_0}{s^n+a_{n-1}s^{n-1}+\cdots+a_{1}s+a_0}
+						$$
+					</p>
+					<p>&nbsp;</p>
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{ì=0}^n b_is^{i}}{\sum_{i=0}^n a_is^{i}}
+						$$
+						
+					</p>
+					with $a_n=1$.
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{ì=0}^n b_is^{i}}{\sum_{i=0}^n a_is^{i}}\pm b_n
+						$$
+					
+					</p>
+					with $a_n=1$.
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{ì=0}^n (b_i-b_na_i)s^{i}}{\sum_{i=0}^n a_is^{i}}+ b_n
+						$$
+						
+					</p>
+					with $a_n=1$.
+					
+					<p>Note that for $i=n$, one has $$b_n-b_na_n=0$$</p>
+			</center>
+						</div>
+
+			</section>
+
+
+		
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{ì=0}^m c_is^{i}}{\sum_{i=0}^n a_is^{i}}+ b_n
+						$$
+						
+					</p>
+					with $a_n=1$ and $m\le n-1$. 
+					$$
+						c_i=b_i-b_na_i,\quad i=0,1,\ldots,m
+					$$
+					
+			</center>
+						</div>
+
+			</section>
+
+
+				
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						\frac{Y(s)}{U(s)}=\frac{\sum_{ì=0}^m c_is^{i}}{\sum_{i=0}^n a_is^{i}}+ b_n
+						$$
+						
+					</p>
+					with $a_n=1$ and $m\le n-1$. 
+					$$
+						c_i=b_i-b_na_i,\quad i=0,1,\ldots,m
+					$$
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+					Y(s)=\frac{\sum_{ì=0}^m c_is^{i}}{\sum_{i=0}^n a_is^{i}}U(s)+ b_nU(s)
+						$$	
+					</p>
+					Define an auxiliary variable $\eta(s)$ such that 
+					$$
+					\sum_{i=0}^n a_is^{i}\eta(s)=U(s)
+					$$
+					
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+					Y(s)=\sum_{ì=0}^m c_is^{i}\eta(s)+ b_nU(s)
+						$$	
+					</p>
+				
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+					y(t)=\sum_{ì=0}^m c_i\frac{d^i\eta}{dt^i}+ b_nu(t)
+						$$	
+					</p>
+				
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>State-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup2">
+						Define the state variables
+						$$
+					x_1=\eta,\quad x_2=\frac{d\eta}{dt},\quad \ldots, \quad x_n=\frac{d^{n-1}\eta}{dt^{n-1}}
+						$$	
+						
+					</p>
+					So, we have
+						$$
+						\dot{x}_1=x_2\\
+						\dot{x}_2=x_3\\
+						\vdots\\
+						\dot{x}_n=-(a_{n-1}x_{n}+\cdots+a_{1}x_2+a_{0}x_1)+u(t)
+						$$
+				
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup2">
+						Define the state variables
+						$$
+					x_1=\eta,\quad x_2=\frac{d\eta}{dt},\quad \ldots, \quad x_n=\frac{d^{n-1}\eta}{dt^{n-1}}
+						$$	
+						
+					</p>
+					The output is
+						$$
+					y(t)=c_0x_1+c_1x_2+\cdots+c_mx_m+b_nu(t)
+						$$
+
+				
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>State-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+					<p class="">
+						$$
+						\begin{bmatrix} 
+						\dot{x}_{1}\\
+						\dot{x}_{2}\\
+						\vdots\\
+						\dot{x}_{n}
+						\end{bmatrix}=\underbrace{\begin{bmatrix}
+						0 & 1 & 0 &\cdots & 0\\
+						0 & 0 & 1 & \cdots & 0\\
+						\vdots & \vdots & \vdots & \ddots & \vdots\\
+						-a_{0} & -a_{1} & -a_{2} & \cdots & -a_{n-1}
+						\end{bmatrix}}_{A}\begin{bmatrix} 
+						{x}_{1}\\
+						{x}_{2}\\
+						\vdots\\
+						{x}_{n}
+						\end{bmatrix}+\underbrace{\begin{bmatrix} 
+						0\\
+						0\\
+						\vdots\\
+						1
+						\end{bmatrix}}_{B}u(t)
+						$$
+			</center>
+						</div>
+<p>Controllable canonical form!</p>
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				
+ $$
+y=\underbrace{\begin{bmatrix}c_0 & c_1 & \cdots & c_m & 0 & \cdots & 0\end{bmatrix}}_{C}\begin{bmatrix} 
+{x}_{1}\\
+{x}_{2}\\
+\vdots\\
+{x}_{n}
+\end{bmatrix}+Du
+ $$
+ and $$D=b_n$$
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function from SS</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+		<p class="lightup">
+ $$
+G(s)=C(sI-A)^{-1}B+D
+ $$
+</p>	
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function from SS</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+		
+
+Caracteristic equation:
+<p class="lightup2">
+$$
+\det(sI-A)=\sum_{i=0}^n a_is^i
+$$
+</p>
+Zeros Equation: 
+<p class="lightup2">
+$$
+\det\begin{bmatrix}
+sI-A & -B\\		
+C & D
+\end{bmatrix}=\sum_{i=0}^n b_is^i
+$$
+</p>
+
+			</center>
+						</div>
+
+			</section>
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Dual Representation</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p class="lightup">
+					$$
+					\dot{x}=Ax+Bu\\
+					y=Cx+Du
+					$$
+			</p>
+				 a equivalent state-space model is	
+				<p class="lightup">
+					$$
+				\dot{\tilde{x}}=A^\trp\tilde{x}+C^\trp u\\
+				y=B^\trp \tilde{x}+Du
+				$$
+				</p>
+		
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Similarity Transformation</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Consider a <b>non-singular</b> matrix  $T\in\mathbb{R}^{n\times n}$ and define the state variable as 
+				<p class="lightup">
+				$$
+				\tilde{x}=Tx
+				$$
+			</p>
+				Then, the state-space model is	
+				$$
+				\dot{\tilde{x}}=TAT^{-1}\tilde{x}+TBu\\
+				y=CT^{-1}\tilde{x}+Du
+				$$
+		
+
+			</center>
+						</div>
+
+			</section>
+
+
+		
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Eigenvalue Preserving</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Given a matrix $A\in\mathbb{R}^{n\times n}$ and a non-singular matrix $T\in\mathbb{R}^{n\times n}$, define the similar matrix
+				<p class="lightup">
+					$$
+					\tilde{A}=TAT^{-1}
+					$$
+			</p>
+				Consider the eigenvalue operator $\lambda\{\}$, then, the following holds	
+				<p class="lightup">
+					$$
+				\lambda\{\tilde{A}\}=\lambda\{A\}
+				$$
+				</p>
+		
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Map Preserving</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Given a matrix $A\in\mathbb{R}^{n\times n}$ and a non-singular matrix $T\in\mathbb{R}^{n\times n}$, define the similar matrix
+				<p class="lightup">
+					$$
+					\tilde{A}=TAT^{-1}
+					$$
+			</p>
+				Consider a map $f:\mathbb{R}^{n\times n}\mapsto \mathbb{R}^{n\times n}$, then, the following holds	
+				<p class="lightup">
+					$$
+				f(\tilde{A})=Tf(A)T^{-1}
+				$$
+				</p>
+		
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Matrix Exponential</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+				Consider $$f(A)=\exp(A)$$
+				then
+				
+				<p class="lightup">
+					$$
+					f(\tilde{A})=\exp(\tilde{A})=T\exp(A)T^{-1}
+					$$
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transformation: diagonalization</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p class="lightup">
+				Any matrix $A\in\mathbb{R}^{n\times n}$ with $n$ linearly independent eigenvectors can be diagonalized.
+			</p>
+
+			Let $v_1,v_2,\ldots,v_n$ be all eigenvectors of $A$ and $\lambda_1,\lambda_2,\ldots,\lambda_n$ its respective eigenvalues. Define the matrix $T$ as
+			$$
+			T=\begin{bmatrix}v_1 & v_2 & \cdots & v_n\end{bmatrix}
+			$$
+			Then, a similar matrix is
+			$$
+			\tilde{A}=TAT^{-1}=\Lambda=\diag(\lambda_1,\ldots,\lambda_n)
+			$$
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Diagonalization: example 1</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p class="lightup">
+				Consider the system
+				$$
+				\dot{x}=\begin{bmatrix}
+				-1 & 4\\
+				2 & 1
+				\end{bmatrix}x,\quad x(0)=\begin{bmatrix}3\\0\end{bmatrix}
+				$$
+				</p>
+				Eigenvalues and Eigenvectors:
+				$$
+					\lambda_1=-3,\quad \lambda_2=3,\quad v_1=\begin{bmatrix}2\\-1\end{bmatrix},\quad v_2=\begin{bmatrix}1\\1\end{bmatrix}
+				$$
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Diagonalization: example 1</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+				Define the matrix $T$ as
+				$$
+				T=\begin{bmatrix}2 & 1\\-1 & 1\end{bmatrix}
+				$$
+				
+				Then, the similar system is
+				<p class="lightup">
+				$$
+				\dot{\tilde{x}}=\begin{bmatrix}
+				-3 & 0\\
+				0 & 3
+				\end{bmatrix}\tilde{x},\quad \tilde{x}(0)=Tx(0)
+				$$
+			</p>
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Diagonalization: example 1</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+				State solution is
+				
+				<p class="lightup">
+				$$
+				\tilde{x}(t)=\begin{bmatrix}e^{-3t} \\e^{3t} \end{bmatrix},\quad t\ge 0
+				$$
+			</p>
+
+					
+			<p class="lightup">
+				$$
+				x(t)=T^{-1}\begin{bmatrix}e^{-3t} \\e^{3t} \end{bmatrix}=\begin{bmatrix}2e^{-3t} +e^{3t}\\-e^{-3t} +e^{3t} \end{bmatrix},\quad t\ge 0
+				$$
+			</p>
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Diagonalization: example 2</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p class="lightup">
+				Consider the system
+				$$
+				\dot{x}=\begin{bmatrix}
+				0 & 1\\
+				-2 & -2
+				\end{bmatrix}x,\quad x(0)=\begin{bmatrix}1\\1\end{bmatrix}
+				$$
+				</p>
+				Eigenvalues:
+				$$
+					\lambda_1=1+j\in\mathbb{C},\quad \lambda_2=1-j\in\mathbb{C}
+				$$
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+				
+			<section>
+
+				<div class="slide-title">
+					<h2>Diagonalization: example 2</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p class="lightup">
+				Consider the system
+				$$
+				\dot{x}=\begin{bmatrix}
+				0 & 1\\
+				-2 & -2
+				\end{bmatrix}x,\quad x(0)=\begin{bmatrix}1\\1\end{bmatrix}
+				$$
+				</p>
+				Eigenvectors:
+				$$
+					v_1=\begin{bmatrix}1\\1+j\end{bmatrix}\in\mathbb{C}^2,\quad v_2=\begin{bmatrix}1\\1-j\end{bmatrix}\in\mathbb{C}^2
+				$$
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Diagonalization: example 2</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+				Define the matrix $T$ as
+				$$
+				T=\begin{bmatrix}1 & 1\\1+j & 1-j\end{bmatrix}
+				$$
+				
+				Then, the similar system is
+				<p class="lightup">
+				$$
+				\dot{\tilde{x}}=\begin{bmatrix}
+				1+j & 0\\
+				0 & 1-j
+				\end{bmatrix}\tilde{x},\quad \tilde{x}(0)=Tx(0)
+				$$
+			</p>
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+			
+
+
+			
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+				Define the matrix $T$ as
+				$$
+				T=\begin{bmatrix}\text{Re}(v_1) & \text{Img}(v_2)\end{bmatrix}
+				$$
+				
+				Then, the similar system is
+				<p class="lightup">
+				$$
+				\dot{\tilde{x}}=\begin{bmatrix}
+				1 & -1\\
+				1 & 1
+				\end{bmatrix}\tilde{x},\quad \tilde{x}(0)=Tx(0)
+				$$
+			</p>
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				If the eigenvalues are complex-conjugate in the form
+				$$
+				\lambda_{1,2}=\alpha\pm j\beta
+				$$
+				
+				Then, the similar system is
+				<p class="lightup">
+				$$
+				\dot{\tilde{x}}=\begin{bmatrix}
+				\alpha & -\beta\\
+				\beta & \alpha
+				\end{bmatrix}\tilde{x},\quad \tilde{x}(0)=Tx(0)
+				$$
+			</p>
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Cayley-Hamilton</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+			Let the characteristic equation be given by $$\Delta(\lambda)=\det(\lambda I-A)=0$$
+				<p class="lightup">
+				Any matrix $A$ is a root of its characteristic equation.
+				$$
+				\Delta(A)=0
+				$$
+			</p>
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Cayley-Hamilton: example</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+			Consider 
+			$$
+			A=\begin{bmatrix}
+			0 & 1\\
+			0 & -1
+			\end{bmatrix}
+			$$
+			Its characteristic equation is 
+			$$
+				\Delta(\lambda)=\det(\lambda I-A)=\lambda^2+\lambda=0
+			$$
+			Thus,
+
+			$$
+				\Delta(A)=A^2+A=0
+			$$
+		
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Briot-Ruffini</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+			Consider two polynomial functions $a(\lambda)$ and $b(\lambda)$. The division of $a(\lambda)$ by $b(\lambda)$ is given by
+			<p class="lightup2">
+			$$
+			\frac{a(\lambda)}{b(\lambda)}=q(\lambda)+\frac{r(\lambda)}{b(\lambda)}
+			$$
+		</p>
+			where $q(\lambda)$ is the quotient and $r(\lambda)$ is the remainder.
+			
+			Recast that 
+			$$
+			\exp(\lambda t)=\sum_{i=0}^{\infty}\frac{(\lambda t)^i}{i!},\quad \Delta(\lambda)=\sum_{i=0}^n a_i\lambda^i
+			$$
+				
+				
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Briot-Ruffini</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				
+Note that			<p class="lightup2">
+			$$
+			\frac{\exp(\lambda t)}{\Delta(\lambda)}=q(\lambda,t)+\frac{r(\lambda,t)}{\Delta(\lambda)}
+			$$
+		</p>
+			
+Thus,
+<p class="lightup2">
+		$$
+		\exp(\lambda t)=\Delta(\lambda)q(\lambda,t)+r(\lambda,t)
+		$$
+				
+	</p>
+		
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Briot-Ruffini</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				
+		As $\Delta(\lambda)=0$, then
+		<p>&nbsp;</p>
+		<p class="lightup">
+		$$		
+		\exp(\lambda t)=r(\lambda,t)=\sum_{i=0}^{n-1} \rho_i(t)\lambda^i
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Cayley-Hamilton+Briot-Ruffini</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				
+		As $\Delta(A)=0$, then
+		<p>&nbsp;</p>
+		<p class="lightup">
+		$$		
+		\exp(A t)=r(A,t)=\sum_{i=0}^{n-1} \rho_i(t)A^i
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+	
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				
+		
+		<p class="lightup">
+		$$		
+		\exp\Bigl(\underbrace{\begin{bmatrix}\alpha & -\beta\\\beta & \alpha\end{bmatrix}}_{A} t\Bigr)=\rho_0(t)I+\rho_1(t)\underbrace{\begin{bmatrix}\alpha & -\beta\\\beta & \alpha\end{bmatrix}}_{A}
+		$$
+	</p>
+Such that
+$$
+	e^{(\alpha+j\beta)t}=\rho_0(t)+\rho_1(t)(\alpha+j\beta)\\
+	e^{(\alpha-j\beta)t}=\rho_0(t)+\rho_1(t)(\alpha-j\beta)
+$$
+			</center>
+						</div>
+
+			</section>
+
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				
+		
+	
+Note that
+<p class="lightup2">
+$$
+	e^{(\alpha+j\beta)t}+e^{(\alpha-j\beta)t}=2\rho_0(t)+2\rho_1(t)
+$$
+and 
+$$
+	e^{(\alpha+j\beta)t}-e^{(\alpha-j\beta)t}=2j\rho_1(t)\\
+	
+$$
+</p>
+			</center>
+						</div>
+
+			</section>
+
+
+
+				
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+Thus,
+<p class="lightup2">
+$$
+	\rho_1(t)=\frac{e^{(\alpha+j\beta)t}-e^{(\alpha-j\beta)t}}{2j}
+$$
+and 
+$$
+\rho_0(t)=\frac{e^{(\alpha+j\beta)t}+e^{(\alpha-j\beta)t}}{2}-\rho_1(t)
+	
+$$
+</p>
+			</center>
+						</div>
+
+			</section>
+			
+
+
+						
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+Thus,
+<p class="lightup2">
+$$
+	\rho_1(t)=e^{\alpha t}\frac{(e^{j\beta t}-e^{-j\beta t})}{2j}
+$$
+and 
+$$
+\rho_0(t)=e^{\alpha t}\frac{e^{j\beta t}+e^{-j\beta t}}{2}-\rho_1(t)
+	
+$$
+</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+Thus,
+<p class="lightup2">
+$$
+	\rho_1(t)=e^{\alpha t}\sin(\beta t)
+$$
+and 
+$$
+\rho_0(t)=e^{\alpha t}\cos(\beta t)-\rho_1(t)
+	
+$$
+</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+Thus,
+<p class="lightup2">
+$$
+	\rho_1(t)=e^{\alpha t}\sin(\beta t)
+$$
+and 
+$$
+\rho_0(t)=e^{\alpha t}(\cos(\beta t)-\sin(\beta t))
+	
+$$
+</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				
+		
+		<p class="lightup">
+		$$		
+		\exp\Bigl(\underbrace{\begin{bmatrix}\alpha & -\beta\\\beta & \alpha\end{bmatrix}}_{A} t\Bigr)=\begin{bmatrix}
+		\rho_0(t)+\alpha \rho_1(t) & -\rho_1(t)\beta\\
+		\beta \rho_1(t) & \rho_0(t)+\alpha\rho_1(t)
+		\end{bmatrix}
+		$$
+	</p>
+with
+$$
+\rho_0(t)=e^{\alpha t}(\cos(\beta t)-\sin(\beta t))\\
+\rho_1(t)=e^{\alpha t}\sin(\beta t)
+$$
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				<p>&nbsp;</p>
+				
+		
+		<p class="">
+		$$		
+		\exp\Bigl(\begin{bmatrix}\alpha & -\beta\\\beta & \alpha\end{bmatrix} t\Bigr)
+		\\=e^{\alpha t}\begin{bmatrix}
+		\cos(\beta t)+(\alpha-1)\sin(\beta t) & -\beta\sin(\beta t)\\
+		\beta \sin(\beta t) & \cos(\beta t)+(\alpha-1)\sin(\beta t)
+		\end{bmatrix}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2): example</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\dot{\tilde{x}}=\begin{bmatrix}1 & -1\\1 & 1\end{bmatrix}\tilde{x}, \quad \tilde{x}(0)=\begin{bmatrix}1\\0\end{bmatrix}
+		$$
+		<p>&nbsp;</p>
+		<p class="lightup">
+		$$		
+		\tilde{x}(t)=\begin{bmatrix}
+		e^{\alpha t}\cos(t) \\
+		e^{\alpha t}\sin(t) 
+		\end{bmatrix}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation: multiples pairs</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\lambda_{1,2}=\alpha_1\pm j\beta_1
+		$$
+		
+		<p class="lightup2">
+		$$		
+		\dot{\tilde{x}}=\begin{bmatrix}
+		\alpha_1 & -\beta_1 \\
+		\beta_1 & \alpha_1  
+		\end{bmatrix}\tilde{x}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation: multiples pairs</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\lambda_{1,2}=\alpha_1\pm j\beta_1,\quad \lambda_{3,4}=\alpha_2\pm j\beta_2
+		$$
+
+		<p class="lightup">
+		$$		
+		\dot{\tilde{x}}=\begin{bmatrix}
+		\alpha_1 & -\beta_1 & 0 & 0 \\
+		\beta_1 & \alpha_1 & 0 & 0 \\
+			0 & 0 & \alpha_2 & -\beta_2 \\
+			0 & 0 & \beta_2 & \alpha_2
+		\end{bmatrix}\tilde{x}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation: multiples pairs</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\lambda_{1,2}=\alpha_1\pm j\beta_1,\quad \lambda_{3,4}=\alpha_2\pm j\beta_2,\quad \lambda_{5,6}=\alpha_3\pm j\beta_3
+		$$
+		
+		<p class="lightup2">
+		$$		
+		\dot{\tilde{x}}=\begin{bmatrix}
+		\alpha_1 & -\beta_1 & 0 & 0 & 0 & 0 \\
+		\beta_1 & \alpha_1 & 0 & 0 & 0 & 0 \\
+			0 & 0 & \alpha_2 & -\beta_2 & 0 & 0 \\
+			0 & 0 & \beta_2 & \alpha_2 & 0 & 0\\ 
+			0 & 0 & 0 & 0 & \alpha_3 & -\beta_3 \\
+			0 & 0 & 0 & 0 & \beta_3 & \alpha_3
+		\end{bmatrix}\tilde{x}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+	
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Homework (T2)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										<p>&nbsp;</p>
+										<p class="lightup">
+				Choose from questions 3, 4 or 5 in "State-space model problem set" and simulate the system based on a state-space model using Matlab or Simulink.  
+			</p>
+<ul>
+	<li>Provide the matlab code or simulink diagram and a brief description of the simulation.</li>
+	<li>Use Latex;</li>
+	<li>Upload the homework (pdf) on the e-discipline platform. </li>
+</ul>
+			
+
+			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>

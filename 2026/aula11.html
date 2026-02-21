@@ -1,0 +1,1211 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+		
+		<!-- and it's easy to individually load additional languages -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/arduino.min.js"></script>
+		
+		<script>hljs.highlightAll();</script>
+		
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+        <div class="reveal">
+            <div class="slides">
+                
+               	<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>Introduction to $\mathcal{H_\infty}$ Robust Control via LMI</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">June 11, 2025</p>
+				</div>
+
+				</section>
+                
+
+
+
+                        
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Objectives</h2>
+            </div>
+            <div class="slide-content">
+                <p>The objectives of this lecture are to understand:
+                        <ul>
+                        <li>Definition of $\mathcal{H}_\infty$ norm;</li>
+                        <li>LMI computation of $\mathcal{H}_\infty$ norm;</li>
+                        <li>Definition of Optimal $\mathcal{H}_\infty$ control;</li>
+                        <li>Definition of Robust $\mathcal{H}_\infty$ control;</li>
+                        <li>Examples;</li>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>References</h2>
+                <p>&nbsp;</p>
+            </div>
+            <div class="slide-content">
+                        <ul>
+                        <li>S. BOYD, L. GHAOUI, E. FERON, and V. BALAKRISHNAN. Linear Matrix Inequalities in System and Control Theory. SIAM, 1994.</li>
+                         <li>Notas de aula da disciplina <b>IA892 - Análise e Controle de Sistemas Lineares por Desigualdades Matriciais Lineares (LMIs)</b>, <br>Profs. Ricardo C. L. F. Oliveira e Pedro L. D. Peres, da Faculdade de Engenharia Elétrica e de Computação (FEEC) da Universidade Estadual de Campinas (Unicamp) oferecida no 2º sem. de 2017. 
+                        <a href="https://ricfow.fee.unicamp.br/IA892/ia892.htm" target="_blank">https://ricfow.fee.unicamp.br/IA892/ia892.htm</a>
+                        </li>
+                    </div>
+
+        </section>
+
+
+        
+                <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}&=Ax+Bw\\ 
+                y&=Cx+Dw
+                \end{aligned}
+                $$
+                with $x\in\mathbb{R}^n$, $w\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
+            </p>
+            <p>
+               with $w$ as the disturbance (or noise) input and $y$ as the output. 
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>MIMO Transfer Function</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+            <p class="lightup">
+
+                $$
+                G(s)=C(sI-A)^{-1}B+D=\begin{bmatrix}
+                G_{11}(s)  & \cdots & G_{1m}(s)\\
+                G_{21}(s)  & \cdots & G_{2m}(s)\\
+                \vdots  & \ddots & \vdots\\
+                G_{p1}(s) & \cdots & G_{pm}(s)
+                \end{bmatrix}
+                $$
+            </p>
+            <p>
+                such that $G_{ij}(s)$ is the transfer function from the $j$-th input to the $i$-th output.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Frequency domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+            <p class="lightup">
+
+                $$
+                \|G\|_\infty=\max_{\omega\in\mathbb{R}} \sigma_\text{max}(G(j\omega))
+                $$
+            </p>
+            <p>
+              where $\sigma_\text{max}(G(j\omega))$ is the maximum singular value of the transfer function $G(j\omega)$.
+              <Br>
+              Obs:
+              $$
+                \sigma_i(G(j\omega))=\sqrt{\lambda_i(G(j\omega)^*G(j\omega))}
+              $$
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Frequency domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                        For  SISO systems, the $\mathcal{H}_\infty$ norm is given by:
+            <p class="lightup">
+
+                $$
+                \|G\|_\infty=\max_{\omega\in\mathbb{R}} |G(j\omega)|
+                $$
+            </p>
+        It is the maximum gain of the system over all frequencies.
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                  <img src="../images/hinf_norm.png" width="850">
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    Suppose that the input $w$ is $\mathcal{L}_2$, i.e.,
+                   $$
+                \|w\|_2^2=\int_{-\infty}^{\infty} w(t)^\trp w(t)dt<\infty
+                $$
+                Then, the $\mathcal{H}_\infty$ norm is defined as the minimum value $\gamma$ such that
+            <p class="lightup">
+                $$
+                \|y(t)\|_2< \gamma \|w(t)\|_2
+                $$  
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+               <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    Suppose that the input $w$ is $\mathcal{L}_2$, i.e.,
+                   $$
+                \|w\|_2^2=\int_{-\infty}^{\infty} w(t)^\trp w(t)dt<\infty
+                $$
+                Then, the $\mathcal{H}_\infty$ norm is defined as the minimum value $\gamma$ such that
+            <p class="lightup">
+                $$
+                \|y(t)\|_2^2< \gamma^2 \|w(t)\|_2^2
+                $$  
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    Suppose that the input $w$ is $\mathcal{L}_2$, i.e.,
+                   $$
+                \|w\|_2^2=\int_{-\infty}^{\infty} w(t)^\trp w(t)dt<\infty
+                $$
+                Then, the $\mathcal{H}_\infty$ norm is defined as the minimum value $\gamma$ such that
+            <p class="lightup">
+                $$
+              \int_{-\infty}^{\infty} y(t)^\trp y(t) dt < \gamma^2 \int_{-\infty}^{\infty} w(t)^\trp w(t) dt
+                $$  
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                   Definition of the $\mathcal{H}_\infty$ norm in the time domain:
+            
+    
+            <p class="lightup">
+                $$
+                \|G\|_\infty < \gamma \\
+                \Leftrightarrow \\
+                \int_{-\infty}^{\infty} y(t)^\trp y(t) dt < \gamma^2 \int_{-\infty}^{\infty} w(t)^\trp w(t) dt
+                $$  
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                    <p class="lightup">
+                  Can a Unstable System have a finite $\mathcal{H}_\infty$ norm?
+                  </p>
+                   $$
+                \|G\|_\infty< \gamma \\
+                \Leftrightarrow \\
+                \int_{-\infty}^{\infty} y(t)^\trp y(t) dt < \gamma^2 \int_{-\infty}^{\infty} w(t)^\trp w(t) dt
+                $$  
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+       Consider the Lyapunov function $V(x)=x^\trp P x$ with $P>0$. <br>
+       In addition, require that 
+       <p class="lightup">
+                 $$
+               \dot{V}+y(t)^\trp y(t)-\gamma^2 w(t)^\trp w(t) < 0
+                $$  
+                </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <p>&nbsp;</p>
+                <center>
+                   $$
+\left[\begin{array}{c}
+x \\
+w
+\end{array}\right]^{\trp}\left[\begin{array}{cc}
+A^{\trp} P+P A+C^{\trp} C & P B+C^{\trp} D \\
+B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
+\end{array}\right]\left[\begin{array}{c}
+x \\
+w
+\end{array}\right]<0
+                   $$
+                   Thus,
+                              $$
+\Leftrightarrow \left[\begin{array}{cc}
+A^{\trp} P+P A+C^{\trp} C & P B+C^{\trp} D \\
+B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
+\end{array}\right]\prec 0
+                   $$     
+            </center>
+                    </div>
+
+        </section>
+
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Bounded Real Lemma)</h2>
+            </div>
+            <div class="slide-content">
+           
+                <center>
+                      A system is stable and has a finite $\mathcal{H}_\infty$ norm if and only if there exists a positive definite matrix $P$ such that:
+                    <p class="lightup">
+                                        $$
+\Leftrightarrow \left[\begin{array}{cc}
+A^{\trp} P+P A+C^{\trp} C & P B+C^{\trp} D \\
+B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
+\end{array}\right]\prec 0
+                   $$   
+                   </p> 
+                   and 
+                     $$
+\|G\|_\infty< \gamma
+                   $$
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm via LMI</h2>
+            </div>
+            <div class="slide-content">
+           
+                <center>
+                      Define $\mu=\gamma^2$ and consider the following LMI:
+                    <p class="lightup">
+                                        $$
+                                        \begin{align*}
+                                        & \quad\quad\quad\quad \quad\quad  \min_{\mu,P=P^\trp \succ 0} \mu\\ 
+                                        \text{s.t.} &
+\left[\begin{array}{cc}
+A^{\trp} P+P A+C^{\trp} C & P B+C^{\trp} D \\
+B^{\trp} P+D^{\trp} C & D^{\trp} D-\mu \mathbf{I}
+\end{array}\right]\prec 0
+\end{align*}
+                   $$   
+                   </p> 
+                   and 
+                     $$
+\|G\|_\infty= \sqrt{\mu}
+                   $$
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        
+                <section>
+            
+            <div class="slide-title">
+                <h2>Discrete-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                x_{k+1}&=Ax_k+Bw_k\\ 
+                y_k&=Cx_k+Dw_k
+                \end{aligned}
+                $$
+                with $x\in\mathbb{R}^n$, $w\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
+            </p>
+            <p>
+               with $w$ as the disturbance (or noise) input and $y$ as the output. 
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>MIMO Transfer Function</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+            <p class="lightup">
+
+                $$
+                G(z)=C(zI-A)^{-1}B+D=\begin{bmatrix}
+                G_{11}(z)  & \cdots & G_{1m}(z)\\
+                G_{21}(z)  & \cdots & G_{2m}(z)\\
+                \vdots  & \ddots & \vdots\\
+                G_{p1}(z) & \cdots & G_{pm}(z)
+                \end{bmatrix}
+                $$
+            </p>
+            <p>
+                such that $G_{ij}(z)$ is the transfer function from the $j$-th input to the $i$-th output.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Frequency domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+            <p class="lightup">
+
+                $$
+                \|G\|_\infty=\max_{\omega\in[-\pi,\pi]} \sigma_\text{max}(G(e^{j\omega}))
+                $$
+            </p>
+            <p>
+              where $\sigma_\text{max}(G(e^{j\omega}))$ is the maximum singular value of the transfer function $G(e^{j\omega})$.
+              <Br>
+              Obs:
+              $$
+                \sigma_i(G(e^{j\omega}))=\sqrt{\lambda_i(G(e^{j\omega})^*G(e^{j\omega}))}
+              $$
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Frequency domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                        For  SISO systems, the $\mathcal{H}_\infty$ norm is given by:
+            <p class="lightup">
+
+                $$
+                \|G\|_\infty=\max_{\omega\in[-\pi,\pi]} |G(e^{j\omega})|
+                $$
+            </p>
+        It is the maximum gain of the system over all frequencies.
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+               <img src="../images/hinf_norm_discrete.png" width="850">
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    Suppose that the input $w$ is $\mathcal{L}_2$, i.e.,
+                   $$
+                \|w\|_2^2=\sum_{k=-\infty}^{\infty} w_k^\trp w_k<\infty
+                $$
+                Then, the $\mathcal{H}_\infty$ norm is defined as the minimum value $\gamma$ such that
+            <p class="lightup">
+                $$
+                \|y_k\|_2< \gamma \|w_k\|_2
+                $$  
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+               <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    Suppose that the input $w$ is $\mathcal{L}_2$, i.e.,
+                   $$
+                \|w\|_2^2=\sum_{k=-\infty}^{\infty} w_k^\trp w_k<\infty
+                $$
+                Then, the $\mathcal{H}_\infty$ norm is defined as the minimum value $\gamma$ such that
+            <p class="lightup">
+                $$
+                \|y_k\|_2^2< \gamma^2 \|w_k\|_2^2
+                $$  
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    Suppose that the input $w$ is $\mathcal{L}_2$, i.e.,
+                   $$
+                \|w\|_2^2=\sum_{k=-\infty}^{\infty} w_k^\trp w_k<\infty
+                $$
+                Then, the $\mathcal{H}_\infty$ norm is defined as the minimum value $\gamma$ such that
+            <p class="lightup2">
+                $$
+             \sum_{k=-\infty}^{\infty} y_k^\trp y_k < \gamma^2 \sum_{k=-\infty}^{\infty} w_k^\trp w_k
+                $$  
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                   Definition of the $\mathcal{H}_\infty$ norm in the time domain:
+            
+    
+            <p class="lightup">
+                $$
+                \|G\|_\infty< \gamma \\
+                \Leftrightarrow \\
+              \sum_{k=-\infty}^{\infty} y_k^\trp y_k < \gamma^2 \sum_{k=-\infty}^{\infty} w_k^\trp w_k
+                $$  
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                    <p class="lightup">
+                  Can a Unstable System have a finite $\mathcal{H}_\infty$ norm?
+                  </p>
+                   $$
+                \|G\|_\infty< \gamma \\
+                \Leftrightarrow \\
+             \sum_{k=-\infty}^{\infty} y_k^\trp y_k < \gamma^2 \sum_{k=-\infty}^{\infty} w_k^\trp w_k
+                $$  
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+       Consider the Lyapunov function $V_k(x_k)=x_k^\trp P x_k$ with $P>0$. <br>
+       In addition, require that 
+       <p class="lightup">
+                 $$
+               V_{k+1}(x_{k+1})-V_k(x_k)+y_k^\trp y_k-\gamma^2 w_k^\trp w_k < 0
+                $$  
+                </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <p>&nbsp;</p>
+                <center>
+                   $$
+                   \small
+\left[\begin{array}{c}
+x_k \\
+w_k
+\end{array}\right]^{\trp}\left[\begin{array}{cc}
+A^{\trp} P A -P+C^{\trp} C & A^\trp P B+C^{\trp} D \\
+B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\gamma^2 \mathbf{I}
+\end{array}\right]\left[\begin{array}{c}
+x_k \\
+w_k
+\end{array}\right]<0
+                   $$
+                   Thus,
+                              $$
+\Leftrightarrow \left[\begin{array}{cc}
+A^{\trp} P A -P+C^{\trp} C & A^\trp P B+C^{\trp} D \\
+B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\gamma^2 \mathbf{I}
+\end{array}\right]\prec 0
+                   $$     
+            </center>
+                    </div>
+
+        </section>
+
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm (Bounded Real Lemma)</h2>
+            </div>
+            <div class="slide-content">
+           
+                <center>
+                      A system is stable and has a finite $\mathcal{H}_\infty$ norm if and only if there exists a positive definite matrix $P$ such that:
+                    <p class="lightup">
+                                        $$
+\Leftrightarrow \left[\begin{array}{cc}
+A^{\trp} P A -P+C^{\trp} C & A^\trp P B+C^{\trp} D \\
+B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\gamma^2 \mathbf{I}
+\end{array}\right]\prec 0
+                   $$   
+                   </p> 
+                   and 
+                     $$
+\|G\|_\infty< \gamma
+                   $$
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm via LMI</h2>
+            </div>
+            <div class="slide-content">
+           
+                <center>
+                      Define $\mu=\gamma^2$ and consider the following LMI:
+                    <p class="lightup">
+                                        $$
+                                        \begin{align*}
+                                        & \quad\quad \quad\quad\quad \quad\quad  \min_{\mu,P=P^\trp \succ 0} \mu\\ 
+                                        \text{s.t.} &
+\left[\begin{array}{cc}
+A^{\trp} P A -P+C^{\trp} C & A^\trp P B+C^{\trp} D \\
+B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\mu \mathbf{I}
+\end{array}\right]\prec 0
+\end{align*}
+                   $$   
+                   </p> 
+                   and 
+                     $$
+\|G\|_\infty= \sqrt{\mu}
+                   $$
+           
+            </center>
+                    </div>
+
+        </section>
+        
+
+               <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}&=Ax+B_2u+B_1w\\ 
+                y&=Cx+Dw
+                \end{aligned}
+                $$
+                with $x\in\mathbb{R}^n$,  $u\in\mathbb{R}^m$, $w\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
+            </p>
+            <p>
+               with $w$ as the disturbance (or noise) input and $y$ as the output. 
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+        Find $K\in\mathbb{R}^{m\times p}$ such that the closed-loop system   
+            <p class="lightup">
+                $$
+                \begin{aligned} 
+                \dot{x}&=(A+B_2K)x+B_1w\\ 
+                y&=(C+DK)x\\
+                 G(s)&=(C+DK)(sI-(A+B_2K))^{-1}B_1
+                \end{aligned}
+                $$
+                
+            </p>
+        is stable and minimizes the $\mathcal{H}_\infty$ norm.
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+       Let
+            
+                $$
+                \begin{aligned} 
+                \tilde{A}&=(A+B_2K),\\ 
+                \tilde{C}&=(C+DK).
+                \end{aligned}
+                $$
+Thus, $\|G\|_\infty <\gamma $ if and only if there exists a positive definite matrix $P$ such that:
+                <p class="lightup2">
+                $$
+\left[\begin{array}{cc}
+\tilde{A}^{\trp} P+P \tilde{A}+\tilde{C}^{\trp} \tilde{C} & P B_1 \\
+B_1^{\trp} P & -\gamma^2 \mathbf{I}
+\end{array}\right]\prec 0
+                $$
+                </p>
+                
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+    Note that
+                <p class="">
+                $$
+\left[\begin{array}{cc}
+\tilde{A}^{\trp} P+P \tilde{A}+\tilde{C}^{\trp} \tilde{C} & P B_1 \\
+B_1^{\trp} P & -\gamma^2 \mathbf{I}
+\end{array}\right]\prec 0 \\
+\Leftrightarrow \left[\begin{array}{cc}
+\tilde{A}^{\trp} P+P \tilde{A} & P B_1 \\    
+B_1^{\trp} P & -\gamma^2 \mathbf{I}
+\end{array}\right]-\left[\begin{array}{cc}
+\tilde{C}^\trp  \\    
+0
+\end{array}\right](-\mathbf{I})\left[\begin{array}{cc}
+\tilde{C}  & 0
+\end{array}\right]\prec 0\\
+\Leftrightarrow \left[\begin{array}{cc}
+\tilde{A}^{\trp} P+P \tilde{A} & P B_1 & \tilde{C}^\trp  \\   
+B_1^{\trp} P & -\gamma^2 \mathbf{I} & 0\\
+\tilde{C} & 0 & -I
+\end{array}\right]\prec 0
+                $$
+                </p>
+                
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+    Apply congruence transformation to the LMI:
+                <p class="">
+                $$
+
+\begin{bmatrix} 
+P^{-1} & 0 & 0\\
+0 & I & 0\\
+0 & 0 & I
+\end{bmatrix}
+\left[\begin{array}{cc}
+\tilde{A}^{\trp} P+P \tilde{A} & P B_1 & \tilde{C}^\trp  \\   
+B_1^{\trp} P & -\gamma^2 \mathbf{I} & 0\\
+\tilde{C} & 0 & -I
+\end{array}\right]\begin{bmatrix} 
+P^{-1} & 0 & 0\\
+0 & I & 0\\
+0 & 0 & I
+\end{bmatrix}\prec 0\\
+\Leftrightarrow \left[\begin{array}{cc}
+P^{-1}\tilde{A}^{\trp}+\tilde{A}P^{-1} & B_1 & P^{-1}\tilde{C}^\trp  \\   
+B_1^{\trp}  & -\gamma^2 \mathbf{I} & 0\\
+\tilde{C}P^{-1} & 0 & -I
+\end{array}\right]\prec 0
+                $$
+                </p>
+                
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+    Thus,
+                <p class="">
+                $$
+                \small
+ \left[\begin{array}{cc}
+P^{-1}(A+B_2K)^{\trp}+(A+B_2K)P^{-1} & B_1 & P^{-1}(C+DK)^\trp  \\   
+\star  & -\gamma^2 \mathbf{I} & 0\\
+\star & \star & -I
+\end{array}\right]\prec 0\\
+\Rightarrow \left[\begin{array}{cc}
+P^{-1}A^\trp+P^{-1}K^{\trp}B_2^\trp+(\star)^\trp & B_1 & P^{-1}(C+DK)^\trp  \\   
+\star  & -\gamma^2 \mathbf{I} & 0\\
+\star & \star & -I
+\end{array}\right]\prec 0\\
+                $$
+                </p>
+   
+                
+            
+            </center>
+                    </div>
+
+        </section>
+        
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time $\mathcal{H}_\infty$ Control</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+  Let $W=P^{-1}$ and $Z=KW$, then
+                <p class="">
+                $$
+\left[\begin{array}{cc}
+WA^\trp+AW+Z^\trp B_2^\trp+B_2Z & B_1 & WC^\trp +Z^\trp D^\trp   \\   
+\star  & -\gamma^2 \mathbf{I} & 0\\
+\star & \star & -I
+\end{array}\right]\prec 0\\
+                $$
+                </p>
+             
+                
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time $\mathcal{H}_\infty$ Optimal Control</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                  <p class="lightup">
+                $$\small
+                \begin{align*}
+                & \quad\quad\quad\quad\quad \quad\quad  \min_{\mu,Z,W=W^\trp \succ 0} \mu\\
+                \text{s.t.} & 
+\left[\begin{array}{cc}
+WA^\trp+AW+Z^\trp B_2^\trp+B_2Z & B_1 & WC^\trp +Z^\trp D^\trp   \\   
+\star  & -\mu \mathbf{I} & 0\\
+\star & \star & -I
+\end{array}\right]\prec 0\\
+\end{align*}
+                $$
+and $K=ZW^{-1}$. <bR>In addition, the $\mathcal{H}_\infty$ norm satisfies $\|G\|_\infty= \sqrt{\mu}$.
+                </p>
+             
+                
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time Polytopic State-space Model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}&=A(\alpha)x+B_2(\alpha)u+B_1(\alpha)w\\ 
+                y&=C(\alpha)x+D(\alpha)w
+                \end{aligned}
+                $$
+                with $x\in\mathbb{R}^n$,  $u\in\mathbb{R}^m$, $w\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
+            </p>
+            <p>
+               with $w$ as the disturbance (or noise) input and $y$ as the output. 
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Continous-time Robust $\mathcal{H}_\infty$ Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                  <p class="lightup">
+                $$\small
+                \begin{align*}
+                & \quad\quad\quad\quad\quad \quad\quad  \min_{\mu,Z,W=W^\trp \succ 0} \mu\\
+                \text{s.t.} & 
+\left[\begin{array}{cc}
+WA_i^\trp+Z^\trp B_{2,i}^\trp+(\star)^\trp & B_{1,i} & WC_i^\trp +Z^\trp D_i^\trp   \\   
+\star  & -\mu \mathbf{I} & 0\\
+\star & \star & -I
+\end{array}\right]\prec 0\\
+\end{align*}
+                $$
+and $K=ZW^{-1}$. <bR>In addition, the $\mathcal{H}_\infty$ norm satisfies $\|G\|_\infty\le \sqrt{\mu}$.
+                </p>
+             
+                
+            
+            </center>
+                    </div>
+
+        </section>
+      
+
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>The End.</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+            
+
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+

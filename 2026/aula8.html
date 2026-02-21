@@ -1,0 +1,702 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>State Observers</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">May 14, 2025</p>
+				</div>
+
+				</section>
+
+				
+				<section>
+			
+					<div class="slide-title">
+						<h2>Objectives</h2>
+					</div>
+					<div class="slide-content">
+						<p>The objectives of this lecture are to understand:
+								<ul>
+								<li>State observers design;</li>
+								<li>Robust state observers via LMI;</li>
+								<li>Examples;</li>
+							</p>
+							</div>
+		
+				</section>
+
+				<section>
+			
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/state_feedback.png" alt="">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/pendulo_invertido_planta_observer.png" width="800">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/state_observer2.png" width="750">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/state_observer3.png" width="950">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/state_observer4.png" width="950">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+
+
+					<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+				<img src="../images/state_observer.png" width="750">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>State-Space Model</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="lightup2">
+		System:
+						$$
+						\begin{aligned} 
+						x_{k+1}&=A_dx_k+B_du_k\\ 
+						y_k&=Hx_k+Du_k
+						\end{aligned}
+						$$
+					</p>
+		
+					<p class="lightup2">
+		Observer:
+						$$
+						\begin{aligned} 
+						\hat{x}_{k+1}&=A_d\hat{x}_k+B_du_k+L(y_k-\hat{y}_k)\\ 
+						\hat{y}_k&=H\hat{x}_k+Du_k
+						\end{aligned}
+						$$
+					</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="">
+						$$
+						\begin{aligned} 
+						\varepsilon_{k+1}&=x_{k+1}-\hat{x}_{k+1}\\ 
+						&=Ax_k+Bu_k-(A\hat{x}_k+Bu_k)+L(y_k-\hat{y}_k)\\
+						&=A\varepsilon_{k}+L(Hx_k+Du_k-(H\hat{x}_k+Du_k))\\
+						&=(A-LH)\varepsilon_k
+						\end{aligned}
+						$$
+					</p>
+					Therefore,
+					<p class="lightup2">
+					$$
+						\varepsilon_{k+1}=(A-LH)\varepsilon_k
+					$$
+				</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							Hence, if 		
+					<p class="lightup2">
+						
+					$$
+						|\lambda\{A-LH\}| < 1
+					$$
+					
+				</p>
+				then the observer converges to the true state!
+		
+				<p>&nbsp;</p>
+				<p class="lightup">
+				Good design practice: the state error dynamics of the observer should be at least 2x faster than the system dynamics!
+			</p>
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Ackermann's Equation (SISO)</h2>
+					</div>
+					<div class="slide-content">
+		
+						<center>	
+							Given the desired characteristic equation for the observer:
+							$$
+		\gamma(z)=z^{n}+\beta_1z^{n-1}+\cdots+\beta_{n-1}z+\beta_n
+							$$
+							then, the observer gain is given by:
+							<p class=" lightup2">
+							
+								$$
+									L=\gamma(A)\mathcal{O}^{-1}\begin{bmatrix}
+									0 & 0 & \cdots & 1
+									\end{bmatrix}^\trp 
+								$$
+							</p>
+				note: $\gamma(A)=A^{n}+\beta_1A^{n-1}+\cdots+\beta_{n-1}A+\beta_n I$
+						
+		
+		
+					</center>
+							</div>
+		
+				</section>
+
+
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observer Example</h2>
+					</div>
+					<div class="slide-content">
+		
+						<center>	
+							Dynamics matrix:
+				$$
+							A=
+							\begin{bmatrix}
+							0.7143  &  0.3571\\
+   							-1.0714 &   -0.3571
+							\end{bmatrix}
+							$$
+							Output matrix:
+							$$
+							H=
+							\begin{bmatrix}
+							1 & 0
+							\end{bmatrix}
+				$$
+		What is the observer gain $L$ for the desired characteristic polynomial:
+		$$
+		\gamma(z)=z^{2}-z+0.5=(z-0.5+0.5i)(z-0.5-0.5i)
+		$$
+					</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observer Example</h2>
+					</div>
+					<div class="slide-content">
+		
+						<center>	
+					<img src="../images/state_observer_example.png" width="850">
+		
+					</center>
+							</div>
+		
+				</section>
+
+
+					<section>
+					
+					<div class="slide-title">
+						<h2>State Observer Continuous Time</h2>
+					</div>
+					<div class="slide-content">
+		
+						<center>	
+					<img src="../images/state_observer_continuous.png" width="700">
+		
+					</center>
+							</div>
+		
+				</section>
+
+
+
+							<section>
+					
+					<div class="slide-title">
+						<h2>State-Space Model</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="lightup2">
+		System:
+						$$
+						\begin{aligned} 
+						\dot{x}&=Ax+Bu\\ 
+						y&=Hx+Du
+						\end{aligned}
+						$$
+					</p>
+		
+					<p class="lightup2">
+		Observer:
+						$$
+						\begin{aligned} 
+						\dot{\hat{x}}&=A\hat{x}+Bu+L(y-\hat{y})\\ 
+						\hat{y}&=H\hat{x}+Du
+						\end{aligned}
+						$$
+					</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="">
+						$$
+						\begin{aligned} 
+						\dot{\varepsilon}&=\dot{x}-\dot{\hat{x}}\\ 
+						&=Ax+Bu-(A\hat{x}+Bu)+L(y-\hat{y})\\
+						&=A\varepsilon+L(Hx+Du-(H\hat{x}+Du))\\
+						&=(A-LH)\varepsilon
+						\end{aligned}
+						$$
+					</p>
+					Therefore,
+					<p class="lightup2">
+					$$
+						\dot{\varepsilon}=(A-LH)\varepsilon
+					$$
+				</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							Hence, if 		
+					<p class="lightup2">
+						
+					$$
+						|\lambda\{A-LH\}| < 1
+					$$
+					
+				</p>
+				then the observer converges to the true state!
+		
+				<p>&nbsp;</p>
+				<p class="lightup">
+				Good design practice: the state error dynamics of the observer should be at least 2x faster than the system dynamics!
+			</p>
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+		
+			<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p>&nbsp;</p>
+			An state observer is <b>asymptotically stable</b> if and only if
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $L\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						(A-LH)^\trp P+P(A-LH)  \prec 0
+			$$
+			
+		</p>
+		<b>This is a LMI?</b>
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p>&nbsp;</p>
+			An state observer is <b>asymptotically stable</b> if and only if
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $Z\in\mathbb{R}^{n\times m}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						A^\trp P+PA-Z^\trp H^\trp -HZ  \prec 0
+			$$
+			
+		</p>
+		<b>Where $Z=PL$, which implies $L=P^{-1}Z$</b>
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+
+
+
+		
+							<section>
+					
+					<div class="slide-title">
+						<h2>Polytopic Uncertain State-Space Model</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="lightup2">
+		System:
+						$$
+						\begin{aligned} 
+						\dot{x}&=A(\alpha)x+B(\alpha)u\\ 
+						y&=H(\alpha)x+D(\alpha)u
+						\end{aligned}
+						$$
+					</p>
+		
+					<p class="lightup2">
+		Observer:
+						$$
+						\begin{aligned} 
+						\dot{\hat{x}}&=A(\alpha)\hat{x}+B(\alpha)u+L(y-\hat{y})\\ 
+						\hat{y}&=H(\alpha)\hat{x}+D(\alpha)u
+						\end{aligned}
+						$$
+					</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+
+
+					<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="">
+						$$
+						\begin{aligned} 
+						\dot{\varepsilon}&=\dot{x}-\dot{\hat{x}}\\ 
+						&=A(\alpha)x+B(\alpha)u-(A(\alpha)\hat{x}+B(\alpha)u+L(y-\hat{y}))\\
+						&=A(\alpha)\varepsilon+L(H(\alpha)x+D(\alpha)u-(H(\alpha)\hat{x}+D(\alpha)u))\\
+						&=(A(\alpha)-LH(\alpha))\varepsilon
+						\end{aligned}
+						$$
+					</p>
+					Therefore,
+					<p class="lightup2">
+					$$
+						\dot{\varepsilon}=(A(\alpha)-LH(\alpha))\varepsilon,\quad \forall \alpha\in\Lambda_N
+					$$
+				</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+
+
+				<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p>&nbsp;</p>
+			An state observer is <b>asymptotically stable</b> if 
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $L\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						(A(\alpha)-LH(\alpha))^\trp P+P(A(\alpha)-LH(\alpha))  \prec 0\\
+						\forall \alpha\in\Lambda_N
+			$$
+			
+		</p>
+
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Quadratic Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					
+			An state observer is <b>asymptotically stable</b> if and only if
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $Z\in\mathbb{R}^{n\times m}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						A_i^\trp P+PA_i-H_i^\trp Z^\trp -Z H_i  \prec 0\\
+						\forall i=1,\ldots,N
+			$$
+			
+		</p>
+		<b>Where $Z=PL$, which implies $L=P^{-1}Z$</b>
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+		
+
+
+				<section>
+				
+					<div class="slide-title">
+						<h2>Homework (T8)</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+					<p class="">
+						<ul class="homework-list">
+							<li>Search for a paper that employs a state observer for controlling a system of your interest.</li>
+							<li>Use IEEE Xplorer Library, Web of Science, etc.</li>
+							<li>Write a summary with your own words about the paper in LaTex and send it via e-disciplina.</li>
+					</ul>
+					</p>
+					<img src="images/pendulum.png" alt="">
+					</center>
+							</div>
+		
+				</section>
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>

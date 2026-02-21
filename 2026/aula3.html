@@ -1,0 +1,1141 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>State-space - part 2</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">March 19, 2025</p>
+				</div>
+
+				</section>
+
+				
+				<section>
+
+				<div class="slide-title">
+					<h2>Objectives:</h2>
+				</div>
+				<div class="slide-content">
+					<p>The objectives of this class are:
+						<ul>
+							<li>Understand Jordan blocks;</li> 
+							<li>Show examples</li>
+						</ul>
+						
+						</p>
+						</div>
+
+			</section>
+
+
+		
+
+
+
+		
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Similarity Transformation</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Consider a <b>non-singular</b> matrix  $T\in\mathbb{R}^{n\times n}$ and define the state variable as 
+				<p class="lightup">
+				$$
+				\tilde{x}=Tx
+				$$
+			</p>
+				Then, the state-space model is	
+				$$
+				\dot{\tilde{x}}=TAT^{-1}\tilde{x}+TBu\\
+				y=CT^{-1}\tilde{x}+Du
+				$$
+		
+
+			</center>
+						</div>
+
+			</section>
+
+
+				
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Eigenvalue Preserving</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Given a matrix $A\in\mathbb{R}^{n\times n}$ and a non-singular matrix $T\in\mathbb{R}^{n\times n}$, define the similar matrix
+				<p class="lightup">
+					$$
+					\tilde{A}=TAT^{-1}
+					$$
+			</p>
+				Consider the eigenvalue operator $\lambda\{\}$, then, the following holds	
+				<p class="lightup">
+					$$
+				\lambda\{\tilde{A}\}=\lambda\{A\}
+				$$
+				</p>
+		
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transformation: diagonalization</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p class="lightup">
+				Any matrix $A\in\mathbb{R}^{n\times n}$ with $n$ linearly independent eigenvectors can be diagonalized.
+			</p>
+
+			Let $v_1,v_2,\ldots,v_n$ be all eigenvectors of $A$ and $\lambda_1,\lambda_2,\ldots,\lambda_n$ its respective eigenvalues. Define the matrix $T$ as
+			$$
+			T=\begin{bmatrix}v_1 & v_2 & \cdots & v_n\end{bmatrix}
+			$$
+			Then, a similar matrix is
+			$$
+			\tilde{A}=TAT^{-1}=\Lambda=\diag(\lambda_1,\ldots,\lambda_n)
+			$$
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				If the eigenvalues are complex-conjugate in the form
+				$$
+				\lambda_{1,2}=\alpha\pm j\beta
+				$$
+				
+				Then, the similar system is
+				<p class="lightup">
+				$$
+				\dot{\tilde{x}}=\begin{bmatrix}
+				\alpha & -\beta\\
+				\beta & \alpha
+				\end{bmatrix}\tilde{x},\quad \tilde{x}(0)=Tx(0)
+				$$
+			</p>
+
+			For this case, the matrix $T$ is given by
+			$
+			T=\begin{bmatrix}
+			\text{real}(v_1) & \text{imag}(v_2)
+			\end{bmatrix}
+			$
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				If the eigenvalues are complex-conjugate in the form
+				$$
+				\lambda_{1,2}=\alpha\pm j\beta
+				$$
+				
+				The matrices 
+				<p class="lightup">
+				$$
+				A=\begin{bmatrix}
+				\alpha & -\beta\\
+				\beta & \alpha
+				\end{bmatrix},\quad \text{and }\quad \tilde{A}=\begin{bmatrix}
+				\alpha+j\beta & 0\\
+				0 & \alpha-j\beta
+				\end{bmatrix}
+				$$
+			</p>
+			are similar!
+			
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+		
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation: multiples pairs</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\lambda_{1,2}=\alpha_1\pm j\beta_1,\quad \lambda_{3,4}=\alpha_2\pm j\beta_2
+		$$
+
+		<p class="lightup">
+		$$		
+		\dot{\tilde{x}}=\begin{bmatrix}
+		\alpha_1 & -\beta_1 & 0 & 0 \\
+		\beta_1 & \alpha_1 & 0 & 0 \\
+			0 & 0 & \alpha_2 & -\beta_2 \\
+			0 & 0 & \beta_2 & \alpha_2
+		\end{bmatrix}\tilde{x}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation: multiples pairs</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\lambda_{1,2}=\alpha_1\pm j\beta_1,\quad \lambda_{3,4}=\alpha_2\pm j\beta_2,\quad \lambda_{5,6}=\alpha_3\pm j\beta_3
+		$$
+		
+		<p class="lightup2">
+		$$		
+		\dot{\tilde{x}}=\begin{bmatrix}
+		\alpha_1 & -\beta_1 & 0 & 0 & 0 & 0 \\
+		\beta_1 & \alpha_1 & 0 & 0 & 0 & 0 \\
+			0 & 0 & \alpha_2 & -\beta_2 & 0 & 0 \\
+			0 & 0 & \beta_2 & \alpha_2 & 0 & 0\\ 
+			0 & 0 & 0 & 0 & \alpha_3 & -\beta_3 \\
+			0 & 0 & 0 & 0 & \beta_3 & \alpha_3
+		\end{bmatrix}\tilde{x}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+		
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Cayley-Hamilton+Briot-Ruffini</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				
+		As $\Delta(A)=0$, then
+		<p>&nbsp;</p>
+		<p class="lightup">
+		$$		
+		\exp(A t)=r(A,t)=\sum_{i=0}^{n-1} \rho_i(t)A^i
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+	
+
+		
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				
+		
+		<p class="lightup">
+		$$		
+		\exp\Bigl(\underbrace{\begin{bmatrix}\alpha & -\beta\\\beta & \alpha\end{bmatrix}}_{A} t\Bigr)=\begin{bmatrix}
+		\rho_0(t)+\alpha \rho_1(t) & -\rho_1(t)\beta\\
+		\beta \rho_1(t) & \rho_0(t)+\alpha\rho_1(t)
+		\end{bmatrix}
+		$$
+	</p>
+with
+$$
+\rho_0(t)=e^{\alpha t}(\cos(\beta t)-\sin(\beta t))\\
+\rho_1(t)=e^{\alpha t}\sin(\beta t)
+$$
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+	
+				<p>&nbsp;</p>
+				
+		
+		<p class="">
+		$$		
+		\exp\Bigl(\begin{bmatrix}\alpha & -\beta\\\beta & \alpha\end{bmatrix} t\Bigr)
+		\\=e^{\alpha t}\begin{bmatrix}
+		\cos(\beta t)+(\alpha-1)\sin(\beta t) & -\beta\sin(\beta t)\\
+		\beta \sin(\beta t) & \cos(\beta t)+(\alpha-1)\sin(\beta t)
+		\end{bmatrix}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation: multiples pairs</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\lambda_{1,2}=\alpha_1\pm j\beta_1,\quad \lambda_{3,4}=\alpha_2\pm j\beta_2,\quad \lambda_{5},\lambda_6 \in \mathbb{R}
+		$$
+		
+		<p class="lightup2">
+		$$		
+		\dot{\tilde{x}}=\begin{bmatrix}
+		\alpha_1 & -\beta_1 & 0 & 0 & 0 & 0 \\
+		\beta_1 & \alpha_1 & 0 & 0 & 0 & 0 \\
+			0 & 0 & \alpha_2 & -\beta_2 & 0 & 0 \\
+			0 & 0 & \beta_2 & \alpha_2 & 0 & 0\\ 
+			0 & 0 & 0 & 0 & \lambda_5 & 0 \\
+			0 & 0 & 0 & 0 & 0 & \lambda_6
+		\end{bmatrix}\tilde{x}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation: example</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+			Consider the system
+		<p class="lightup2">
+		$$		
+		\dot{\tilde{x}}=\left[\begin{array}{ccccc}
+		1 & -1 & 0 & 0 & 0 \\
+		1 & 1 & 0 & 0 & 0 \\
+		0 & 0 & 2 & -2 & 0 \\
+		0 & 0 & 2 & 2 & 0 \\
+		0 & 0 & 0 & 0 & 3
+		\end{array}\right]
+		\tilde{x}
+		$$
+	</p>
+
+			</center>
+						</div>
+What are the eigenvalues of this system?
+			</section>
+
+
+
+
+			
+
+				
+			<section>
+
+				<div class="slide-title">
+					<h2>Matlab example</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p>&nbsp;</p>
+		<img src="../images/matlab_logo2.png" alt="Matlab Logo" style="width: 200px; height: auto;">
+		<p>
+State-space similarity transformation
+</p>
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Modal Transformation: multiplicity</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider $\lambda_1,\lambda_2,\lambda_3 \in \mathbb{R}$, such that 
+		<p>&nbsp;</p>
+		<p class="lightup2">
+		$$
+		\Delta(s)=(s-\lambda_1)^3(s-\lambda_2)^2(s-\lambda_3)
+		$$
+	</p>
+		
+	<p>&nbsp;</p>
+	How to put it in a state-space model?
+	
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Normal Form</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p class="lightup2">
+		$$
+				A=T^{-1} J T
+		$$
+		or 
+		$$
+				J=T A T^{-1}
+		$$
+	</p>
+	
+where 
+$$
+T \to \text{similarity transformation}\\
+J \to \text{Jordan form}
+$$
+			</center>
+						</div>
+
+			</section>
+
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Normal Form</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p>&nbsp;</p>
+				For the case of real and distinct eigenvalues, the Jordan form is
+				<p class="lightup2">
+		$$
+				J=\Lambda = \diag(\lambda_1,\lambda_2,\ldots,\lambda_n)
+		$$
+	</p>
+	And,
+	$$
+	\exp(Jt)=\diag(e^{\lambda_1 t},e^{\lambda_2 t},\ldots,e^{\lambda_n t})
+	$$
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Normal Form (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p>&nbsp;</p>
+				For the case of real but repetitive eigenvalues, 
+				$$
+				\Delta(s)=(s-\lambda_1)^2
+				$$
+				What is the Jordan form?
+				<p class="lightup2">
+		$$
+				J=?
+		$$
+	</p>
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Normal Form (2x2)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				$$
+				\Delta(s)=(s-\lambda_1)^2
+				$$
+				<p class="lightup2">
+		$$
+				J=\begin{bmatrix} 
+				\lambda_1 & 0\\
+				0 & \lambda_1 
+				\end{bmatrix}\quad \text{(geometric multiplicity=2)} 
+		$$
+		or
+		$$
+		J=\begin{bmatrix} 
+		\lambda_1 & 1\\
+		0 & \lambda_1 
+		\end{bmatrix} \quad \text{(geometric multiplicity=1)} 
+$$
+
+	</p>
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Algebraic and Geometric Multiplicity</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Definitions:
+				<p class="lightup">
+					Algebraic multiplicity = number of times the eigenvalue appears in the characteristic equation.
+				</p>
+				And
+				<p class="lightup">
+					Geometric multiplicity = number of linearly independent eigenvectors associated with the eigenvalue.
+				</p>
+				$$
+				\text{algebraic multiplicity}\geq \text{geometric multiplicity}
+				$$
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Geometric Multiplicity</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Definitions:
+				<p class="lightup">
+					Geometric multiplicity ($\rho$) = number of linearly independent eigenvectors associated with the eigenvalue.
+				</p>
+				$$
+				\rho=\text{dim}\{\text{ker}(A-\lambda_iI)\}
+				$$
+				Obs:
+				$$
+				\text{ker}(M)=\{x\in\mathbb{R}^n: Mx=0\} (\text{null space})
+				$$
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Example 2x2</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Consider the system:
+				<p class="lightup">
+				$$		
+				\dot{\tilde{x}}=\begin{bmatrix}
+				-3 & 4 \\
+				-1 & 1
+				\end{bmatrix}
+				\tilde{x}
+				$$
+			</p>
+			<p>&nbsp;</p>
+				What are the eigenvalues of this system? What are the algebraic and geometric multiplicity? And the Jordan form?
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Example 2x2 Jordan Block</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				Consider the system:
+				<p class="lightup">
+				$$		
+				\dot{\tilde{x}}=\begin{bmatrix}
+				-1 & 0 & 1 \\
+				0 & -1 & 2\\
+				0 & 0 & 5
+				\end{bmatrix}
+				\tilde{x}
+				$$
+			</p>
+			<p>&nbsp;</p>
+				What are the eigenvalues of this system? What are the algebraic and geometric multiplicity? And the Jordan form?
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Normal Form (3x3)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				$$
+				\Delta(s)=(s-\lambda_1)^3
+				$$
+				<p class="lightup2">
+		$$
+				J=\begin{bmatrix} 
+				\lambda_1 & 0 & 0\\
+				0 & \lambda_1  & 0 \\
+				0 & 0 & \lambda_1
+				\end{bmatrix}\quad \text{(geometric multiplicity=3)} 
+		$$
+
+
+	</p>
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Normal Form (3x3)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				$$
+				\Delta(s)=(s-\lambda_1)^3
+				$$
+				<p class="lightup2">
+		$$
+				J=\begin{bmatrix} 
+				\lambda_1 & 1 & 0\\
+				0 & \lambda_1  & 0 \\
+				0 & 0 & \lambda_1
+				\end{bmatrix}\quad \text{(geometric multiplicity=2)} 
+		$$
+
+
+	</p>
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Normal Form (3x3)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				$$
+				\Delta(s)=(s-\lambda_1)^3
+				$$
+				<p class="lightup2">
+		$$
+				J=\begin{bmatrix} 
+				\lambda_1 & 1 & 0\\
+				0 & \lambda_1  & 1\\
+				0 & 0 & \lambda_1
+				\end{bmatrix}\quad \text{(geometric multiplicity=1)} 
+		$$
+
+
+	</p>
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Block (k x k)</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+				<p>&nbsp;</p>
+				A Jordan block of order \( k \) is a square (upper triangular) matrix of dimension \( k \), denoted \( J_k \), with its unique eigenvalue of multiplicity \( k \) on the diagonal, ones on the first subdiagonal, and zeros elsewhere.
+				<p class="lightup2">
+		$$
+				J_1=[\lambda_1],J_2=\begin{bmatrix} 
+				\lambda_1 & 1 \\
+				0 & \lambda_1 
+				\end{bmatrix}, J_3=\begin{bmatrix} 
+				\lambda_1 & 1 & 0\\
+				0 & \lambda_1  & 1\\
+				0 & 0 & \lambda_1
+				\end{bmatrix},\ldots
+		$$
+
+
+	</p>
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Matrix Exponential of $J$</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+			Consider a Jordan block of order \(2 \),
+				<p class="lightup2">
+		$$
+				J_2=\begin{bmatrix} 
+				\lambda_1 & 1 \\
+				0 & \lambda_1 
+				\end{bmatrix}
+		$$
+
+	</p>
+	What is the matrix exponential of \(J_2\)?
+	$$
+	\exp(J_2 t)=?
+	$$
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Matrix Exponential of $J$</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+			Using the Cayley-Hamilton theorem and Briot-Ruffini, we have
+				<p class="">
+					$$
+					\exp(J_2 t)=\rho_0(t)I+\rho_1(t)J_2
+					$$
+
+	</p>
+Which results in 
+<p class="lightup">
+$$
+\exp(J_2 t)=e^{\lambda_1 t}\begin{bmatrix}
+1 & t\\
+0 & 1	
+\end{bmatrix}
+$$
+</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Matrix Exponential of $J$</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+			Consider a Jordan block of order \(3 \),
+				<p class="lightup2">
+		$$
+				J_3=\begin{bmatrix} 
+				\lambda_1 & 1 & 0\\
+				0 & \lambda_1 & 1\\
+				0 & 0 & \lambda_1
+				\end{bmatrix}
+		$$
+
+	</p>
+	What is the matrix exponential of \(J_3\)?
+	$$
+	\exp(J_3 t)=?
+	$$
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Matrix Exponential of $J$</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+			Using the Cayley-Hamilton theorem and Briot-Ruffini, we have
+				<p class="">
+					$$
+					\exp(J_3 t)=\rho_0(t)I+\rho_1(t)J_3+\rho_2(t)J_3^2
+					$$
+
+	</p>
+Which results in 
+<p class="lightup">
+$$
+\exp(J_3 t)=e^{\lambda_1 t}\begin{bmatrix}
+1 & t & \frac{t^2}{2}\\
+0 & 1 & t\\
+0 & 0 & 1	
+\end{bmatrix}
+$$
+</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Matrix Exponential of $J$</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+			Consider a Jordan block of order \(4 \),
+				<p class="lightup2">
+		$$
+				J_4=\begin{bmatrix} 
+				\lambda_1 & 1 & 0 & 0\\
+				0 & \lambda_1 & 1 & 0\\
+				0 & 0 & \lambda_1 & 1\\
+				0 & 0 & 0 & \lambda_1
+				\end{bmatrix}
+		$$
+
+	</p>
+	What is the matrix exponential of \(J_4\)?
+	$$
+	\exp(J_4 t)=?
+	$$
+
+
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Matrix Exponential of $J$</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+			Using the Cayley-Hamilton theorem and Briot-Ruffini, we have
+				<p class="">
+					$$
+					\exp(J_4 t)=\rho_0(t)I+\rho_1(t)J_4+\rho_2(t)J_4^2+\rho_3(t)J_4^3
+					$$
+
+	</p>
+Which results in 
+<p class="lightup2">
+$$
+\exp(J_4 t)=e^{\lambda_1 t}\begin{bmatrix}
+1 & t & \frac{t^2}{2} & \frac{t^3}{3!}\\
+0 & 1 & t & \frac{t^2}{2}\\
+0 & 0 & 1 & t\\
+0 & 0 & 0 & 1	
+\end{bmatrix}
+$$
+</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Block multiples complex pairs</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\Delta(s)=(s-(\alpha_1\pm j\beta_1))^2
+		$$
+
+		<p class="lightup2">
+		$$		
+	\begin{bmatrix}
+		\alpha_1 +j\beta_1& 0 & 0 & 0 \\
+		0 & \alpha_1-j\beta_1 & 0 & 0 \\
+			0 & 0 & \alpha_1 +j\beta_1 & 0 \\
+			0 & 0 & 0 & \alpha_1 -j\beta_1
+		\end{bmatrix}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Jordan Block: multiples complex pairs</h2>
+				</div>
+				<div class="slide-content">
+			<center>
+		Consider
+		$$
+		\Delta(s)=(s-(\alpha_1\pm j\beta_1))^2
+		$$
+
+		<p class="lightup2">
+		$$		
+		\tilde{J}_2=\begin{bmatrix}
+		\alpha_1 & -\beta_1 & 1 & 0 \\
+		\beta_1 & \alpha_1 & 0 & 1 \\
+			0 & 0 & \alpha_1 & -\beta_1 \\
+			0 & 0 & \beta_1 & \alpha_1
+		\end{bmatrix}
+		$$
+	</p>
+
+			</center>
+						</div>
+
+			</section>
+
+
+
+			
+		
+			
+
+
+	
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Homework (T3)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				<p class="lightup">
+					Show that
+					$$
+\exp(J_3 t)=e^{\lambda_1 t}\begin{bmatrix}
+1 & t & \frac{t^2}{2}\\
+0 & 1 & t\\
+0 & 0 & 1	
+\end{bmatrix}
+$$
+(tip: use the Cayley-Hamilton theorem and Briot-Ruffini)
+				</p>
+
+Write the proof in $\LaTeX$ and send to e-discipline platform.			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>

@@ -1,0 +1,880 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>State feedback</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">April 23, 2025</p>
+				</div>
+
+				</section>
+
+				
+				<section>
+
+				<div class="slide-title">
+					<h2>Objectives:</h2>
+				</div>
+				<div class="slide-content">
+					<p>The objectives of this class are:
+						<ul>
+							<li>Discuss the state feedback control;</li> 
+							<li>Introduce the concepts of robust stabilizability of polytopic uncertainty;</li> 
+							<li>Show examples</li>
+						</ul>
+						
+						</p>
+						</div>
+
+			</section>
+
+
+	
+										
+			
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Stability: continuous vs discrete</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+		<p>&nbsp;</p>
+				<img src="../images/estabilidade_discreta.png" width="950">
+			
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+		
+	
+					
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				A discrete-time state-space system is <b>asymptotically stable</b> if and only if
+				there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ such that
+				<p class="lightup">
+				$$
+							P\succ 0 \\
+							A_d^\trp PA_d -P \prec 0
+				$$
+				
+			</p>
+			<b>Linear Matrix Inequality (LMI)</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+	
+		
+	
+					
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				A continuous-time state-space system is <b>asymptotically stable</b> if and only if
+				there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ such that
+				<p class="lightup">
+				$$
+							P\succ 0 \\
+							A^\trp P+PA \prec 0
+				$$
+				
+			</p>
+			<b>Linear Matrix Inequality (LMI)</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+
+			
+	
+
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Example: Inverted Pendulum</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>
+			
+				<img src="../images/pendulo_invertido_planta.png" width="850">
+
+			</center>
+					</div>
+
+		</section>
+
+
+		
+		
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Example: Inverted Pendulum</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>
+			
+				<img src="../images/pendulo_invertido_planta2.png" width="850">
+
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>State Feedback</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>
+			
+				<img src="../images/pendulo_invertido_planta3.png" width="700">
+
+			</center>
+					</div>
+
+		</section>
+
+
+		
+		<section>
+			
+			<div class="slide-title">
+				<h2>State Feedback</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>
+			
+				<img src="../images/pendulo_invertido_planta_statefeedback.png" width="750">
+
+			</center>
+					</div>
+
+		</section>
+
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Control via State Feedback - discrete time</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>
+				
+				<img src="../images/state_feedback.png" width="650">
+				<p class="lightup2">
+$$
+u_k=-Kx_k
+$$
+</p>
+			</center>
+					</div>
+
+		</section>
+
+	
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Control via State Feedback</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>
+				
+				<p class="">
+$$
+x_{k+1}=Ax_k+Bu_k=Ax_k-BKx_k
+$$
+</p>
+Therefore, the closed-loop dynamics is
+<p class="lightup">
+	$$
+	x_{k+1}=(A-BK)x_k
+	$$
+	</p>
+	Asymptotically stable if and only if
+	$$
+	|\lambda\{A-BK\}| < 1
+	$$
+
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Characteristic Equation</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>	
+				<p class="">
+					$$
+					x_{k+1}=Ax_k+Bu_k
+					$$
+</p>
+<p class="lightup">
+	$$
+	\Delta(A)=\det(\lambda I-A)
+	$$
+	</p>
+	The roots of the polynomial $\Delta(A)$ are the <b>eigenvalues</b> of $A$:
+	$$
+	\lambda\{A\}=\{\lambda_i: \det(\lambda_iI-A)=0,i=1,\ldots,n\}
+	$$
+
+			</center>
+					</div>
+
+		</section>
+
+
+		<!-- <section>
+			
+			<div class="slide-title">
+				<h2>Characteristic Equation</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>	
+<p class="lightup">
+	$$
+	\Delta(A)=\det(\lambda I-A)
+	$$
+	</p>
+	<ul>
+		<li>For <b>controllable systems</b>, the eigenvalues are equal to the poles of the transfer function!</li>
+		<li>A polynomial that has all roots inside the unit circle of the complex plane is called <b>Schur polynomial</b>.</li>
+	</ul>
+	
+
+			</center>
+					</div>
+
+		</section> -->
+
+
+	
+		<section>
+			
+			<div class="slide-title">
+				<h2>Design by Pole Placement</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>
+				
+					<p class="">
+						$$
+						x_{k+1}=Ax_k+Bu_k\\
+						u_k=-Kx_k
+						$$
+	</p>
+<p class="lightup">
+	$$
+	\Delta_d(A-BK)=(z-p_1)(z-p_2)\cdots(z-p_n)
+	$$
+	</p>
+	where $p_1,p_2,\ldots,p_n$ are the desired closed-loop poles!
+
+			</center>
+					</div>
+
+		</section>
+
+
+			
+		<section>
+			
+			<div class="slide-title">
+				<h2>Design by Pole Placement</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>
+				
+					<p class="">
+						$$
+						x_{k+1}=Ax_k+Bu_k\\
+						u_k=-Kx_k
+						$$
+	</p>
+<p class="lightup">
+	$$
+	\Delta_d(A-BK)=z^n+\beta_1z^{n-1}+\cdots+\beta_{n-1}z+\beta_n
+	$$
+	</p>
+	where $p_1,p_2,\ldots,p_n$ are the desired closed-loop poles!
+
+			</center>
+					</div>
+
+		</section>
+
+
+		
+
+
+		
+		<section>
+			
+			<div class="slide-title">
+				<h2>Controllable Canonical Form</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>	
+					<p class="lightup">
+						$$
+								x_{k+1}=\begin{bmatrix}
+								0 & 1 & 0 & \cdots & 0\\
+								0 & 0 & 1 & \cdots & 0\\
+								\vdots & \vdots & \vdots & \ddots & \vdots \\
+								0 & 0 & 0 & \cdots & 1\\
+								-a_n & -a_{n-1} & -a_{n-2} & \cdots & -a_1
+								\end{bmatrix}x_k+\begin{bmatrix}
+								0\\
+								0\\
+								\vdots\\
+								0\\
+								1
+								\end{bmatrix}u_k
+								
+						$$
+					</p>
+				
+
+
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Controllable Canonical Form</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>	
+					<p class="lightup">
+						Transfer function (SISO):
+						$$
+								\frac{Y(z)}{U(z)}=\frac{z^m+b_1z^{m-1}+\cdots+b_{m-1}z+b_m}{z^n+a_1z^{n-1}+\cdots+a_{n-1}z+a_n}, m\le n
+								
+						$$
+					</p>
+				<p class="">
+				If there are no cancellations of zeros with poles, then the system is controllable!				
+</p>
+
+
+			</center>
+					</div>
+
+		</section>
+
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Controllable Canonical Form</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>	
+					<p class="">
+						Given matrices $A$ and $B$ in the Controllable Canonical Form, we have
+						$$
+							\det(\lambda I - (A-BK))=z^{n}+\beta_1z^{n-1}+\cdots+\beta_{n-1}z+\beta_n
+						$$
+					</p>
+					which results in
+					<p class="lightup">
+					$$
+					K=\begin{bmatrix}
+					(\beta_n-a_n) & (\beta_{n-1}-a_{n-1}) & \cdots & (\beta_1-a_1)
+					\end{bmatrix}
+					$$
+				</p>
+				
+
+
+			</center>
+					</div>
+
+		</section>
+
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Example:</h2>
+			</div>
+			<div class="slide-content">
+				<p>&nbsp;</p>
+				<center>
+						<p class="lightup">
+			$$
+					x_{k+1}=\begin{bmatrix}
+					0 & 1 \\
+					-0.96 & -2
+					\end{bmatrix}+\begin{bmatrix}0\\ 1\end{bmatrix}u_k
+			$$
+
+			Desired poles: $\lambda_1=0.8$ and $\lambda_2=0.9$.
+		</p>			
+		
+	
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Example:</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+									
+	<p>&nbsp;</p>
+<p class="lightup">
+			$$
+			x_{k+1}=\begin{bmatrix}
+			-1.2 & 1 \\
+			0 & -0.8
+			\end{bmatrix}+\begin{bmatrix}0.5\\ 1\end{bmatrix}u_k\\
+		
+	$$
+
+
+	Desired poles: $\lambda_1=0.8$ and $\lambda_2=0.9$.
+
+</p>
+			
+		
+	
+			</center>
+					</div>
+
+		</section>
+
+
+
+		<section>
+			
+			<div class="slide-title">
+				<h2>Ackermann's Formula (SISO)</h2>
+			</div>
+			<div class="slide-content">
+
+				<center>	
+					Given the desired characteristic equation:
+					$$
+\gamma(z)=z^{n}+\beta_1z^{n-1}+\cdots+\beta_{n-1}z+\beta_n
+					$$
+					then, the state feedback gain is given by:
+					<p class=" lightup2">
+					
+						$$
+							K=\begin{bmatrix}
+							0 & \cdots & 1
+							\end{bmatrix}\mathcal{C}^{-1}\gamma(A)
+						$$
+					</p>
+		note: $\gamma(A)=A^{n}+\beta_1A^{n-1}+\cdots+\beta_{n-1}A+\beta_n I$
+				
+
+
+			</center>
+					</div>
+
+		</section>
+
+
+	
+
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Polytopic System $(A,B)(\alpha)$</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p class="lightup2">
+					$$
+					A(\alpha)=\alpha_1A_1+\alpha_2A_2+\cdots+\alpha_NA_N\\
+					B(\alpha)=\alpha_1B_1+\alpha_2B_2+\cdots+\alpha_NB_N\\
+					$$
+					where $\alpha_i\in\mathbb{R}^+$ and $\sum_{i=1}^N \alpha_i=1$. 						
+					</p>
+					Dynamic system:
+					$$
+						x_{k+1}=A(\alpha)x_k+B(\alpha)u_k
+					$$
+					How to design a state feedback controller?
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: discrete time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p>&nbsp;</p>
+			A closed-loop discrete-time state-space system is <b>asymptotically stable</b> if and only if
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $K\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						(A-BK)^\trp P(A-BK) -P \prec 0
+			$$
+			
+		</p>
+		<b>This is a LMI?</b>
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Schur's Complement </h2>
+			</div>
+			<div class="slide-content">
+				<center>
+			<p class="lightup">
+			$$
+			\left[\begin{array}{ll}
+			Q & S \\
+			S^\trp & R
+			\end{array}\right]\succ 0 \\
+			
+			\Longleftrightarrow \\
+			
+			R\succ 0, Q-SR^{-1} S^{\trp}\succ 0
+			$$
+			or
+			$$
+			Q\succ 0, R-S^\trp Q^{-1} S\succ 0
+			$$
+			</p>
+		
+			</center>
+					</div>
+
+					
+
+		</section>
+
+
+		
+		<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: discrete time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					
+			A closed-loop discrete-time state-space system is <b>asymptotically stable</b> if and only if
+			there exists a matrix $W=W^\trp \in\mathbb{R}^{n\times n}$ and $Z\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup2">
+			$$
+						W\succ 0 \\
+						\begin{bmatrix}
+						W & (WA^\trp-Z^\trp B^\trp) \\
+						(AW-BZ) & W
+						\end{bmatrix}\succ 0 
+						
+			$$
+			
+		</p>and the stabilizing feedback gain is given by:
+		$$
+		K=ZW^{-1}
+		$$
+	
+		
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Robust Lyapunov Stability: discrete time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					
+			A polytopic closed-loop discrete-time state-space system is <b>asymptotically stable</b> if
+			there exists a matrix $W=W^\trp \in\mathbb{R}^{n\times n}$ and $Z\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup2">
+			$$
+						W\succ 0 \\
+						\begin{bmatrix}
+						W & (WA^\trp_i-Z^\trp B_i^\trp) \\
+						(A_iW-B_iZ) & W
+						\end{bmatrix}\succ 0 , \quad \forall i=1,\ldots,N
+						
+			$$
+			
+		</p>and the stabilizing feedback gain is given by:
+		$$
+		K=ZW^{-1}
+		$$
+	
+		
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p>&nbsp;</p>
+			A closed-loop continuous-time state-space system is <b>asymptotically stable</b> if and only if
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $K\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						(A-BK)^\trp P+P(A-BK) \prec 0
+			$$
+			
+		</p>
+		<b>This is a LMI?</b>
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					
+			A closed-loop discrete-time state-space system is <b>asymptotically stable</b> if and only if
+			there exists a matrix $W=W^\trp \in\mathbb{R}^{n\times n}$ and $Z\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup2">
+			$$
+						W\succ 0 \\
+						WA^\trp+AW-Z^\trp B^\trp-BZ\succ 0 
+						
+			$$
+			
+		</p>and the stabilizing feedback gain is given by:
+		$$
+		K=ZW^{-1}
+		$$
+	
+		
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Robust Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					
+			A closed-loop discrete-time state-space system is <b>asymptotically stable</b> if 
+			there exists a matrix $W=W^\trp \in\mathbb{R}^{n\times n}$ and $Z\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup2">
+			$$
+						W\succ 0 \\
+						WA_i^\trp+A_iW-Z^\trp B_i^\trp-B_iZ\succ 0 ,\quad i=1,\ldots,N
+						
+			$$
+			
+		</p>and the stabilizing feedback gain is given by:
+		$$
+		K=ZW^{-1}
+		$$
+	
+		
+			</center>
+					</div>
+
+		</section>
+
+
+			
+
+			
+			
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Homework (T6)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				<p class="">
+					<ul>
+						<li>Design a state feedback control using LMI and Lyapunov stability condition for the inverted pendulum in discrete time.</li>
+						<li>Next, consider an uncertainty in the mass of the inverted pendulum. Implement a MATLAB script to stabilize the polytopic uncertain inverted pendulum $(A,B)(\alpha)$ in discrete-time using Yalmip and SeDuMi.</li>
+						<li>Start with small uncertainty and increase until quadratic stability LMI becomes unfeasible.</li>
+				</ul>
+				</p>
+				<img src="images/pendulum.png" alt="">
+				</center>
+						</div>
+	
+			</section>
+
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>

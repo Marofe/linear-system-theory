@@ -1,0 +1,1084 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/usp.png"/> </div>
+					<div class="title">
+					<h2>Introduction to the course:<Br> Linear Systems Theory<br>SEL5911</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">February 26, 2025</p>
+				</div>
+
+				</section>
+				<section>
+
+				<div class="slide-title">
+					<h2>Objectives:</h2>
+				</div>
+				<div class="slide-content">
+					<p>The objectives of this class are:
+						<ul>
+							<li><b>Introduce the course</b>: structure and evaluation methods;</li> 
+							<li><b>Overview</b> of the concepts of linear system theory;</li> 
+							<li>Highlight the <b>importance</b> of linear system theory for research in electrical engineering;</li>
+						</ul>
+						
+						</p>
+						</div>
+
+			</section>
+
+
+		
+
+
+			
+			<section>
+				<div class="slide-title">
+					<h2>SEL5911 - Theory of Linear Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<h3>Meetings:</h3>
+						<p><ul>
+							<li>Every wednesday at 9:00 A.M.</li>
+						</ul>
+						
+					</p>
+					<p>Location: ROOM 3 - SEL/EESC</p>
+						<p>&nbsp;</p>
+						
+					
+					<p>Contact: marofe@usp.br</p>
+			
+					
+				</center>
+
+				</div>
+
+			</section>
+
+
+			<section>
+				<div class="slide-title">
+					<h2>Topics</h2>
+				</div>
+				
+				<div class="slide-content">
+
+					<ul>
+						<li><b>State-Space Representation of Dynamic Systems;</b></li>
+						<li><b>Canonical Forms, Jordan Forms and Similarity Transformations;</b></li>
+						<li><b>Detectability and Stabilizability of Linear Systems;</b></li>
+						<li><b>Controllability and Observability of Linear Systems;</b></li>
+						<li><b>Lyapunov Stability Analysis;</b></li>
+						<li><b>Linear Quadratic Regulator (LQR) Design;</b></li>
+						<li><b>State Estimation with the Kalman Filter;</b></li>
+						<li><b>Robust Control using H<sub>2</sub> and H<sub>&infin;</sub> Methods;</b></li>
+						<li><b>Applications of Linear System Theory in Electrical Engineering.</b></li>
+					</ul>
+					
+						
+
+				</div>
+
+			</section>
+
+
+			<section>
+				<div class="slide-title">
+					<h2>Assessment</h2>
+				</div>
+				<div class="slide-content">
+					<p>&nbsp;</p>
+					<p>Computational Task in MATLAB/Simulink and theoretical exercises:</p>
+				
+						
+						<p>
+							$T_1,T_2,...T_n \Rightarrow T=\frac{T_1+T_2+\cdots+T_n}{n}$</li>
+						
+			</p>
+				<p>Overall Test:</p>
+				
+				$
+					P: 0\le P \le 10
+				$
+				
+
+
+				<p>The final score is given by the average:$$MF=\frac{T+P}{2}$$
+	
+					 </p>					
+
+				</div>
+
+			</section>
+
+
+
+			<section>
+				<div class="slide-title">
+					<h2>Grade</h2>
+				</div>
+				<div class="slide-content">
+	
+					<table border="1">
+						<tr>
+							<th>Score (0-10)</th>
+							<th>Letter Grade</th>
+						</tr>
+						<tr>
+							<td>8.5 – 10.0</td>
+							<td>A (Excellent)</td>
+						</tr>
+						<tr>
+							<td>7.0 – 8.4</td>
+							<td>B (Good)</td>
+						</tr>
+						<tr>
+							<td>5.0 – 6.9</td>
+							<td>C (Satisfactory)</td>
+						</tr>
+						<tr>
+							<td>Below 5.0</td>
+							<td>R (Fail)</td>
+						</tr>
+					</table>
+									
+					<p align="center">Obs: At least 75% attendance.</p>
+				</div>
+
+			</section>
+		
+
+
+			<section  data-transition="slide">
+				<div class="slide-title">
+					<h2>Content</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+
+					<a href="https://edisciplinas.usp.br/course/view.php?id=126167" target="_blank">
+						<div style="background-color: rgb(55, 147, 201);border-radius: 50%;"><img src="../images/edisciplina.png" width="400"></div>
+						https://edisciplinas.usp.br/course/view.php?id=126167</a> <BR>[password: sel]
+						<p>&nbsp;</p>	
+						<ul>
+							<li>Slides;</li>
+							<li>Class notes;</li>
+							<li>Matlab scripts;</li>
+							<li>References, etc...</li>
+						</ul>
+					
+										
+				</center>
+
+				</div>
+
+			</section>
+
+			<section  data-transition="slide">
+				<div class="slide-title">
+					<h2>
+					References
+					</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+											<ul>
+							<li>[1] Chen, C. T., Linear system theory and design, Oxford University Press, 3rd edition, 1999.  </li>
+<li>[2] J.C. Geromel and A.G.B. Palhares. Análise linear de sistemas dinâmicos. Editora Blucher, 
+2019. </li>
+<li>
+[3] H. KWAKERNAAK and R. SIVAN. Linear Optimal Control Systems, Willey, 1972. </li>
+<li>
+[4] S. BOYD, L. GHAOUI, E. FERON, and V. BALAKRISHNAN. Linear Matrix Inequalities in System 
+and Control Theory. SIAM, 1994. </li>
+<li>
+[5] Michel, Anthony N., Antsaklis, Panos J., A Linear Systems Primer, Birkhauser, 2007.</li>
+						</ul>
+
+				</center>
+
+				</div>
+
+			</section>
+
+
+
+		
+
+
+
+			<section  data-transition="slide">
+				<div class="slide-title">
+					<h2>Questions?</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<img src="../images/duvida.jpg" width="800">
+					
+					
+					
+				</center>
+
+				</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Matlab Course</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				<img src="../images/matlab_onramp.png" width="750"><br>
+				<a href="https://matlabacademy.mathworks.com/details/matlab-onramp/gettingstarted" target="_blank">https://matlabacademy.mathworks.com/details/matlab-onramp/gettingstarted</a>
+			</center>
+						</div>
+
+			</section>
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Simulink Course</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				<img src="../images/simulink_onramp.png" width="750"><br>
+				<a href="https://matlabacademy.mathworks.com/details/simulink-onramp/simulink" target="_blank">https://matlabacademy.mathworks.com/details/simulink-onramp/simulink</a>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Introduction</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup">"Linear system theory is a vast field."<br> by Chen, C. T.</p>
+						<img src="../images/pendulo_invertido.png" width="350">
+			</center>
+						</div>
+
+			</section>
+
+
+				
+			<section>
+				
+				<div class="slide-title">
+					<h2>Linearized Mathematical Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+				<img src="../images/linearizacao.png" alt="">
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Introduction</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup">"Linear system theory is a vast field."<br> by Chen, C. T.</p>
+						<b>Goal of this course:</b>
+						<ul>
+							<li>Develop a solid understanding of linear dynamics systems;</li>
+				<li>Eye toward numerical computation;</li>
+				<li>Explore Matlab/Simulink as a tool to work with linear systems concepts.</li>
+				<li>Conclude with design of robust controllers using LMIs for linear systems.</li>
+						</ul>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>
+					Analytical Approach
+					</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						The analytical study of physical systems consists of <b>four parts</b>: 
+						<p>&nbsp;</p>
+						<ul>
+							<li><b>Modeling</b>;</li>
+							<li><b>Mathematical descriptions</b>;</li>
+							<li><b>Analysis</b>;</li>
+							<li><b>Design</b>.</li>
+						</ul>
+					
+			 
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+			
+				<div class="slide-title">
+					<h2>Linear State Space Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+					<p class="lightup">
+						
+					$$
+					\dot{x}(t)=Ax(t)+Bu(t)\\
+						y(t)=Cx(t)+Du(t)
+					$$
+				</p>
+				$$
+			x\in\mathbb{R}^n \to \text{states} \quad
+			u\in\mathbb{R}^m \to \text{input}\\
+			A\in\mathbb{R}^{n\times n}\to \text{dynamic matrix}\quad
+			B\in\mathbb{R}^{n\times m}\to \text{input matrix}\\
+			y\in\mathbb{R}^p \to \text{output}\\
+			C\in\mathbb{R}^{p\times n}\to \text{output matrix}\\
+			D\in\mathbb{R}^{p\times m}\to \text{direct transmission}\\
+			$$
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Linear State Space Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										<p>&nbsp;</p>
+		
+				<img src="../images/modelo_ss.png" width="1100">
+			
+		
+				</center>
+						</div>
+	
+			</section>
+
+		
+			<section>
+			
+				<div class="slide-title">
+					<h2>Linear State Space Model (discrete)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										
+				<p class="lightup">
+	
+					$$
+					\begin{aligned} 
+					x_{k+1}&=A_dx_k+B_du_k\\ 
+					y_k&=Cx_k+Du_k
+					\end{aligned}
+					$$
+				</p>
+			
+				$$
+				x\in\mathbb{R}^n \to \text{states} \quad
+				u\in\mathbb{R}^m \to \text{input}\\
+				A_d\in\mathbb{R}^{n\times n}\to \text{dynamic matrix}\quad
+				B_d\in\mathbb{R}^{n\times m}\to \text{input matrix}\\
+				y\in\mathbb{R}^p \to \text{output}\\
+				C\in\mathbb{R}^{p\times n}\to \text{output matrix}\\
+				D\in\mathbb{R}^{p\times m}\to \text{direct transmission}\\
+				$$
+			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+	
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Linear State Space Model (discrete)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										<p>&nbsp;</p>
+				<img src="../images/modelo_ss_discreto.png" width="1000">
+			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Matrix product with matrix
+						<p>&nbsp;</p>
+						$$
+						(AB)_{n\times p}=\begin{bmatrix} 
+						- & (l_1^A)^\trp & - \\
+						- & (l_2^A)^\trp & - \\
+						&\vdots \\
+						- & (l_n^A)^\trp & - \\
+						\end{bmatrix}\begin{bmatrix} 
+						| & |  & \cdots & |\\
+						c_1^B &  c_2^B & \cdots & c_p^B \\
+						| & |  & \cdots & |
+						\end{bmatrix}
+						$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Matrix product with matrix
+						<p>&nbsp;</p>
+						$$
+						(AB)_{n\times p}=\begin{bmatrix} 
+						\langle l_1^A, c_1^B\rangle & \langle l_1^A, c_2^B\rangle & \cdots & \langle l_1^A, c_p^B\rangle\\
+						\langle l_2^A, c_1^B\rangle & \langle l_2^A, c_2^B\rangle & \cdots & \langle l_2^A, c_p^B\rangle\\
+						\vdots & \vdots & \ddots & \vdots \\
+						\langle l_n^A, c_1^B\rangle & \langle l_n^A c_2^B\rangle & \cdots & \langle l_n^A, c_p^B\rangle\\
+						\end{bmatrix}
+						$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Matrix product with matrix
+						<p>&nbsp;</p>
+						$$
+						(AB)_{n\times p}=\begin{bmatrix} 
+						| & |  & \cdots & |\\
+						c_1^A &  c_2^A & \cdots & c_m^A \\
+						| & |  & \cdots & |
+						\end{bmatrix}
+						\begin{bmatrix} 
+						- & (l_1^B)^\trp & - \\
+						- & (l_2^B)^\trp & - \\
+						&\vdots \\
+						- & (l_m^B)^\trp & - \\
+						\end{bmatrix}
+						$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Matrix product with matrix
+						<p>&nbsp;</p>
+						$$
+						(AB)_{n\times p}=c_1^A(l_1^B)^\trp +c_2^A(l_2^B)^\trp+\cdots+c_m^A(l_m^B)^\trp
+						$$
+				Therefore,
+				$$
+						(AB)_{n\times p}=\sum_{k=1}^m \begin{bmatrix}
+						|\\
+						c_k^A \\
+						|
+						\end{bmatrix}_{n\times 1}\cdot \begin{bmatrix}
+						- & (l_k^B)^\trp & - 
+						\end{bmatrix}_{1\times p}
+						$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Matrix product with vector
+						$$
+						A\in\mathbb{R}^{n\times n},\quad x\in\mathbb{R}^n
+						$$
+				Therefore,
+				$$
+						Ax = \begin{bmatrix} 
+						| & |  & \cdots & |\\
+						c_1^A &  c_2^A & \cdots & c_n^A \\
+						| & |  & \cdots & |
+						\end{bmatrix}\begin{bmatrix}
+						x_1\\
+						x_2\\
+						\vdots \\
+						x_n
+						\end{bmatrix}=\sum_{j=1}^n \begin{bmatrix} 
+						|\\
+						c_j^A \\
+						| 
+						\end{bmatrix}x_j
+						$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Matrix product with vector
+						$$
+						A\in\mathbb{R}^{n\times n},\quad x\in\mathbb{R}^n
+						$$
+				Therefore,
+				$$
+						Ax =\begin{bmatrix} 
+						- & (l_1^A)^\trp & - \\
+						- & (l_2^A)^\trp & - \\
+						&\vdots \\
+						- & (l_n^A)^\trp & - \\
+						\end{bmatrix}\begin{bmatrix}
+						x_1\\
+						x_2\\
+						\vdots \\
+						x_n
+						\end{bmatrix}=\begin{bmatrix} 
+						\langle l_1^A, x\rangle\\
+						\langle l_2^A, x\rangle\\
+						\vdots \\
+						\langle l_n^A, x\rangle\\
+						\end{bmatrix}
+						$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Non-commutativity:
+						$$
+					AB \neq BA
+						$$
+			Transpose:
+			$$
+						(AB)^\trp = B^\trp A^\trp 
+			$$
+			Inverse: 
+			$$
+						(AB)^{-1}=B^{-1}A^{-1}
+			$$
+				
+				</center>
+				   </div>
+	
+			</section>
+
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup">
+						Symmetric matrix:
+						$$
+					A^T = A
+						$$
+					</p>
+		<p>	For any $A\in\mathbb{R}^{n\times n}$:</p>
+
+			$$
+						A+A^T \quad \text{is symmetric}
+			$$
+			$$
+						AA^T \quad \text{is symmetric}
+			$$
+			
+				
+				</center>
+				   </div>
+	
+			</section>
+
+
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup">
+						Anti-Symmetric matrix:
+						$$
+					A^T = -A
+						$$
+					</p>
+		<p>	For any $A\in\mathbb{R}^{n\times n}$:</p>
+
+			$$
+						A+A^T = 0 
+			$$
+			$$
+						AA^T =-A^2 
+			$$
+			
+				
+				</center>
+				   </div>
+	
+			</section>
+
+
+
+			
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup">
+						Orthogonal matrix:
+						$$
+					A^TA=AA^T = I
+						$$
+					</p>
+					Example: rotation matrices!
+		
+				</center>
+				   </div>
+	
+			</section>
+
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup">
+Trace Operator:
+						$$
+					\text{tr}[A]=\sum_{i=1}^n a_{ii}=\sum_{i=1}^n	\lambda_i
+						$$
+					</p>
+					Trace is linear and commutative:
+					$$
+					\text{tr}[\alpha A+\beta B]=\alpha\text{tr}[A]+\beta\text{tr}[B]\\
+					\text{tr}[AB]=\text{tr}[BA]
+					$$
+		
+				</center>
+				   </div>
+	
+			</section>
+
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup">
+Determinant Operator:
+						$$
+					\text{det}[A]=\prod_{i=1}^n	\lambda_i
+						$$
+					</p>
+					Determinant is not linear but is commutative (for $A,B$ square matrices):
+					$$
+					\text{det}[\alpha A+\beta B]\neq \alpha\text{det}[A]+\beta\text{det}[B]\\
+					\text{det}[AB]=\text{det}[BA]=\text{det}[A]\text{det}[B]
+					$$
+		
+				</center>
+				   </div>
+	
+			</section>
+
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup">
+			Eigenvalues and Eigenvectors:
+			$$
+						Av=\lambda v
+			$$
+		</p>
+			Eigenvalue Operator:
+			$$
+						\lambda\{A\}=\{\lambda_1,\lambda_2,\ldots,\lambda_n\}
+			$$
+			Matrix (semi)-positive definite: 
+			$$
+						A\ge 0 \Rightarrow \lambda \{A\} \ge 0
+			$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Spectral decomposition: 
+			$$
+						A=V\Lambda V^{-1}
+			$$
+	where
+			$$
+	\begin{aligned} 
+	V=\begin{bmatrix}
+	| & | & \cdots & |\\
+	v_1 & v_2 & \cdots & v_n\\
+	| & | & \cdots & |\\
+	\end{bmatrix},\quad \Lambda = \begin{bmatrix}
+	\lambda_1 \\
+	& \lambda_2 \\
+	& & \ddots \\
+	& & & \lambda_n\\
+	\end{bmatrix}
+	\end{aligned}
+			$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Spectral decomposition: 
+			$$
+						A=V\Lambda V^{-1}
+			$$
+	where
+			$$
+	\begin{aligned} 
+	A^{-1} = V\begin{bmatrix}
+	\frac{1}{\lambda_1} \\
+	& \frac{1}{\lambda_2} \\
+	& & \ddots \\
+	& & & \frac{1}{\lambda_n}\\
+	\end{bmatrix}V^{-1}
+	\end{aligned}
+			$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Spectral decomposition: 
+			$$
+						A=V\Lambda V^{-1}
+			$$
+	where
+			$$
+	\begin{aligned} 
+	A^n = V\begin{bmatrix}
+	\lambda_1^n \\
+	& \lambda_2^n \\
+	& & \ddots \\
+	& & & \lambda_n^n\\
+	\end{bmatrix}V^{-1}
+	\end{aligned}
+			$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Linear Algebra Review</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Spectral decomposition: 
+			$$
+						A=V\Lambda V^{-1}
+			$$
+	where
+			$$
+	\begin{aligned} 
+	e^A = V\begin{bmatrix}
+	e^{\lambda_1} \\
+	& e^{\lambda_2} \\
+	& & \ddots \\
+	& & & e^{\lambda_n}\\
+	\end{bmatrix}V^{-1}
+	\end{aligned}
+			$$
+				
+				</center>
+				   </div>
+	
+			</section>
+	
+	
+			<section>
+	
+				<div class="slide-title">
+					<h2>Solution of Linear State Space Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+<p class="lightup">
+						$$
+						\dot{x}(t)=Ax(t)\quad \text{with} \quad x(0)=x_0
+						$$
+					</p>
+					$$
+					x(t)=e^{At}x_0
+					$$
+				Matrix Exponential: 
+			$$
+						e^{At}=I+At+\frac{1}{2!}A^2t^2+\frac{1}{3!}A^3t^3+\cdots
+			$$
+	
+			
+				</center>
+				   </div>
+	
+			</section>
+
+
+			<section>
+	
+				<div class="slide-title">
+					<h2>Computation of $e^{At}$</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+			<img src="../images/19_dubious_way_exp.png" width="650" style="box-shadow: 5px 5px 15px rgba(0,0,0,0.3);"><br>
+			<h4><a href="https://doi.org/10.1137/1020098" target="_blank">https://doi.org/10.1137/1020098</a></h4>
+				</center>
+				   </div>
+				
+			</section>
+
+
+		
+
+			
+			<section>
+	
+				<div class="slide-title">
+					<h2>Computation of $e^{At}$</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+			<img src="../images/19_dubious_way_exp_25_years_later.png" width="650" style="box-shadow: 5px 5px 15px rgba(0,0,0,0.3);"><br>
+			<h4><a href="https://doi.org/10.1137/S00361445024180" target="_blank">https://doi.org/10.1137/S00361445024180</a></h4>
+				</center>
+				   </div>
+				
+			</section>
+		
+
+
+			
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Homework (T1)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+										<p>&nbsp;</p>
+										<p class="lightup">
+				Find an example of a linear system in your area of interest. 
+				Describe the system in terms of the state-space model.
+			</p>
+<ul>
+	<li>Give a brief explanation of the system and the matrices.</li>
+	<li>Use Latex;</li>
+	<li>Upload the homework (pdf) on the e-discipline platform. </li>
+</ul>
+			
+
+			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>

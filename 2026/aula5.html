@@ -1,0 +1,1123 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>Stability of Linear Systems</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">April 02, 2025</p>
+				</div>
+
+				</section>
+
+				
+				<section>
+
+				<div class="slide-title">
+					<h2>Objectives:</h2>
+				</div>
+				<div class="slide-content">
+					<p>The objectives of this class are:
+						<ul>
+							<li>Cover the ideas of Lyapunov Stability for linear systems;</li> 
+							<li>Introduce the concepts of polytopic uncertainty;</li> 
+							<li>Analyze the quadratic stability condition;</li>
+							<li>Show examples</li>
+						</ul>
+						
+						</p>
+						</div>
+
+			</section>
+
+
+	
+										
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="lightup">
+						Lemma: The par $(A,B)$ is controllable if and only if the matrix 
+						$$
+						\mathcal{C}=\begin{bmatrix}
+B & AB & \cdots & A^{n-1}B	
+\end{bmatrix}\in\mathbb{R}^{n\times mn}
+$$
+has full rank.
+					</p>
+							
+					
+				</center>
+						</div>
+	
+			</section>
+	
+
+				
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	<p class="lightup2">
+					$$					
+				\Delta x\in \mathcal{Range}\{\mathcal{C}\},\quad \forall \Delta x \in \mathbb{R}^n
+			
+		$$
+	</p>
+		<img src="../images/controlabilidade2.png" width="620">
+				</center>
+	
+	
+						</div>
+	
+			</section>
+	
+	
+		
+	
+			
+		
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Controllability</h2>
+				</div>
+				<div class="slide-content">
+<p>&nbsp;</p>
+					<center>
+						<p class="lightup">
+							Linear System of equations
+					$$					
+				\Delta x = \mathcal{C}\vec{\gamma}
+		$$
+		such as $\Delta x \in\mathbb{R}^n$, $\mathcal{C}\in\mathbb{R}^{n\times mk}$ and $\vec{\gamma}\in\mathbb{R}^{mk}$.
+	</p>
+	$$
+	\vec{\gamma}=?
+	$$
+				</center>
+						</div>
+	
+			</section>
+	
+	
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability</h2>
+				</div>
+				<div class="slide-content">
+	
+					<center>
+						<p>&nbsp;</p>
+						<p class="lightup2">
+						Lemma: The par $(A,C)$ is observable if and only if the matrix 
+						$$
+						\mathcal{O}=\begin{bmatrix}
+						C\\ 
+						CA\\
+						\vdots \\
+						CA^{n-1}
+						\end{bmatrix}\in\mathbb{R}^{pn\times n}
+$$
+has full rank.
+					</p>
+							
+					
+				</center>
+						</div>
+	
+			</section>
+	
+	
+
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	<p class="lightup2">
+					$$					
+				\Delta y\in \mathcal{Range}\{\mathcal{O}\},\quad \forall \Delta y \in \mathbb{R}^{pk}
+			
+		$$
+	</p>
+		<img src="../images/observabilidade.png" width="620">
+				</center>
+	
+	
+						</div>
+	
+			</section>
+
+
+
+	
+	
+			
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Observability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+	Suppose $x_k\in \mathbb{R}^n$ and $y_k\in\mathbb{R}^p$, then									
+				$$
+				\begin{aligned} 
+				\underbrace{\begin{bmatrix}
+				y_0-Du_0\\
+				y_1-CBu_0-Du_1\\
+				\vdots\\
+				y_{k-1}-C\sum_{j=0}^{k-2}A^{k-2-j}Bu_j-Du_{k-1}
+				\end{bmatrix}_{pk\times 1}}_{\Delta y}
+				&=
+				\mathcal{O}_{pk \times n}x_0
+				\end{aligned}
+				$$
+	
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Full Observability</h2>
+				</div>
+				<div class="slide-content">
+<p>&nbsp;</p>
+					<center>
+						<p class="lightup">
+							Linear System of Equations
+					$$					
+				\Delta y = \mathcal{O}x_0
+		$$
+		such as $\Delta y \in\mathbb{R}^{pk}$, $\mathcal{O}\in\mathbb{R}^{pk\times n}$ and $x_0\in \mathbb{R}^{n}$.
+	</p>
+	$$
+	x_0=?
+	$$
+				</center>
+						</div>
+	
+			</section>
+
+
+
+
+			<section>
+			
+				<div class="slide-title">
+					<h2>Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Consider a state-space system in the form
+						$$
+						x_{k+1}=A_dx_k
+						$$
+										
+				<p class="lightup">
+				The state-space system is stable in discrete time if 
+					$$
+					\begin{aligned} 
+					|\lambda\{A_d\}| < 1
+					\end{aligned}
+					$$
+				</p>
+			
+			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+			
+				<div class="slide-title">
+					<h2>Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Consider a state-space system in the form
+						$$
+						\dot{x}=Ax
+						$$
+										
+				<p class="lightup">
+				The state-space system is stable in continuous time if 
+					$$
+					\begin{aligned} 
+					\text{real}(\lambda\{A\}) < 0
+					\end{aligned}
+					$$
+				</p>
+			
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Stability: continuous vs discrete</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+		<p>&nbsp;</p>
+				<img src="../images/estabilidade_discreta.png" width="950">
+			
+			
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Energy function:
+	
+				<p class="lightup2">
+				If there exists a function $V:\mathbb{R}^n\to \mathbb{R}$ such that 
+				$$
+						V(x_k)>0,\quad \forall x_k\in\mathbb{R}^n \\
+						V(x_k)=0 \Leftrightarrow x_k=0
+				$$
+				and 
+	$$
+	V(x_{k+1})-V(x_{k}) \le 0
+	$$
+	then the system is stable (BIBO).
+</p>
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Energy function:
+	
+				<p class="lightup2">
+				If there exists a function $V:\mathbb{R}^n\to \mathbb{R}$ such that 
+				$$
+						V(x_k)>0,\quad \forall x_k\in\mathbb{R}^n \\
+						V(x_k)=0 \Leftrightarrow x_k=0
+				$$
+				and 
+	$$
+	V(x_{k+1})-V(x_{k}) < 0
+	$$
+	then the system is <b>asymptotically</b> stable to zero.
+	</p>
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<!-- <section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				Energy function:
+	
+				<br>
+				For <b>linear systems</b>, the energy function
+				<p class="lightup">
+				$$
+						V(x_k)=x_k^\trp P x_k,\quad P=P^\trp \succ 0
+				$$
+			</p>
+				is necessary and sufficient to certify <b>stability (BIBO)</b>!
+				</center>
+						</div>
+	
+			</section>
+	 -->
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				Energy function:
+	
+				<br>
+				For <b>linear systems</b>, the energy function
+				<p class="lightup">
+					$$
+							V(x_k)=x_k^\trp P x_k,\quad P=P^\trp \succ 0
+					$$
+				</p>
+				
+				</center>
+						</div>
+	
+			</section>
+	
+	
+				
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Energy function:
+	
+				<br>
+				$$
+							V(x_{k+1})-V(x_k)=x_{k+1}^\trp Px_{k+1}-x_k^\trp Px_k < 0
+				$$
+				Since,
+				$$
+						x_{k+1}=A_dx_k
+				$$
+				then
+						$$
+						A_d^\trp PA_d -P < 0
+						$$
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+	
+	
+					
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				A discrete-time state-space system is <b>asymptotically stable</b> if and only if
+				there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ such that
+				<p class="lightup">
+				$$
+							P\succ 0 \\
+							A_d^\trp PA_d -P \prec 0
+				$$
+				
+			</p>
+			<b>Linear Matrix Inequality (LMI)</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				A discrete-time state-space system is <b>asymptotically stable</b> if and only if
+				there exists a matrix $P=P^\trp\in\mathbb{R}^{n\times n}$ such that
+				<p class="lightup">
+				$$
+							P\succ 0, \\
+							A_d^\trp PA_d -P = -Q, \quad Q\succ 0
+				$$
+				
+			</p>
+	
+				<b>Linear system of equations!</b>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Kronecker product</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						Define the vectorization operator $\text{vec}(A)$ as the vector formed by stacking the columns of $A$ on top of each other.
+						<p class="lightup">
+						$$
+						\text{vec}(ABC)=(C^\trp \otimes A)\text{vec}(B)
+						$$
+					</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				
+				$$
+							\text{vec}(A_d^\trp PA_d -P) = -\text{vec}(Q)\\
+				$$
+				Thus,
+				<p class="lightup">
+					$$
+					\Rightarrow \underbrace{(A_d^\trp \otimes A_d-I)}_{M}\underbrace{\text{vec}(P)}_{p} = \underbrace{-\text{vec}(Q)}_{q}
+					$$
+				</p>			
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				
+				$$
+							\text{vec}(A_d^\trp PA_d -P) = -\text{vec}(Q)\\
+				$$
+				Thus,
+				<p class="lightup">
+					$$
+					p=M^{-1}q
+					$$
+				</p>			
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Energy function:
+	
+				<p class="lightup2">
+				If there exists a function $V:\mathbb{R}^n\to \mathbb{R}$ such that 
+				$$
+						V(x)>0,\quad \forall x\in\mathbb{R}^n \\
+						V(x)=0 \Leftrightarrow x=0
+				$$
+				and 
+	$$
+	\dot{V}(x) \le 0
+	$$
+	then the system is stable (BIBO).
+</p>
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Energy function:
+	
+				<p class="lightup2">
+				If there exists a function $V:\mathbb{R}^n\to \mathbb{R}$ such that 
+				$$
+						V(x)>0,\quad \forall x\in\mathbb{R}^n \\
+						V(x)=0 \Leftrightarrow x=0
+				$$
+				and 
+	$$
+	\dot{V}(x) < 0
+	$$
+	then the system is <b>asymptotically</b> stable to zero.
+	</p>
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<!-- <section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				Energy function:
+	
+				<br>
+				For <b>linear systems</b>, the energy function
+				<p class="lightup">
+				$$
+						V(x)=x^\trp P x,\quad P=P^\trp \succeq 0
+				$$
+			</p>
+				is necessary and sufficient to certify <b>stability (BIBO)</b>!
+				</center>
+						</div>
+	
+			</section> -->
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				Energy function:
+	
+				<br>
+				For <b>linear systems</b>, the energy function
+				<p class="lightup">
+					$$
+							V(x)=x^\trp P x,\quad P=P^\trp \succ 0
+					$$
+				</p>
+		
+				</center>
+						</div>
+	
+			</section>
+	
+	
+				
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Energy function:
+	
+				<br>
+				$$
+							\dot{V}(x)= \frac{dV}{dx}\dot{x}
+				$$
+				Since,
+				$$
+						\dot{x}=Ax
+				$$
+				then
+						$$
+						A^\trp P+PA < 0
+						$$
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+	
+	
+					
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				A continuous-time state-space system is <b>asymptotically stable</b> if and only if
+				there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ such that
+				<p class="lightup">
+				$$
+							P\succ 0 \\
+							A^\trp P+PA \prec 0
+				$$
+				
+			</p>
+			<b>Linear Matrix Inequality (LMI)</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				A discrete-time state-space system is <b>asymptotically stable</b> if and only if
+				there exists a matrix $P=P^\trp\in\mathbb{R}^{n\times n}$ such that
+				<p class="lightup">
+				$$
+							P\succ 0, \\
+							A^\trp P+PA = -Q, \quad Q\succ 0
+				$$
+				
+			</p>
+	
+				<b>Linear system of equations!</b>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Kronecker product</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						Define the vectorization operator $\text{vec}(A)$ as the vector formed by stacking the columns of $A$ on top of each other.
+						<p class="lightup">
+						$$
+						\text{vec}(ABC)=(C^\trp \otimes A)\text{vec}(B)
+						$$
+					</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				
+				$$
+							\text{vec}(A^\trp P+PA) = -\text{vec}(Q)\\
+				$$
+				Thus,
+				<p class="lightup">
+					$$
+					\Rightarrow \underbrace{(I \otimes A^\trp + A^\trp\otimes I)}_{M}\underbrace{\text{vec}(P)}_{p} = \underbrace{-\text{vec}(Q)}_{q}
+					$$
+				</p>			
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				
+				$$
+				\text{vec}(A^\trp P+PA) = -\text{vec}(Q)\\
+				$$
+				Thus,
+				<p class="lightup">
+					$$
+					p=M^{-1}q
+					$$
+				</p>			
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Uncertain Matrix $A$: example</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+						<p>&nbsp;</p>
+						<p class="lightup">
+							RLC Circuit:
+					$$
+						\begin{bmatrix}
+						\dot{x}_1 \\
+						\dot{x}_2
+						\end{bmatrix}=\begin{bmatrix}
+						0 & 1 \\
+						-\frac{1}{LC} & -\frac{R}{L}
+						\end{bmatrix} \begin{bmatrix}
+						x_1 \\
+						x_2
+						\end{bmatrix}+\begin{bmatrix}
+						0 \\
+						\frac{1}{LC}
+						\end{bmatrix}u
+						$$
+						</p>
+						Suppose 
+						$$
+						R_\text{min}\le R\le R_\text{max}
+						$$
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Polytopic Matrix $A$</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup2">
+						Consider the uncertain matrix $A$ as a linear combination of $m$ matrices $A_i$:
+						$$
+						A(\alpha)=\alpha_1A_1+\alpha_2A_2+\cdots+\alpha_NA_N
+						$$
+						where $\alpha_i\in\mathbb{R}^+$ and $\sum_{i=1}^N \alpha_i=1$. Then $A(\alpha)$ is called a <b>polytopic</b> uncertain matrix.						
+						</p>
+						Dynamic system:
+						$$
+							\dot{x}=A(\alpha)x
+						$$
+				</center>
+						</div>
+	
+			</section>
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Robust Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						
+				A continuous-time polytopic uncertain state-space system is <b>asymptotically stable</b> if and only if
+				
+				<p class="lightup">
+				$$
+							\exists P(\alpha)=P(\alpha)^\trp \succ 0 \\
+							A(\alpha)^\trp P(\alpha)+P(\alpha)A(\alpha) \prec 0\\
+							\forall \alpha \in \Lambda_N=\{\alpha \in \mathbb{R}^N:\sum_i\alpha_i=1 \text{ and } \alpha_i\ge 0\}
+				$$
+				
+			</p>
+			<b>Parameter-dependent LMI!</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Quadratic Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						
+				A continuous-time polytopic uncertain state-space system is <b>asymptotically stable</b> if
+				
+				<p class="lightup">
+				$$
+							\exists P=P^\trp \succ 0 \\
+							A(\alpha)^\trp P+PA(\alpha) \prec 0\\
+							\forall \alpha \in \Lambda_N=\{\alpha \in \mathbb{R}^N:\sum_i\alpha_i=1 \text{ and } \alpha_i\ge 0\}
+				$$
+				
+			</p>
+			<b>Parameter-dependent LMI!</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Quadratic Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						
+				A continuous-time polytopic uncertain state-space system is <b>asymptotically stable</b> if
+				
+				<p class="lightup">
+				$$
+							\exists P=P^\trp \succ 0 \\
+							A_1^\trp P+PA_1 \prec 0\\
+							A_2^\trp P+PA_2 \prec 0\\
+							\vdots \\
+							A_N^\trp P+PA_N \prec 0\\
+				$$
+				
+			</p>
+			<b>LMI!</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Quadratic Stability: discrete time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						
+				A discrete-time polytopic uncertain state-space system is <b>asymptotically stable</b> if
+				
+				<p class="lightup">
+				$$
+							\exists P=P^\trp \succ 0 \\
+							A_1^\trp PA_1-P \prec 0\\
+							A_2^\trp PA_2-P \prec 0\\
+							\vdots \\
+							A_N^\trp PA_N-P \prec 0\\
+				$$
+				
+			</p>
+			<b>LMI!</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Quadratic Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+
+				Consider the uncertain matrix $A$ as a linear combination of $N$ matrices $A_i$ that changes with time:
+				<p class="">
+				$$
+						\dot{x}=A(\alpha(t))x
+				$$
+				</p>
+The system is <b>asymptotically stable</b> if
+				
+				<p class="lightup2">
+				$$
+							\exists P=P^\trp \succ 0 \\
+							A_i^\trp P+PA_i \prec 0\\
+							\forall i=1,\ldots, N
+				$$
+				
+			</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Homework (T5)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				<p class="lightup">
+					i) Develop a MATLAB routine that plots the root locus of the matrix $A(\alpha)$ by testing various values of
+							$\alpha$ for $N=3$ random vertices.
+
+							<Br>
+					ii) After, implement a script in MATLAB to check the stability of $A(\alpha)$ using Yalmip+SeDuMi
+				</p>
+		See example in the e-discipline.
+				</center>
+						</div>
+	
+			</section>
+
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>
