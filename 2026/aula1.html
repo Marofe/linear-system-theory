@@ -21,7 +21,7 @@
 				
 				<section data-hide-slide-number="true" data-transition="slide">
 					<div class="logo"><img src="../images/sel.png"/> </div>
-					<div class="logo2"><img src="../images/usp.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
 					<div class="title">
 					<h2>Introduction to the course:<Br> Linear Systems Theory<br>SEL5911</h2>
 					</div>
@@ -30,7 +30,7 @@
 				</div>
 					<div class="advisor">
 					
-					<p style="text-align: center;font-size: 0.8em;">February 26, 2025</p>
+					<p style="text-align: center;font-size: 0.8em;">February 23, 2026</p>
 				</div>
 
 				</section>
@@ -39,13 +39,15 @@
 				<div class="slide-title">
 					<h2>Objectives:</h2>
 				</div>
+				<p>&nbsp;</p>
 				<div class="slide-content">
 					<p>The objectives of this class are:
 						<ul>
 							<li><b>Introduce the course</b>: structure and evaluation methods;</li> 
 							<li><b>Overview</b> of the concepts of linear system theory;</li> 
 							<li>Highlight the <b>importance</b> of linear system theory for research in electrical engineering;</li>
-						</ul>
+				   		    <li>Develop a reasoning behind state-space models;</li> 
+							</ul>
 						
 						</p>
 						</div>
@@ -66,7 +68,7 @@
 						<p>&nbsp;</p>
 						<h3>Meetings:</h3>
 						<p><ul>
-							<li>Every wednesday at 9:00 A.M.</li>
+							<li>Every monday at 10:00 A.M.</li>
 						</ul>
 						
 					</p>
@@ -99,8 +101,29 @@
 						<li><b>Lyapunov Stability Analysis;</b></li>
 						<li><b>Linear Quadratic Regulator (LQR) Design;</b></li>
 						<li><b>State Estimation with the Kalman Filter;</b></li>
-						<li><b>Robust Control using H<sub>2</sub> and H<sub>&infin;</sub> Methods;</b></li>
-						<li><b>Applications of Linear System Theory in Electrical Engineering.</b></li>
+							<li><b>Robust Control and Filtering using H<sub>2</sub> and H<sub>&infin;</sub> Methods;</b></li>
+						<li><b>Some Advanced topics of Linear System Theory.</b></li>
+					</ul>
+					
+						
+
+				</div>
+
+			</section>
+
+
+				<section>
+				<div class="slide-title">
+					<h2>Advanced Topics</h2>
+				</div>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<div class="slide-content">
+
+					<ul>
+					
+						<li><b>Robust control of Sampled Systems via DLMI;</b></li>
+						<li><b>Control of Markovian Jumping Linear Systems (MJLS);</b></li>
 					</ul>
 					
 						
@@ -119,16 +142,17 @@
 					<p>Computational Task in MATLAB/Simulink and theoretical exercises:</p>
 				
 						
-						<p>
+						<p align="center">
 							$T_1,T_2,...T_n \Rightarrow T=\frac{T_1+T_2+\cdots+T_n}{n}$</li>
 						
 			</p>
 				<p>Overall Test:</p>
 				
+				<p align="center">
 				$
 					P: 0\le P \le 10
 				$
-				
+				</p>
 
 
 				<p>The final score is given by the average:$$MF=\frac{T+P}{2}$$
@@ -146,7 +170,7 @@
 					<h2>Grade</h2>
 				</div>
 				<div class="slide-content">
-	
+	<p>&nbsp;</p>
 					<table border="1">
 						<tr>
 							<th>Score (0-10)</th>
@@ -184,9 +208,9 @@
 				<div class="slide-content">
 					<center>
 
-					<a href="https://edisciplinas.usp.br/course/view.php?id=126167" target="_blank">
+					<a href="https://edisciplinas.usp.br/course/view.php?id=137693" target="_blank">
 						<div style="background-color: rgb(55, 147, 201);border-radius: 50%;"><img src="../images/edisciplina.png" width="400"></div>
-						https://edisciplinas.usp.br/course/view.php?id=126167</a> <BR>[password: sel]
+						https://edisciplinas.usp.br/course/view.php?id=137693</a>
 						<p>&nbsp;</p>	
 						<ul>
 							<li>Slides;</li>
@@ -205,7 +229,7 @@
 			<section  data-transition="slide">
 				<div class="slide-title">
 					<h2>
-					References
+					Basic References
 					</h2>
 				</div>
 				<div class="slide-content">
@@ -228,6 +252,31 @@ and Control Theory. SIAM, 1994. </li>
 				</div>
 
 			</section>
+
+
+				<section  data-transition="slide">
+				<div class="slide-title">
+					<h2>
+					Advanced References
+					</h2>
+				</div>
+				<div class="slide-content">
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<center>
+											<ul>
+							<li>[6] GEROMEL, J. C.; Differential Linear Matrix Inequalities In Sampled-Data Systems Filtering and Control. Springer, 2023. </li>
+<li>[7] COSTA, O. L. V.; FRAGOSO, M. D.; MARQUES, R. P. Discrete-Time Markov Jump Linear Systems. Springer, 2005. </li>
+
+				</center>
+
+				</div>
+
+			</section>
+
+
+			
+
 
 
 
@@ -1013,7 +1062,779 @@ Determinant Operator:
 				   </div>
 				
 			</section>
+
+
+				<section>
+
+				<div class="slide-title">
+					<h2>State Space Representation</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System without input derivatives:
+						$$
+						\frac{d^ny}{dt^n}+a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}+\cdots+a_{1}\frac{dy}{dt}+a_{0}y(t)=u(t)
+						$$
+					</p>
+					<p>Transfer Function:
+						$$
+						G(s)=\frac{Y(s)}{U(s)}
+						$$
+					</p>
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+					<p class="lightup">
+						$$
+						y(t)=c_{1}x_1(t)+c_{2}x_2(t)+\cdots+c_nx_n(t)
+						$$
+					</p>
+					where $x_1,x_2,\ldots,x_n$ are the <b>state variables</b> (internal signals) of the system.
+					
+			</center>
+						</div>
+
+			</section>
+			
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						State-model
+						$$
+						\dot{x}_{1}=a_{11}x_1(t)+a_{12}x_2(t)+\cdots+a_{1n}x_n(t)+b_1u(t)\\
+						\dot{x}_{2}=a_{21}x_1(t)+a_{22}x_2(t)+\cdots+a_{2n}x_n(t)+b_2u(t)\\
+						\vdots\\
+						\dot{x}_{n}=a_{n1}x_1(t)+a_{n2}x_2(t)+\cdots+a_{nn}x_n(t)+b_nu(t)\\
+						$$
+					</p>
+					$u(t)\in\mathbb{R}$ is the <b>exogenous</b> input to the system.
+					
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				
+								<p class="lightup">
+									State-model 
+									$$
+									\begin{bmatrix} 
+									\dot{x}_{1}\\
+									\dot{x}_{2}\\
+									\vdots\\
+									\dot{x}_{n}
+									\end{bmatrix}=\begin{bmatrix}
+									a_{11} & a_{12} & \cdots & a_{1n}\\
+									a_{21} & a_{22} & \cdots & a_{2n}\\
+									\vdots\\
+									a_{n1} & a_{n2} & \cdots & a_{nn}
+									\end{bmatrix}\begin{bmatrix} 
+									{x}_{1}\\
+									{x}_{2}\\
+									\vdots\\
+									{x}_{n}
+									\end{bmatrix}+\begin{bmatrix} 
+									{b}_{1}\\
+									{b}_{2}\\
+									\vdots\\
+									{b}_{n}
+									\end{bmatrix}u(t)
+									$$
+								</p>
+								$u(t)\in\mathbb{R}$ is the <b>exogenous</b> input to the system.
+								
+								
+							</center>
+							</div>
+						
+						</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				
+				<p>&nbsp;</p>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						State-model
+						$$
+						\dot{x}=Ax+Bu
+						$$
+					</p>
+					$u(t)\in\mathbb{R}$ is the <b>exogenous</b> input to the system.
+					
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						Output-model
+						$$
+						y(t)=\begin{bmatrix}c_1 & c_2 & \cdots & c_n \end{bmatrix}\begin{bmatrix} 
+						{x}_{1}\\
+						{x}_{2}\\
+						\vdots\\
+						{x}_{n}
+						\end{bmatrix}+Du
+						$$
+					</p>
+					$u(t)\in\mathbb{R}$ is the <b>exogenous</b> input to the system.
+					
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Internal Description </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						State-space (SS) model
+						$$
+						\dot{x}=Ax+Bu\\
+						y=Cx+Du
+						$$
+					</p>
+					
+				<p>&nbsp;</p>
+				<p>How can we convert a ODE to SS model?</p>
+					
+			</center>
+						</div>
+
+			</section>
+
+
 		
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>SS from ODE (not unique)</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				$$
+					x_1=y; \quad x_2=\frac{dy}{dt}=\dot{x}_1,\quad x_3=\frac{d^2y}{dt^2}=\dot{x}_2, \quad \ldots
+				$$
+				Following the pattern, we have
+				<p class="lightup">
+				$$
+						x_j=\frac{d^{j-1}y}{dt^{j-1}}=\dot{x}_{j-1}
+				$$
+			</p>
+						
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Ordinary Differential Equation</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						$$
+						\dot{x}_n+a_{n-1}x_{n}+\cdots+a_{1}x_2+a_{0}x_1=u(t)
+						$$
+					</p>
+ with 
+ $$
+x_1=y(t),\quad x_2=\frac{dy}{dt},\quad \cdots, \quad x_n=\frac{d^{n-1}y}{dt^{n-1}}
+ $$
+ and 
+ $$
+ x_{j+1}=\dot{x}_{j}
+ $$
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>State-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						$$
+						\dot{x}_1=x_2\\
+						\dot{x}_2=x_3\\ 
+						\vdots\\
+						\dot{x}_n=-(a_{n-1}x_{n}+\cdots+a_{1}x_2+a_{0}x_1)+u(t)
+						$$
+ 
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>State-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+					<p class="">
+						$$
+						\begin{bmatrix} 
+						\dot{x}_{1}\\
+						\dot{x}_{2}\\
+						\vdots\\
+						\dot{x}_{n}
+						\end{bmatrix}=\underbrace{\begin{bmatrix}
+						0 & 1 & 0 &\cdots & 0\\
+						0 & 0 & 1 & \cdots & 0\\
+						\vdots & \vdots & \vdots & \ddots & \vdots\\
+						-a_{0} & -a_{1} & -a_{2} & \cdots & -a_{n-1}
+						\end{bmatrix}}_{A}\begin{bmatrix} 
+						{x}_{1}\\
+						{x}_{2}\\
+						\vdots\\
+						{x}_{n}
+						\end{bmatrix}+\underbrace{\begin{bmatrix} 
+						0\\
+						0\\
+						\vdots\\
+						1
+						\end{bmatrix}}_{B}u(t)
+						$$
+			</center>
+						</div>
+<p>Controllable canonical form!</p>
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				
+ $$
+y=\underbrace{\begin{bmatrix}1 & 0 & \cdots & 0\end{bmatrix}}_{C}\begin{bmatrix} 
+{x}_{1}\\
+{x}_{2}\\
+\vdots\\
+{x}_{n}
+\end{bmatrix}
+ $$
+ and $$D=0$$
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Ordinary Differential Equation</h2>
+				</div>
+				<div class="slide-content">
+					<p>&nbsp;</p>
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						\frac{d^ny}{dt^n}+a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}+\cdots+a_{1}\frac{dy}{dt}+a_{0}y(t)=\\ 
+						b_n\frac{d^nu}{dt^n}+b_{n-1}\frac{d^{n-1}u}{dt^{n-1}}+\cdots+b_{1}\frac{du}{dt}+b_{0}u(t)
+						$$
+					</p>
+					<p>&nbsp;</p>
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{Y(s)}{U(s)}=\frac{b_ns^n+b_{n-1}s^{n-1}+\cdots+b_{1}s+b_0}{s^n+a_{n-1}s^{n-1}+\cdots+a_{1}s+a_0}
+						$$
+					</p>
+					<p>&nbsp;</p>
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{i=0}^n b_is^{i}}{\sum_{i=0}^n a_is^{i}}
+						$$
+						
+					</p>
+					with $a_n=1$.
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{i=0}^n b_is^{i}}{\sum_{i=0}^n a_is^{i}}\pm b_n
+						$$
+					
+					</p>
+					with $a_n=1$.
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+
+
+					<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{i=0}^n b_is^{i}}{\sum_{i=0}^n a_is^{i}}-b_n\frac{\sum_{i=0}^n a_is^{i}}{\sum_{i=0}^n a_is^{i}}+b_n
+						$$
+					
+					</p>
+					with $a_n=1$.
+					<p><b>Input-output</b> (external) description for the system!</p>
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{i=0}^n (b_i-b_na_i)s^{i}}{\sum_{i=0}^n a_is^{i}}+ b_n
+						$$
+						
+					</p>
+					with $a_n=1$.
+					
+					<p>Note that for $i=n$, one has $$b_n-b_na_n=0$$</p>
+			</center>
+						</div>
+
+			</section>
+
+
+		
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						G(s)=\frac{\sum_{i=0}^m c_is^{i}}{\sum_{i=0}^n a_is^{i}}+ b_n
+						$$
+						
+					</p>
+					with $a_n=1$ and $m\le n-1$. 
+					$$
+						c_i=b_i-b_na_i,\quad i=0,1,\ldots,m
+					$$
+					
+			</center>
+						</div>
+
+			</section>
+
+
+				
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+						\frac{Y(s)}{U(s)}=\frac{\sum_{i=0}^m c_is^{i}}{\sum_{i=0}^n a_is^{i}}+ b_n
+						$$
+						
+					</p>
+					with $a_n=1$ and $m\le n-1$. 
+					$$
+						c_i=b_i-b_na_i,\quad i=0,1,\ldots,m
+					$$
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+					Y(s)=\frac{\sum_{i=0}^m c_is^{i}}{\sum_{i=0}^n a_is^{i}}U(s)+ b_nU(s)
+						$$	
+					</p>
+					Define an auxiliary variable $\eta(s)$ such that 
+					$$
+					\sum_{i=0}^n a_is^{i}\eta(s)=U(s)
+					$$
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+					Y(s)=\frac{\sum_{i=0}^m c_is^{i}}{\Bigr(\sum_{i=0}^n a_is^{i}\Bigr)}\Bigr(\sum_{i=0}^n a_is^{i}\Bigr)\eta(s)+ b_nU(s)
+						$$	
+					</p>
+					Define an auxiliary variable $\eta(s)$ such that 
+					$$
+					\sum_{i=0}^n a_is^{i}\eta(s)=U(s)
+					$$
+					
+			</center>
+						</div>
+
+			</section>
+
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+					Y(s)=\sum_{i=0}^m c_is^{i}\eta(s)+ b_nU(s)
+						$$	
+					</p>
+				
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+						System with input derivatives:
+						$$
+					y(t)=\sum_{i=0}^m c_i\frac{d^i\eta}{dt^i}+ b_nu(t)
+						$$	
+					</p>
+				
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>State-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup2">
+						Define the state variables
+						$$
+					x_1=\eta,\quad x_2=\frac{d\eta}{dt},\quad \ldots, \quad x_n=\frac{d^{n-1}\eta}{dt^{n-1}}
+						$$	
+						
+					</p>
+					So, we have
+						$$
+						\dot{x}_1=x_2\\
+						\dot{x}_2=x_3\\
+						\vdots\\
+						\dot{x}_n=-(a_{n-1}x_{n}+\cdots+a_{1}x_2+a_{0}x_1)+u(t)
+						$$
+				
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup2">
+						Define the state variables
+						$$
+					x_1=\eta,\quad x_2=\frac{d\eta}{dt},\quad \ldots, \quad x_n=\frac{d^{n-1}\eta}{dt^{n-1}}
+						$$	
+						
+					</p>
+					The output is
+						$$
+					y(t)=c_0x_1+c_1x_2+\cdots+c_mx_m+b_nu(t)
+						$$
+
+				
+					
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>State-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+					<p class="">
+						$$
+						\begin{bmatrix} 
+						\dot{x}_{1}\\
+						\dot{x}_{2}\\
+						\vdots\\
+						\dot{x}_{n}
+						\end{bmatrix}=\underbrace{\begin{bmatrix}
+						0 & 1 & 0 &\cdots & 0\\
+						0 & 0 & 1 & \cdots & 0\\
+						\vdots & \vdots & \vdots & \ddots & \vdots\\
+						-a_{0} & -a_{1} & -a_{2} & \cdots & -a_{n-1}
+						\end{bmatrix}}_{A}\begin{bmatrix} 
+						{x}_{1}\\
+						{x}_{2}\\
+						\vdots\\
+						{x}_{n}
+						\end{bmatrix}+\underbrace{\begin{bmatrix} 
+						0\\
+						0\\
+						\vdots\\
+						1
+						\end{bmatrix}}_{B}u(t)
+						$$
+			</center>
+						</div>
+<p>Controllable canonical form!</p>
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Output-Model</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				
+ $$
+y=\underbrace{\begin{bmatrix}c_0 & c_1 & \cdots & c_m & 0 & \cdots & 0\end{bmatrix}}_{C}\begin{bmatrix} 
+{x}_{1}\\
+{x}_{2}\\
+\vdots\\
+{x}_{n}
+\end{bmatrix}+Du
+ $$
+ and $$D=b_n$$
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function from SS</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+		<p class="lightup">
+ $$
+G(s)=C(sI-A)^{-1}B+D
+ $$
+</p>	
+
+			</center>
+						</div>
+
+			</section>
+
+
+			<section>
+
+				<div class="slide-title">
+					<h2>Transfer Function from SS</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+		
+
+Caracteristic equation:
+<p class="lightup2">
+$$
+\det(sI-A)=\sum_{i=0}^n a_is^i
+$$
+</p>
+Zeros Equation: 
+<p class="lightup2">
+$$
+\det\begin{bmatrix}
+sI-A & -B\\		
+C & D
+\end{bmatrix}=\sum_{i=0}^n b_is^i
+$$
+</p>
+
+			</center>
+						</div>
+
+			</section>
+
+				
 
 
 			
