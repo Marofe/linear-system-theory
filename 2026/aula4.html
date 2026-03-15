@@ -31,7 +31,7 @@
 				</div>
 					<div class="advisor">
 					
-					<p style="text-align: center;font-size: 0.8em;">April 02, 2025</p>
+					<p style="text-align: center;font-size: 0.8em;">March 16, 2026</p>
 				</div>
 
 				</section>
@@ -57,235 +57,235 @@
 			</section>
 
 
-	
-										
-			<section>
-				
-				<div class="slide-title">
-					<h2>Full Controllability</h2>
-				</div>
-				<div class="slide-content">
-	
-					<center>
-						<p>&nbsp;</p>
-						<p class="lightup">
-						Lemma: The par $(A,B)$ is controllable if and only if the matrix 
-						$$
-						\mathcal{C}=\begin{bmatrix}
-B & AB & \cdots & A^{n-1}B	
-\end{bmatrix}\in\mathbb{R}^{n\times mn}
-$$
-has full rank.
-					</p>
-							
-					
-				</center>
-						</div>
-	
-			</section>
-	
-
-				
-	
-			<section>
-				
-				<div class="slide-title">
-					<h2>Full Controllability</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-	<p class="lightup2">
-					$$					
-				\Delta x\in \mathcal{Range}\{\mathcal{C}\},\quad \forall \Delta x \in \mathbb{R}^n
 			
-		$$
-	</p>
-		<img src="../images/controlabilidade2.png" width="620">
-				</center>
-	
-	
-						</div>
-	
-			</section>
-	
-	
-		
-	
-			
-		
-	
-			<section>
-				
-				<div class="slide-title">
-					<h2>Full Controllability</h2>
-				</div>
-				<div class="slide-content">
-<p>&nbsp;</p>
-					<center>
-						<p class="lightup">
-							Linear System of equations
-					$$					
-				\Delta x = \mathcal{C}\vec{\gamma}
-		$$
-		such as $\Delta x \in\mathbb{R}^n$, $\mathcal{C}\in\mathbb{R}^{n\times mk}$ and $\vec{\gamma}\in\mathbb{R}^{mk}$.
-	</p>
-	$$
-	\vec{\gamma}=?
-	$$
-				</center>
-						</div>
-	
-			</section>
-	
-	
 
-			<section>
-				
-				<div class="slide-title">
-					<h2>Full Observability</h2>
-				</div>
-				<div class="slide-content">
-	
-					<center>
-						<p>&nbsp;</p>
-						<p class="lightup2">
-						Lemma: The par $(A,C)$ is observable if and only if the matrix 
-						$$
-						\mathcal{O}=\begin{bmatrix}
-						C\\ 
-						CA\\
-						\vdots \\
-						CA^{n-1}
-						\end{bmatrix}\in\mathbb{R}^{pn\times n}
-$$
-has full rank.
-					</p>
-							
-					
-				</center>
-						</div>
-	
-			</section>
-	
-	
-
-			
-			<section>
-				
-				<div class="slide-title">
-					<h2>Full Observability</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-	<p class="lightup2">
-					$$					
-				\Delta y\in \mathcal{Range}\{\mathcal{O}\},\quad \forall \Delta y \in \mathbb{R}^{pk}
-			
-		$$
-	</p>
-		<img src="../images/observabilidade.png" width="620">
-				</center>
-	
-	
-						</div>
-	
-			</section>
-
-
-
-	
-	
-			
-	
-			<section>
-				
-				<div class="slide-title">
-					<h2>Observability</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-	Suppose $x_k\in \mathbb{R}^n$ and $y_k\in\mathbb{R}^p$, then									
-				$$
-				\begin{aligned} 
-				\underbrace{\begin{bmatrix}
-				y_0-Du_0\\
-				y_1-CBu_0-Du_1\\
-				\vdots\\
-				y_{k-1}-C\sum_{j=0}^{k-2}A^{k-2-j}Bu_j-Du_{k-1}
-				\end{bmatrix}_{pk\times 1}}_{\Delta y}
-				&=
-				\mathcal{O}_{pk \times n}x_0
-				\end{aligned}
-				$$
-	
-		
-				</center>
-						</div>
-	
-			</section>
-
-
-			
-			<section>
-				
-				<div class="slide-title">
-					<h2>Full Observability</h2>
-				</div>
-				<div class="slide-content">
-<p>&nbsp;</p>
-					<center>
-						<p class="lightup">
-							Linear System of Equations
-					$$					
-				\Delta y = \mathcal{O}x_0
-		$$
-		such as $\Delta y \in\mathbb{R}^{pk}$, $\mathcal{O}\in\mathbb{R}^{pk\times n}$ and $x_0\in \mathbb{R}^{n}$.
-	</p>
-	$$
-	x_0=?
-	$$
-				</center>
-						</div>
-	
-			</section>
-
-
-
-
-			<section>
+<section>
 			
 				<div class="slide-title">
 					<h2>Stability</h2>
 				</div>
 				<div class="slide-content">
 					<center>
-						Consider a state-space system in the form
-						$$
-						x_{k+1}=A_dx_k
-						$$
-										
+						What is stability?
+							
 				<p class="lightup">
-				The state-space system is stable in discrete time if 
-					$$
-					\begin{aligned} 
-					|\lambda\{A_d\}| < 1
-					\end{aligned}
-					$$
-				</p>
-			
-			
-		
+				Definition: stability for a dynamic system is the hability to stay near a equilibrium point!
+				</p>		
 				</center>
+				Consider a linear dynamic system in continuous time:
+				$$	
+					\dot{x}=Ax
+				$$	
+				How many equilibrium points there is?
 						</div>
 	
 			</section>
-
 
 
 			<section>
 			
 				<div class="slide-title">
 					<h2>Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					Transformed systems
+							
+				<p class="lightup">
+					If the equilibrium point of interest is not at the origin, may define
+				$$w=x-x_e$$
+				</p>		
+				</center>
+				Thus, a linear dynamic system in continuous time is:
+				$$	
+					\dot{w}=Aw
+				$$	
+				will have the origin as equilibrium point!
+			
+						</div>
+	
+			</section>
+
+
+			<section>
+			
+				<div class="slide-title">
+					<h2>Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							Consider a linear homogenous systems in the form
+				<p class="lightup">
+					$$
+					\dot{x}=Ax,\quad x(0)=x_0
+					$$
+				</p>		
+
+				The state solution is 
+				$$
+					x(t,x_0)=e^{At}x_0,\quad t\ge 0 
+				$$
+				</center>
+				
+			
+						</div>
+	
+			</section>
+
+
+			<section>
+			
+				<div class="slide-title">
+					<h2>Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							
+				<p class="lightup">
+					Definition: The equilibrium $x = 0$ is said to be stable if for every $\epsilon > 0$, there exists a $\delta(\epsilon) > 0$ such that
+$$
+\begin{equation}
+    \| x(t, x_0) \| < \epsilon \quad \textit{for all } t \geq 0 \tag{4.9}
+\end{equation}
+$$
+whenever
+$$
+\begin{equation}
+    \| x_0 \| < \delta(\epsilon). \tag{4.10}
+\end{equation}
+$$
+				</p>		
+				</center>
+				
+			
+						</div>
+	
+			</section>
+
+
+			
+			<section>
+			
+				<div class="slide-title">
+					<h2>Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							
+			<img src="../images/stability.png" width="600">
+				</center>
+				
+			
+						</div>
+	
+			</section>
+
+
+
+					<section>
+			
+				<div class="slide-title">
+					<h2>Asymptotic Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							
+				<p class="lightup">
+					Definition: The equilibrium $x = 0$ is said to be asymptotically
+stable if
+<ul>
+	<li>it is stable;</li>
+	<li>there exists an $\eta > 0$ such that $$\lim\limits_{t \to \infty} x(t, x_0) = 0$$ whenever $\| x_0 \| < \eta$.</li>
+</ul>
+				</p>		
+				</center>
+				
+			
+						</div>
+	
+			</section>
+
+
+
+				<section>
+			
+				<div class="slide-title">
+					<h2>Asymptotic Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							
+			<img src="../images/stability_asymptotic.png" width="600">
+				</center>
+				
+			
+						</div>
+	
+			</section>
+
+
+
+					<section>
+			
+				<div class="slide-title">
+					<h2>Exponential Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							
+				<p class="lightup">
+					Definition: The equilibrium $x = 0$ is said to be exponetially
+stable if there is $\alpha > 0$ and for every $\epsilon >0$, there exist $\delta(\epsilon)>0$ such that
+$$
+						\|x(t,x_0)\| \le \epsilon e^{-\alpha t},\quad \forall t\ge 0 
+$$
+whenever 
+$$
+					\|x_0\|\le \delta(\epsilon)
+$$
+
+				</p>		
+				</center>
+				
+			
+						</div>
+	
+			</section>
+
+
+
+					<section>
+			
+				<div class="slide-title">
+					<h2>Exponential Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							
+			<img src="../images/stability_exponential.png" width="850">
+				</center>
+				
+			
+						</div>
+	
+			</section>
+
+		
+
+	
+	
+		
+			<section>
+			
+				<div class="slide-title">
+					<h2>Exponential Stability</h2>
 				</div>
 				<div class="slide-content">
 					<center>
@@ -303,12 +303,56 @@ has full rank.
 					$$
 				</p>
 			
+			We say that the matrix $A$ is Hurwitz!
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+
+
+			<section>
+			
+				<div class="slide-title">
+					<h2>Exponential Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						Consider a state-space system in the form
+						$$
+						x_{k+1}=A_dx_k
+						$$
+										
+				<p class="lightup">
+				The state-space system is stable in discrete time if 
+					$$
+					\begin{aligned} 
+					|\lambda\{A_d\}| < 1
+					\end{aligned}
+					$$
+				</p>
+
+				We say that the matrix $A_d$ is Schur!
+			
 			
 		
 				</center>
 						</div>
 	
 			</section>
+
+
+
+
+
+
+	
+			
+
+
+
 	
 	
 	
@@ -324,6 +368,380 @@ has full rank.
 			
 			
 		
+				</center>
+						</div>
+	
+			</section>
+
+
+
+					
+			<section>
+			
+				<div class="slide-title">
+					<h2>Exponential Stability vs Asymptotically Stability</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				<p>&nbsp;</p>
+				<p class="lightup">
+				For linear systems,
+					$$
+					\text{Asymptotically Stable } \Leftrightarrow \text{Exponentially Stable}
+					$$
+				</p>
+
+				
+			
+			
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+
+				<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Energy function:
+	
+				<p class="lightup2">
+				If there exists a function $V:\mathbb{R}^n\to \mathbb{R}$ such that 
+				$$
+						V(x)>0,\quad \forall x\in\mathbb{R}^n \\
+						V(x)=0 \Leftrightarrow x=0
+				$$
+				and 
+	$$
+	\dot{V}(x) \le 0
+	$$
+	then the system is stable.
+</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+			
+				<div class="slide-title">
+					<h2>Stability from Lyapunov Sense</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							
+			<img src="../images/stability_bibo.png" width="600">
+				</center>
+				
+			
+						</div>
+	
+			</section>
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+				Energy function:
+	
+				<p class="lightup2">
+				If there exists a function $V:\mathbb{R}^n\to \mathbb{R}$ such that 
+				$$
+						V(x)>0,\quad \forall x\in\mathbb{R}^n \\
+						V(x)=0 \Leftrightarrow x=0
+				$$
+				and 
+	$$
+	\dot{V}(x) < 0
+	$$
+	then the system is <b>asymptotically</b> stable to zero.
+	</p>
+				</center>
+						</div>
+	
+			</section>
+
+
+
+			
+			<section>
+			
+				<div class="slide-title">
+					<h2>Asymptotic Stability from Lyapunov Sense</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					
+							
+			<img src="../images/stability_assymptotic_lyap.png" width="600">
+				</center>
+				
+			
+						</div>
+	
+			</section>
+	
+	
+	
+
+	
+	
+			
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				Energy function:
+	
+				<br>
+				For <b>linear systems</b>, the energy function
+				<p class="lightup">
+					$$
+							V(x)=x^\trp P x,\quad P=P^\trp \succ 0
+					$$
+				</p>
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+					
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+					<p class="lightup">
+					$$
+							V(x)=x^\trp P x,\quad P=P^\trp \succ 0
+					$$
+				</p>
+				<p>Note that</p>
+	
+				
+				<ul>
+					<li>$V(x)>0,~\forall x\in\mathbb{R}^n$</li>
+					<li>$V(x)=0 \Leftrightarrow x=0$</li>
+					<li>$\dot{V}(x)\le 0$ or $\dot{V}(x)< 0$ ?</li>
+				</ul>
+				
+		
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+Note that
+<p>
+		$
+							\dot{V}(x)= \dot{x}^\trp P x+x^\trp P\dot{x}
+		$
+		</p>
+		<br>
+				Since,
+				$
+						\dot{x}=Ax
+				$
+				then
+				<p class="lightup">
+						$$
+						(Ax)^\trp P+ x^\trp P(Ax) < 0
+						$$
+						</p>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+					<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+Note that
+<p>
+		$
+							\dot{V}(x)= \dot{x}^\trp P x+x^\trp P\dot{x}
+		$
+		</p>
+		<br>
+				Since,
+				$
+						\dot{x}=Ax
+				$
+				then
+				<p class="lightup">
+						$$
+						x^\trp (A^\trp P+ PA)x < 0
+						$$
+						</p>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+	
+	
+	
+	
+				
+	
+
+	
+	
+					
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				A continuous-time state-space system is <b>asymptotically stable</b> if and only if
+				there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ such that
+				<p class="lightup">
+				$$
+							P\succ 0 \\
+							A^\trp P+PA \prec 0
+				$$
+				
+			</p>
+			<b>Linear Matrix Inequality (LMI)</b>
+				</p>
+			
+				</center>
+						</div>
+	
+			</section>
+	
+	
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				A discrete-time state-space system is <b>asymptotically stable</b> if and only if
+				there exists a matrix $P=P^\trp\in\mathbb{R}^{n\times n}$ such that
+				<p class="lightup">
+				$$
+							P\succ 0, \\
+							A^\trp P+PA = -Q, \quad Q\succ 0
+				$$
+				
+			</p>
+	
+				<b>Linear system of equations!</b>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Kronecker product</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						Define the vectorization operator $\text{vec}(A)$ as the vector formed by stacking the columns of $A$ on top of each other.
+						<p class="lightup">
+						$$
+						\text{vec}(ABC)=(C^\trp \otimes A)\text{vec}(B)
+						$$
+					</p>
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				
+				$$
+							\text{vec}(A^\trp P+PA) = -\text{vec}(Q)\\
+				$$
+				Thus,
+				<p class="lightup">
+					$$
+					\Rightarrow \underbrace{(I \otimes A^\trp + A^\trp\otimes I)}_{M}\underbrace{\text{vec}(P)}_{p} = \underbrace{-\text{vec}(Q)}_{q}
+					$$
+				</p>			
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Lyapunov Stability: continuous time</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+				
+				$$
+				\text{vec}(A^\trp P+PA) = -\text{vec}(Q)\\
+				$$
+				Thus,
+				<p class="lightup">
+					$$
+					p=M^{-1}q
+					$$
+				</p>			
+			
 				</center>
 						</div>
 	
@@ -385,30 +803,6 @@ has full rank.
 			</section>
 	
 	
-			<!-- <section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: discrete time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-						<p>&nbsp;</p>
-				Energy function:
-	
-				<br>
-				For <b>linear systems</b>, the energy function
-				<p class="lightup">
-				$$
-						V(x_k)=x_k^\trp P x_k,\quad P=P^\trp \succ 0
-				$$
-			</p>
-				is necessary and sufficient to certify <b>stability (BIBO)</b>!
-				</center>
-						</div>
-	
-			</section>
-	 -->
-	
 			
 			<section>
 				
@@ -453,9 +847,11 @@ has full rank.
 						x_{k+1}=A_dx_k
 				$$
 				then
+				<p class="lightup2">
 						$$
-						A_d^\trp PA_d -P < 0
+						x_k^\trp (A_d^\trp PA_d -P)x_k < 0
 						$$
+						</p>
 				</p>
 			
 				</center>
@@ -589,262 +985,7 @@ has full rank.
 
 
 
-			<section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-				Energy function:
-	
-				<p class="lightup2">
-				If there exists a function $V:\mathbb{R}^n\to \mathbb{R}$ such that 
-				$$
-						V(x)>0,\quad \forall x\in\mathbb{R}^n \\
-						V(x)=0 \Leftrightarrow x=0
-				$$
-				and 
-	$$
-	\dot{V}(x) \le 0
-	$$
-	then the system is stable (BIBO).
-</p>
-				</center>
-						</div>
-	
-			</section>
-	
-	
-			
-			<section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-				Energy function:
-	
-				<p class="lightup2">
-				If there exists a function $V:\mathbb{R}^n\to \mathbb{R}$ such that 
-				$$
-						V(x)>0,\quad \forall x\in\mathbb{R}^n \\
-						V(x)=0 \Leftrightarrow x=0
-				$$
-				and 
-	$$
-	\dot{V}(x) < 0
-	$$
-	then the system is <b>asymptotically</b> stable to zero.
-	</p>
-				</center>
-						</div>
-	
-			</section>
-	
-	
-			<!-- <section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-						<p>&nbsp;</p>
-				Energy function:
-	
-				<br>
-				For <b>linear systems</b>, the energy function
-				<p class="lightup">
-				$$
-						V(x)=x^\trp P x,\quad P=P^\trp \succeq 0
-				$$
-			</p>
-				is necessary and sufficient to certify <b>stability (BIBO)</b>!
-				</center>
-						</div>
-	
-			</section> -->
-	
-	
-			
-			<section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-						<p>&nbsp;</p>
-				Energy function:
-	
-				<br>
-				For <b>linear systems</b>, the energy function
-				<p class="lightup">
-					$$
-							V(x)=x^\trp P x,\quad P=P^\trp \succ 0
-					$$
-				</p>
 		
-				</center>
-						</div>
-	
-			</section>
-	
-	
-				
-			<section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-				Energy function:
-	
-				<br>
-				$$
-							\dot{V}(x)= \frac{dV}{dx}\dot{x}
-				$$
-				Since,
-				$$
-						\dot{x}=Ax
-				$$
-				then
-						$$
-						A^\trp P+PA < 0
-						$$
-				</p>
-			
-				</center>
-						</div>
-	
-			</section>
-	
-	
-					
-			<section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-						<p>&nbsp;</p>
-				A continuous-time state-space system is <b>asymptotically stable</b> if and only if
-				there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ such that
-				<p class="lightup">
-				$$
-							P\succ 0 \\
-							A^\trp P+PA \prec 0
-				$$
-				
-			</p>
-			<b>Linear Matrix Inequality (LMI)</b>
-				</p>
-			
-				</center>
-						</div>
-	
-			</section>
-	
-	
-			<section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-						<p>&nbsp;</p>
-				A discrete-time state-space system is <b>asymptotically stable</b> if and only if
-				there exists a matrix $P=P^\trp\in\mathbb{R}^{n\times n}$ such that
-				<p class="lightup">
-				$$
-							P\succ 0, \\
-							A^\trp P+PA = -Q, \quad Q\succ 0
-				$$
-				
-			</p>
-	
-				<b>Linear system of equations!</b>
-			
-				</center>
-						</div>
-	
-			</section>
-
-
-			<section>
-				
-				<div class="slide-title">
-					<h2>Kronecker product</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-						<p>&nbsp;</p>
-						Define the vectorization operator $\text{vec}(A)$ as the vector formed by stacking the columns of $A$ on top of each other.
-						<p class="lightup">
-						$$
-						\text{vec}(ABC)=(C^\trp \otimes A)\text{vec}(B)
-						$$
-					</p>
-			
-				</center>
-						</div>
-	
-			</section>
-
-
-			<section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-						<p>&nbsp;</p>
-				
-				$$
-							\text{vec}(A^\trp P+PA) = -\text{vec}(Q)\\
-				$$
-				Thus,
-				<p class="lightup">
-					$$
-					\Rightarrow \underbrace{(I \otimes A^\trp + A^\trp\otimes I)}_{M}\underbrace{\text{vec}(P)}_{p} = \underbrace{-\text{vec}(Q)}_{q}
-					$$
-				</p>			
-			
-				</center>
-						</div>
-	
-			</section>
-
-
-			<section>
-				
-				<div class="slide-title">
-					<h2>Lyapunov Stability: continuous time</h2>
-				</div>
-				<div class="slide-content">
-					<center>
-						<p>&nbsp;</p>
-				
-				$$
-				\text{vec}(A^\trp P+PA) = -\text{vec}(Q)\\
-				$$
-				Thus,
-				<p class="lightup">
-					$$
-					p=M^{-1}q
-					$$
-				</p>			
-			
-				</center>
-						</div>
-	
-			</section>
 
 
 			<section>
@@ -899,10 +1040,28 @@ has full rank.
 						$$
 						where $\alpha_i\in\mathbb{R}^+$ and $\sum_{i=1}^N \alpha_i=1$. Then $A(\alpha)$ is called a <b>polytopic</b> uncertain matrix.						
 						</p>
+						
+				</center>
+						</div>
+	
+			</section>
+
+
+				<section>
+				
+				<div class="slide-title">
+					<h2>Polytopic System </h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						
+						<p class="lightup2">
 						Dynamic system:
 						$$
 							\dot{x}=A(\alpha)x
 						$$
+					</p>
+					<img src="../images/politopo.png" width="400">
 				</center>
 						</div>
 	
@@ -918,7 +1077,7 @@ has full rank.
 						
 				A continuous-time polytopic uncertain state-space system is <b>asymptotically stable</b> if and only if
 				
-				<p class="lightup">
+				<p class="lightup2">
 				$$
 							\exists P(\alpha)=P(\alpha)^\trp \succ 0 \\
 							A(\alpha)^\trp P(\alpha)+P(\alpha)A(\alpha) \prec 0\\
@@ -926,7 +1085,7 @@ has full rank.
 				$$
 				
 			</p>
-			<b>Parameter-dependent LMI!</b>
+			<b>Parameter-dependent LMI! <Br>(infinite dimensional problem)</b>
 				</p>
 			
 				</center>
@@ -954,7 +1113,7 @@ has full rank.
 				$$
 				
 			</p>
-			<b>Parameter-dependent LMI!</b>
+			
 				</p>
 			
 				</center>
@@ -973,7 +1132,7 @@ has full rank.
 						
 				A continuous-time polytopic uncertain state-space system is <b>asymptotically stable</b> if
 				
-				<p class="lightup">
+				<p class="lightup2">
 				$$
 							\exists P=P^\trp \succ 0 \\
 							A_1^\trp P+PA_1 \prec 0\\
@@ -1003,7 +1162,7 @@ has full rank.
 						
 				A discrete-time polytopic uncertain state-space system is <b>asymptotically stable</b> if
 				
-				<p class="lightup">
+				<p class="lightup2">
 				$$
 							\exists P=P^\trp \succ 0 \\
 							A_1^\trp PA_1-P \prec 0\\
@@ -1022,10 +1181,32 @@ has full rank.
 			</section>
 
 
+
+			
+			
 			<section>
 				
 				<div class="slide-title">
-					<h2>Quadratic Stability: continuous time</h2>
+					<h2>Polytopic Time-Varying Systems</h2>
+				</div>
+				<div class="slide-content">
+					<center>
+						<p class="lightup2">$$
+								\dot{x}=A(\alpha(t))x
+							$$
+						</p>
+						<img src="../images/politopo_time_varying.png"  width="400">
+			
+				</center>
+						</div>
+	
+			</section>
+
+
+			<section>
+				
+				<div class="slide-title">
+					<h2>Stability of Time-Varying Systems</h2>
 				</div>
 				<div class="slide-content">
 					<center>
@@ -1053,6 +1234,9 @@ The system is <b>asymptotically stable</b> if
 			</section>
 
 
+
+
+
 			
 	
 	
@@ -1060,7 +1244,7 @@ The system is <b>asymptotically stable</b> if
 			<section>
 				
 				<div class="slide-title">
-					<h2>Homework (T5)</h2>
+					<h2>Homework (T4)</h2>
 				</div>
 				<div class="slide-content">
 					<center>
