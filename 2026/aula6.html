@@ -1,0 +1,1836 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>State Observers and The Kalman Filter</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">April 06, 2026</p>
+				</div>
+
+				</section>
+
+				
+				<section>
+			
+					<div class="slide-title">
+						<h2>Objectives</h2>
+					</div>
+					<div class="slide-content">
+						<p>The objectives of this lecture are to understand:
+								<ul>
+								<li>State observers design;</li>
+								<li>Optimal State observers;</li>
+								<li>Robust state observers via LMI;</li>
+								<li>Examples;</li>
+							</p>
+							</div>
+		
+				</section>
+
+				<section>
+			
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/state_feedback.png" alt="">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+		
+							
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/state_observer2.png" width="750">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/state_observer3.png" width="950">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+											
+				<img src="../images/state_observer4.png" width="950">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+
+
+					<section>
+					
+					<div class="slide-title">
+						<h2>State Observers:</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+				<img src="../images/state_observer.png" width="750">		
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				
+				<section>
+					
+					<div class="slide-title">
+						<h2>State-Space Model</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="lightup2">
+		System:
+						$$
+						\begin{aligned} 
+						x_{k+1}&=A_dx_k+B_du_k\\ 
+						y_k&=Hx_k+Du_k
+						\end{aligned}
+						$$
+					</p>
+		
+					<p class="lightup2">
+		Observer:
+						$$
+						\begin{aligned} 
+						\hat{x}_{k+1}&=A_d\hat{x}_k+B_du_k+L(y_k-\hat{y}_k)\\ 
+						\hat{y}_k&=H\hat{x}_k+Du_k
+						\end{aligned}
+						$$
+					</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="">
+						$$
+						\begin{aligned} 
+						\varepsilon_{k+1}&=x_{k+1}-\hat{x}_{k+1}\\ 
+						&=Ax_k+Bu_k-(A\hat{x}_k+Bu_k)+L(y_k-\hat{y}_k)\\
+						&=A\varepsilon_{k}+L(Hx_k+Du_k-(H\hat{x}_k+Du_k))\\
+						&=(A-LH)\varepsilon_k
+						\end{aligned}
+						$$
+					</p>
+					Therefore,
+					<p class="lightup2">
+					$$
+						\varepsilon_{k+1}=(A-LH)\varepsilon_k
+					$$
+				</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							Hence, if 		
+					<p class="lightup2">
+						
+					$$
+						|\lambda\{A-LH\}| < 1
+					$$
+					
+				</p>
+				then the observer converges to the true state!
+		
+				<p>&nbsp;</p>
+				<p class="lightup">
+				Good design practice: the state error dynamics of the observer should be at least 2x faster than the system dynamics!
+			</p>
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>Ackermann's Equation (SISO)</h2>
+					</div>
+					<div class="slide-content">
+		
+						<center>	
+							Given the desired characteristic equation for the observer:
+							$$
+		\gamma(z)=z^{n}+\beta_1z^{n-1}+\cdots+\beta_{n-1}z+\beta_n
+							$$
+							then, the observer gain is given by:
+							<p class=" lightup2">
+							
+								$$
+									L=\gamma(A)\mathcal{O}^{-1}\begin{bmatrix}
+									0 & 0 & \cdots & 1
+									\end{bmatrix}^\trp 
+								$$
+							</p>
+				note: $\gamma(A)=A^{n}+\beta_1A^{n-1}+\cdots+\beta_{n-1}A+\beta_n I$
+						
+		
+		
+					</center>
+							</div>
+		
+				</section>
+
+
+				
+				<!-- <section>
+					
+					<div class="slide-title">
+						<h2>State Observer Example</h2>
+					</div>
+					<div class="slide-content">
+		
+						<center>	
+							Dynamics matrix:
+				$$
+							A=
+							\begin{bmatrix}
+							0.7143  &  0.3571\\
+   							-1.0714 &   -0.3571
+							\end{bmatrix}
+							$$
+							Output matrix:
+							$$
+							H=
+							\begin{bmatrix}
+							1 & 0
+							\end{bmatrix}
+				$$
+		What is the observer gain $L$ for the desired characteristic polynomial:
+		$$
+		\gamma(z)=z^{2}-z+0.5=(z-0.5+0.5i)(z-0.5-0.5i)
+		$$
+					</center>
+							</div>
+		
+				</section> -->
+		
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Observer Example</h2>
+					</div>
+					<div class="slide-content">
+		
+						<center>	
+					<img src="../images/state_observer_example.png" width="850">
+		
+					</center>
+							</div>
+		
+				</section>
+
+
+					<section>
+					
+					<div class="slide-title">
+						<h2>State Observer Continuous Time</h2>
+					</div>
+					<div class="slide-content">
+		
+						<center>	
+					<img src="../images/state_observer_continuous.png" width="700">
+		
+					</center>
+							</div>
+		
+				</section>
+
+
+
+							<section>
+					
+					<div class="slide-title">
+						<h2>State-Space Model</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="lightup2">
+		System:
+						$$
+						\begin{aligned} 
+						\dot{x}&=Ax+Bu\\ 
+						y&=Hx+Du
+						\end{aligned}
+						$$
+					</p>
+		
+					<p class="lightup2">
+		Observer:
+						$$
+						\begin{aligned} 
+						\dot{\hat{x}}&=A\hat{x}+Bu+L(y-\hat{y})\\ 
+						\hat{y}&=H\hat{x}+Du
+						\end{aligned}
+						$$
+					</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="">
+						$$
+						\begin{aligned} 
+						\dot{\varepsilon}&=\dot{x}-\dot{\hat{x}}\\ 
+						&=Ax+Bu-(A\hat{x}+Bu)+L(y-\hat{y})\\
+						&=A\varepsilon+L(Hx+Du-(H\hat{x}+Du))\\
+						&=(A-LH)\varepsilon
+						\end{aligned}
+						$$
+					</p>
+					Therefore,
+					<p class="lightup2">
+					$$
+						\dot{\varepsilon}=(A-LH)\varepsilon
+					$$
+				</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+		
+		
+				<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							Hence, if 		
+					<p class="lightup2">
+						
+					$$
+						\mathcal{R}\{\lambda\{A-LH\}\} < 0
+					$$
+					
+				</p>
+				then the observer converges to the true state!
+		
+				<p>&nbsp;</p>
+				<p class="lightup">
+				Good design practice: the state error dynamics of the observer should be at least 2x faster than the system dynamics!
+			</p>
+			
+					</center>
+							</div>
+		
+				</section>
+
+
+				
+           <section>
+            
+            <div class="slide-title">
+                <h2>Optimal State Observer</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+                             
+                    <img src="../images/state_observer.png" width="600" alt="">
+                    <br>
+      What is the best gain $L$? 
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+		 <section>
+            
+            <div class="slide-title">
+                <h2>Discrete-time Stochastic State-space Model</h2>
+            </div>
+              <p>&nbsp;</p>   
+            <div class="slide-content">
+                <center>
+                                    
+        <img src="../images/modelo_ss_discreto_estocastico.png" width="1000">
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+		    <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic discrete-time state-space model</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                      <p>&nbsp;</p>   
+            <p class="lightup">
+Stochastic model
+                $$
+                \begin{aligned} 
+                x_{k+1}&=Ax_k+Bu_k+w_k\\ 
+                y_k&=Hx_k+Du_k+\epsilon_k
+                \end{aligned}
+                $$
+            </p>
+            <ul>
+                <li>$w_k \to $ process noise</li>
+                <li>$\epsilon_k \to $ measurement noise</li>
+            </ul>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+       
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic Optimal State Observer <br>= Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+                Cost function (MSE):
+                <p class="lightup">
+                $$
+                    J=\sum_{k=0}^\infty \mathbb{E}\{\|x_k-\hat{x}_{k}\|^2\}
+                $$
+                </p>
+    Thus,
+    $$
+                L^*=\arg\min_L J
+    $$
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Noise</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                    
+            <p class="lightup">
+                $$
+                w_k\sim\mathcal{N}(0,Q),\quad \epsilon_k\sim\mathcal{N}(0,R),\quad i.i.d.
+                $$
+            </p>
+            Note: for $x\in\mathbb{R}$:<br>
+            $$
+            \mathcal{N}(\mu,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\exp\Bigl(-\frac{(x-\mu)^2}{2\sigma^2}\Bigr)
+            $$
+        <ul>
+            <li>$\mu \to $ mean  </li>
+            <li>$\sigma^2 \to $ variance </li>
+        </ul>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Distribution</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p>
+$
+\mu=0,\quad \sigma=1;
+$
+</p>											
+            <img src="../images/gaussiana_escalar.png" alt="">
+
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Distribution</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p>
+$
+\mu=2,\quad \sigma=1;
+$
+</p>											
+            <img src="../images/gaussiana_escalar2.png" alt="">
+
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Gaussian Distribution</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+<p>
+$
+\mu=0,\quad \sigma=2;
+$
+</p>											
+            <img src="../images/gaussiana_escalar3.png" alt="">
+
+            </center>
+                    </div>
+
+        </section>
+
+
+
+    
+
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Multidimensional Gaussian Noise</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                    
+            <p class="lightup">
+                $$
+                w_k\sim\mathcal{N}(0,Q),\quad \epsilon_k\sim\mathcal{N}(0,R),\quad i.i.d.
+                $$
+            </p>
+            Note: for $x\in\mathbb{R}^n$:
+            $$
+            \mathcal{N}(\mu,\Sigma)=\frac{1}{\sqrt{(2\pi)^n \det{\Sigma}}}\exp(-\frac{1}{2}\|x-\mu\|^2_{\Sigma^{-1}})
+            $$
+        <ul>
+            <li>$\mu \to $ mean  </li>
+            <li>$\Sigma \to $ covariance </li>
+        </ul>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Multidimensional Gaussian</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p class="lightup2">
+            $$
+            \mathcal{N}(\mu,\Sigma)=\frac{1}{\sqrt{(2\pi)^n \det{\Sigma}}}\exp(-\frac{1}{2}\|x-\mu\|^2_{\Sigma^{-1}})
+            $$
+        </p>			
+    Notation for weighted norm:
+    $$
+\|x-\mu\|^2_{\Sigma^{-1}}=(x-\mu)^\trp \Sigma^{-1}(x-\mu)
+    $$
+    and 
+    $$
+    \det(\Sigma) \to \text{matrix determinant operator}
+    $$
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Multidimensional Gaussian</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p class="lightup2">
+            $$
+            \mathcal{N}(\mu,\Sigma)=\frac{1}{\sqrt{(2\pi)^n \det{\Sigma}}}\exp(-\frac{1}{2}\|x-\mu\|^2_{\Sigma^{-1}})
+            $$
+        </p>			
+        Example for $\mathbb{R}^2$:
+            $$
+            \mu=\begin{bmatrix}\mu_1\\ \mu_2\end{bmatrix},\quad		\Sigma=\begin{bmatrix}
+            \sigma_1^2 & \sigma_{12}\\ 
+            \sigma_{21} & \sigma_2^2			
+                    \end{bmatrix}
+            $$
+    note: $\Sigma=\Sigma^\trp >0$
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Multidimensional Gaussian</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            <img src="../images/2d_gaussian.gif" width="700">
+            </center>
+                    </div>
+
+        </section>
+
+
+            <!-- <section>
+            
+            <div class="slide-title">
+                <h2>Optimal State Observer</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+                Cost function (SE):
+                <p class="lightup">
+                $$
+                    J=\sum_{k=0}^\infty \|x_k-\hat{x}_{k}\|^2_2
+                $$
+                </p>
+    Thus,
+    $$
+                L^*=\arg\min_L J
+    $$
+            </center>
+                    </div>
+
+        </section>
+
+
+		
+            <section>
+            
+            <div class="slide-title">
+                <h2>Optimal State Observer</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+               
+                <p class="lightup">
+                $$
+                   \varepsilon_{k+1}=x_{k+1}-\hat{x}_{k+1}\\
+				   =Ax_k+Bu_k-A\hat{x}_k-Bu_k-L(y_k-\hat{y}_k)\\
+				   =(A-LH)\varepsilon_k
+                $$
+                </p>
+				Thus,
+				$$
+					J=\sum_{k=0}^\infty \|(A-LH)\varepsilon_k\|^2_2
+				$$
+   
+            </center>
+                    </div>
+
+        </section>
+
+
+		        <section>
+            
+            <div class="slide-title">
+                <h2>Optimal State Observer</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+               
+                <p class="lightup">
+                $$
+               \|(A-LH)\varepsilon_k\|^2_2=\varepsilon_k^\trp(A-LH)^\trp (A-LH)\varepsilon_k \\
+			   =\tr[(A-LH)\varepsilon_k\varepsilon_k^\trp (A-LH)^\trp]
+                $$
+                </p>
+				Let
+				$$
+					P_k=\varepsilon_k\varepsilon_k^\trp,
+				$$
+				
+   
+            </center>
+                    </div>
+
+        </section>
+
+			        <section>
+            
+            <div class="slide-title">
+                <h2>Optimal State Observer</h2>
+            </div>
+            <div class="slide-content">
+                
+                <center>
+                                      
+               
+                <p class="lightup">
+                $$
+             J=\sum_{k=0}^\infty \tr[A P_k A^\trp -LH P_k A^\trp  -A P_k  H^\trp L^\trp + LH P_k H^\trp L^\trp] 
+                $$
+                </p>
+				Therefore,
+				$$
+					L^*=\arg\min_L \tr[-LH P_k A^\trp  -A P_k  H^\trp L^\trp + LH P_k H^\trp L^\trp] 
+				$$
+            </center>
+                    </div>
+
+        </section> -->
+
+
+
+
+    
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Mean and Covariance</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Let $x\sim\mathcal{N}(\mu,\Sigma)$ be a Gaussian random vector, then 
+            <p class="lightup2">
+                Mean:
+                $$
+                \mathbb{E}\{x\}=\int xp(x)dx = \mu
+                $$
+
+            </p>
+            <p class="lightup2">
+                Covariance:
+                $$
+                \mathbb{E}\{(x-\mu)(x-\mu)^\trp \}=\int (x-\mu)(x-\mu)^\trp p(x)dx = \Sigma
+                $$
+
+            </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+
+            
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            <img src="../images/Rudolf_Kalman.jpg" width="300"><br>
+            Rudolf Emil Kalman (1930-2016)
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+                            
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Paper in 1960<br>
+            <img src="../images/paper_1960_kf.png" width="750">
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Performance criterion: Minimum Mean Squared Error
+            $$
+            \min_{\{\hat{x}_k\}_{k=1}^N} \sum_{k=1}^N \mathbb{E}\{\|x_k-\hat{x}_k\|^2\}
+            $$
+
+            <p class="lightup">
+                The optimal solution for linear dynamics with Gaussian noise is the Kalman filter!
+            </p>
+            </center>
+                    </div>
+
+        </section>      
+
+
+		<section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+				\hat{x}_{k+1}=A\hat{x}_{k}+Bu_k+K(y_{k}-H\hat{x}_{k})
+                \end{aligned}
+                $$
+            </p>
+    Thus,
+	$$
+			e_{k+1}=Ax_{k}+Bu_k+w_k-(A\hat{x}_{k}+Bu_k+K(Hx_{k}+\epsilon_{k}-H\hat{x}_{k}))\\
+			=(A-KH)e_{k}-K\epsilon_{k}+w_k
+	$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+				J_{k+1}&=\mathbb{E}[\|e_{k+1}\|_2^2] \\&= \mathbb{E}[e_{k}^\trp (A-KH)^\trp (A-KH)e_{k}+\epsilon_{k}^\trp K^\trp K \epsilon_{k}+w_k^\trp w_k]\\
+				&=\text{tr}[(A-KH)P_{k} (A-KH)^\trp+KRK^\trp+Q ]
+                \end{aligned}
+                $$
+            </p>
+			with
+			$$
+			P_{k}=\mathbb{E}[e_{k}e_{k}^\trp],\quad \mathbb{E}[e_{k}^\trp \epsilon_{k}]=\mathbb{E}[e_{k}^\trp w_{k}]=\mathbb{E}[\epsilon_{k}^\trp w_{k}]=0
+			$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		
+		        <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+				J=\sum_{k=0}^\infty J_k
+                \end{aligned}
+                $$
+            </p>
+			Such that
+			$$
+			J_{k+1} = \text{tr}[(A-KH)P_{k} (A-KH)^\trp+KRK^\trp+Q ]\ge 0
+			$$
+            </center>
+                    </div>
+
+        </section>
+
+
+			        <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+				\min_K J \Leftrightarrow \min_K J_k \quad \forall k
+                \end{aligned}
+                $$
+            </p>
+			Therefore,
+			$$
+			K^*=\argmin_K \text{tr}[(A-KH)P_{k} (A-KH)^\trp+KRK^\trp+Q ]
+			$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+			\min_K \text{tr}[(A-KH)P_{k} (A-KH)^\trp+KRK^\trp+Q ]
+                \end{aligned}
+                $$
+            </p>
+		Trace derivatives properties:
+		$$
+			\frac{\partial }{\partial X}\tr[XA]=A^\trp,\\
+			\frac{\partial }{\partial X}\tr[AX^\trp]=A,\\
+			\frac{\partial }{\partial X}\tr[XAX^\trp]=X(A+A^\trp)\\
+		$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+			\min_K \text{tr}[-KHP_{k}A^\trp-(\star)^\trp  +K(R+HP_{k}H^\trp)K^\trp]
+                \end{aligned}
+                $$
+            </p>
+		Trace derivatives properties:
+		$$
+			\frac{\partial }{\partial X}\tr[XA]=A^\trp,\\
+			\frac{\partial }{\partial X}\tr[AX^\trp]=A,\\
+			\frac{\partial }{\partial X}\tr[XAX^\trp]=X(A+A^\trp)\\
+		$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		
+		  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+		\frac{\partial}{\partial K}\text{tr}[-KHP_{k}-(\star)^\trp  +K(R+HP_{k}H^\trp)K^\trp]=0
+                \end{aligned}
+                $$
+            </p>
+		Thus,
+		$$
+\frac{\partial}{\partial K}\text{tr}[KHP_{k}A^\trp]=AP_{k}H^\trp\\
+\frac{\partial}{\partial K}\text{tr}[AP_{k}H^\trp K^\trp ]=AP_{k}H^\trp\\
+\frac{\partial}{\partial K}\text{tr}[K(R+HP_{k}H^\trp)K^\trp]=2K(R+HP_{k}H^\trp)\\
+		$$
+            </center>
+                    </div>
+
+        </section>
+
+
+			  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+		-2AP_{k}H^\trp+2K(R+HP_{k}H^\trp)=0
+                \end{aligned}
+                $$
+            </p>
+		Consequently, the optimal gain is 
+		<p class="lightup">
+		$$
+ K^*=AP_{k}H^\trp(R+HP_{k}H^\trp)^{-1}
+		$$
+		</p>
+            </center>
+                    </div>
+
+        </section>
+
+
+					  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+           <p class="lightup">
+                      $$
+                \begin{aligned}
+			J_{k+1}^*=\text{tr}[(A-K^*H)P_{k} (A-K^*H)^\trp+K^*R(K^*)^\trp+Q ]
+                \end{aligned}
+                $$
+            </p>
+	where
+		<p class="lightup2">
+		$$
+ K^*=AP_{k}H^\trp(R+HP_{k}H^\trp)^{-1}
+		$$
+		</p>
+		But,
+		$$
+		J_{k+1}^*=\tr[P_{k+1}]
+		$$
+            </center>
+                    </div>
+
+        </section>
+
+
+
+		
+					  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+           <p class="lightup">
+                      $$
+                \begin{aligned}
+			P_{k+1}=(A-K^*H)P_{k} (A-K^*H)^\trp+K^*R(K^*)^\trp+Q 
+                \end{aligned}
+                $$
+            </p>
+	where
+		<p class="lightup2">
+		$$
+ K^*=AP_{k}H^\trp(R+HP_{k}H^\trp)^{-1}
+		$$
+		</p>
+	        </center>
+                    </div>
+
+        </section>
+
+
+				  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+           <p class="lightup">
+                      $$
+                \begin{aligned}
+				P_{k+1}=AP_kA^\trp-K^*HP_{k}A^\trp-(\star)^\trp\\+K^*(R+HP_kH^\trp)(K^*)^\trp+Q 
+                \end{aligned}
+                $$
+            </p>
+	where
+		<p class="lightup2">
+		$$
+ K^*=AP_{k}H^\trp(R+HP_{k}H^\trp)^{-1}
+		$$
+		</p>
+	        </center>
+                    </div>
+
+        </section>
+
+
+						  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Observer)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+           <p class="lightup">
+                      $$
+                \begin{aligned}
+				P_{k+1}=AP_kA^\trp-AP_kH^\trp(R+HP_kH^\trp)^{-1}HP_kA+Q 
+                \end{aligned}
+                $$
+            </p>
+	Take $k\to\infty$ and we got
+	 <p class="lightup">
+                      $$
+                \begin{aligned}
+				P_{\infty}=AP_\infty A^\trp-AP_\infty H^\trp(R+HP_\infty H^\trp)^{-1}HP_\infty A+Q 
+                \end{aligned}
+                $$
+            </p>
+	        </center>
+                    </div>
+
+        </section>
+
+	
+
+<!-- 
+
+		<section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Predictor)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+				\hat{x}_{k+1}=\underbrace{A\hat{x}_{k}+Bu_k}_{\hat{x}_{k+1|k}}+K(y_{k+1}-H\hat{x}_{k+1|k})
+                \end{aligned}
+                $$
+            </p>
+    Thus,
+	$$
+			e_{k+1}=x_{k+1}-(\hat{x}_{k+1|k}+K(Hx_{k+1}+\epsilon_{k+1}-H\hat{x}_{k+1|k}))\\
+			=(I-KH)e_{k+1|k}-K\epsilon_{k+1}
+	$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		
+		        <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Predictor)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+				J_k&=\mathbb{E}[\|e_{k+1}\|_2^2] \\&= \mathbb{E}[e_{k+1|k}^\trp (I-KH)^\trp (I-KH)e_{k+1|k}+\epsilon_{k+1}^\trp K^\trp K \epsilon_{k+1}]\\
+				&=\text{tr}[(I-KH)P_{k+1|k} (I-KH)^\trp+KRK^\trp ]
+                \end{aligned}
+                $$
+            </p>
+			with
+			$$
+			P_{k+1|k}=\mathbb{E}[e_{k+1|k}e_{k+1|k}^\trp],\quad \mathbb{E}[e_{k+1|k}^\trp \epsilon_{k+1}]=0
+			$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		
+		
+		        <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Predictor)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+				J=\sum_{k=0}^\infty J_k
+                \end{aligned}
+                $$
+            </p>
+			Such that
+			$$
+			J_k = \text{tr}[(I-KH)P_{k+1|k} (I-KH)^\trp+KRK^\trp]\ge 0
+			$$
+            </center>
+                    </div>
+
+        </section>
+
+
+			        <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Predictor)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>   
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+				\min_K J \Leftrightarrow \min_K J_k \quad \forall k
+                \end{aligned}
+                $$
+            </p>
+			Therefore,
+			$$
+			K^*=\argmin_K \text{tr}[(I-KH)P_{k+1|k} (I-KH)^\trp+KRK^\trp]
+			$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Predictor)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+			\min_K \text{tr}[(I-KH)P_{k+1|k} (I-KH)^\trp+KRK^\trp]
+                \end{aligned}
+                $$
+            </p>
+		Trace derivatives properties:
+		$$
+			\frac{\partial }{\partial X}\tr[XA]=A^\trp,\\
+			\frac{\partial }{\partial X}\tr[AX^\trp]=A,\\
+			\frac{\partial }{\partial X}\tr[XAX^\trp]=X(A+A^\trp)\\
+		$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Predictor)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+			\min_K \text{tr}[-KHP_{k+1|k}-(\star)^\trp  +K(R+HP_{k+1|k}H^\trp)K^\trp]
+                \end{aligned}
+                $$
+            </p>
+		Trace derivatives properties:
+		$$
+			\frac{\partial }{\partial X}\tr[XA]=A^\trp,\\
+			\frac{\partial }{\partial X}\tr[AX^\trp]=A,\\
+			\frac{\partial }{\partial X}\tr[XAX^\trp]=X(A+A^\trp)\\
+		$$
+            </center>
+                    </div>
+
+        </section>
+
+
+		
+		  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Predictor)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+		\frac{\partial}{\partial K}\text{tr}[-KHP_{k+1|k}-(\star)^\trp  +K(R+HP_{k+1|k}H^\trp)K^\trp]=0
+                \end{aligned}
+                $$
+            </p>
+		Thus,
+		$$
+\frac{\partial}{\partial K}\text{tr}[KHP_{k+1|k}]=P_{k+1|k}H^\trp\\
+\frac{\partial}{\partial K}\text{tr}[P_{k+1|k}H^\trp K^\trp ]=P_{k+1|k}H^\trp\\
+\frac{\partial}{\partial K}\text{tr}[K(R+HP_{k+1|k}H^\trp)K^\trp]=2K(R+HP_{k+1|k}H^\trp)\\
+		$$
+            </center>
+                    </div>
+
+        </section>
+
+
+			  <section>
+            
+            <div class="slide-title">
+                <h2>The Kalman Filter (Predictor)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup">
+                      $$
+                \begin{aligned}
+		-2P_{k+1|k}H^\trp+2K(R+HP_{k+1|k}H^\trp)=0
+                \end{aligned}
+                $$
+            </p>
+		Consequently, the optimal gain is 
+		<p class="lightup">
+		$$
+ K=P_{k+1|k}H^\trp(R+HP_{k+1|k}H^\trp)^{-1}
+		$$
+		</p>
+            </center>
+                    </div>
+
+        </section> -->
+
+
+	
+
+
+
+        
+    
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Kalman Filter + LQR = LQG <br>(Linear Quadratic Gaussian Regulator)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                
+            <img src="../images/state_observer_kf.png" width="550">
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+			  <section>
+            
+            <div class="slide-title">
+                <h2>Applications of the Kalman Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                                    
+                    <p>&nbsp;</p>
+            <ul>
+                <li>State observer for control systems;</li>
+                <li>Navigation of airplanes, drones, autonomous cars, etc.;</li>
+                <li>GPS processing;</li>
+                <li>Target tracking using radars;</li>
+                <li>Finance: stock market, etc.;</li>
+                <li>Medical field: estimation of biological signals EEG, ECG, etc.;</li>
+                <li>etc...</li>
+            </ul>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+       
+        <section>
+            
+            <div class="slide-title">
+                <h2>LQR vs Kalman Filter Duality</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                Kalman Filter:<br>
+                $$
+                P_\infty=AP_{\infty} A^\trp - AP_{\infty} H^\trp(R+HP_{\infty} H^\trp )^{-1}HP_{\infty} A^\trp + Q\\
+$$
+</p>
+<p class="lightup2">
+LQR:<br>
+$$P_\infty=A^\trp P_{\infty} A - A^\trp P_{\infty} B (R+B^\trp  P_{\infty} B )^{-1}B^\trp P_{\infty} A + Q$$
+            </p>
+$$
+A\to A^\trp, \quad H^\trp \to B
+$$
+            
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>LQR vs Kalman Filter Duality</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                Kalman Filter:<br>
+                $$
+                L=AP_\infty H^\trp (R+HP_\infty H^\trp )^{-1}
+                $$
+</p>
+<p class="lightup2">
+LQR:<br>
+$$K^\trp =A^\trp P_\infty B(R+B^\trp P_\infty B )^{-1}$$
+                
+            </p>
+            $$
+A\to A^\trp, \quad H^\trp \to B
+$$
+            </center>
+                    </div>
+
+        </section>
+
+
+      
+
+
+
+
+
+			
+		
+		
+			<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p>&nbsp;</p>
+			An state observer is <b>asymptotically stable</b> if and only if
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $L\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						(A-LH)^\trp P+P(A-LH)  \prec 0
+			$$
+			
+		</p>
+		<b>This is a LMI?</b>
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p>&nbsp;</p>
+			An state observer is <b>asymptotically stable</b> if and only if
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $Z\in\mathbb{R}^{n\times m}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						A^\trp P+PA-Z^\trp H^\trp -HZ  \prec 0
+			$$
+			
+		</p>
+		<b>Where $Z=PL$, which implies $L=P^{-1}Z$</b>
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+
+
+
+		
+							<section>
+					
+					<div class="slide-title">
+						<h2>Polytopic Uncertain State-Space Model</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="lightup2">
+		System:
+						$$
+						\begin{aligned} 
+						\dot{x}&=A(\alpha)x+B(\alpha)u\\ 
+						y&=H(\alpha)x+D(\alpha)u
+						\end{aligned}
+						$$
+					</p>
+		
+					<p class="lightup2">
+		Observer:
+						$$
+						\begin{aligned} 
+						\dot{\hat{x}}&=A(\alpha)\hat{x}+B(\alpha)u+L(y-\hat{y})\\ 
+						\hat{y}&=H(\alpha)\hat{x}+D(\alpha)u
+						\end{aligned}
+						$$
+					</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+
+
+					<section>
+					
+					<div class="slide-title">
+						<h2>State Error Dynamics</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+											
+					<p class="">
+						$$
+						\begin{aligned} 
+						\dot{\varepsilon}&=\dot{x}-\dot{\hat{x}}\\ 
+						&=A(\alpha)x+B(\alpha)u-(A(\alpha)\hat{x}+B(\alpha)u+L(y-\hat{y}))\\
+						&=A(\alpha)\varepsilon+L(H(\alpha)x+D(\alpha)u-(H(\alpha)\hat{x}+D(\alpha)u))\\
+						&=(A(\alpha)-LH(\alpha))\varepsilon
+						\end{aligned}
+						$$
+					</p>
+					Therefore,
+					<p class="lightup2">
+					$$
+						\dot{\varepsilon}=(A(\alpha)-LH(\alpha))\varepsilon,\quad \forall \alpha\in\Lambda_N
+					$$
+				</p>
+				
+				
+			
+					</center>
+							</div>
+		
+				</section>
+
+
+				<section>
+				
+			<div class="slide-title">
+				<h2>Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					<p>&nbsp;</p>
+			An state observer is <b>asymptotically stable</b> if 
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $L\in\mathbb{R}^{m\times n}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						(A(\alpha)-LH(\alpha))^\trp P+P(A(\alpha)-LH(\alpha))  \prec 0\\
+						\forall \alpha\in\Lambda_N
+			$$
+			
+		</p>
+
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+
+
+
+		<section>
+				
+			<div class="slide-title">
+				<h2>Quadratic Lyapunov Stability: continuous time</h2>
+			</div>
+			<div class="slide-content">
+				<center>
+					
+			An state observer is <b>asymptotically stable</b> if and only if
+			there exists a matrix $P=P^\trp \in\mathbb{R}^{n\times n}$ and $Z\in\mathbb{R}^{n\times m}$ such that
+			<p class="lightup">
+			$$
+						P\succ 0 \\
+						A_i^\trp P+PA_i-H_i^\trp Z^\trp -Z H_i  \prec 0\\
+						\forall i=1,\ldots,N
+			$$
+			
+		</p>
+		<b>Where $Z=PL$, which implies $L=P^{-1}Z$</b>
+			</p>
+		
+			</center>
+					</div>
+
+		</section>
+		
+				<section>
+				
+					<div class="slide-title">
+						<h2>Homework (T8)</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+					<p class="">
+						<ul class="homework-list">
+							<li>Search for a paper that employs a state observer for controlling a system of your interest.</li>
+							<li>Use IEEE Xplorer Library, Web of Science, etc.</li>
+							<li>Write a summary with your own words about the paper in LaTex and send it via e-disciplina.</li>
+					</ul>
+					</p>
+					<img src="images/pendulum.png" alt="">
+					</center>
+							</div>
+		
+				</section>
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+
+
+				
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+
+</p>
