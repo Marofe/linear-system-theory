@@ -31,14 +31,14 @@
 					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
 					<div class="title">
 						<p>&nbsp;</p>
-					<h2>Introduction to $\mathcal{H}_2$ Robust Control via LMI</h2>
+					<h2>Robust $\mathcal{H}_2$ Control via LMI</h2>
 					</div>
 					<div class="author">
 					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
 				</div>
 					<div class="advisor">
 					
-					<p style="text-align: center;font-size: 0.8em;">May 28, 2025</p>
+					<p style="text-align: center;font-size: 0.8em;">April 13, 2026</p>
 				</div>
 
 				</section>
@@ -75,7 +75,7 @@
             <div class="slide-content">
                         <ul>
                         <li>S. BOYD, L. GHAOUI, E. FERON, and V. BALAKRISHNAN. Linear Matrix Inequalities in System and Control Theory. SIAM, 1994.</li>
-                        <li>Notas de aula da disciplina <b>IA892 - Análise e Controle de Sistemas Lineares por Desigualdades Matriciais Lineares (LMIs)</b>, <br>Profs. Ricardo C. L. F. Oliveira e Pedro L. D. Peres, da Faculdade de Engenharia Elétrica e de Computação (FEEC) da Universidade Estadual de Campinas (Unicamp) oferecida no 2º sem. de 2017. 
+                        <li>Notas de aula da disciplina <b>IA892 - Análise e Controle de Sistemas Lineares por Desigualdades Matriciais Lineares (LMIs)</b>, <br>Profs. Ricardo C. L. F. Oliveira e Pedro L. D. Peres, da Faculdade de Engenharia Elétrica e de Computação (FEEC) da Universidade Estadual de Campinas (Unicamp). 
                         <a href="https://ricfow.fee.unicamp.br/IA892/ia892.htm" target="_blank">https://ricfow.fee.unicamp.br/IA892/ia892.htm</a>
                         </li>
                     </div>
@@ -96,14 +96,14 @@
 
                 $$
                 \begin{aligned} 
-                \dot{x}&=Ax+Bu\\ 
+                \dot{x}&=Ax+Bw\\ 
                 y&=Hx
                 \end{aligned}
                 $$
-                with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
+                with $x\in\mathbb{R}^n$, $w\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
             </p>
             <p>
-                In order to have a well-defined $\mathcal{H}_2$ norm, the system cannot posses the transmission term $D$ of $u$ to $y$.
+                In order to have a well-defined $\mathcal{H}_2$ norm, the system cannot posses the transmission term $D$ of $w$ to $y$ and must be stable!.
             </p>
         
         
@@ -298,8 +298,8 @@
                      <p class="lightup">
                 $$
                         g(t)=\begin{cases} 
-                            He^{At}B, & \text{if } t\geq 0\\
-                            0, & \text{if } t<0
+                            He^{At}B, & \text{if } t\ge  0\\
+                            0, & \text{if } t< 0
                         \end{cases}
                 $$
             </p>
@@ -308,6 +308,27 @@
         
     
         
+                    </div>
+
+        </section>
+
+
+        
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+        
+            <p>
+                <img src="../images/impulse_response_continuous.png" alt="" width="750">           
+            </p>
+        
+        
+    
+            </center>
                     </div>
 
         </section>
@@ -323,8 +344,9 @@
                     <p>&nbsp;</p>
                       <p>
                    $$
-                \|G\|_2^2=\int_{0}^{\infty} \text{tr}(B^\trp \underbrace{e^{A^\trp t}H^\trp H e^{At}}_{W_o} B) dt\\
-                =\int_{0}^{\infty} \text{tr}(  H \underbrace{e^{At} B B^\trp e^{A^\trp t}}_{W_c}H^\trp ) dt
+                \|G\|_2^2=\int_0^\infty \text{tr}(g(t)^\trp g(t))dt\\
+                =\int_{0}^{\infty} \text{tr}(B^\trp e^{A^\trp t}H^\trp H e^{At} B) dt\\
+                =\int_{0}^{\infty} \text{tr}(  H e^{At} B B^\trp e^{A^\trp t}H^\trp ) dt
                 $$
             </p>
                 </center>
@@ -335,6 +357,60 @@
                     </div>
 
         </section>
+
+                <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain) in SS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                      <p>
+                   $$
+                \|G\|_2^2=\int_0^\infty \text{tr}(g(t)^\trp g(t))dt\\
+                = \text{tr}(B^\trp \int_{0}^{\infty}e^{A^\trp t}H^\trp H e^{At} dt B)\\
+                = \text{tr}(  H \int_{0}^{\infty}e^{At} B B^\trp e^{A^\trp t}dtH^\trp ) 
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+        
+                <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm (Time domain) in SS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                      <p>
+                   $$
+                \|G\|_2^2=\int_0^\infty \text{tr}(g(t)^\trp g(t))dt\\
+                = \text{tr}(B^\trp \underbrace{\int_{0}^{\infty}e^{A^\trp t}H^\trp H e^{At} dt}_{W_o} B)\\
+                = \text{tr}(  H \underbrace{\int_{0}^{\infty}e^{At} B B^\trp e^{A^\trp t}dt}_{W_c}H^\trp ) 
+                $$
+            </p>
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
 
 
 
@@ -450,9 +526,9 @@
                
             </p>
             <p class="lightup2"> $$
-                    \min_{P=P^\trp \succ 0}   \text{tr}(B^\trp P B) \\
+                    \inf_{P=P^\trp \succ 0}   \text{tr}(B^\trp P B) \\
 \text{s. t.} \\
- AP+PA^\trp+BB^\trp\preceq 0  
+ AP+PA^\trp+BB^\trp\prec 0  
                 $$</p>
              
                 </center>
@@ -482,9 +558,9 @@
                
             </p>
             <p class="lightup2"> $$
-                    \min_{P=P^\trp \succ 0}  \text{tr}(H P H^\trp ) \\
+                    \inf_{P=P^\trp \succ 0}  \text{tr}(H P H^\trp ) \\
 \text{s. t.} \\
- A^\trp P+PA+H^\trp H\preceq 0  
+ A^\trp P+PA+H^\trp H\prec 0  
                 $$</p>
              
                 </center>
@@ -510,11 +586,11 @@
 
                 $$
                 \begin{aligned} 
-                x_{k+1}&=Ax_k+Bu_k\\ 
-                y_k&=Hx_k+Du_k
+                x_{k+1}&=Ax_k+Bw_k\\ 
+                y_k&=Hx_k+Dw_k
                 \end{aligned}
                 $$
-                with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
+                with $x\in\mathbb{R}^n$, $w\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
             </p>
             <p>
                 In discrete-time, the system can posses the transmission term $D$! However, we need to account for $\tr[D^\trp D]$ in the $\mathcal{H}_2$ norm.
@@ -648,33 +724,7 @@
 
 
          
-                  <section>
-            
-            <div class="slide-title">
-                <h2>$\mathcal{H}_2$ norm (Time domain)</h2>
-            </div>
-            <div class="slide-content">
-                <center>
-                        From Parseval's Theorem:
-            <p class="lightup">
-
-                $$
-                \|G\|_2=\sqrt{\sum_{k=1}^{\infty} \text{tr}(g_k^\trp g_k)}
-                $$
-            </p>
-            <p>
-                For a SISO system, the $\mathcal{H}_2$ norm is given by:
-                $$                \|G\|_2=\sqrt{\sum_{k=1}^{\infty} g_k^2}
-                $$                
-            </p>
-        
-        
-    
-            </center>
-                    </div>
-
-        </section>
-
+     
 
          <section>
             
@@ -685,7 +735,7 @@
                 <center>
         
             <p>
-                <img src="../images/impulse_response_discrete.png" alt="" width="650">           
+                <img src="../images/impulse_response_discrete.png" alt="" width="750">           
             </p>
         
         
@@ -833,9 +883,9 @@
                
             </p>
             <p class="lightup2"> $$
-                    \min_{P=P^\trp \succ 0}   \text{tr}(B^\trp P B) \\
+                    \inf_{P=P^\trp \succ 0}   \text{tr}(B^\trp P B) \\
 \text{s. t.} \\
- APA^\trp-P+BB^\trp\preceq 0  
+ APA^\trp-P+BB^\trp\prec 0  
                 $$</p>
              
                 </center>
@@ -865,9 +915,9 @@
                
             </p>
             <p class="lightup2"> $$
-                    \min_{P=P^\trp \succ 0}  \text{tr}(H P H^\trp ) \\
+                    \inf_{P=P^\trp \succ 0}  \text{tr}(H P H^\trp ) \\
 \text{s. t.} \\
- A^\trp PA-P+H^\trp H\preceq 0  
+ A^\trp PA-P+H^\trp H\prec 0  
                 $$</p>
              
                 </center>
@@ -918,7 +968,7 @@ Consider the system in state-space representation:
             <p class="lightup">
 $$
 \begin{aligned}
-& x(t)=A x(t)+B_2 u(t)+B_1 w(t) \\
+& x(t)=A x(t)+B_u u(t)+B_w w(t) \\
 & y(t)=H x(t)+D u(t)
 \end{aligned}
 $$
@@ -952,9 +1002,9 @@ with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$, $w\in\mathbb{R}
 <p class="lightup">
 $$
 \begin{aligned}
-\dot{x}(t) & =\left(A+B_2 K\right) x(t)+B_1 w(t) \\
+\dot{x}(t) & =\left(A+B_u K\right) x(t)+B_w w(t) \\
 y(t) & =(H+D K) x(t) \\
-G(s) & =(H+D K)\left(s I-\left(A+B_2 K\right)\right)^{-1} B_1
+G(s) & =(H+D K)\left(s I-\left(A+B_u K\right)\right)^{-1} B_w
 \end{aligned}
 $$
 </p>
@@ -979,16 +1029,16 @@ $$
 <p class="lightup2">
 $$
 \begin{gathered}
-\min & \|G\|_2^2 \\
+\inf & \|G\|_2^2 \\
 K & 
 \end{gathered}
 $$
 with 
 $$
-G(s) =(H+D K)\left(s I-\left(A+B_2 K\right)\right)^{-1} B_1
+G(s) =(H+D K)\left(s I-\left(A+B_u K\right)\right)^{-1} B_w
 $$
 </p>
-Obs: LQR with $Q=H^\trp H, R=D^\trp D$ e $S=H^\trp D$ and <br> $x_0x_0^\trp=B_1B_1^\trp$</p>
+Obs: LQR with $Q=H^\trp H, R=D^\trp D$ e $S=H^\trp D$ and <br> $x_0x_0^\trp=B_wB_w^\trp$</p>
              
                 </center>
         
@@ -1043,10 +1093,10 @@ $$
                         J=x_0^\trp P x_0.
                     $$
                     </p>
-For  $x_0x_0^\trp=B_1B_1^\trp$, one has
+For  $x_0x_0^\trp=B_wB_w^\trp$, one has
 <p class="lightup2">
 $$
-    J=\int_0^\infty \|y\|^2_2 dt = x_0^\trp P x_0 = \text{tr}(B_1^\trp P B_1)
+    J=\int_0^\infty \|y\|^2_2 dt = x_0^\trp P x_0 = \text{tr}(B_w^\trp P B_w)
 $$
 </p>
              
@@ -1070,13 +1120,13 @@ $$
 <p class="lightup2">
 $$
 \begin{gathered}
-\min & \|G\|_2^2 \\
+\inf & \|G\|_2^2 \\
 K & 
 \end{gathered}
 $$
 with 
 $$
-G(s) =(H+D K)\left(s I-\left(A+B_2 K\right)\right)^{-1} B_1
+G(s) =(H+D K)\left(s I-\left(A+B_u K\right)\right)^{-1} B_w
 $$
 </p>
 Solve using LMIs!
@@ -1101,16 +1151,16 @@ Solve using LMIs!
                 <center>
                     Define 
 $$ 
-\tilde{A}=A+B_2 K, \quad \tilde{H}=H+D K
+\tilde{A}=A+B_u K, \quad \tilde{H}=H+D K
 $$
 Thus, the $\mathcal{H}_2$ control problem can be written as:
 <p class="lightup2">
 $$
 \begin{gathered}
-\min & \tr[B_1^\trp PB_1] \\
-K,P & \\
+\inf & \tr[B_w^\trp PB_w] \\
+K,P=P^\trp \succ 0 & \\
 \text{s. t.} & 
-\tilde{A}^\trp P+P \tilde{A}+ \tilde{H}^\trp \tilde{H} \preceq 0
+\tilde{A}^\trp P+P \tilde{A}+ \tilde{H}^\trp \tilde{H} \prec 0
 \end{gathered}
 $$
 </p>
@@ -1136,16 +1186,16 @@ $$
 Therefore,
 
 $$
-(A+B_2 K)^\trp P+P (A+B_2 K)+ (H+D K)^\trp (H+D K) \preceq 0
+(A+B_u K)^\trp P+P (A+B_u K)+ (H+D K)^\trp (H+D K) \prec 0
 $$
 
 which is not a LMI! However, using Schur's complement we can rewrite it as    
 
 $$
 \begin{bmatrix}
-(A+B_2 K)^\trp P+P (A+B_2 K) &  (H+D K)^\trp \\
+(A+B_u K)^\trp P+P (A+B_u K) &  (H+D K)^\trp \\
 (H+D K) & -I
-\end{bmatrix} \preceq 0
+\end{bmatrix} \prec 0
 $$
 
                 </center>
@@ -1175,17 +1225,17 @@ P^{-1} & 0 \\
 0 & I
 \end{bmatrix}
 \begin{bmatrix}
-(A+B_2 K)^\trp P+P (A+B_2 K) &  (H+D K)^\trp \\
+(A+B_u K)^\trp P+P (A+B_u K) &  (H+D K)^\trp \\
 (H+D K) & -I
-\end{bmatrix} \Bigr ( \star \Bigl) \preceq 0
+\end{bmatrix} \Bigr ( \star \Bigl) \prec 0
 $$
 which leads to the following 
 $$
 \small
 \begin{bmatrix}
-P^{-1}A^\trp +AP^{-1}+P^{-1}K^\trp B_2^\trp+B_2 K P^{-1} &  P^{-1}H^\trp+ P^{-1}K^\trp D^\trp  \\
+P^{-1}A^\trp +AP^{-1}+P^{-1}K^\trp B_u^\trp+B_u K P^{-1} &  P^{-1}H^\trp+ P^{-1}K^\trp D^\trp  \\
 HP^{-1}+D KP^{-1} & -I
-\end{bmatrix}  \preceq 0
+\end{bmatrix}  \prec 0
 $$
 
                 </center>
@@ -1212,12 +1262,12 @@ $$
 \small
 \Rightarrow
 \begin{bmatrix}
-WA^\trp +AW+Z^\trp B_2^\trp+B_2 Z &  WH^\trp+ Z^\trp D^\trp  \\
+WA^\trp +AW+Z^\trp B_u^\trp+B_u Z &  WH^\trp+ Z^\trp D^\trp  \\
 HW+DZ & -I
-\end{bmatrix}  \preceq 0
+\end{bmatrix}  \prec 0
 $$
 </p>
-Now it is a LMI in the variables $W, Z$ !  and
+Now it is a LMI in the variables $W, Z$  and
 $$
 K=Z W^{-1}
 $$
@@ -1245,13 +1295,49 @@ Accordingly, the optimal $\mathcal{H}_2$ control problem can be formulated as:
 $$
 \small
 \begin{gathered}
-\min & \tr[B_1^\trp W^{-1}B_1] \\
+\inf & \tr[B_w^\trp W^{-1}B_w] \\
 W,Z & \\
 \text{s. t.} & 
 \begin{bmatrix}
-WA^\trp +AW+Z^\trp B_2^\trp+B_2 Z &  WH^\trp+ Z^\trp D^\trp  \\
+WA^\trp +AW+Z^\trp B_u^\trp+B_u Z &  WH^\trp+ Z^\trp D^\trp  \\
 HW+DZ & -I
-\end{bmatrix}  \preceq 0
+\end{bmatrix}  \prec 0\\
+&W=W^\trp \succ 0
+\end{gathered} 
+$$
+
+</p>
+Is this a convex optimization problem? 
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Note that,
+<p class="lightup">
+$$
+\small
+\begin{gathered}
+\inf & \tr[X] \\
+W,Z,X & \\
+\text{s. t.} & 
+\begin{bmatrix}
+WA^\trp +AW+Z^\trp B_u^\trp+B_u Z &  WH^\trp+ Z^\trp D^\trp  \\
+HW+DZ & -I
+\end{bmatrix}  \prec 0\\
+& X\succ B_w^\trp  W^{-1} B_w
 \end{gathered}
 $$
 
@@ -1279,52 +1365,17 @@ Note that,
 $$
 \small
 \begin{gathered}
-\min & \tr[X] \\
+\inf & \tr[X] \\
 W,Z,X & \\
 \text{s. t.} & 
 \begin{bmatrix}
-WA^\trp +AW+Z^\trp B_2^\trp+B_2 Z &  WH^\trp+ Z^\trp D^\trp  \\
+WA^\trp +AW+Z^\trp B_u^\trp+B_u Z &  WH^\trp+ Z^\trp D^\trp  \\
 HW+DZ & -I
-\end{bmatrix}  \preceq 0\\
-& X\succeq B_1^\trp  W^{-1} B_1
-\end{gathered}
-$$
-
-</p>
-Is this a convex optimization problem? 
-                </center>
-        
-        
-    
-        
-                    </div>
-
-        </section>
-
-
-             <section>
-            
-            <div class="slide-title">
-                <h2>Optimal $\mathcal{H}_2$ Control (continuous-time)</h2>
-            </div>
-            <div class="slide-content">
-                <center>
-Note that,
-<p class="lightup">
-$$
-\small
-\begin{gathered}
-\min & \tr[X] \\
-W,Z,X & \\
-\text{s. t.} & 
-\begin{bmatrix}
-WA^\trp +AW+Z^\trp B_2^\trp+B_2 Z &  WH^\trp+ Z^\trp D^\trp  \\
-HW+DZ & -I
-\end{bmatrix}  \preceq 0\\
+\end{bmatrix}  \prec 0\\
 & \begin{bmatrix}
-X &  B_1^\trp  \\
-B_1  & W
-\end{bmatrix}\succeq 0
+X &  B_w^\trp  \\
+B_w  & W
+\end{bmatrix}\succ 0
 \end{gathered}
 $$
 </p>
@@ -1353,16 +1404,16 @@ $$
 <p class="lightup2">
 $$
 \begin{gathered}
-\min \tr[X]\\
-X=X^\trp, Z, W=W^\trp>0 \\
+\inf \tr[X]\\
+X=X^\trp, Z, W=W^\trp\succ 0 \\
 {\left[\begin{array}{cc}
-X & B_1^{\trp} \\
-B_1 & W
-\end{array}\right]\succeq 0} \\
+X & B_w^{\trp} \\
+B_w & W
+\end{array}\right]\succ 0} \\
 {\left[\begin{array}{cc}
-A W+W A^{\trp}+Z^{\trp}B_2^{\trp} + B_2 Z & W H^{\trp}+Z^{\trp} D^{\trp} \\
+A W+W A^{\trp}+Z^{\trp}B_u^{\trp} + B_u Z & W H^{\trp}+Z^{\trp} D^{\trp} \\
 H W+D Z & -I
-\end{array}\right]\preceq 0}
+\end{array}\right]\prec 0}
 \end{gathered}
 $$
 and $\|G\|_2^2=\tr[X], K=Z W^{-1}$.
@@ -1411,19 +1462,19 @@ and $\|G\|_2^2=\tr[X], K=Z W^{-1}$.
 $$
 \small
 \begin{gathered}
-\min \tr[X]\\
-X=X^\trp, Z, W=W^\trp>0 \\
+\inf \tr[X]\\
+X=X^\trp, Z, W=W^\trp\succ 0 \\
 {\left[\begin{array}{cc}
-X & B_1^{\trp}(\alpha) \\
+X & B_w^{\trp}(\alpha) \\
 \star & W
-\end{array}\right]\succeq 0} \\
+\end{array}\right]\succ 0} \\
 {\left[\begin{array}{cc}
-A(\alpha) W+ B_2(\alpha) Z + (\star)^\trp  & W H^{\trp}(\alpha)+Z^{\trp} D(\alpha)^{\trp} \\
+A(\alpha) W+ B_u(\alpha) Z + (\star)^\trp  & W H^{\trp}(\alpha)+Z^{\trp} D(\alpha)^{\trp} \\
 \star & -I
-\end{array}\right]\preceq 0}
+\end{array}\right]\prec 0}
 \end{gathered}
 $$
-and $\|G\|_2^2=\tr[X], K=Z W^{-1}$.
+and $\|G\|_2^2\le \tr[X], K=Z W^{-1}$.
 </p>
              
                 </center>
@@ -1447,16 +1498,16 @@ and $\|G\|_2^2=\tr[X], K=Z W^{-1}$.
 $$
 \small
 \begin{gathered}
-\min \tr[X]\\
+\inf \tr[X]\\
 X=X^\trp, Z, W=W^\trp>0 \\
 {\left[\begin{array}{cc}
 X & B_{1,i}^{\trp} \\
 \star & W
-\end{array}\right]\succeq 0} \\
+\end{array}\right]\succ 0} \\
 {\left[\begin{array}{cc}
 A_i W+ B_{2,i} Z + (\star)^\trp  & W H_i^{\trp}+Z^{\trp} D_i^{\trp} \\
 \star & -I
-\end{array}\right]\preceq 0}
+\end{array}\right]\prec 0}
 \end{gathered}
 $$
 for all $i=1,\ldots,N$ and $\|G\|_2^2\le \tr[X], K=Z W^{-1}$.
@@ -1493,6 +1544,27 @@ for all $i=1,\ldots,N$ and $\|G\|_2^2\le \tr[X], K=Z W^{-1}$.
                     </div>
 
         </section>
+
+
+        			<section>
+				
+					<div class="slide-title">
+						<h2>Homework (T7)</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+					<p class="">
+						<ul class="homework-list">
+							<li>Derive the LMI for the $\mathcal{H}_2$ Robust Control in discrete time.</li>
+							<li>Write a summary with your own words about the derivation in LaTex and send it via e-disciplina.</li>
+					</ul>
+					</p>
+					
+					</center>
+							</div>
+		
+				</section>
         
 
 		
