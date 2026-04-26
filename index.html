@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEL5911 - Linear Systems Theory Slides</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f4f7f6;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid #1e90ff;
+        }
+        .header-logos {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .header-logos img {
+            height: 60px;
+            width: auto;
+        }
+        .header-title {
+            text-align: right;
+        }
+        h1 { color: #1e90ff; margin: 0; font-size: 2.5rem; }
+        .subtitle { font-size: 1.2rem; color: #666; font-weight: bold; }
+
+        .description {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .description h2 { color: #1e90ff; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        
+        .syllabus-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        .syllabus-section h3 { color: #333; font-size: 1.1rem; border-left: 4px solid #1e90ff; padding-left: 10px; margin-bottom: 10px; }
+        .syllabus-section ul { padding-left: 1.5rem; font-size: 0.95rem; }
+        .syllabus-section li { margin-bottom: 5px; }
+
+        .detailed-content {
+            margin-top: 2rem;
+        }
+        .detailed-content h3 { color: #1e90ff; }
+        .content-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+        .content-item {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #ccc;
+        }
+
+        .bibliography {
+            margin-top: 2rem;
+            border-top: 2px solid #eee;
+            padding-top: 1.5rem;
+        }
+        .bibliography h3 { color: #333; margin-bottom: 1rem; }
+        .bibliography ul { list-style: none; padding: 0; }
+        .bibliography li { 
+            margin-bottom: 0.8rem; 
+            padding-left: 15px; 
+            border-left: 3px solid #1e90ff;
+        }
+
+        .year-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .year-card {
+            background: #1e90ff;
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
+        }
+        .year-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(30, 144, 255, 0.5);
+            background: #1c86ee;
+        }
+        .year-card h2 { margin: 0; font-size: 3rem; }
+        .year-card p { margin: 0.5rem 0 0; opacity: 0.9; font-weight: bold; }
+
+        footer {
+            margin-top: 5rem;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #eee;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logos">
+            <img src="images/usp.png" alt="USP Logo">
+            <img src="images/eesc.png" alt="EESC Logo">
+        </div>
+        <div class="header-title">
+            <h1>SEL5911</h1>
+            <div class="subtitle">Linear Systems Theory</div>
+            <div style="margin-top: 0.5rem; color: #444; font-size: 1rem;">
+                <strong>Prof. Dr. Marcos Rogério Fernandes</strong><br>
+                Department of Electrical and Computer Engineering (SEL)<br>
+                São Carlos School of Engineering (EESC)<br>
+                University of São Paulo (USP)
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="description">
+            <h2>Course Overview</h2>
+            <p>The course aims to develop the fundamentals of analysis and design of controllers for linear dynamic systems, covering both continuous and discrete time. The primary focus is on multivariable systems (MIMO) and state-space representations.</p>
+            
+            <div class="syllabus-grid">
+                <div class="syllabus-section">
+                    <h3>Course Objectives</h3>
+                    <ul>
+                        <li>Master state-space analysis for multivariable systems.</li>
+                        <li>Understand structural properties: Controllability and Observability.</li>
+                        <li>Design advanced state feedback controllers and observers.</li>
+                        <li>Implement robust control techniques using LMIs.</li>
+                    </ul>
+                </div>
+                <div class="syllabus-section">
+                    <h3>Summary Program</h3>
+                    <ul>
+                        <li>Linear Algebra & Matrix Analysis</li>
+                        <li>State-Space Modeling & Stability</li>
+                        <li>Controllability, Observability & Realization</li>
+                        <li>State Feedback & Observer Design</li>
+                        <li>Kalman Filtering & H2/H-infinity Control</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="detailed-content">
+                <h3>Detailed Syllabus</h3>
+                <div class="content-list">
+                    <div class="content-item"><strong>1. Linear Algebra Review:</strong> Vector spaces, linear transformations, operators, and matrix decompositions.</div>
+                    <div class="content-item"><strong>2. State-Space Modeling:</strong> Representation of dynamic systems, canonical forms, Jordan forms, and similarity transformations.</div>
+                    <div class="content-item"><strong>3. Solution of State Equations:</strong> State transition matrix (matrix exponential) for time-invariant and time-varying systems.</div>
+                    <div class="content-item"><strong>4. Stability Analysis:</strong> Internal stability (Lyapunov) and external stability (BIBO).</div>
+                    <div class="content-item"><strong>5. Structural Properties:</strong> Controllability, reachability, observability, detectability, and stabilizability.</div>
+                    <div class="content-item"><strong>6. Controller & Observer Design:</strong> Pole placement via state feedback and design of state observers.</div>
+                    <div class="content-item"><strong>7. System Realization:</strong> Relationship between transfer functions and state-space representations.</div>
+                    <div class="content-item"><strong>8. Robust Control:</strong> Design of robust $\mathcal{H}_2$ and $\mathcal{H}_\infty$ controllers using Linear Matrix Inequalities (LMIs).</div>
+                </div>
+            </div>
+            
+            <div class="bibliography">
+                <h3>Main Bibliography</h3>
+                <ul>
+                    <li><strong>Chen, C. T.</strong>, <em>Linear System Theory and Design</em>, Oxford University Press.</li>
+                    <li><strong>Antsaklis, P. J. & Michel, A. N.</strong>, <em>Linear Systems</em>, Birkhauser.</li>
+                    <li><strong>Hespanha, J. P.</strong>, <em>Linear Systems Theory</em>, Princeton University Press.</li>
+                    <li><strong>Kailath, T.</strong>, <em>Linear Systems</em>, Prentice-Hall.</li>
+                    <li><strong>Rugh, W. J.</strong>, <em>Linear System Theory</em>, Prentice Hall.</li>
+                </ul>
+            </div>
+        </section>
+
+        <p style="text-align: center; font-weight: bold; color: #666; margin-top: 3rem;">SELECT ACADEMIC YEAR</p>
+        <div class="year-selector">
+            <a href="2026/index.html" class="year-card">
+                <h2>2026</h2>
+                <p>Current Course</p>
+            </a>
+            <a href="2025/index.html" class="year-card">
+                <h2>2025</h2>
+                <p>Course Archive</p>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p><strong>Prof. Dr. Marcos Rogério Fernandes</strong><br>
+        Department of Electrical and Computer Engineering (SEL)<br>
+        São Carlos School of Engineering (EESC) - University of São Paulo (USP)</p>
+    </footer>
+</body>
+</html>

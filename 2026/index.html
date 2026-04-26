@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEL5911 - 2026 Lessons</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f4f7f6;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #1e90ff;
+            padding-bottom: 1rem;
+        }
+        h1 { color: #1e90ff; margin: 0; }
+        .back-link { text-decoration: none; color: #1e90ff; font-weight: bold; }
+        .back-link:hover { text-decoration: underline; }
+        .lesson-list {
+            display: grid;
+            gap: 1rem;
+        }
+        .lesson-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s;
+        }
+        .lesson-item:hover {
+            background-color: #f0f8ff;
+        }
+        .lesson-info h3 {
+            margin: 0;
+            color: #1e90ff;
+        }
+        .lesson-info p {
+            margin: 0.25rem 0 0 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .lesson-number {
+            background: #1e90ff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>2026 Lessons</h1>
+            <div style="color: #444; font-size: 1rem; margin-top: 5px;">
+                <strong>Prof. Dr. Marcos Rogério Fernandes</strong><br>
+                Department of Electrical and Computer Engineering (SEL)<br>
+                São Carlos School of Engineering (EESC)<br>
+                University of São Paulo (USP)
+            </div>
+        </div>
+        <a href="../index.html" class="back-link">&larr; Back to Years</a>
+    </header>
+
+    <div class="lesson-list">
+        <a href="aula1.html" class="lesson-item">
+            <div class="lesson-info">
+                <h3>Introduction to the course</h3>
+                <p>Linear Systems Theory - SEL5911 Overview</p>
+            </div>
+            <div class="lesson-number">Lesson 1</div>
+        </a>
+        <a href="aula2.html" class="lesson-item">
+            <div class="lesson-info">
+                <h3>Similarity Transformations and Jordan Forms</h3>
+                <p>State-space representations and canonical forms</p>
+            </div>
+            <div class="lesson-number">Lesson 2</div>
+        </a>
+        <a href="aula3.html" class="lesson-item">
+            <div class="lesson-info">
+                <h3>Controllability and Observability</h3>
+                <p>Fundamental properties of state-space systems</p>
+            </div>
+            <div class="lesson-number">Lesson 3</div>
+        </a>
+        <a href="aula4.html" class="lesson-item">
+            <div class="lesson-info">
+                <h3>Stability of Linear Systems</h3>
+                <p>Lyapunov stability and quadratic stability analysis</p>
+            </div>
+            <div class="lesson-number">Lesson 4</div>
+        </a>
+        <a href="aula5.html" class="lesson-item">
+            <div class="lesson-info">
+                <h3>State feedback and Optimal Linear Control</h3>
+                <p>LQR design and pole placement</p>
+            </div>
+            <div class="lesson-number">Lesson 5</div>
+        </a>
+        <a href="aula6.html" class="lesson-item">
+            <div class="lesson-info">
+                <h3>State Observers and The Kalman Filter</h3>
+                <p>Optimal state estimation and observer design</p>
+            </div>
+            <div class="lesson-number">Lesson 6</div>
+        </a>
+        <a href="aula7.html" class="lesson-item">
+            <div class="lesson-info">
+                <h3>Robust H2 Control via LMI</h3>
+                <p>Advanced control design using LMIs</p>
+            </div>
+            <div class="lesson-number">Lesson 7</div>
+        </a>
+        <a href="aula8.html" class="lesson-item">
+            <div class="lesson-info">
+                <h3>Introduction to H-infinity Robust Control via LMI</h3>
+                <p>Robust control performance and LMI formulations</p>
+            </div>
+            <div class="lesson-number">Lesson 8</div>
+        </a>
+    </div>
+</body>
+</html>

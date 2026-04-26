@@ -28,7 +28,7 @@
 				// highlight: {
 				// 	beforeHighlight: (hljs) => hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript')),
 				//   },
-				plugins: [ RevealMarkdown, RevealNotes, RevealMath.KaTeX ],
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ],
 				controls: true,
 				controlsLayout: 'edges',
 				progress: false,
