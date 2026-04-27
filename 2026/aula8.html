@@ -48,12 +48,12 @@
                 <h2>Objectives</h2>
             </div>
             <div class="slide-content">
-                <p>The objectives of this lecture are to understand:
+                <p>The objectives of this lecture are to understand:</p>
                         <ul>
                         <li>Definition of $\mathcal{H}_\infty$ norm;</li>
                         <li>LMI computation of $\mathcal{H}_\infty$ norm;</li>
                         <li>Definition of Optimal $\mathcal{H}_\infty$ control;</li>
-                        <li>Definition of Robust $\mathcal{H}_\infty$ control;</li>
+                        <li>Definition of Robust $\mathcal{H}_\infty$ control (Polytopic and Norm-bounded);</li>
                         <li>Examples;</li>
 						</ul>
                     </div>
@@ -92,7 +92,7 @@
 
                 $$
                 \begin{aligned} 
-                \dot{x}&=Ax+Bw\\ 
+                \dot{x}&=Ax+B_w w\\ 
                 y&=Cx+Dw
                 \end{aligned}
                 $$
@@ -121,7 +121,7 @@
             <p class="lightup">
 
                 $$
-                G(s)=C(sI-A)^{-1}B+D=\begin{bmatrix}
+                G(s)=C(sI-A)^{-1}B_w+D=\begin{bmatrix}
                 G_{11}(s)  & \cdots & G_{1m}(s)\\
                 G_{21}(s)  & \cdots & G_{2m}(s)\\
                 \vdots  & \ddots & \vdots\\
@@ -339,6 +339,53 @@
         </section>
 
 
+             <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+       Consider the Lyapunov function $V(x)=x^\trp P x$ with $P \succ 0$. <br>
+       In addition, require that 
+       <p class="lightup">
+                 $$
+               \dot{V} < 0
+                $$  
+                </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+       Consider the Lyapunov function $V(x)=x^\trp P x$ with $P \succ 0$. <br>
+       In addition, require that 
+       <p class="lightup">
+                 $$
+               \dot{V} < \gamma^2 w(t)^\trp w(t)-y(t)^\trp y(t)
+                $$  
+                </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+
+
+
+
            <section>
             
             <div class="slide-title">
@@ -347,11 +394,89 @@
             <div class="slide-content">
                 <center>
                     <p>&nbsp;</p>
-       Consider the Lyapunov function $V(x)=x^\trp P x$ with $P>0$. <br>
+       Consider the Lyapunov function $V(x)=x^\trp P x$ with $P\succ 0$. <br>
        In addition, require that 
        <p class="lightup">
                  $$
                \dot{V}+y(t)^\trp y(t)-\gamma^2 w(t)^\trp w(t) < 0
+                $$  
+                </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+     Note that
+       <p class="">
+                 $$
+               \int_0^\infty \Bigl(\dot{V}+y(t)^\trp y(t)-\gamma^2 w(t)^\trp w(t)\Bigr) dt< 0
+                $$  
+                </p>
+            </center>
+                    </div>
+
+        </section>
+
+               <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+     Note that
+       <p class="">
+                 $$
+               V(x(\infty))-V(x(0))+\int_0^\infty y(t)^\trp y(t)dt -\gamma^2 \int_0^\infty w(t)^\trp w(t)< 0
+                $$  
+                </p>
+            </center>
+                    </div>
+
+        </section>
+
+                   <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+     Note that
+       <p class="">
+                 $$
+            \int_0^\infty y(t)^\trp y(t)dt -\gamma^2 \int_0^\infty w(t)^\trp w(t)< 0
+                $$  
+                </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+                        <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm and Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+     Note that
+       <p class="">
+                 $$
+            \int_0^\infty y(t)^\trp y(t)dt < \gamma^2 \int_0^\infty w(t)^\trp w(t) \quad\square
                 $$  
                 </p>
             </center>
@@ -373,8 +498,8 @@
 x \\
 w
 \end{array}\right]^{\trp}\left[\begin{array}{cc}
-A^{\trp} P+P A+C^{\trp} C & P B+C^{\trp} D \\
-B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
+A^{\trp} P+P A+C^{\trp} C & P B_w+C^{\trp} D \\
+B_w^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
 \end{array}\right]\left[\begin{array}{c}
 x \\
 w
@@ -383,8 +508,8 @@ w
                    Thus,
                               $$
 \Leftrightarrow \left[\begin{array}{cc}
-A^{\trp} P+P A+C^{\trp} C & P B+C^{\trp} D \\
-B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
+A^{\trp} P+P A+C^{\trp} C & P B_w+C^{\trp} D \\
+B_w^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
 \end{array}\right]\prec 0
                    $$     
             </center>
@@ -406,8 +531,8 @@ B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
                     <p class="lightup">
                                         $$
 \Leftrightarrow \left[\begin{array}{cc}
-A^{\trp} P+P A+C^{\trp} C & P B+C^{\trp} D \\
-B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
+A^{\trp} P+P A+C^{\trp} C & P B_w+C^{\trp} D \\
+B_w^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
 \end{array}\right]\prec 0
                    $$   
                    </p> 
@@ -420,6 +545,9 @@ B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
                     </div>
 
         </section>
+
+
+         
 
 
           <section>
@@ -437,8 +565,8 @@ B^{\trp} P+D^{\trp} C & D^{\trp} D-\gamma^2 \mathbf{I}
                                         & \quad\quad\quad\quad \quad\quad  \min_{\mu,P=P^\trp \succ 0} \mu\\ 
                                         \text{s.t.} &
 \left[\begin{array}{cc}
-A^{\trp} P+P A+C^{\trp} C & P B+C^{\trp} D \\
-B^{\trp} P+D^{\trp} C & D^{\trp} D-\mu \mathbf{I}
+A^{\trp} P+P A+C^{\trp} C & P B_w+C^{\trp} D \\
+B_w^{\trp} P+D^{\trp} C & D^{\trp} D-\mu \mathbf{I}
 \end{array}\right]\prec 0
 \end{align*}
                    $$   
@@ -463,12 +591,237 @@ B^{\trp} P+D^{\trp} C & D^{\trp} D-\mu \mathbf{I}
 P = sdpvar(n,n);
 mu = sdpvar(1,1);
 LMI = [P >= 1e-6*eye(n), ...
-      [A'*P + P*A + C'*C,  P*B + C'*D; ...
-       B'*P + D'*C,        D'*D - mu*eye(m)] <= -1e-6*eye(n+m)];
+      [A'*P + P*A + C'*C,  P*B_w + C'*D; ...
+       B_w'*P + D'*C,        D'*D - mu*eye(m)] <= -1e-6*eye(n+m)];
 optimize(LMI, mu);
 gamma = sqrt(value(mu));
                 </code></pre>
             </div>
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Definition: Norm-Bounded Uncertainty</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+  
+                Consider the system:
+            <p class="lightup">
+                $$
+                \dot{x}(t) = (A + \Delta A(t))x(t)
+                $$
+                where the uncertainty is structured as:
+                $$
+                \Delta A(t) = F \Delta(t) E
+                $$
+                with $\|\Delta(t)\| \le \gamma^{-1} \iff \Delta(t)^\trp \Delta(t) \preceq \gamma^{-2} I$.
+            </p>
+            <p>
+               $F$ and $E$ are known constant matrices that define the structure of the uncertainty. 
+            </p>
+        
+            </center>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Petersen's Lemma (Matrix Cross Product)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                For any matrices $X$, $Y$ and any $\epsilon > 0$, the following inequality holds:
+            <p class="lightup">
+                $$
+                X^\trp Y + Y^\trp X \preceq \epsilon X^\trp X + \epsilon^{-1}Y^\trp Y
+                $$
+            </p>
+            <p>
+               This lemma is fundamental for eliminating the unknown $\Delta(t)$.
+            </p>
+        
+            </center>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Step-by-step Derivation (1/5)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+            <ol>
+                <li>Start with Lyapunov derivative for the uncertain system:
+                <p>
+                $$ (A + F \Delta(t) E)^\trp P + P (A + F \Delta(t) E) \prec 0 $$
+                </p>
+                </li>
+            </ol>
+            </center>
+                    </div>
+
+        </section>
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Step-by-step Derivation (2/5)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+            <ol start="2">
+                <li>Distribute terms:
+                <p>
+                $$ A^\trp P + E^\trp \Delta(t)^\trp F^\trp P + PA + PF\Delta(t) E \prec 0 $$
+                </p>
+                </li>
+            </ol>
+            </center>
+                    </div>
+
+        </section>
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Step-by-step Derivation (3/5)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+            <ol start="3">
+                <li>Regroup and apply Petersen's Lemma with $X^\trp=PF\Delta(t)$ and $Y=E$:
+                <p>
+                $$ (A^\trp P + PA) + \underbrace{PF\Delta(t) E + E^\trp \Delta(t)^\trp F^\trp P}_{X^\trp Y + Y^\trp X} \prec 0 $$
+                </p>
+                <p>
+                $$ \dots \preceq \epsilon \underbrace{PF\Delta(t)\Delta(t)^\trp F^\trp P}_{X^\trp X} + \epsilon^{-1} \underbrace{E^\trp E}_{Y^\trp Y} $$
+                </p>
+                </li>
+            </ol>
+            </center>
+                    </div>
+
+        </section>
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Step-by-step Derivation (4/5)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+            <ol start="4">
+                <li>Using $\Delta(t)\Delta(t)^\trp \preceq \gamma^{-2} I$, we get the sufficient condition:
+                <p class="lightup">
+                $$ A^\trp P + PA + \epsilon \gamma^{-2} PFF^\trp P + \epsilon^{-1} E^\trp E \prec 0 $$
+                </p>
+                </li>
+            </ol>
+            </center>
+                    </div>
+
+        </section>
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Step-by-step Derivation (5/5)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+            <ol start="5">
+                <li>Let $\tilde{P} = \epsilon P \succ 0$:
+                <p>
+                $$ A^\trp \tilde{P} + \tilde{P}A +\gamma^{-2} \tilde{P}FF^\trp \tilde{P} +  E^\trp E \prec 0 $$
+                </p>
+                </li>
+            </ol>
+            </center>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>LMI Condition for Robust Stability</h2>
+            </div>
+            <div class="slide-content">
+                <p>&nbsp;</p>
+                <center>
+                    Applying the Schur Complement to the previous inequality:
+            <p class="lightup">
+                $$
+                \begin{bmatrix} 
+                A^\trp \tilde{P} + \tilde{P} A + E^\trp E & \tilde{P} F \\ 
+                F^\trp \tilde{P} & - \gamma^{2}I 
+                \end{bmatrix} \prec 0
+                $$
+            </p>
+            <p>
+               This is a Linear Matrix Inequality (LMI) in the single variable $\tilde{P} \succ 0$.
+            </p>
+        
+            </center>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Comparison: Robust Stability vs. $\mathcal{H}_\infty$ Norm</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>Robust stability for $\dot{x}=(A+F\Delta E)x$ with $\|\Delta\|\le \gamma^{-1}$ is equivalent to:</p>
+            <p class="lightup">
+                $$
+                \|E(sI-A)^{-1}F\|_\infty < \gamma
+                $$
+            </p>
+           
+            <table style="font-size: 0.8em; width: 100%;">
+                <tr>
+                    <th>Uncertainty Model</th>
+                    <th>$\mathcal{H}_\infty$ Analogy</th>
+                </tr>
+                <tr>
+                    <td>$F$ (Uncertainty input)</td>
+                    <td>$B_w$ (Disturbance input)</td>
+                </tr>
+                <tr>
+                    <td>$E$ (Uncertainty output)</td>
+                    <td>$C$ (System output)</td>
+                </tr>
+            </table>
+       
+        
+            </center>
+                    </div>
+
         </section>
 
 
@@ -486,8 +839,8 @@ gamma = sqrt(value(mu));
 
                 $$
                 \begin{aligned} 
-                x_{k+1}&=Ax_k+Bw_k\\ 
-                y_k&=Cx_k+Dw_k
+                x_{k+1}&=Ax_k+B_w w_k\\ 
+                y_k&=Cx_k+Du_k
                 \end{aligned}
                 $$
                 with $x\in\mathbb{R}^n$, $w\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
@@ -515,7 +868,7 @@ gamma = sqrt(value(mu));
             <p class="lightup">
 
                 $$
-                G(z)=C(zI-A)^{-1}B+D=\begin{bmatrix}
+                G(z)=C(zI-A)^{-1}B_w+D=\begin{bmatrix}
                 G_{11}(z)  & \cdots & G_{1m}(z)\\
                 G_{21}(z)  & \cdots & G_{2m}(z)\\
                 \vdots  & \ddots & \vdots\\
@@ -740,7 +1093,7 @@ gamma = sqrt(value(mu));
             <div class="slide-content">
                 <center>
                     <p>&nbsp;</p>
-       Consider the Lyapunov function $V_k(x_k)=x_k^\trp P x_k$ with $P>0$. <br>
+       Consider the Lyapunov function $V_k(x_k)=x_k^\trp P x_k$ with $P \succ 0$. <br>
        In addition, require that 
        <p class="lightup">
                  $$
@@ -767,8 +1120,8 @@ gamma = sqrt(value(mu));
 x_k \\
 w_k
 \end{array}\right]^{\trp}\left[\begin{array}{cc}
-A^{\trp} P A -P+C^{\trp} C & A^\trp P B+C^{\trp} D \\
-B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\gamma^2 \mathbf{I}
+A^{\trp} P A -P+C^{\trp} C & A^\trp P B_w+C^{\trp} D \\
+B_w^{\trp} P A+D^{\trp} C & B_w^\trp P B_w+D^{\trp} D-\gamma^2 \mathbf{I}
 \end{array}\right]\left[\begin{array}{c}
 x_k \\
 w_k
@@ -777,8 +1130,8 @@ w_k
                    Thus,
                               $$
 \Leftrightarrow \left[\begin{array}{cc}
-A^{\trp} P A -P+C^{\trp} C & A^\trp P B+C^{\trp} D \\
-B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\gamma^2 \mathbf{I}
+A^{\trp} P A -P+C^{\trp} C & A^\trp P B_w+C^{\trp} D \\
+B_w^{\trp} P A+D^{\trp} C & B_w^\trp P B_w+D^{\trp} D-\gamma^2 \mathbf{I}
 \end{array}\right]\prec 0
                    $$     
             </center>
@@ -800,8 +1153,8 @@ B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\gamma^2 \mathbf{I}
                     <p class="lightup">
                                         $$
 \Leftrightarrow \left[\begin{array}{cc}
-A^{\trp} P A -P+C^{\trp} C & A^\trp P B+C^{\trp} D \\
-B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\gamma^2 \mathbf{I}
+A^{\trp} P A -P+C^{\trp} C & A^\trp P B_w+C^{\trp} D \\
+B_w^{\trp} P A+D^{\trp} C & B_w^\trp P B_w+D^{\trp} D-\gamma^2 \mathbf{I}
 \end{array}\right]\prec 0
                    $$   
                    </p> 
@@ -831,8 +1184,8 @@ B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\gamma^2 \mathbf{I}
                                         & \quad\quad \quad\quad\quad \quad\quad  \min_{\mu,P=P^\trp \succ 0} \mu\\ 
                                         \text{s.t.} &
 \left[\begin{array}{cc}
-A^{\trp} P A -P+C^{\trp} C & A^\trp P B+C^{\trp} D \\
-B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\mu \mathbf{I}
+A^{\trp} P A -P+C^{\trp} C & A^\trp P B_w+C^{\trp} D \\
+B_w^{\trp} P A+D^{\trp} C & B_w^\trp P B_w+D^{\trp} D-\mu \mathbf{I}
 \end{array}\right]\prec 0
 \end{align*}
                    $$   
@@ -857,8 +1210,8 @@ B^{\trp} P A+D^{\trp} C & B^\trp P B+D^{\trp} D-\mu \mathbf{I}
 P = sdpvar(n,n);
 mu = sdpvar(1,1);
 LMI = [P >= 1e-6*eye(n), ...
-      [A'*P*A - P + C'*C,  A'*P*B + C'*D; ...
-       B'*P*A + D'*C,      B'*P*B + D'*D - mu*eye(m)] <= -1e-6*eye(n+m)];
+      [A'*P*A - P + C'*C,  A'*P*B_w + C'*D; ...
+       B_w'*P*A + D'*C,      B_w'*P*B_w + D'*D - mu*eye(m)] <= -1e-6*eye(n+m)];
 optimize(LMI, mu);
 gamma = sqrt(value(mu));
                 </code></pre>
@@ -878,8 +1231,8 @@ gamma = sqrt(value(mu));
 
                 $$
                 \begin{aligned} 
-                \dot{x}&=Ax+B_2u+B_1w\\ 
-                y&=Cx+Dw
+                \dot{x}&=Ax+B_u u+B_w w\\ 
+                y&=Cx+Du
                 \end{aligned}
                 $$
                 with $x\in\mathbb{R}^n$,  $u\in\mathbb{R}^m$, $w\in\mathbb{R}^m$, $y\in\mathbb{R}^p$.
@@ -907,9 +1260,9 @@ gamma = sqrt(value(mu));
             <p class="lightup">
                 $$
                 \begin{aligned} 
-                \dot{x}&=(A+B_2K)x+B_1w\\ 
+                \dot{x}&=(A+B_u K)x+B_w w\\ 
                 y&=(C+DK)x\\
-                 G(s)&=(C+DK)(sI-(A+B_2K))^{-1}B_1
+                 G(s)&=(C+DK)(sI-(A+B_u K))^{-1}B_w
                 \end{aligned}
                 $$
                 
@@ -934,7 +1287,7 @@ gamma = sqrt(value(mu));
             
                 $$
                 \begin{aligned} 
-                \tilde{A}&=(A+B_2K),\\ 
+                \tilde{A}&=(A+B_u K),\\ 
                 \tilde{C}&=(C+DK).
                 \end{aligned}
                 $$
@@ -942,8 +1295,8 @@ Thus, $\|G\|_\infty <\gamma $ if and only if there exists a positive definite ma
                 <p class="lightup2">
                 $$
 \left[\begin{array}{cc}
-\tilde{A}^{\trp} P+P \tilde{A}+\tilde{C}^{\trp} \tilde{C} & P B_1 \\
-B_1^{\trp} P & -\gamma^2 \mathbf{I}
+\tilde{A}^{\trp} P+P \tilde{A}+\tilde{C}^{\trp} \tilde{C} & P B_w \\
+B_w^{\trp} P & -\gamma^2 \mathbf{I}
 \end{array}\right]\prec 0
                 $$
                 </p>
@@ -967,12 +1320,12 @@ B_1^{\trp} P & -\gamma^2 \mathbf{I}
                 <p class="">
                 $$
 \left[\begin{array}{cc}
-\tilde{A}^{\trp} P+P \tilde{A}+\tilde{C}^{\trp} \tilde{C} & P B_1 \\
-B_1^{\trp} P & -\gamma^2 \mathbf{I}
+\tilde{A}^{\trp} P+P \tilde{A}+\tilde{C}^{\trp} \tilde{C} & P B_w \\
+B_w^{\trp} P & -\gamma^2 \mathbf{I}
 \end{array}\right]\prec 0 \\
 \Leftrightarrow \left[\begin{array}{cc}
-\tilde{A}^{\trp} P+P \tilde{A} & P B_1 \\    
-B_1^{\trp} P & -\gamma^2 \mathbf{I}
+\tilde{A}^{\trp} P+P \tilde{A} & P B_w \\    
+B_w^{\trp} P & -\gamma^2 \mathbf{I}
 \end{array}\right]-\left[\begin{array}{cc}
 \tilde{C}^\trp  \\    
 0
@@ -980,8 +1333,8 @@ B_1^{\trp} P & -\gamma^2 \mathbf{I}
 \tilde{C}  & 0
 \end{array}\right]\prec 0\\
 \Leftrightarrow \left[\begin{array}{cc}
-\tilde{A}^{\trp} P+P \tilde{A} & P B_1 & \tilde{C}^\trp  \\   
-B_1^{\trp} P & -\gamma^2 \mathbf{I} & 0\\
+\tilde{A}^{\trp} P+P \tilde{A} & P B_w & \tilde{C}^\trp  \\   
+B_w^{\trp} P & -\gamma^2 \mathbf{I} & 0\\
 \tilde{C} & 0 & -I
 \end{array}\right]\prec 0
                 $$
@@ -1011,8 +1364,8 @@ P^{-1} & 0 & 0\\
 0 & 0 & I
 \end{bmatrix}
 \left[\begin{array}{cc}
-\tilde{A}^{\trp} P+P \tilde{A} & P B_1 & \tilde{C}^\trp  \\   
-B_1^{\trp} P & -\gamma^2 \mathbf{I} & 0\\
+\tilde{A}^{\trp} P+P \tilde{A} & P B_w & \tilde{C}^\trp  \\   
+B_w^{\trp} P & -\gamma^2 \mathbf{I} & 0\\
 \tilde{C} & 0 & -I
 \end{array}\right]\begin{bmatrix} 
 P^{-1} & 0 & 0\\
@@ -1020,8 +1373,8 @@ P^{-1} & 0 & 0\\
 0 & 0 & I
 \end{bmatrix}\prec 0\\
 \Leftrightarrow \left[\begin{array}{cc}
-P^{-1}\tilde{A}^{\trp}+\tilde{A}P^{-1} & B_1 & P^{-1}\tilde{C}^\trp  \\   
-B_1^{\trp}  & -\gamma^2 \mathbf{I} & 0\\
+P^{-1}\tilde{A}^{\trp}+\tilde{A}P^{-1} & B_w & P^{-1}\tilde{C}^\trp  \\   
+B_w^{\trp}  & -\gamma^2 \mathbf{I} & 0\\
 \tilde{C}P^{-1} & 0 & -I
 \end{array}\right]\prec 0
                 $$
@@ -1047,12 +1400,12 @@ B_1^{\trp}  & -\gamma^2 \mathbf{I} & 0\\
                 $$
                 \small
  \left[\begin{array}{cc}
-P^{-1}(A+B_2K)^{\trp}+(A+B_2K)P^{-1} & B_1 & P^{-1}(C+DK)^\trp  \\   
+P^{-1}(A+B_u K)^{\trp}+(A+B_u K)P^{-1} & B_w & P^{-1}(C+DK)^\trp  \\   
 \star  & -\gamma^2 \mathbf{I} & 0\\
 \star & \star & -I
 \end{array}\right]\prec 0\\
 \Rightarrow \left[\begin{array}{cc}
-P^{-1}A^\trp+P^{-1}K^{\trp}B_2^\trp+(\star)^\trp & B_1 & P^{-1}(C+DK)^\trp  \\   
+P^{-1}A^\trp+P^{-1}K^{\trp}B_u^\trp+(\star)^\trp & B_w & P^{-1}(C+DK)^\trp  \\   
 \star  & -\gamma^2 \mathbf{I} & 0\\
 \star & \star & -I
 \end{array}\right]\prec 0\\
@@ -1079,7 +1432,7 @@ P^{-1}A^\trp+P^{-1}K^{\trp}B_2^\trp+(\star)^\trp & B_1 & P^{-1}(C+DK)^\trp  \\
                 <p class="">
                 $$
 \left[\begin{array}{cc}
-WA^\trp+AW+Z^\trp B_2^\trp+B_2Z & B_1 & WC^\trp +Z^\trp D^\trp   \\   
+WA^\trp+AW+Z^\trp B_u^\trp+B_u Z & B_w & WC^\trp +Z^\trp D^\trp   \\   
 \star  & -\gamma^2 \mathbf{I} & 0\\
 \star & \star & -I
 \end{array}\right]\prec 0\\
@@ -1107,7 +1460,7 @@ WA^\trp+AW+Z^\trp B_2^\trp+B_2Z & B_1 & WC^\trp +Z^\trp D^\trp   \\
                 & \quad\quad\quad\quad\quad \quad\quad  \min_{\mu,Z,W=W^\trp \succ 0} \mu\\
                 \text{s.t.} & 
 \left[\begin{array}{cc}
-WA^\trp+AW+Z^\trp B_2^\trp+B_2Z & B_1 & WC^\trp +Z^\trp D^\trp   \\   
+WA^\trp+AW+Z^\trp B_u^\trp+B_u Z & B_w & WC^\trp +Z^\trp D^\trp   \\   
 \star  & -\mu \mathbf{I} & 0\\
 \star & \star & -I
 \end{array}\right]\prec 0\\
@@ -1136,7 +1489,7 @@ and $K=ZW^{-1}$. <bR>In addition, the $\mathcal{H}_\infty$ norm satisfies $\|G\|
 
                 $$
                 \begin{aligned} 
-                \dot{x}&=A(\alpha)x+B_2(\alpha)u+B_1(\alpha)w\\ 
+                \dot{x}&=A(\alpha)x+B_u(\alpha)u+B_w(\alpha)w\\ 
                 y&=C(\alpha)x+D(\alpha)w
                 \end{aligned}
                 $$
@@ -1168,7 +1521,7 @@ and $K=ZW^{-1}$. <bR>In addition, the $\mathcal{H}_\infty$ norm satisfies $\|G\|
                 & \quad\quad\quad\quad\quad \quad\quad  \min_{\mu,Z,W=W^\trp \succ 0} \mu\\
                 \text{s.t.} & 
 \left[\begin{array}{cc}
-WA_i^\trp+Z^\trp B_{2,i}^\trp+(\star)^\trp & B_{1,i} & WC_i^\trp +Z^\trp D_i^\trp   \\   
+WA_i^\trp+Z^\trp B_{u,i}^\trp+(\star)^\trp & B_{w,i} & WC_i^\trp +Z^\trp D_i^\trp   \\   
 \star  & -\mu \mathbf{I} & 0\\
 \star & \star & -I
 \end{array}\right]\prec 0\\
