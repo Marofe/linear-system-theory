@@ -1,0 +1,1093 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+        <div class="reveal">
+            <div class="slides">
+                
+               	<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>Introduction to Robust $\mathcal{H}_2/\mathcal{H}_\infty$ Filtering</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">May 11, 2026</p>
+				</div>
+
+				</section>
+                
+
+
+
+                        
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Objectives</h2>
+            </div>
+            <div class="slide-content">
+                <p>The objectives of this lecture are to understand:</p>
+                        <ul>
+                        <li>State estimation problem with disturbances;</li>
+                        <li>Filtering error system dynamics;</li>
+                        <li>$\mathcal{H}_2$ filtering LMI formulation;</li>
+                        <li>$\mathcal{H}_\infty$ filtering LMI formulation;</li>
+                        <li>Multi-objective $\mathcal{H}_2/\mathcal{H}_\infty$ filtering;</li>
+                        <li>Robust filtering for systems with polytopic uncertainty;</li>
+						</ul>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>References</h2>
+                <p>&nbsp;</p>
+            </div>
+            <div class="slide-content">
+                        <ul>
+                        <li>S. BOYD, L. GHAOUI, E. FERON, and V. BALAKRISHNAN. Linear Matrix Inequalities in System and Control Theory. SIAM, 1994.</li>
+                         <li>Lecture notes da disciplina <b>IA892 - Análise e Controle de Sistemas Lineares por Desigualdades Matriciais Lineares (LMIs)</b>, <br>Profs. Ricardo C. L. F. Oliveira e Pedro L. D. Peres, da Faculdade de Engenharia Elétrica e de Computação (FEEC) da Universidade Estadual de Campinas (Unicamp). 
+                        <a href="https://ricfow.fee.unicamp.br/IA892/ia892.htm" target="_blank">https://ricfow.fee.unicamp.br/IA892/ia892.htm</a>
+                        </li>
+						</ul>
+                    </div>
+
+        </section>
+
+
+        
+                <section>
+            
+            <div class="slide-title">
+                <h2>The Filtering Problem</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}&=Ax+B_w w\\ 
+                y&=Cx+D_w w\\
+                z&=Ex
+                \end{aligned}
+                $$
+            </p>
+            <p>
+               $w$ is the disturbance/noise, $y$ is the measured output, and $z$ is the signal to be estimated.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>The Filtering Problem</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+          <img src="../images/robust_state_observer.png" width="900">
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>Full-Order Filter Structure</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Consider a linear time-invariant filter:
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{\hat{x}}&=A_f \hat{x}+B_f y\\ 
+                \hat{z}&=C_f \hat{x}+D_f y
+                \end{aligned}
+                $$
+            </p>
+            
+            <p>
+                The goal is to find $\{A_f, B_f, C_f, D_f\}$ that minimizes the estimation error $e = z - \hat{z}$ in some sense ($\mathcal{H}_2$ or $\mathcal{H}_\infty$).
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Standard Observer-based Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    A common choice is the standard observer:
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{\hat{x}}&=A\hat{x}+L(y-C\hat{x}) \\
+                \hat{z}&=E\hat{x}
+                \end{aligned}
+                $$
+            </p>
+            <p>
+              where $L$ is the observer gain to be designed. 
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Standard Observer-based Filter</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    A common choice is the standard observer:
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{\hat{x}}&=(A-LC)\hat{x}+Ly \\
+                \hat{z}&=E\hat{x}
+                \end{aligned}
+                $$
+            </p>
+            <p>
+              where $L$ is the observer gain to be designed. Note that
+              $$
+                A_f=A-LC,\quad B_f=L, \quad C_f=E,\quad D_f=0
+              $$
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>Filtering Error Dynamics</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Define the error $\epsilon = x - \hat{x}$. Then:
+            <p class="lightup">
+
+                $$
+                \begin{aligned}
+                \dot{\epsilon} &= (A-LC)\epsilon + (B_w-LD_w)w\\
+                e &= E\epsilon
+                \end{aligned}
+                $$
+            </p>
+            
+        <p>This is an autonomous system driven by $w$, where $e$ is the output.</p>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Filtering Error Dynamics</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Define the error $\epsilon = x - \hat{x}$. Then:
+            <p class="lightup">
+
+                $$
+                \begin{aligned}
+                \dot{\epsilon} &= \underbrace{(A-LC)}_{A_f}\epsilon + \underbrace{(B_w-LD_w)}_{B_{wf}}w\\
+                e &= \underbrace{E}_{C_f}\epsilon+\underbrace{0}_{D_{wf}}w
+                \end{aligned}
+                $$
+            </p>
+            
+        <p>This is an autonomous system driven by $w$, where $e$ is the output.</p>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ Filtering</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>Minimize the peak gain from $w$ to $e$:</p>
+            <p class="lightup">
+                $$
+                \min_L \|G_{ew}\|_\infty
+                $$
+            </p>
+            <p>
+                This provides a filter that is robust against the worst-case disturbance.
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ Filtering</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>Minimize the peak gain from $w$ to $e$:</p>
+        
+                    <img src="../images/robust_state_observer_disturb.png" width="1100">
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm via LMI</h2>
+            </div>
+            <div class="slide-content">
+           
+                <center>
+                      Define $\mu=\gamma^2$ and consider the following LMI:
+                    <p class="lightup">
+                                        $$
+                                        \begin{align*}
+                                        & \quad\quad\quad\quad \quad\quad  \min_{\mu,P=P^\trp \succ 0} \mu\\ 
+                                        \text{s.t.} &
+\left[\begin{array}{cc}
+A_f^{\trp} P+P A_f+C_f^{\trp} C_f & P B_{wf}+C_f^{\trp} D_{wf} \\
+B_{wf}^{\trp} P+D_{wf}^{\trp} C_f & D_{wf}^{\trp} D_{wf}-\mu \mathbf{I}
+\end{array}\right]\prec 0
+\end{align*}
+                   $$   
+                   </p> 
+                   and 
+                     $$
+\|G\|_\infty= \sqrt{\mu}
+                   $$
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ norm via LMI</h2>
+            </div>
+            <div class="slide-content">
+           
+                <center>
+                      Define $\mu=\gamma^2$ and consider the following LMI:
+                    <p class="lightup">
+                                        $$
+                                        \begin{align*}
+                                        & \quad\quad\quad\quad \quad\quad  \min_{\mu,P=P^\trp \succ 0} \mu\\ 
+                                        \text{s.t.} &
+\left[\begin{array}{cc}
+A_f^{\trp} P+P A_f & P B_{wf}+C_f^{\trp} D_{wf} & C_f^\trp \\
+B_{wf}^{\trp} P+D_{wf}^{\trp} C_f & D_{wf}^{\trp} D_{wf}-\mu \mathbf{I} & 0 \\
+C_f & 0 & -I
+\end{array}\right]\prec 0
+\end{align*}
+                   $$   
+                 
+            </center>
+                    </div>
+
+        </section>
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_\infty$ Filtering LMI (1/2)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    From Bounded Real Lemma, $\|G_{ew}\|_\infty < \sqrt{\mu}$ if:
+            <p class="lightup">
+                $$
+                \begin{bmatrix}
+                (A-LC)^\trp P + P(A-LC) & P(B_w-LD_w) & E^\trp\\
+                \star & -\mu I & 0\\
+                \star & \star & -I
+                \end{bmatrix} \prec 0
+                $$
+            </p>
+            <p>
+                This is not an LMI due to $P LC$ and $P L D_w$ terms.
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+               <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_\infty$ Filtering via LMI</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Define $Y = PL$, then we obtain the LMI:
+            <p class="lightup">
+                $$
+                  \min_{\mu,P,Y} \mu\\ 
+                \begin{bmatrix}
+                A^\trp P + PA - C^\trp Y^\trp - YC & PB_w - YD_w & E^\trp\\
+                \star & -\mu I & 0\\
+                \star & \star & -I
+                \end{bmatrix} \prec 0
+                $$
+            </p>
+            <p>
+                After solving for $P$ and $Y$, the gain is $L = P^{-1}Y$.
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>The Robust Filtering Problem</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}&=A(\alpha)x+B_w(\alpha) w\\ 
+                y&=C(\alpha)x+D_w(\alpha) w\\
+                z&=Ex
+                \end{aligned}
+                $$
+            </p>
+            <p>
+               $w$ is the disturbance/noise, $y$ is the measured output, and $z$ is the signal to be estimated.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Robust $\mathcal{H}_\infty$ Filtering via LMI</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Define $Y = PL$, then we obtain the LMI:
+            <p class="lightup">
+                $$
+                  \min_{\mu,P,Y} \mu\\ 
+                \begin{bmatrix}
+                A_i^\trp P + PA_i - C_i^\trp Y^\trp - YC_i & PB_{w,i} - YD_{w,i} & E^\trp\\
+                \star & -\mu I & 0\\
+                \star & \star & -I
+                \end{bmatrix} \prec 0
+                $$
+            </p>
+            <p>
+               for all $i=1,\ldots,N$. After solving for $P$ and $Y$, the gain is $L = P^{-1}Y$
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ Filtering</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>Minimize the energy of the impulse response (or variance for white noise):</p>
+            <p class="lightup">
+                $$
+                \min_L \|G_{ew}\|_2
+                $$
+            </p>
+            <p>
+                Note: requires $D_{wf} = 0$ (no direct feedthrough from $w$ to $e$).
+                <br>
+                In our error system, $D_{wf} = 0$ if $E(B_w - LD_w) = 0$ is not required, but rather the transfer function must be strictly proper.
+            </p>
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm via LMI (case 1)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G_{ew}\|_2^2=\text{tr}(C_f P C_f^\trp)
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                    \inf_{P=P^\trp \succ 0}   \text{tr}(C_f P C_{f}^\trp) \\
+\text{s. t.} \\
+ A_fP+PA_f^\trp +B_{wf}B_{wf}^\trp\prec 0  
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm via LMI (case 2)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G_{ew}\|_2^2=\text{tr}(B_{wf}^\trp P B_{wf})
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                    \inf_{P=P^\trp \succ 0}   \text{tr}(B_{wf}^\trp P B_{wf}) \\
+\text{s. t.} \\
+ A_f^\trp P+PA_f +C_{f}^\trp C_{f}\prec 0  
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ norm via LMI (case 2)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    
+                    <p>
+                   $$
+                \|G_{ew}\|_2^2=\text{tr}(B_{wf}^\trp P B_{wf})
+                $$
+                such that 
+               
+            </p>
+            <p class="lightup2"> $$
+                    \inf_{P=P^\trp \succ 0}   \text{tr}(B_{wf}^\trp P B_{wf}) \\
+\text{s. t.} \\
+ \begin{bmatrix}
+ A_f^\trp P+PA_f & C_f^\trp \\
+ C_f & -I 
+ \end{bmatrix} \prec 0  
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ Filter via LMI </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+             <p>&nbsp;</p>
+ 
+            <p class="lightup2"> $$
+                    \inf_{P,L}   \text{tr}((B_w-LD_w)^\trp P (B_w-LD_w)) \\
+\text{s. t.} \\
+ \begin{bmatrix}
+ (A-LC)^\trp P+P(A-LC) & E^\trp \\
+ E & -I 
+ \end{bmatrix} \prec 0  
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>$\mathcal{H}_2$ Filter via LMI </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+             <p>&nbsp;</p>
+ 
+            <p class="lightup2"> $$
+                    \inf_{P,L,X}   \text{tr}(X) \\
+\text{s. t.} \\
+ \begin{bmatrix}
+ (A-LC)^\trp P+P(A-LC) & E^\trp \\
+ E & -I 
+ \end{bmatrix} \prec 0  , \\
+ \begin{bmatrix}
+ X & B_w^\trp P-D_w^\trp L^\trp P \\
+ PB_w-PLD_w & P
+ \end{bmatrix} \succ 0
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Optimal $\mathcal{H}_2$ Filter via LMI </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+ 
+            <p class="lightup2"> $$
+                    \inf_{P,Y,X}   \text{tr}(X) \\
+\text{s. t.} \\
+ \begin{bmatrix}
+                A^\trp P + PA - C^\trp Y^\trp - YC & E^\trp \\
+                \star & -I
+                \end{bmatrix} \prec 0  , \\
+ \begin{bmatrix}
+ X & B_w^\trp P-D_w^\trp Y^\trp\\
+ PB_w-YD_w & P
+ \end{bmatrix} \succ 0
+                $$</p>
+
+                After solving for $P,Y$ and $X$, we get $L=P^{-1}Y$ as the filter gain.
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Robust $\mathcal{H}_2$ Filter via LMI </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+ 
+            <p class="lightup2"> $$
+                    \inf_{P,Y,X}   \text{tr}(X) \\
+\text{s. t.} \\
+ \begin{bmatrix}
+                A_i^\trp P + PA_i - C_i^\trp Y^\trp - YC_i & E^\trp \\
+                \star & -I
+                \end{bmatrix} \prec 0  , \\
+ \begin{bmatrix}
+ X & B_{w,i}^\trp P-D_{w,i}^\trp Y^\trp\\
+ PB_{w,i}-YD_{w,i} & P
+ \end{bmatrix} \succ 0,\quad \forall i
+                $$</p>
+
+                After solving for $P,Y$ and $X$, we get $L=P^{-1}Y$ as the filter gain.
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Robust Filtering: Quadratic Stability</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>&nbsp;</p>
+       Using a single $P$ for all vertices is called <b>Quadratic Stability/Performance</b>. <br>
+       It can be conservative. 
+       <p class="lightup">
+                 $$
+               P_i = P, \quad \forall i
+                $$  
+                </p>
+            For filters, we can sometimes use parameter-dependent $P(\alpha)$, but the implementation of $L(\alpha)$ might be complex.
+            </center>
+                    </div>
+
+        </section>
+
+    <section>
+            
+            <div class="slide-title">
+                <h2>The Filtering Problem</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}&=Ax+B_w w\\ 
+                y&=Cx+D_w w\\
+                z&=Ex+D_{zw}w
+                \end{aligned}
+                $$
+            </p>
+            <p>
+               $w$ is the disturbance/noise, $y$ is the measured output, and $z$ is the signal to be estimated.
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+        
+               <section>
+            
+            <div class="slide-title">
+                <h2>Full-Order Filter Structure</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Consider a linear time-invariant filter:
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{\hat{x}}&=A_f \hat{x}+B_f y\\ 
+                \hat{z}&=C_f \hat{x}+D_f y
+                \end{aligned}
+                $$
+            </p>
+            
+            <p>
+                The goal is to find $\{A_f, B_f, C_f, D_f\}$ that minimizes the estimation error $e = z - \hat{z}$ in some sense ($\mathcal{H}_2$ or $\mathcal{H}_\infty$).
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+
+        <section>
+            <div class="slide-title">
+                <h2>Augmented State Formulation</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Defining the augmented state $$\tilde{x} = \begin{bmatrix} x \\ \hat{x} \end{bmatrix}$$ the augmented dynamics can be represented as:
+                    <p class="lightup">
+                        $$
+                        \begin{aligned}
+                        \dot{\tilde{x}} &= \tilde{A}\tilde{x} + \tilde{B}w \\
+                        e &= \tilde{C}\tilde{x} + \tilde{D}w
+                        \end{aligned}
+                        $$
+                    </p>
+                    
+                </center>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="slide-title">
+                <h2>Augmented System Matrices</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    The matrices for the augmented system are:
+                    <p class="lightup">
+                        $$
+                        \begin{aligned}
+                        \tilde{A} &= \begin{bmatrix} A & 0 \\ B_f C & A_f \end{bmatrix}, \quad 
+                        \tilde{B} = \begin{bmatrix} B_w \\ B_f D_{w} \end{bmatrix} \\
+                        \tilde{C} &= \begin{bmatrix} E - D_f C & -C_f \end{bmatrix}, \quad
+                        \tilde{D} = D_{zw} - D_f D_{w}
+                        \end{aligned}
+                        $$
+                    </p>
+                    <p style="font-size: 0.8em;">
+                        Stability and performance ($\mathcal{H}_2, \mathcal{H}_\infty$) criteria are then applied to this system to find the filter matrices $\{A_f, B_f, C_f, D_f\}$.
+                    </p>
+                </center>
+            </div>
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>General $\mathcal{H}_2$ Filter via LMI </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+Let $D_f=D_{zw}=0$, thus
+ 
+            <p class="lightup2"> $$
+                    \inf_{A_f,B_f,C_f}  \text{tr}(S) \\
+\text{s. t.} \\
+ \begin{bmatrix}
+ \tilde{A}^\trp \tilde{P}+\tilde{P}\tilde{A} & \tilde{C}^\trp \\
+ \tilde{C} & -I 
+ \end{bmatrix} \prec 0  , \\
+ \begin{bmatrix}
+ S & \tilde{B}^\trp \tilde{P} \\
+ \tilde{P}\tilde{B}& \tilde{P}
+ \end{bmatrix} \succ 0
+                $$</p>
+             
+                </center>
+        
+        
+    
+        
+                    </div>
+
+        </section>
+
+
+        <section>
+            <div class="slide-title">
+                <h2>Partitioned Lyapunov Matrix</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                 Let the Lyapunov matrix $P$ and its inverse $P^{-1}$ be partitioned as:
+                    <p class="lightup">
+                        $$
+                        P = \begin{bmatrix} X & U^\trp \\ U & \tilde{X} \end{bmatrix}, \quad 
+                        P^{-1} = \begin{bmatrix} Y & V^\trp \\ V & \tilde{Y} \end{bmatrix}
+                        $$
+                    </p>
+                    satisfying $PP^{-1} = I_{2n}$.
+                    <p style="font-size: 0.8em; margin-top: 20px;">
+                        The relation $XY + U^\trp V = I_n$ is fundamental. If $X-Y^{-1} \succ 0$, then non-singular $U$ and $V$ always exist. This partitioning allows for the change of variables used to linearize the filtering LMIs.
+                    </p>
+                </center>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="slide-title">
+                <h2>Change of Variables (H2 Filtering)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                 We can substitute partitioned matrices into the conditions using the following transformations:
+                    <p class="lightup">
+                        $$
+                        \begin{aligned}
+                        \mathbf{P} &= \begin{bmatrix} P & X \\ X & X \end{bmatrix} \\
+                        \hat{A} = X A_f, \quad &\hat{B} = X B_f, \quad \hat{C} = C_f
+                        \end{aligned}
+                        $$
+                    </p>
+                    where $D_f = 0$ for a well-defined $\mathcal{H}_2$ norm.
+                </center>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="slide-title">
+                <h2> More Flexible $\mathcal{H}_2$ Filter via LMI</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p class="lightup2">
+                        $$
+                        \inf_{\hat{A},\hat{B},\hat{C},P,X,Z}  \text{tr}(Z) \\
+\text{s. t.} \\
+                        \begin{bmatrix} PA + A^\trp P + \hat{B}C + C^\trp \hat{B}^\trp & \hat{A} + A^\trp X + C^\trp \hat{B}^\trp & E^\trp \\ \star & \hat{A} + \hat{A}^\trp & -\hat{C}^\trp \\ \star & \star & -I \end{bmatrix} \prec 0\\
+                        \begin{bmatrix} \mathbf{Z} & (PB_w + \hat{B}D_w)^\trp & (XB_w + \hat{B}D_w)^\trp \\ \star & P & X \\ \star & \star & X \end{bmatrix} \succ 0
+                        $$
+                    </p>
+                </center>
+            </div>
+        </section>
+
+
+
+
+
+        <section>
+            <div class="slide-title">
+                <h2>After solving it</h2>
+            </div>
+            <div class="slide-content">
+                
+                <p><b>Recover Filter Matrices:</b></p>
+                <p class="lightup">
+                    $$ A_f = X^{-1} \hat{A}, \quad B_f = X^{-1} \hat{B}, \quad C_f = \hat{C}, \quad D_f = 0 $$
+                </p>
+                Then, we can implemente the filter 
+                 $$
+                \begin{aligned} 
+                \dot{\hat{x}}&=A_f \hat{x}+B_f y\\ 
+                \hat{z}&=C_f \hat{x}+D_f y
+                \end{aligned}
+                $$
+            </div>
+        </section>
+
+
+
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Multi-objective $\mathcal{H}_2/\mathcal{H}_\infty$ Filtering</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p>Find $L$ that minimizes $\mathcal{H}_2$ subject to $\mathcal{H}_\infty$ constraint:</p>
+       <p class="lightup">
+                 $$
+                \begin{aligned}
+                &\inf \mu \\
+                \text{s.t. } & \text{H2 LMIs (with } \mu, P, Y, X) \\
+                & \text{Hinf LMI (with } \gamma_{max}, P, Y)
+                \end{aligned}
+                $$  
+                </p>
+                Note: Using the same $P$ for both objectives is required if we want a single gain $L = P^{-1}Y$.
+            </center>
+                    </div>
+
+        </section>
+
+
+  <section>
+        			<div class="slide-title">
+						<h2>Homework (T9)</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							<p>&nbsp;</p>
+					<p class="">
+						<ul class="homework-list">
+							<li>Derive the LMI for the $\mathcal{H}_\infty$ and $\mathcal{H}_2$ Robust Filters in discrete time for the standard observer form.</li>
+							<li>Write a summary with your own words about the derivation in LaTeX and send it via e-disciplina.</li>
+					</ul>
+					</p>
+					
+					</center>
+							</div>
+		
+				</section>
+
+				
+
+
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+            
+
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+tml>
