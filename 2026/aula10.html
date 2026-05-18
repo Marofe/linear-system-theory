@@ -1,0 +1,2080 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+        <div class="reveal">
+            <div class="slides">
+                
+               	<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>Introduction to Robust Control of Sampled-Data Systems via DLMI</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">May 18, 2026</p>
+				</div>
+
+				</section>
+                
+
+
+
+                        
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Objectives</h2>
+            </div>
+            <div class="slide-content">
+                <p>The objectives of this lecture are to understand:</p>
+                        <ul>
+                        <li>Definition of Sampled-Data Systems;</li>
+                        <li>Stability of Sampled-Data Systems;</li>
+                        <li>Robust Stability of Sampled-Data Systems;</li>
+                        <li>Examples;</li>
+						</ul>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>References</h2>
+                <p>&nbsp;</p>
+            </div>
+            <div class="slide-content">
+                        <ul>
+                        <li>J. C. Geromel, "Differential Linear Matrix Inequalities In Sampled-Data Systems Filtering And Control," Springer, 2023.</li>
+                       <li>J. C. Geromel, G. W. Gabriel, and T. R. Gonçalves, "Differential Linear Matrix Inequalities Optimization," IEEE Control Systems Letters, 2019.</li>
+                       <li>J. C. Geromel, P. Colaneri, and P. Bolzern, "Differential Linear Matrix Inequality In Optimal Sampled-Data Control," Automatica, 2019.</li>
+						</ul>
+                    </div>
+
+        </section>
+
+
+        
+                <section>
+            
+            <div class="slide-title">
+                <h2>The Sampled-Data System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        <p>&nbsp;</p>            
+            <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}(t)&=Ax(t)+B_u u(t)+B_ww_c(t)\\ 
+                z(t)&=Cx(t)+D_u u(t)\\
+                y[k]&=C_dx[k]+D_w w_d[k]\\
+                u(t)&=u[k],\quad \forall t\in[t_k,t_{k+1})
+                \end{aligned}
+                $$
+            </p>
+            <p>
+               
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>The Sampled-Data System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                        
+          <img src="../images/sampled-data-system.png" width="800">
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+                  <section>
+            
+            <div class="slide-title">
+                <h2>Stability of Continuous-time System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Consider 
+                 <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                \dot{x}(t)=Ax(t),\quad x(0)=x_0\in\mathbb{R}^n
+                \end{aligned}
+                $$
+            </p>
+            The system is asymptotically stable iff
+            <p class="lightup">
+                $$
+                 \exists P=P^\trp \succ0\\
+                    A^\trp P + PA \prec 0                    
+                $$
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Stability of Discrete-time System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Consider 
+                 <p class="lightup">
+
+                $$
+                \begin{aligned} 
+                x_{k+1}=\underbrace{e^{Ah}}_{A_d}x_k,\quad x_0\in\mathbb{R}^n
+                \end{aligned}
+                $$
+            </p>
+            The system is asymptotically stable iff
+            <p class="lightup2">
+                $$
+                  \exists S=S^\trp \succ0\\
+                    A_d^\trp S A_d - S \prec 0
+                   
+                $$
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Question: Stability Equivalence?</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Given
+                 <p class="lightup2">
+                $$
+                 P=P^\trp \succ0\\
+                    A^\trp P + PA \prec 0                    
+                $$
+            </p>
+            Can we state that
+            <p class="lightup">
+                $$
+                    A_d^\trp P A_d - P \prec 0 ?
+                $$
+            </p>
+            obs: for any $h>0$
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+                  <section>
+            
+            <div class="slide-title">
+                <h2>Stability of Continuous-time System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                 
+            The LTI system is asymptotically stable iff
+            <p class="">
+                $$
+                   \exists V(x)=x^\trp P x \Rightarrow \dot{V}=-x^\trp Q x
+                $$
+            </p>
+            where 
+            <p class="lightup">
+              $$
+               A^\trp P + PA +Q =0
+$$
+            </p>
+  Obs:
+  $ P=\int_0^\infty e^{A^\trp\tau} Q e^{A\tau}d\tau $
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+                  <section>
+            
+            <div class="slide-title">
+                <h2>Stability of Continuous-time System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                 
+            The LTI system is asymptotically stable iff
+            <p class="lightup2">
+                $$
+                 \int_0^h \dot{V} d\tau =-\int_0^h x^\trp Q x d\tau 
+                $$
+            </p>
+            thus,
+            <p class="">
+                $$
+                V(x(h))-V(x(0)) =-\int_0^h x^\trp Q x d\tau 
+                $$
+            </p>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Stability of Continuous-time System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                 
+            The LTI system is asymptotically stable iff
+            <p class="lightup2">
+                $$
+                 \int_0^h \dot{V} d\tau =-\int_0^h x^\trp Q x d\tau 
+                $$
+            </p>
+            thus,
+            <p class="">
+                $$
+               x(h)^\trp P x(h)-x_0^\trp P x_0 =-\int_0^h x^\trp Q x d\tau 
+                $$
+            </p>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Stability of Continuous-time System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                 
+            The LTI state equation is
+            <p class="lightup2">
+                $$
+                 x(t)=e^{At}x_0,\quad t\geq 0
+                $$
+            </p>
+            by substitution, we get
+            <p class="">
+                $$
+               x_0^\trp e^{A^\trp h} P e^{Ah}x_0-x_0^\trp P x_0 =-x_0^\trp \Bigl(\int_0^h e^{A^\trp\tau} Q e^{A\tau} d\tau\Bigr)x_0 
+                $$
+            </p>
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Stability of Continuous-time System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                 
+            <p class="lightup2">
+                $$
+                 x(t)=e^{At}x_0,\quad t\geq 0
+                $$
+            </p>
+            by substitution, we get
+            <p class="">
+                $$
+               x_0^\trp\Big(e^{A^\trp h} P e^{Ah}-P\Bigr) x_0 =-x_0^\trp \Bigl(\int_0^h e^{A^\trp\tau} Q e^{A\tau} d\tau\Bigr)x_0 
+                $$
+            </p>
+            Therefore, for $Q\succ 0 $, we have
+            $$
+e^{A^\trp h} P e^{Ah}-P \prec 0, \forall h>0 
+            $$  
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Stability Equivalence</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Given
+                 <p class="lightup2">
+                $$
+                 P=P^\trp \succ0\\
+                    A^\trp P + PA \prec 0                    
+                $$
+            </p>
+            we can state that
+            <p class="lightup">
+                $$
+                    A_d^\trp P A_d - P \prec 0 
+                $$
+            </p>
+             for any $h>0$
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Robust Stability Equivalence</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Given
+                 <p class="lightup2">
+                $$
+                 P=P^\trp \succ0\\
+                    A^\trp(\alpha) P + PA(\alpha) \prec 0,\quad \forall \alpha \in\Lambda_N                   
+                $$
+            </p>
+            we can state that
+            <p class="lightup">
+                $$
+                    e^{A(\alpha)^\trp h} P e^{A(\alpha)h} - P \prec 0 ,\quad \forall \alpha \in\Lambda_N
+                $$
+            </p>
+             for any $h>0$
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>Continuous-time to Discrete-time </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Consider 
+                 <p class="lightup2">
+                $$
+                \begin{aligned} 
+                \dot{x}(t)=Ax(t)+Bu(t)
+                \end{aligned}
+                $$
+            </p>
+            The discretized system  with sampling time $T_s=h$ is
+            <p class="lightup">
+                $$
+                 x_{k+1}=e^{Ah}x_k+\Bigl(\int_0^h e^{A\tau}Bd\tau \Bigr) u_k
+                $$
+            </p>
+            obs: $u(t)=u_k$ for all $t\in[t_k,t_{k+1})$.
+           
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+              <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                $$
+                 x_{k+1}=\underbrace{e^{Ah}}_{A_d}x_k+\underbrace{\Bigl(\int_0^h e^{A\tau}Bd\tau \Bigr)}_{B_d} u_k
+                $$
+            </p>
+            Let $u_k=-Kx_k$, thus, the closed-loop system is asymptotically stable iff
+            $$
+            \exists P=P^\trp \succ 0 \\ 
+            (A_d-B_dK)^\trp P (A_d-B_dK)-P \prec 0
+            $$
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+              <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          Equivalently,
+            $$
+            \begin{bmatrix}
+            P & A_d^\trp P -K^\trp B_d^\trp P \\
+            \star & P
+            \end{bmatrix} \succ 0
+            $$
+        Let $W=P^{-1}$, and $Z=KW$, thus, we obtain a LMI 
+        <p class="lightup2">
+     $$
+            \begin{bmatrix}
+            W & WA_d^\trp  -Z^\trp B_d^\trp \\
+            \star & W
+            \end{bmatrix} \succ 0
+            $$
+            </p>
+            and $K=W^{-1}Z$ guarantees asymptotic stability.
+            </center>
+                    </div>
+
+        </section>
+
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Polytopic Continuous-time to Discrete-time </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Consider 
+                 <p class="lightup2">
+                $$
+                \begin{aligned} 
+                \dot{x}(t)=A(\alpha)x(t)+B(\alpha)u(t),\quad \alpha \in \Lambda_N
+                \end{aligned}
+                $$
+            </p>
+            The discretized system  with sampling time $T_s=h$ is
+            <p class="lightup">
+                $$
+                 x_{k+1}=e^{A(\alpha)h}x_k+\Bigl(\int_0^h e^{A(\alpha)\tau}B(\alpha)d\tau \Bigr) u_k
+                $$
+            </p>
+            obs: $u(t)=u_k$ for all $t\in[t_k,t_{k+1})$.
+           
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+              <section>
+            
+            <div class="slide-title">
+                <h2>Robust Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+       Let $u_k=-Kx_k$, thus, the closed-loop system is asymptotically stable iff
+        <p class="lightup2">
+     $$
+            \begin{bmatrix}
+            W & W e^{A(\alpha)^\trp h}  -Z^\trp\Bigl(\int_0^h e^{A(\alpha)\tau}B(\alpha)d\tau\Bigr)^\trp   \\
+            \star & W
+            \end{bmatrix} \succ 0\\
+            \forall \alpha \in \Lambda_N
+            $$
+            </p>
+            and $K=W^{-1}Z$ guarantees asymptotic stability.
+            </center>
+                    </div>
+
+        </section>
+
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                $$
+                \dot{x}(t)=Ax(t)+Bu(t)
+                $$
+            </p>
+            Let $u(t)=-K_cx(t)$, thus, the closed-loop system is asymptotically stable iff
+            $$
+            \exists P=P^\trp \succ 0 \\ 
+            (A-BK_c)^\trp P +P(A-BK_c) \prec 0
+            $$
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            
+            <p class="lightup2">
+                $$
+                \dot{x}(t)=Ax(t)+Bu(t)
+                $$
+            </p>
+            Let $u(t)=-K_cx(t)$, thus, the closed-loop system is asymptotically stable iff
+            $$
+            \exists V(x)=x^\trp P x \Rightarrow \dot{V}=-x^\trp Q x \\ 
+            (A-BK_c)^\trp P +P(A-BK_c) +Q = 0
+            $$
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            Note that
+            <p class="lightup2">
+                $$
+               x(t)=e^{(A-BK_c)t}x_0
+                $$
+            </p>
+           and 
+           $$
+                \int_0^h \dot{V}d\tau = -\int_0^h  x^\trp Q x d\tau 
+           $$
+
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            Note that
+            <p class="lightup2">
+                $$
+               x(t)=e^{(A-BK_c)t}x_0
+                $$
+            </p>
+           and 
+           $$
+               V(h)-V(0) = -\int_0^h  x^\trp Q x d\tau 
+           $$
+
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+        
+           <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            Note that
+            <p class="lightup2">
+                $$
+               x(t)=e^{(A-BK_c)t}x_0
+                $$
+            </p>
+           and 
+           $$
+               x(h)^\trp P x(h)-x_0^\trp P x_0 = -\int_0^h  x^\trp Q x d\tau 
+           $$
+
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+        
+           <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            Note that
+            <p class="lightup2">
+                $$
+               x(t)=e^{(A-BK_c)t}x_0
+                $$
+            </p>
+           and 
+           $$
+               x_0^\trp e^{(A-BK_c)^\trp h} P e^{(A-BK_c)h}x_0-x_0^\trp P x_0 =\\ -x_0^\trp \Bigl(\int_0^h  e^{(A-BK_c)^\trp \tau} Q e^{(A-BK_c)\tau} d\tau \Bigr)x_0
+           $$
+
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            Note that
+            <p class="lightup2">
+                $$
+               x(t)=e^{(A-BK_c)t}x_0
+                $$
+            </p>
+           and 
+           $$
+               x_0^\trp \Bigl(e^{(A-BK_c)^\trp h} P e^{(A-BK_c)h}-P\Bigr)x_0=\\ -x_0^\trp \Bigl(\int_0^h  e^{(A-BK_c)^\trp \tau} Q e^{(A-BK_c)\tau} d\tau \Bigr)x_0
+           $$
+
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+           Thus,
+            <p class="lightup2">
+               $$
+               e^{(A-BK_c)^\trp h} P e^{(A-BK_c)h}-P\prec 0
+           $$
+            </p>
+   so,
+     $e^{(A-BK_c)h}$ is asymptotically stable but
+   <p class="lightup2">
+         
+            $$e^{(A-BK_c) h} \neq A_d-B_dK_c$$
+      </p>  
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Discretized State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+             Thus,
+            <p class="lightup2">
+               $$
+               e^{(A-BK_c)^\trp h} P e^{(A-BK_c)h}-P\prec 0
+           $$
+          
+        
+            </p>
+             so,
+           $e^{(A-BK_c)h}$ is asymptotically stable but
+             <p class="lightup2">
+            $$e^{(A-BK_c) h} \neq e^{Ah}-\Bigl(\int_0^h e^{A\tau}Bd\tau\Bigr)K_c$$
+    </p>
+            </center>
+                    </div>
+
+        </section>
+
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="lightup2">
+             (Theorem)     Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, 
+            $$
+                P(t) \succ e^{A^\trp (h-t)} P_h e^{A(h-t)}+\int_0^{h-t} e^{A^\trp \tau}Q e^{A\tau}d\tau\succ 0
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = 0,\quad  \forall t\in[0,h)
+            $$       
+            Note that
+            $$
+                e^{A^\trp t}\Bigl(\dot{P}(t)+A^\trp P(t)+P(t)A + Q\Bigr)e^{At} =\\
+                \underbrace{e^{A^\trp t}\dot{P}(t)e^{A t}+e^{A^\trp t}A^\trp P(t)e^{A t}+e^{A^\trp t}P(t)Ae^{A t}}_{\frac{d}{dt}\Bigl(e^{A^\trp t}P(t)e^{A t}\Bigr)} + e^{A^\trp t}Qe^{At}=0
+                           $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = 0,\quad  \forall t\in[0,h)
+            $$       
+            Note that
+            $$
+                \frac{d}{dt}\Bigl(e^{A^\trp t}P(t)e^{A t}\Bigr)=-e^{A^\trp t}Qe^{At}
+                           $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+        
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = 0,\quad  \forall t\in[0,h)
+            $$       
+            Note that
+            $$
+                \int_h^t \frac{d}{d\tau}\Bigl(e^{A^\trp \tau}P(\tau)e^{A \tau}\Bigr)d\tau =-\int_h^t e^{A^\trp \tau}Qe^{A\tau}d\tau
+                           $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = 0,\quad  \forall t\in[0,h)
+            $$       
+            Note that
+            $$
+               e^{A^\trp t}P(t)e^{A t}-e^{A^\trp h}P(h)e^{A h}=-\int_h^t e^{A^\trp \tau}Qe^{A\tau}d\tau
+                           $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = 0,\quad  \forall t\in[0,h)
+            $$       
+            Note that
+            $$
+               e^{-A^\trp t}\Bigl(e^{A^\trp t}P(t)e^{A t}-e^{A^\trp h}P(h)e^{A h}\Bigr)e^{-At}=\\-e^{-A^\trp t}\Bigl(\int_0^t e^{A^\trp \tau}Qe^{A\tau}d\tau\Bigr)e^{-At}
+                           $$
+            </p>
+
+       
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = 0,\quad  \forall t\in[0,h)
+            $$       
+            Note that
+            $$
+              P(t)=e^{A^\trp (h-t)}P(h)e^{A (h-t)}-\int_h^t e^{A^\trp (\tau-t)}Qe^{A(\tau-t)}d\tau
+                           $$
+            </p>
+                Define $$\xi=\tau-t \Rightarrow d\xi = d\tau$$
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = 0,\quad  \forall t\in[0,h)
+            $$       
+            Note that
+            $$
+              P(t)=e^{A^\trp (h-t)}P(h)e^{A (h-t)}-\int_{h-t}^0 e^{A^\trp \xi}Qe^{A\xi}d\xi
+                           $$
+            </p>
+                Define $$\xi=\tau-t \Rightarrow d\xi = d\tau$$
+            </center>
+                    </div>
+
+        </section>
+
+
+                <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = 0,\quad  \forall t\in[0,h)
+            $$       
+            Note that
+            <p class="lightup2">
+            $$
+              P(t)=e^{A^\trp (h-t)}P(h)e^{A (h-t)}+\int_0^{h-t} e^{A^\trp \xi}Qe^{A\xi}d\xi
+                           $$
+                           </p>
+            </p>
+          
+            </center>
+                    </div>
+
+        </section>
+
+
+               <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+             $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            is the same as $\exist W(t)\succ 0$ such that
+            <p class="lightup2">
+               $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = -W(t) ,\quad  \forall t\in[0,h)
+            $$  
+                           </p>
+            </p>
+          
+            </center>
+                    </div>
+
+        </section>
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+           
+            <p class="lightup2">
+               $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = -W(t) ,\quad  \forall t\in[0,h)
+            $$  
+                           </p>
+                           Thus,
+                           $$
+                           P(t)=e^{A^\trp (h-t)}P(h)e^{A (h-t)}+\int_0^{h-t} e^{A^\trp \xi}(Q+W(t))e^{A\xi}d\xi
+                           $$
+            </p>
+          
+            </center>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+             (Proof) 
+           
+            <p class="lightup2">
+               $$
+              \dot{P}(t)+A^\trp P(t)+P(t)A + Q = -W(t) ,\quad  \forall t\in[0,h)
+            $$  
+                           </p>
+                           Thus,
+                           $$
+                           P(t)=e^{A^\trp (h-t)}P(h)e^{A (h-t)}+\int_0^{h-t} e^{A^\trp \xi}(Q+W(t))e^{A\xi}d\xi\\
+                           \succ e^{A^\trp (h-t)}P(h)e^{A (h-t)}+\int_0^{h-t} e^{A^\trp \xi}Qe^{A\xi}d\xi\succ 0\quad \square
+                           $$
+            </p>
+          
+            </center>
+                    </div>
+
+        </section>
+
+        
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Augmented Matrices </h2>
+            </div>
+            <div class="slide-content">
+              <center>
+                Consider 
+                $$
+                    F=\begin{bmatrix}A & B\\ 
+                    0 & 0\end{bmatrix},\quad H=\begin{bmatrix}I & 0 \\
+                    -K & 0\end{bmatrix}
+                $$
+                We have that
+                <p class="lightup">
+                $$
+                e^{Fh}H=\begin{bmatrix}
+                    e^{Ah} & \int_0^h e^{A\tau}Bd\tau \\
+                    0 & I
+                \end{bmatrix}\begin{bmatrix}I & 0 \\-K & 0\end{bmatrix}
+                $$
+                </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Augmented Matrices </h2>
+            </div>
+            <div class="slide-content">
+              <center>
+                Consider 
+                $$
+                    F=\begin{bmatrix}A & B\\ 
+                    0 & 0\end{bmatrix},\quad H=\begin{bmatrix}I & 0 \\
+                    -K & 0\end{bmatrix}
+                $$
+                We have that
+                <p class="lightup">
+                $$
+                e^{Fh}H=\begin{bmatrix}
+                    e^{Ah}-\Bigl(\int_0^h e^{A\tau}Bd\tau\Bigr) K & 0 \\
+                    K & 0
+                \end{bmatrix}
+                $$
+                </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Augmented Matrices </h2>
+            </div>
+            <div class="slide-content">
+              <center>
+                Consider 
+                $$
+                    F=\begin{bmatrix}A & B\\ 
+                    0 & 0\end{bmatrix},\quad H=\begin{bmatrix}I & 0 \\
+                    -K & 0\end{bmatrix}
+                $$
+                We have that
+                <p class="lightup">
+                $$
+                e^{Fh}H=\begin{bmatrix}
+                    A_d-B_d K & 0 \\
+                    K & 0
+                \end{bmatrix}
+                $$
+                </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Stability from the Augmented Matrices </h2>
+            </div>
+            <div class="slide-content">
+              <center>
+                 Consider 
+                $$
+                    F=\begin{bmatrix}A & B\\ 
+                    0 & 0\end{bmatrix},\quad H=\begin{bmatrix}I & 0 \\
+                    -K & 0\end{bmatrix}
+                $$
+              Note that 
+                <p class="lightup2">
+                $$
+                e^{Fh}H \text{ is Schur} \\\Leftrightarrow\\A_d-B_d K \text{ is Schur}
+                $$
+                </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, 
+            $$
+                P(t) \succ e^{F^\trp (h-t)} P_h e^{F(h-t)}+\int_0^{h-t} e^{F^\trp \tau}Q e^{F\tau}d\tau\\
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, 
+            $$
+            P(t) \succ e^{F^\trp (h-t)} P_h e^{F(h-t)}+\int_0^{h-t} e^{F^\trp \tau}Q e^{F\tau}d\tau\\
+                \succ e^{F^\trp (h-t)} P_h e^{F(h-t)}
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, 
+            $$
+            P(t)  \succ e^{F^\trp (h-t)} P_h e^{F(h-t)}
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, $t=0$,
+            $$
+                P_0 \succ e^{F^\trp h} P_h e^{Fh}
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, $t=0$,
+            $$
+                H^\trp P_0 H \succ H^\trp e^{F^\trp h} P_h e^{Fh}H
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given  $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, $t=0$,
+            $$
+               \Bigl(H^\trp e^{F^\trp h}\Bigr) P_h \Bigl(e^{Fh}H\Bigr)- H^\trp P_0 H \prec 0
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, $t=0$,
+            $$
+                 \Bigl(H^\trp e^{F^\trp h}\Bigr) P_h \Bigl(e^{Fh}H\Bigr)- \underbrace{H^\trp P_0 H}_{\preceq P_h} \prec 0
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Differential Linear Matrix Inequality (DLMI) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus, $t=0$, and $P_h\succeq H^\trp P_0 H$, yields
+            $$
+                 \Bigl(H^\trp e^{F^\trp h}\Bigr) P_h \Bigl(e^{Fh}H\Bigr)- P_h \prec 0
+            $$
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Stability from DLMI </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="lightup2">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+               P_h\succeq H^\trp P_0 H\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus,
+            $
+                 e^{Fh}H
+            $
+            is Schur.
+            </p>
+           
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Stability from DLMI </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="lightup2">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ and a given $Q=Q^\trp \succeq 0$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+               P_h\succeq H^\trp P_0 H\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F + Q \prec 0,\quad  \forall t\in[0,h)
+            $$       
+            Thus,
+            $
+                 e^{Fh}H
+            $
+            is Schur.
+            </p>
+           In other words,
+           $
+            A_d-B_dK
+           $ is Schur!
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        
+           <section>
+            
+            <div class="slide-title">
+                <h2>Stability from DLMI </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+            <p class="lightup2">
+              Consider that there exists a matrix-function $P:[0,h)\to \mathbb{S}^n$ such that
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+               P_h\succeq H^\trp P_0 H\\
+              \dot{P}(t)+F(\alpha)^\trp P(t)+P(t)F(\alpha) \prec 0,\\
+              \forall t\in[0,h),\quad \forall \alpha\in\Lambda_N \\
+             
+            $$       
+            Thus,
+            $
+                 e^{F(\alpha)h}H
+            $
+            is Schur.
+            </p>
+           In other words,
+           $
+            e^{A(\alpha)h}-\Bigl(\int_0^h e^{A(\alpha)\tau} B(\alpha)d\tau\Bigr)K
+           $ is Schur!
+            </center>
+                    </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>How to Solve a DLMI? </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="lightup2">
+               $$
+               P(h)=P_h=P_h^\trp \succ 0\\
+               P_h\succeq H^\trp P_0 H,\\
+              \dot{P}(t)+F^\trp P(t)+P(t)F \prec 0\\
+               \forall t\in[0,h)\\
+            $$   
+              </p>    
+            Let
+            $$
+P(t)=\sum_{i=0}^{n_\phi} X_i\phi_i(t)
+            $$
+            
+          
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>How to Solve a DLMI? </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          
+            <p class="lightup2">
+               $$
+               \mathcal{H}(P_0,P_h)\prec 0,\\
+             \mathcal{L}(\dot{P},P)\prec 0\\
+               \forall t\in[0,h)\\
+            $$   
+              </p>    
+            Let
+            $$
+P(t)=\sum_{i=0}^{n_\phi} X_i\phi_i(t)
+            $$
+            
+          
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Approach </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    Define $\eta = \frac{h}{n_\phi}$, and
+          
+            <p class="lightup2">
+             $$
+                \phi(t)=\begin{cases}
+                1-\frac{|t|}{\eta},\quad |t|\leq \eta \\
+                0, \quad |t|>\eta
+                \end{cases}
+             $$
+              </p>    
+Thus,
+            $$
+\phi_i(t)=\phi(t-i\eta),\quad \forall i=0,\ldots,n_\phi
+            $$
+            
+          
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        
+         <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Approach </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+         
+          <img src="../images/piecewise_linear.png" width="800">       
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Approach </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                     $$
+                    P(t)=X_i\phi_i(t)+X_{i+1}\phi_{i+1}(t),\quad t\in [i\eta,(i+1)\eta),\\\forall i=0,\ldots,n_{\phi}-1
+          $$
+         
+          <img src="../images/piecewise_linear2.png" width="600">       
+         
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Approach </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                     $$
+                    P(t)=X_i+\frac{X_{i+1}-X_i}{\eta}(t-i\eta),\quad t\in [i\eta,(i+1)\eta)
+          $$
+         
+          <img src="../images/piecewise_linear2.png" width="600">       
+         
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+
+              
+
+
+      
+       
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Approach </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p class="lightup2">
+                        (Theorem) The piecewise linear function solves the DLMI iff 
+$$
+                   \mathcal{L}(\frac{X_{i+1}-X_i}{\eta},X_i)\prec 0\\
+                   \mathcal{L}(\frac{X_{i+1}-X_i}{\eta},X_{i+1})\prec 0\\
+                   \mathcal{H}(X_0,X_{n_\phi})\prec 0
+          $$
+          for all $i=0,\ldots,n_{\phi}-1$
+                    </p>
+                     
+       
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Example ($n_\phi=1$) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                     $$
+                    P(t)=X_0+\frac{X_{h}-X_0}{h}t,\quad t\in [0,h)
+          $$
+         
+          <img src="../images/piecewise_linear_nphi_1.png" width="600">       
+         
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Example ($n_\phi=1$) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                     $$
+                    P(t)=X_0+\frac{X_{h}-X_0}{h}t,\quad t\in [0,h)
+          $$
+         
+          LMI set:
+          <p class="lightup2">
+         $$
+                    \mathcal{H}(X_0,X_h)\prec 0 \\
+                    \mathcal{L}(\frac{X_h-X_0}{h},X_0)\prec 0 \\
+                    \mathcal{L}(\frac{X_h-X_0}{h},X_h)\prec 0 
+         $$
+         </p>
+
+
+         
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Example ($n_\phi=2$) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                     $$
+                    P(t)=X_i+\frac{X_{i+1}-X_i}{\eta}(t-i\eta),\quad i=0,1
+          $$
+         
+          <img src="../images/piecewise_linear_nphi_2.png" width="600">       
+         
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Example ($n_\phi=2$) </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          <p class="lightup2">
+         $$
+                    \mathcal{H}(X_0,X_h)\prec 0 \\
+                    \mathcal{L}(\frac{X_1-X_0}{\eta},X_0)\prec 0 \\
+                    \mathcal{L}(\frac{X_1-X_0}{\eta},X_1)\prec 0 \\
+                    \mathcal{L}(\frac{X_2-X_1}{\eta},X_1)\prec 0 \\
+                    \mathcal{L}(\frac{X_2-X_1}{\eta},X_2)\prec 0 
+         $$
+         </p>
+
+
+         
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Piecewise linear Approach </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p class="lightup2">
+$$
+                   \mathcal{L}(\frac{X_{i+1}-X_i}{\eta},X_i)\prec 0\\
+                   \mathcal{L}(\frac{X_{i+1}-X_i}{\eta},X_{i+1})\prec 0\\
+                   \mathcal{H}(X_0,X_{n_\phi})\prec 0
+          $$
+          for all $i=0,\ldots,n_{\phi}-1$
+                    </p>
+                     
+       In general, the LMI set is formed by
+       $$
+                    2n_\phi +1
+       $$
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Data-Sampled State Feedback Control </h2>
+            </div>
+            Given $h>0$ and $n_\phi>0$, thus
+            <div class="slide-content">
+                <center>
+          
+            <p class="lightup2">
+               $$
+               P(h)=X_{n_\phi}=X_{n_\phi}^\trp \succ 0\\
+               X_{n_\phi}\succeq H^\trp X_0 H,\\
+ \frac{X_{i+1}-X_i}{\eta}+F^\trp X_i+X_iF  \prec 0\\
+           \frac{X_{i+1}-X_i}{\eta}+F^\trp X_{i+1}+X_{i+1}F \prec 0\\
+           \forall i=0,\ldots,n_{\phi}-1
+            $$   
+              </p>    
+   
+          
+          
+         
+            </center>
+                    </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Data-Sampled State Feedback Control </h2>
+            </div>
+            <div class="slide-content">
+                <center>
+          Note that
+            <p class="">
+               $$
+               X_{n_\phi}\succeq H^\trp X_0 H \\
+               \Rightarrow X_{n_\phi}\succeq \begin{bmatrix} I & 0 \\ -K & 0\end{bmatrix}^\trp X_0 \begin{bmatrix} I & 0 \\ -K & 0\end{bmatrix}\\
+               \begin{bmatrix}
+               X_{n_\phi} & \begin{bmatrix} I & 0 \\ -K & 0\end{bmatrix}^\trp X_0  \\
+              \star & X_0
+               \end{bmatrix} \succeq 0
+            $$   
+            <p class="lightup">
+            Note that for a given $K$ it is a LMI!
+            </p>
+              </p>    
+   
+     
+       
+         
+            </center>
+                    </div>
+
+        </section>
+
+       
+          <section>
+            
+            <div class="slide-title">
+                <h2>Robust Data-Sampled State Feedback Control </h2>
+            </div>
+          
+            <div class="slide-content">
+                <center>
+
+            <p class="lightup2">
+               $$
+               A_{cl}= e^{A(\alpha)h}-\Bigl(\int_0^h e^{A(\alpha)\tau}B(\alpha)d\tau\Bigr)K
+            $$   
+              </p>           
+           is Schur for all $\alpha \in \Lambda_N$
+           <p>
+         <img src="../images/politopo.png" width="300">
+         </p>
+            </center>
+         
+                    </div>
+
+        </section>
+
+
+  <section>
+            
+            <div class="slide-title">
+                <h2>Robust Stability via DLMI</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+        <p>&nbsp;</p>
+            <p>
+            Examples in Matlab
+            </p>
+            <p>
+            <img src="../images/matlab_logo.png" alt="">
+            </p>
+        
+        
+    
+            </center>
+                    </div>
+
+        </section>
+
+
+
+  <section>
+        			<div class="slide-title">
+						<h2>Homework (T10)</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+			Consider the linearized state-space model of an inverted pendulum 
+
+            $$
+                            \begin{equation*}
+A = \begin{bmatrix}
+    0 & 1 & 0 & 0 \\[1em]
+    0 & 0 & \frac{gm}{M} & 0 \\[1em]
+    0 & 0 & 0 & 1 \\[1em]
+    0 & 0 & \frac{g(M + m)}{Ml} & 0
+\end{bmatrix}
+\end{equation*}
+
+\begin{equation*}
+B = \begin{bmatrix}
+    0 \\[1em]
+    \frac{1}{M} \\[1em]
+    0 \\[1em]
+    \frac{1}{Ml}
+\end{bmatrix}
+\end{equation*}
+            $$
+            with $1\le M \le 2,m=0.1,l=0.4$;
+					
+					</center>
+							</div>
+		
+				</section>
+
+				
+
+  <section>
+        			<div class="slide-title">
+						<h2>Homework (T10)</h2>
+					</div>
+					<div class="slide-content">
+						<center>
+							
+					<p class="">
+						<ul class="homework-list">
+							<li>Represent the system as a polytopic model in continuous-time.</li>
+							<li>Using DLMIs, check if the DLQR controller design for $M=1.5$, $Q=I$, $R=1$, guarantees robust stability for all $\alpha\in\Lambda_N$ in discrete-time with $h=0.1s$.</li>
+                            <li>Write a summary with your own words about the conclusions and send it via e-disciplina.</li>
+					</ul>
+                    Obs:
+                        $$
+                            A_d(\alpha)=e^{A(\alpha)h},\quad B_d(\alpha)=\int_0^h e^{A(\alpha)\tau}B(\alpha)d\tau
+                        $$
+					</p>
+					
+					</center>
+							</div>
+		
+				</section>
+
+
+
+
+		
+			<section>
+		
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>Until next time!</h2>
+				</center>
+				</div>
+
+			</section>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+            
+
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
+tml>
+
