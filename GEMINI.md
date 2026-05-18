@@ -42,4 +42,5 @@ To view or present a lesson:
 - **Adding a New Lesson:** Copy an existing `aula*.html` file to use as a template.
 - **Equations:** Use `$$ ... $$` for block math and `$ ... $` for inline math, as configured in `init.js`.
 - **Images:** Place all new images in the `images/` directory and reference them using `../images/filename`.
+- **Course Index:** Always update the corresponding year's `index.html` (e.g., `2026/index.html`) when adding a new lesson.
 - **Styling:** Avoid inline styles; use the classes defined in `style.css` or extend it if necessary.
