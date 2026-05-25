@@ -20,7 +20,8 @@
 	"\\trp": "\\intercal",
 	"\\diag": "\\text{diag}",
 	"\\Diag": "\\text{Diag}",
-	"\\tr": "\\text{tr}"
+	"\\tr": "\\text{tr}",
+	"\\stairs": "\\star"
    }
  },
 				hash: true,

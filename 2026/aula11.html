@@ -1,0 +1,1691 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SEL5911 - Linear Systems Theory</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		
+		<link rel="stylesheet" href="../style.css">
+	</head>
+	<body>
+		
+        <div class="reveal">
+            <div class="slides">
+                
+               	<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="../images/sel.png"/> </div>
+					<div class="logo2"><img src="../images/Logo EESC-USP_top.png"/> </div>
+					<div class="title">
+						<p>&nbsp;</p>
+					<h2>Introduction to Markov Jump Linear Systems</h2>
+					</div>
+					<div class="author">
+					<h3>Prof. Dr. Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					
+					<p style="text-align: center;font-size: 0.8em;">May 25, 2026</p>
+				</div>
+
+				</section>
+                
+            <section>
+            
+            <div class="slide-title">
+                <h2>Objectives</h2>
+            </div>
+            <div class="slide-content">
+                <p>The objectives of this lecture are to understand:</p>
+                        <ul>
+                        <li>The concepts of hybrid systems and Markov switching;</li>
+                        <li>Definition of Markov Jump Linear Systems (MJLS);</li>
+                        <li>Stability analysis of MJLS: Mean Square Stability (MSS);</li>
+                        <li>Stabilization and state feedback design of MJLS via LMIs.</li>
+                        <li>Example in NCS</li>
+						</ul>
+                    </div>
+
+        </section>
+
+
+             <section>
+            
+            <div class="slide-title">
+                <h2>References</h2>
+                <p>&nbsp;</p>
+            </div>
+            <div class="slide-content">
+                        <ul>
+                        <li>O. L. V. Costa, M. D. Fragoso, and R. P. Marques, "Discrete-Time Markov Jump Linear Systems," Springer, 2005.</li>
+                        <li>P. Zhao, Y. Kang, and Y. Zhao, "A Brief Tutorial And Survey On Markovian Jump Systems Stability And Control," IEEE Systems, Man, & Cybernetics Magazine, 2019.</li>
+                        <LI>Y. Shi, L. Zhang, T. Chen, and B. Huang, "A New Method for Stabilization of Networked Control Systems With Random Delays," IEEE TRANSACTIONS ON AUTOMATIC CONTROL, 2005.</LI>
+						</ul>
+                    </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Why Markov Jump Linear Systems?</h2>
+            </div>
+            <div class="slide-content">
+                <p>In many practical systems, the dynamics are subject to abrupt changes in their parameters caused by:</p>
+                <ul>
+                    <li><b>Component failures or repairs</b> (e.g., actuator/sensor faults);</li>
+                    <li><b>Changes in the subsystem configurations</b> (e.g., in power grids or aerospace systems);</li>
+                    <li><b>Network delays or packet drops</b> in Networked Control Systems (NCS);</li>
+                    <li><b>Environmental disturbances or sudden workload changes</b>.</li>
+                </ul>
+              
+            </div>
+
+        </section>
+
+                    <section>
+            
+            <div class="slide-title">
+                <h2>Why Markov Jump Linear Systems?</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p class="lightup2" style="font-size: 1.15em; line-height: 1.5; margin-top: 1em; margin-bottom: 1em; width: 85%;">
+                        MJLS represent a powerful class of <b>hybrid systems</b> with continuous state $x_k \in \mathbb{R}^n$ and a discrete operating mode $\theta_k \in \{1, \dots, N\}$ governed by a Markov chain.
+                    </p>
+                    
+                    <div style="text-align: center; margin-top: 1.5em;">
+                        <svg width="300" height="220" viewBox="0 0 450 320" style="display: block; margin: auto;">
+                            <defs>
+                                <marker id="arrow-bw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000" />
+                                </marker>
+                                <style>
+                                    .node-circle-bw { fill: #ffffff; stroke: #000000; stroke-width: 3.5px; transition: fill 0.3s; }
+                                    .node-circle-bw:hover { fill: #f0f0f0; }
+                                    .arrow-line-bw { fill: none; stroke: #000000; stroke-width: 2.5px; }
+                                    .self-loop-bw { fill: none; stroke: #000000; stroke-width: 2px; }
+                                    .node-text-bw { font-family: 'Segoe UI', Helvetica, sans-serif; font-size: 20px; font-weight: bold; fill: #000000; text-anchor: middle; dominant-baseline: central; }
+                                    .prob-text-bw { font-family: 'Segoe UI', Helvetica, sans-serif; font-size: 15px; fill: #000000; font-weight: bold; text-anchor: middle; }
+                                </style>
+                            </defs>
+
+                            <!-- Transition Lines (with arrow markers, terminating exactly at circle boundaries) -->
+                            <path d="M 200 95 Q 135 145 110 220" class="arrow-line-bw" marker-end="url(#arrow-bw)" />
+                            <path d="M 135 255 Q 225 280 315 255" class="arrow-line-bw" marker-end="url(#arrow-bw)" />
+                            <path d="M 340 220 Q 315 145 250 95" class="arrow-line-bw" marker-end="url(#arrow-bw)" />
+
+                            <!-- Self Loops (terminating exactly at circle boundaries) -->
+                            <path d="M 215 55 C 190 15, 260 15, 235 55" class="self-loop-bw" marker-end="url(#arrow-bw)" />
+                            <path d="M 85 235 C 45 205, 35 285, 80 260" class="self-loop-bw" marker-end="url(#arrow-bw)" />
+                            <path d="M 365 235 C 405 205, 415 285, 370 260" class="self-loop-bw" marker-end="url(#arrow-bw)" />
+
+                            <!-- Nodes -->
+                            <circle cx="225" cy="80" r="30" class="node-circle-bw" />
+                            <circle cx="105" cy="250" r="30" class="node-circle-bw" />
+                            <circle cx="345" cy="250" r="30" class="node-circle-bw" />
+
+                            <!-- Node Labels -->
+                            <text x="225" y="80" class="node-text-bw">1</text>
+                            <text x="105" y="250" class="node-text-bw">2</text>
+                            <text x="345" y="250" class="node-text-bw">3</text>
+
+                            <!-- Transition Probability Labels -->
+                            <text x="225" y="10" class="prob-text-bw">p₁₁</text>
+                            <text x="45" y="255" class="prob-text-bw">p₂₂</text>
+                            <text x="405" y="255" class="prob-text-bw">p₃₃</text>
+                            
+                            <text x="135" y="145" class="prob-text-bw">p₁₂</text>
+                            <text x="225" y="310" class="prob-text-bw">p₂₃</text>
+                            <text x="315" y="145" class="prob-text-bw">p₃₁</text>
+                        </svg>
+                    </div>
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Discrete-Time MJLS Definition</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Consider the discrete-time linear system with Markovian parameters:
+                <p class="lightup">
+                    $$
+                    \begin{aligned} 
+                    x_{k+1} &= A_{\theta_k}x_k + B_{\theta_k}u_k + D_{\theta_k}w_k \\
+                    y_k &= C_{\theta_k}x_k + E_{\theta_k}w_k
+                    \end{aligned}
+                    $$
+                </p>
+                
+                <ul style="font-size: 0.9em;">
+                    <li>$\{\theta_k\}_{k \ge 0}$ is a discrete-time Markov chain taking values in a finite set $$\mathbb{K} = \{1, 2, \dots, N\}$$</li>
+                </ul>
+                </center>
+            </div>
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Discrete-Time MJLS: Mode-Based Representation</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                When the Markov chain is in mode $\theta_k = i \in \mathbb{K}$, the system matrices are:
+                <p class="lightup2">
+                    $$
+                    A_{\theta_k} = A_i, \quad B_{\theta_k} = B_i, \quad C_{\theta_k} = C_i, \quad D_{\theta_k} = D_i, \quad \dots
+                    $$
+                </p>
+                Hence, the system switches between $N$ different LTI models:
+                <p class="lightup">
+                    $$
+                    x_{k+1} = A_i x_k + B_i u_k + D_i w_k, \quad \text{when } \theta_k = i
+                    $$
+                </p>
+                
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Markov Chain Preliminaries</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                The sequence $\{\theta_k\}$ is a homogeneous Markov chain governed by the transition probability matrix:
+                <p class="lightup">
+                    $$
+                    P = [p_{ij}] \in \mathbb{R}^{N \times N}
+                    $$
+                </p>
+                where the elements $p_{ij}$ represent the transition probability:
+                <p class="lightup2">
+                    $$
+                    p_{ij} = \Pr(\theta_{k+1} = j \mid \theta_k = i), \quad \forall i, j \in \mathbb{K}
+                    $$
+                </p>
+               
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Illustrative 2-Mode Markov Chain</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Consider a system with 2 modes, $\mathbb{K} = \{1, 2\}$, and transition matrix:
+                <p class="lightup">
+                    $$
+                    P = \begin{bmatrix} p_{11} & p_{12} \\ p_{21} & p_{22} \end{bmatrix} = \begin{bmatrix} 0.9 & 0.1 \\ 0.3 & 0.7 \end{bmatrix}
+                    $$
+                </p>
+                <div style="font-size: 0.9em; margin-top: 1em;">
+                    <ul>
+                        <li>If the system is in <b>Mode 1</b>, it has a $90\%$ chance of staying in Mode 1, and a $10\%$ chance of switching to Mode 2 in the next step.</li>
+                        <li>If the system is in <b>Mode 2</b>, it has a $30\%$ chance of switching back to Mode 1, and a $70\%$ chance of staying in Mode 2.</li>
+                    </ul>
+                </div>
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Stability of MJLS: A Counterintuitive Fact!</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Suppose we have an autonomous MJLS: $$x_{k+1} = A_{\theta_k} x_k$$
+                    where 
+                    $$
+                        \theta_k \in \{1,\ldots,N\}
+                    $$
+  
+                <div class="lightup" >
+                    Stability of each individual mode is neither necessary nor sufficient for stability of the MJLS!
+                </div>
+               
+                </center>
+            </div>
+
+        </section>
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Numerical Experiment: Stable Modes, Unstable Switched System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Consider a 2-mode autonomous MJLS $x_{k+1} = A_{\theta_k} x_k$, with:
+                <p class="lightup" style="font-size: 0.9em; width: 90%; margin-top: 0.5em; margin-bottom: 0.5em;">
+                    $$
+                    A_1 = \begin{bmatrix} 0.5 & 1.5 \\ 0 & 0.5 \end{bmatrix}, \quad A_2 = \begin{bmatrix} 0.5 & 0 \\ 1.5 & 0.5 \end{bmatrix}
+                    $$
+                </p>
+                <ul style="font-size: 0.8em; margin-top: 0.2em; width: 95%;">
+                    <li><b>Markov Chain Transitions</b>: Governed by the transition matrix:
+                        $$ P = \begin{bmatrix} 0.1 & 0.9 \\ 0.9 & 0.1 \end{bmatrix} $$
+                    </li>
+                   
+                </ul>
+                </center>
+            </div>
+
+        </section>
+         <section>
+            
+            <div class="slide-title">
+                <h2>Numerical Experiment: No Switching</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              <img src="../images/mjls_example1.png" width="800">
+                </center>
+            </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Numerical Experiment: With Switching</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              <img src="../images/mjls_instability.png" width="800">
+                </center>
+            </div>
+
+        </section>
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Numerical Experiment 2: Unstable Modes, Stable Switched System</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Consider a 2-mode autonomous MJLS $x_{k+1} = A_{\theta_k} x_k$, where <b>every individual mode is unstable</b>:
+                <p class="lightup" style="font-size: 0.9em; width: 90%; margin-top: 0.5em; margin-bottom: 0.5em;">
+                    $$
+                    A_1 = \begin{bmatrix} 1.5 & 0 \\ 0 & 0.5 \end{bmatrix}, \quad A_2 = \begin{bmatrix} 0.5 & 0 \\ 0 & 1.5 \end{bmatrix}
+                    $$
+                </p>
+                <ul style="font-size: 0.8em; margin-top: 0.2em; width: 95%;">
+                     <li><b>Markov Chain Transitions</b>: Governed by the highly switching transition matrix:
+                        $$ P = \begin{bmatrix} 0.1 & 0.9 \\ 0.9 & 0.1 \end{bmatrix} $$
+                    </li>
+                    <li><b>Coupled Lyapunov Operator</b>: Spectral radius is $\rho(\mathcal{T}) = 0.8074 < 1$ (proved to be **Mean Square Stable**!).</li>
+                </ul>
+                </center>
+            </div>
+
+        </section>
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Numerical Experiment 2: Simulation Results</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <img src="../images/mjls_example2.png" width="800" >
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Numerical Experiment 2: Simulation Results</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <img src="../images/mjls_example2_switching.png" width="900" >
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic Stability Definitions</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Since $\{\theta_k\}$ is stochastic, the state sequence $\{x_k\}$ is a random process. We need stochastic stability definitions:
+   
+                <p class="lightup">
+               
+                <b>Almost Sure (Asymptotic) Stability:</b>
+                        $$ \Pr \left( \lim_{k\to\infty} \|x_k\| = 0 \right) = 1 $$
+                </p>
+               for any initial state $x_0 \in \mathbb{R}^n$ and initial probability distribution of $\theta_0$
+                </center>
+            </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic Stability Definitions</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Since $\{\theta_k\}$ is stochastic, the state sequence $\{x_k\}$ is a random process. We need stochastic stability definitions:
+      
+                <p class="lightup">
+                    <b>Mean Square Stability (MSS):</b>
+                        $$ \lim_{k\to\infty} \mathbb{E}[\|x_k\|^2] = 0 $$
+                        
+                </p>
+ for any initial state $x_0 \in \mathbb{R}^n$ and initial probability distribution of $\theta_0$
+                </center>
+            </div>
+
+        </section>
+
+
+        
+          <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic Stability Definitions</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+      
+  
+                <p class="lightup">
+                    In linear control theory, <b>Mean Square Stability (MSS)</b> is the most widely used concept because it is mathematically tractable, implies almost sure stability, and can be analyzed using quadratic Lyapunov functions and LMIs!
+                </p>
+<p>&nbsp;</p>
+                  $$ \lim_{k\to\infty} \mathbb{E}[\|x_k\|^2] = 0 $$
+                </center>
+            </div>
+
+        </section>
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic Stability Definitions</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+      
+  
+                <p class="lightup">
+                    In linear control theory, <b>Mean Square Stability (MSS)</b> is the most widely used concept because it is mathematically tractable, implies almost sure stability, and can be analyzed using quadratic Lyapunov functions and LMIs!
+                </p>
+<p>&nbsp;</p>
+                  $$ \lim_{k\to\infty} \mathbb{E}[\tr[x_kx_k^\trp]] = 0 $$
+                </center>
+            </div>
+
+        </section>
+
+
+                <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic Stability Definitions</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+      
+  
+                <p class="lightup">
+                    In linear control theory, <b>Mean Square Stability (MSS)</b> is the most widely used concept because it is mathematically tractable, implies almost sure stability, and can be analyzed using quadratic Lyapunov functions and LMIs!
+                </p>
+<p>&nbsp;</p>
+                  $$ \lim_{k\to\infty}\tr[ \mathbb{E}[x_kx_k^\trp]] = 0 $$
+                </center>
+            </div>
+
+        </section>
+
+
+                <section>
+            
+            <div class="slide-title">
+                <h2>Stochastic Stability Definitions</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+      
+  
+                <p class="lightup">
+                    In linear control theory, <b>Mean Square Stability (MSS)</b> is the most widely used concept because it is mathematically tractable, implies almost sure stability, and can be analyzed using quadratic Lyapunov functions and LMIs!
+                </p>
+                  $$ \lim_{k\to\infty}\tr[X_k] = 0 $$
+                  such that 
+                  $$
+                X_k=\mathbb{E}[x_kx_k^\trp]
+                  $$
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Let us analyze the stability of the autonomous MJLS
+                <p class="lightup">
+                    <b>Theorem:</b> The system is Mean Square Stable (MSS) if and only if there exist symmetric positive definite matrices $\{P_i\}, i=1, \dots, N$ such that:
+                    $$
+                    A_i^\trp \left( \sum_{j=1}^N p_{ij} P_j \right) A_i - P_i \prec 0, \quad \forall i \in \mathbb{K}
+                    $$
+                </p>
+                </center>
+            </div>
+
+        </section>
+
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Let us analyze the stability of the autonomous MJLS
+                <p class="lightup">
+                    <b>Theorem:</b> The system is Mean Square Stable (MSS) if and only if there exist symmetric positive definite matrices $\{P_i\}, i=1, \dots, N$ such that:
+                    $$
+                    A_i^\trp \bar{P}_i A_i - P_i \prec 0, \quad \forall i \in \mathbb{K}
+                    $$
+                </p>
+   
+                $$
+                \bar{P}_i=  \sum_{j=1}^N p_{ij} P_j
+                $$
+                </center>
+            </div>
+
+        </section>
+
+
+        
+            <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+                    <b>Proof idea:</b> Define a mode-dependent Lyapunov function 
+                    <p class="lightup">
+                    $$V(x_k, \theta_k) = x_k^\trp P_{\theta_k} x_k $$ 
+                    </p>
+                    
+                    where $P_{\theta_k}$ takes the value $P_i=P_i^\trp \succ 0$ when $\theta_k = i$. 
+                    
+                    Then, require 
+                    
+                    $$\mathbb{E}[V(x_{k+1}, \theta_{k+1})- V(x_k, \theta_k)] < 0$$
+                    for all $x_k \neq 0$.
+                
+                </center>
+            </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+                    <b>Proof idea:</b> Define a mode-dependent Lyapunov function 
+                    <p class="lightup">
+                    $$V(x_k, \theta_k) = x_k^\trp P_{\theta_k} x_k $$ 
+                    </p>
+                    
+                    where $P_{\theta_k}$ takes the value $P_i=P_i^\trp \succ 0$ when $\theta_k = i$. 
+                    
+                    Then, require 
+                    
+                    $$\mathbb{E}[x_{k+1}^\trp P_{\theta_{k+1}}x_{k+1}-x_k^\trp P_{\theta_k}x_k] < 0$$
+                    
+                
+                </center>
+            </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+                    <b>Proof idea:</b> Define a mode-dependent Lyapunov function 
+                    <p class="lightup">
+                    $$V(x_k, \theta_k) = x_k^\trp P_{\theta_k} x_k $$ 
+                    </p>
+                    
+                    where $P_{\theta_k}$ takes the value $P_i=P_i^\trp \succ 0$ when $\theta_k = i$. 
+                    
+                    Then, require 
+                    
+                    $$\mathbb{E}[x_{k}^\trp A_{\theta_{k+1}}^\trp P_{\theta_{k+1}}A_{\theta_{k+1}}x_{k}-x_k^\trp P_{\theta_k}x_k] < 0$$
+                    
+                
+                </center>
+            </div>
+
+        </section>
+
+
+                 <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+                    <b>Proof idea:</b> Define a mode-dependent Lyapunov function 
+                    <p class="lightup">
+                    $$V(x_k, \theta_k) = x_k^\trp P_{\theta_k} x_k $$ 
+                    </p>
+                    
+                    where $P_{\theta_k}$ takes the value $P_i=P_i^\trp \succ 0$ when $\theta_k = i$. 
+                    
+                    Then, require 
+                    
+                    $$\mathbb{E}[\mathbb{E}[x_{k}^\trp A_{\theta_{k}}^\trp P_{\theta_{k+1}}A_{\theta_{k}}x_{k}-x_k^\trp P_{\theta_k}x_k|\theta_k=i]] < 0$$
+                    
+                
+                </center>
+            </div>
+
+        </section>
+
+
+        
+                 <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+                    <b>Proof idea:</b> Define a mode-dependent Lyapunov function 
+                    <p class="lightup">
+                    $$V(x_k, \theta_k) = x_k^\trp P_{\theta_k} x_k $$ 
+                    </p>
+                    
+                    where $P_{\theta_k}$ takes the value $P_i=P_i^\trp \succ 0$ when $\theta_k = i$. 
+                    
+                    Then, require 
+                    
+                    $$\mathbb{E}[x_{k}^\trp(A_i^\trp \mathbb{E}[P_{\theta_{k+1}}|\theta_k=i]A_i-P_i)x_k] < 0$$
+                    
+                
+                </center>
+            </div>
+
+        </section>
+
+
+
+        
+                 <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+                    <b>Proof idea:</b> Define a mode-dependent Lyapunov function 
+                    <p class="lightup">
+                    $$V(x_k, \theta_k) = x_k^\trp P_{\theta_k} x_k $$ 
+                    </p>
+                    
+                    where $P_{\theta_k}$ takes the value $P_i=P_i^\trp \succ 0$ when $\theta_k = i$. 
+                    
+                    Then, require 
+                    
+                    $$\mathbb{E}[x_{k}^\trp(A_i^\trp \Bigl(\sum_{j}p_{ij}P_j\Bigr)A_i-P_i)x_k] < 0$$
+                    
+                
+                </center>
+            </div>
+
+        </section>
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+                    <b>Proof idea:</b> Define a mode-dependent Lyapunov function 
+                    <p class="lightup">
+                    $$V(x_k, \theta_k) = x_k^\trp P_{\theta_k} x_k $$ 
+                    </p>
+                    
+                    where $P_{\theta_k}$ takes the value $P_i=P_i^\trp \succ 0$ when $\theta_k = i$. 
+                    
+                    Then, require 
+                    
+                    $$x_{k}^\trp(\sum_{i}Pr[\theta_k=i]\Bigl(A_i^\trp \Bigl(\sum_{j}p_{ij}P_j\Bigr)A_i-P_i\Bigr))x_k < 0$$
+                    
+                
+                </center>
+            </div>
+
+        </section>
+
+
+        
+           <section>
+            
+            <div class="slide-title">
+                <h2>MSS Characterization (Lyapunov Theorem)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+              
+                    <b>Proof idea:</b> Define a mode-dependent Lyapunov function 
+                    <p class="lightup">
+                    $$V(x_k, \theta_k) = x_k^\trp P_{\theta_k} x_k $$ 
+                    </p>
+                    
+                    where $P_{\theta_k}$ takes the value $P_i=P_i^\trp \succ 0$ when $\theta_k = i$. 
+                    
+                    Then, require 
+                    
+                    $$A_i^\trp \Bigl(\sum_{j}p_{ij}P_j\Bigr)A_i-P_i \prec  0,\quad \forall i\in \mathbb{K}\quad \square$$
+                    
+                
+                </center>
+            </div>
+
+        </section>
+
+
+         
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>LQR Control Design for MJLS</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Consider the discrete-time MJLS with control input:
+                $$
+                x_{k+1} = A_{\theta_k}x_k + B_{\theta_k}u_k
+                $$
+                We want to design a controller that minimizes the expected quadratic cost function:
+                <p class="lightup">
+                    $$
+                    J = \mathbb{E} \left[ \sum_{k=0}^\infty \left( x_k^\trp Q_{\theta_k} x_k + u_k^\trp R_{\theta_k} u_k \right) \right]
+                    $$
+                </p>
+              
+                
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Optimal LQR Control Law</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                <b>Theorem</b> Under standard stabilizability and detectability assumptions, the optimal control law is a mode-dependent state feedback:
+        
+                <p class="lightup2" style="font-size: 0.9em;">
+                    $$
+                    K_i = \left( R_i + B_i^\trp \left( \sum_{j=1}^N p_{ij} P_j \right) B_i \right)^{-1} B_i^\trp \left( \sum_{j=1}^N p_{ij} P_j \right) A_i
+                    $$
+                </p>
+                and $P_1, \dots, P_N \succeq 0$ are the unique solutions to the Coupled Riccati Equations.
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Coupled Discrete Algebraic Riccati Equations (CDARE)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                The optimal matrices $P_i \succeq 0$ are the unique solution of the Coupled Riccati Equations:
+                <p class="lightup" style="font-size:0.82em; width: 95%;">
+                    $$
+                    P_i = A_i^\trp \mathcal{E}_i(P) A_i - A_i^\trp \mathcal{E}_i(P) B_i \left( R_i + B_i^\trp \mathcal{E}_i(P) B_i \right)^{-1} B_i^\trp \mathcal{E}_i(P) A_i + Q_i
+                    $$
+                </p>
+                where we define the coupling operator:
+                
+                    $$
+                    \mathcal{E}_i(P) = \sum_{j=1}^N p_{ij} P_j
+                    $$
+                
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                     <p>&nbsp;</p>
+                What if we only want to <b>stabilize</b> the MJLS using a mode-dependent state feedback $u_k = -K_i x_k$ without optimizing the LQR cost?
+                <br>
+                <p>&nbsp;</p>
+                <p class="lightup">
+                Can we design $K_1, \dots, K_N$ directly using <b>LMIs</b>?
+                </p>
+                <p>&nbsp;</p>
+                   </center>
+            </div>
+
+        </section>
+
+
+                   <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    The closed-loop system is $x_{k+1} = (A_i - B_i K_i)x_k$ when $\theta_k = i$. By the Lyapunov theorem, the closed-loop is MSS iff there exist $P_i \succ 0$ such that:
+                <p class="lightup" style="font-size: 0.95em;">
+                    $$
+                    (A_i - B_i K_i)^\trp \left( \sum_{j=1}^N p_{ij} P_j \right) (A_i - B_i K_i) - P_i \prec 0, \quad \forall i \in \mathbb{K}
+                    $$
+                </p>
+                Notice this is <b>bilinear</b> in the variables $K_i$ and $P_i$ (due to product $K_i^\trp P_j K_i$). We need a transformation to make it an LMI!
+                </center>
+            </div>
+
+        </section>
+
+
+                  <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Let $W_i=P_i^{-1}$ and $Z_i=K_iW_i$, thus
+                
+                    $$
+                    W_i(A_i - B_i K_i)^\trp \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right) (A_i - B_i K_i)W_i - W_i \prec 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+        
+
+
+                    <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                
+                Let $W_i=P_i^{-1}$ and $Z_i=K_iW_i$, thus
+                
+                    $$
+                    W_i(A_i - B_i K_i)^\trp \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right) (A_i - B_i K_i)W_i - W_i \prec 0, \\
+                    \Rightarrow (W_iA_i^\trp -W_iK_i^\trp B_i^\trp)  \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right)(\stairs)-W_i\prec 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+        
+                    <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                
+                Let $W_i=P_i^{-1}$ and $Z_i=K_iW_i$, thus
+                
+                    $$
+                    W_i(A_i - B_i K_i)^\trp \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right) (A_i - B_i K_i)W_i - W_i \prec 0, \\
+                    \Rightarrow (W_iA_i^\trp -W_iK_i^\trp B_i^\trp)  \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right)(\stairs)-W_i\prec 0\\
+                    \Rightarrow \Phi_i^\trp \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right) \Phi_i - W_i \prec 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+        
+                    <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                
+                Let $W_i=P_i^{-1}$ and $Z_i=K_iW_i$, thus
+                
+                    $$
+                    W_i(A_i - B_i K_i)^\trp \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right) (A_i - B_i K_i)W_i - W_i \prec 0, \\
+                    \Rightarrow (W_iA_i^\trp -W_iK_i^\trp B_i^\trp)  \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right)(\stairs)-W_i\prec 0\\
+                    \Rightarrow \sum_{j=1}^N p_{ij}\Phi_i^\trp W_j^{-1} \Phi_i - W_i \prec 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                
+                Let $W_i=P_i^{-1}$ and $Z_i=K_iW_i$, thus
+                
+                    $$
+                    W_i(A_i - B_i K_i)^\trp \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right) (A_i - B_i K_i)W_i - W_i \prec 0, \\
+                    \Rightarrow (W_iA_i^\trp -W_iK_i^\trp B_i^\trp)  \left( \sum_{j=1}^N p_{ij} W_j^{-1} \right)(\stairs)-W_i\prec 0\\
+                    \Rightarrow \sum_{j=1}^N \sqrt{p_{ij}}\Phi_i^\trp W_j^{-1} \sqrt{p_{ij}} \Phi_i - W_i \prec 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Example for $N=2$
+
+                
+                    $$
+                   \sqrt{p_{i1}}\Phi_i^\trp W_1^{-1} \sqrt{p_{i1}} \Phi_i +  \sqrt{p_{i2}}\Phi_i^\trp W_2^{-1} \sqrt{p_{i2}} \Phi_i- W_i \prec 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+              <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Example for $N=2$
+
+                
+                    $$
+                   W_i-\begin{bmatrix}\sqrt{p_{i1}}\Phi_i^\trp~ \sqrt{p_{i2}}\Phi_i^\trp\end{bmatrix}\begin{bmatrix} W_1^{-1} & 0 \\
+                   0 & W_2^{-1}\end{bmatrix}\begin{bmatrix} \sqrt{p_{i1}}\Phi_i \\  \sqrt{p_{i2}}\Phi_i
+                   \end{bmatrix}   \succ 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+          <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                Example for $N=2$
+
+                
+                    $$
+                   W_i-\begin{bmatrix}\sqrt{p_{i1}}\Phi_i^\trp~ \sqrt{p_{i2}}\Phi_i^\trp\end{bmatrix}\begin{bmatrix} W_1^{-1} & 0 \\
+                   0 & W_2^{-1}\end{bmatrix}\begin{bmatrix} \sqrt{p_{i1}}\Phi_i \\  \sqrt{p_{i2}}\Phi_i
+                   \end{bmatrix}   \succ 0\\
+                  \Leftrightarrow \begin{bmatrix}
+                   W_i & \sqrt{p_{i1}}\Phi_i^\trp & \sqrt{p_{i2}}\Phi_i^\trp\\
+                   \sqrt{p_{i1}}\Phi_i & W_1 & 0 \\
+                   \sqrt{p_{i2}}\Phi_i^\trp & 0 & W_2
+                   \end{bmatrix}\succ 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Stabilization of MJLS via LMIs</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                For any $N$:
+
+                
+                    $$
+                   W_i-\begin{bmatrix}\sqrt{p_{i1}}\Phi_i^\trp~ \cdots & \sqrt{p_{iN}}\Phi_i^\trp\end{bmatrix}\begin{bmatrix} W_1^{-1} & \cdots & 0 \\
+                   \vdots &\ddots & \vdots\\
+                   0 & \cdots & W_N^{-1}\end{bmatrix}\begin{bmatrix} \sqrt{p_{i1}}\Phi_i \\\vdots \\  \sqrt{p_{iN}}\Phi_i
+                   \end{bmatrix}   \succ 0\\
+                  \Leftrightarrow \begin{bmatrix}
+                   W_i & \sqrt{p_{i1}}\Phi_i^\trp & \cdots &\sqrt{p_{iN}}\Phi_i^\trp\\
+                   \sqrt{p_{i1}}\Phi_i & W_1 & \cdots & 0 \\
+                   \vdots & \vdots & \ddots & \vdots \\
+                   \sqrt{p_{iN}}\Phi_i^\trp & 0 & \cdots & W_N
+                   \end{bmatrix}\succ 0
+                    $$
+                
+                
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>LMI Formulation for State Feedback Design</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                <b>Theorem:</b> The MJLS is stabilizable by mode-dependent state feedback if and only if there exist matrices $W_1, \dots, W_N \succ 0$ and $Z_1, \dots, Z_N$ such that:
+                <p class="lightup" style="font-size: 0.8em; width: 95%;">
+                    $$
+                    \begin{bmatrix}
+                    W_i & \stairs & \dots & \stairs \\
+                    \sqrt{p_{i1}}(A_i W_i - B_i Z_i) & W_1 & \dots & 0 \\
+                    \vdots & \vdots & \ddots & \vdots \\
+                    \sqrt{p_{iN}}(A_i W_i - B_i Z_i) & 0 & \dots & W_N
+                    \end{bmatrix} \succ 0,\quad \forall i \in \mathbb{K}
+                    $$
+                </p>
+                Once solved, the stabilizing gains are given by:
+             
+                   $
+                    K_i = Z_i W_i^{-1}
+                    $
+                
+                </center>
+            </div>
+
+        </section>
+
+
+
+           <section>
+            
+            <div class="slide-title">
+                <h2>Robust State Feedback Design</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                <b>Theorem:</b> The MJLS is stabilizable by mode-dependent state feedback if and only if there exist matrices $W_1, \dots, W_N \succ 0$ and $Z_1, \dots, Z_N$ such that:
+                <p class="lightup" style="font-size: 0.8em; width: 95%;">
+                    $$
+                    \begin{bmatrix}
+                    W_i & \stairs & \dots & \stairs \\
+                    \sqrt{p_{i1}}(A_i(\alpha) W_i - B_i(\alpha) Z_i) & W_1 & \dots & 0 \\
+                    \vdots & \vdots & \ddots & \vdots \\
+                    \sqrt{p_{iN}}(A_i(\alpha) W_i - B_i(\alpha) Z_i) & 0 & \dots & W_N
+                    \end{bmatrix} \succ 0,\quad \forall i \in \mathbb{K}
+                    $$
+                </p>
+                Once solved, the stabilizing gains are given by:
+             
+                   $
+                     K_i = Z_i W_i^{-1}
+                     $
+                
+                </center>
+            </div>
+
+        </section>
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Application: Networked Control Systems (NCS)</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p style="font-size: 0.85em; margin-bottom: 0.5em; width: 95%;">
+                        Networked Control Systems (NCS) under communication constraints fit naturally into the <b>discrete-time MJLS framework</b> by modeling random delays as Markov chains.
+                    </p>
+                    
+                    <div style="text-align: center; margin-top: 0.5em;">
+                        <svg width="800" height="380" viewBox="0 0 850 400" style="display: block; margin: auto;">
+                            <defs>
+                                <marker id="arrow-ncs-black" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+                                    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+                                </marker>
+                                <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                                    <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.1" />
+                                </filter>
+                            </defs>
+
+                            <!-- Dashed Enclosure representing the physical process (Actuator -> Plant -> Sensor) -->
+                            <rect x="175" y="45" width="500" height="100" rx="15" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="6,4" />
+                            <text x="425" y="35" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Physical Process</text>
+
+                            <!-- Nodes / Rectangular Blocks -->
+                            <!-- Actuator (Harmonic Pastel Blue) -->
+                            <rect x="210" y="70" width="110" height="50" rx="6" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2.5" filter="url(#shadow)" />
+                            <text x="265" y="95" fill="#0d47a1" font-family="'Segoe UI', Helvetica, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" dominant-baseline="central">Actuator</text>
+
+                            <!-- Plant (Harmonic Pastel Green) -->
+                            <rect x="370" y="70" width="110" height="50" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="2.5" filter="url(#shadow)" />
+                            <text x="425" y="95" fill="#1b5e20" font-family="'Segoe UI', Helvetica, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" dominant-baseline="central">Plant</text>
+
+                            <!-- Sensor (Harmonic Pastel Teal) -->
+                            <rect x="530" y="70" width="110" height="50" rx="6" fill="#e0f7fa" stroke="#00acc1" stroke-width="2.5" filter="url(#shadow)" />
+                            <text x="585" y="95" fill="#006064" font-family="'Segoe UI', Helvetica, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" dominant-baseline="central">Sensor</text>
+
+                            <!-- Controller (Harmonic Pastel Lavender) -->
+                            <rect x="345" y="250" width="160" height="55" rx="6" fill="#f3e5f5" stroke="#8e24aa" stroke-width="2.5" filter="url(#shadow)" />
+                            <text x="425" y="277" fill="#4a148c" font-family="'Segoe UI', Helvetica, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" dominant-baseline="central">Controller</text>
+
+                            <!-- Delay z_k (Harmonic Pastel Orange/Amber) -->
+                            <rect x="645" y="150" width="70" height="50" rx="6" fill="#fff3e0" stroke="#fb8c00" stroke-width="3" filter="url(#shadow)" />
+                            <text x="680" y="175" fill="#e65100" font-family="'Segoe UI', Helvetica, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" dominant-baseline="central">z_k</text>
+
+                            <!-- Delay d_k (Harmonic Pastel Orange/Amber) -->
+                            <rect x="90" y="150" width="70" height="50" rx="6" fill="#fff3e0" stroke="#fb8c00" stroke-width="3" filter="url(#shadow)" />
+                            <text x="125" y="175" fill="#e65100" font-family="'Segoe UI', Helvetica, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" dominant-baseline="central">d_k</text>
+
+                            <!-- Signal flow connections (Black arrows) -->
+                            <!-- Actuator -> Plant -->
+                            <path d="M 320 95 L 363 95" fill="none" stroke="#000000" stroke-width="3" marker-end="url(#arrow-ncs-black)" />
+
+                            <!-- Plant -> Sensor -->
+                            <path d="M 480 95 L 523 95" fill="none" stroke="#000000" stroke-width="3" marker-end="url(#arrow-ncs-black)" />
+
+                            <!-- Sensor -> z_k -->
+                            <path d="M 640 95 L 680 95 L 680 143" fill="none" stroke="#000000" stroke-width="3" marker-end="url(#arrow-ncs-black)" />
+
+                            <!-- z_k -> Controller -->
+                            <path d="M 680 200 L 680 277 L 512 277" fill="none" stroke="#000000" stroke-width="3" marker-end="url(#arrow-ncs-black)" />
+
+                            <!-- Controller -> d_k -->
+                            <path d="M 345 277 L 125 277 L 125 207" fill="none" stroke="#000000" stroke-width="3" marker-end="url(#arrow-ncs-black)" />
+
+                            <!-- d_k -> Actuator -->
+                            <path d="M 125 150 L 125 95 L 203 95" fill="none" stroke="#000000" stroke-width="3" marker-end="url(#arrow-ncs-black)" />
+
+                            <!-- Curved Black Solid arrows representing delay transmission channels -->
+                            <!-- Sensor-to-Controller channel -->
+                            <path d="M 615 150 Q 570 200 511 244" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow-ncs-black)" />
+                            
+                            <!-- Controller-to-Actuator channel -->
+                            <path d="M 150 220 Q 180 180 205 127" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow-ncs-black)" />
+
+                            <!-- Labels / Annotations -->
+                            <!-- z_k Label -->
+                            <text x="725" y="170" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="start">random delay</text>
+                            <text x="725" y="188" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="start">sensor-to-controller</text>
+
+                            <!-- d_k Label -->
+                            <text x="25" y="340" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="start">random delay</text>
+                            <text x="25" y="358" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="start">controller-to-actuator</text>
+                        </svg>
+                    </div>
+                </center>
+            </div>
+
+        </section>
+
+
+     <section>
+            
+            <div class="slide-title">
+                <h2>Example</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+               $$
+                    d_k \in\{0,1\}\\
+                    z_k \in\{0,1\}
+               $$
+               Thus, there is the possibility of a maximum delay of 2!
+
+               <p class="lightup">
+The closed-loop system is
+               $$
+                 x_{k+1}=Ax_k-BK(z_k,d_{k-1})x_{k-d_k-z_k}
+               $$
+               </p>
+                </center>
+            </div>
+
+        </section>
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Example</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+               $$
+                    d_k \in\{0,1\}\\
+                    z_k \in\{0,1\}
+               $$
+              Let 
+<p class="lightup">
+               $$
+                    \chi_k=\begin{bmatrix}
+                    x_k\\
+                    x_{k-1}\\
+                    x_{k-2}
+                    \end{bmatrix}
+               $$
+               </p>
+                </center>
+            </div>
+
+        </section>
+
+
+         <section>
+            
+            <div class="slide-title">
+                <h2>Example</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+               $$
+                    d_k \in\{0,1\}\\
+                    z_k \in\{0,1\}
+               $$
+              The augmented dynamics is
+<p class="lightup2">
+               $$
+                    \chi_{k+1}=\underbrace{\begin{bmatrix}
+                    A & 0 & 0\\
+                    I & 0 & 0\\
+                    0 & I & 0
+                    \end{bmatrix}}_{\mathcal{A}}\chi_k+\underbrace{\begin{bmatrix}B\\0\\0\end{bmatrix}}_{\mathcal{B}}u_k
+               $$
+               </p>
+                </center>
+            </div>
+
+        </section>
+
+
+
+        
+         <section>
+            
+            <div class="slide-title">
+                <h2>Example</h2>
+            </div>
+            <p>&nbsp;</p>
+            <div class="slide-content">
+                <center>
+           
+             Let $u_k=-K(z_k,d_{k-1})E(z_k,d_{k})\chi_k$, thus
+<p class="lightup">
+               $$
+                    \chi_{k+1}=(\mathcal{A}-\mathcal{B}K(z_k,d_{k-1})E(z_k,d_{k}))\chi_k
+               $$
+               </p>
+               Obs:
+               $$
+               E(z_k,d_{k})=\begin{bmatrix}0 & \cdots & I & \ldots & 0\end{bmatrix}
+               $$
+                </center>
+            </div>
+
+        </section>
+
+
+        <section>
+            
+            <div class="slide-title">
+                <h2>Example</h2>
+            </div>
+            <p>&nbsp;</p>
+            <div class="slide-content">
+                <center>
+           
+             Let $u_k=-K(z_k,d_{k-1})E(z_k,d_{k})\chi_k$, thus
+<p class="lightup">
+               $$
+                    \chi_{k+1}=(\mathcal{A}-\mathcal{B}K(z_k,d_{k-1})E(z_k,d_{k}))\chi_k
+               $$
+               </p>
+               Obs:
+               $$
+               E(z_k,d_{k})\chi_k = x_{k-z_k-d_k}
+               $$
+                </center>
+            </div>
+
+        </section>
+
+
+                <section>
+            
+            <div class="slide-title">
+                <h2>Example MJLS</h2>
+            </div>
+            <p>&nbsp;</p>
+            <div class="slide-content">
+                <center>
+           if $d_k$ and $z_k$ follows a Markov chain, then the system is a MJLS!
+             
+<p class="lightup">
+               $$
+                    \chi_{k+1}=(\mathcal{A}-\mathcal{B}K(z_k,d_{k-1})E(z_k,d_{k}))\chi_k
+               $$
+               </p>
+               Let 
+               $$
+                p_{ij}=Pr[z_k=j|z_{k-1}=i],\quad \pi_{rs}=Pr[d_k=s|d_{k-1}=r]
+               $$
+             
+                </center>
+            </div>
+
+        </section>
+
+
+            <section>
+            
+            <div class="slide-title">
+                <h2>Markov Chain of Joint Delays $(z_k, d_k)$</h2>
+            </div>
+            <div class="slide-content">
+                <center>
+                    <p style="font-size: 0.85em; margin-bottom: 0.3em; width: 95%;">
+                        By defining the joint operating mode $\theta_k \in \{1, 2, 3, 4\}$ corresponding to the delay combinations $(z_k, d_k)$, the system switches between $N=4$ modes governed by the joint Markov chain:
+                    </p>
+                    
+                    <div style="text-align: center; margin-top: 0.5em;">
+                        <svg width="800" height="400" viewBox="0 -20 800 420" style="display: block; margin: auto;">
+                            <defs>
+                                <marker id="arrow-mc-black" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+                                    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+                                </marker>
+                                <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                                    <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.1" />
+                                </filter>
+                            </defs>
+
+                            <!-- Directed Arcs / Transitions (Fully Bidirectional and Curved) -->
+                            <!-- Node 1 ⇌ Node 2 -->
+                            <!-- Node 1 -> Node 2 (Inward Bow) -->
+                            <path d="M 370 93 Q 320 150 250 172" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            <!-- Node 2 -> Node 1 (Outward Bow) -->
+                            <path d="M 240 160 Q 295 100 365 80" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+
+                            <!-- Node 1 ⇌ Node 3 -->
+                            <!-- Node 1 -> Node 3 (Inward Bow) -->
+                            <path d="M 430 93 Q 480 150 550 172" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            <!-- Node 3 -> Node 1 (Outward Bow) -->
+                            <path d="M 560 160 Q 505 100 435 80" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+
+                            <!-- Node 2 ⇌ Node 4 -->
+                            <!-- Node 2 -> Node 4 (Inward Bow) -->
+                            <path d="M 250 208 Q 320 230 370 287" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            <!-- Node 4 -> Node 2 (Outward Bow) -->
+                            <path d="M 365 300 Q 295 280 240 220" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+
+                            <!-- Node 3 ⇌ Node 4 -->
+                            <!-- Node 3 -> Node 4 (Inward Bow) -->
+                            <path d="M 550 208 Q 480 230 430 287" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            <!-- Node 4 -> Node 3 (Outward Bow) -->
+                            <path d="M 435 300 Q 505 280 560 220" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+
+                            <!-- Node 1 ⇌ Node 4 (Vertical) -->
+                            <!-- Node 1 -> Node 4 (Vertical, Outward Right) -->
+                            <path d="M 416 110 Q 480 190 420 282" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            <!-- Node 4 -> Node 1 (Vertical, Outward Left) -->
+                            <path d="M 380 282 Q 320 190 384 110" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+
+                            <!-- Node 2 ⇌ Node 3 (Horizontal) -->
+                            <!-- Node 2 -> Node 3 (Horizontal, Outward Down) -->
+                            <path d="M 255 198 Q 400 230 545 198" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            <!-- Node 3 -> Node 2 (Horizontal, Outward Up) -->
+                            <path d="M 545 182 Q 400 150 255 182" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+
+                            <!-- Self Loops -->
+                            <!-- Loop 1 -->
+                            <path d="M 385 38 C 360 -5, 440 -5, 412 37" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            
+                            <!-- Loop 2 -->
+                            <path d="M 188 175 C 145 150, 145 230, 187 202" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            
+                            <!-- Loop 3 -->
+                            <path d="M 612 175 C 655 150, 655 230, 613 202" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+                            
+                            <!-- Loop 4 -->
+                            <path d="M 385 342 C 360 385, 440 385, 412 343" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow-mc-black)" />
+
+                            <!-- Node Circles -->
+                            <!-- Node 1 (0,0) - Mode 1 (Pastel Blue) -->
+                            <circle cx="400" cy="70" r="35" fill="#ffffff" stroke="#000000" stroke-width="2.5" filter="url(#shadow)" />
+                            <circle cx="400" cy="55" r="10" fill="#1e88e5" stroke="#ffffff" stroke-width="1.5" />
+                            <text x="400" y="55" fill="#ffffff" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" dominant-baseline="central">1</text>
+                            <text x="400" y="76" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" dominant-baseline="central">(0, 0)</text>
+                            <text x="400" y="92" fill="#666666" font-family="'Segoe UI', Helvetica, sans-serif" font-size="8.5" font-weight="semibold" text-anchor="middle" dominant-baseline="central">z_k=0, d_k=0</text>
+
+                            <!-- Node 2 (0,1) - Mode 2 (Pastel Green) -->
+                            <circle cx="220" cy="190" r="35" fill="#ffffff" stroke="#000000" stroke-width="2.5" filter="url(#shadow)" />
+                            <circle cx="220" cy="175" r="10" fill="#43a047" stroke="#ffffff" stroke-width="1.5" />
+                            <text x="220" y="175" fill="#ffffff" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" dominant-baseline="central">2</text>
+                            <text x="220" y="196" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" dominant-baseline="central">(0, 1)</text>
+                            <text x="220" y="212" fill="#666666" font-family="'Segoe UI', Helvetica, sans-serif" font-size="8.5" font-weight="semibold" text-anchor="middle" dominant-baseline="central">z_k=0, d_k=1</text>
+
+                            <!-- Node 3 (1,0) - Mode 3 (Pastel Orange/Amber) -->
+                            <circle cx="580" cy="190" r="35" fill="#ffffff" stroke="#000000" stroke-width="2.5" filter="url(#shadow)" />
+                            <circle cx="580" cy="175" r="10" fill="#fb8c00" stroke="#ffffff" stroke-width="1.5" />
+                            <text x="580" y="175" fill="#ffffff" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" dominant-baseline="central">3</text>
+                            <text x="580" y="196" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" dominant-baseline="central">(1, 0)</text>
+                            <text x="580" y="212" fill="#666666" font-family="'Segoe UI', Helvetica, sans-serif" font-size="8.5" font-weight="semibold" text-anchor="middle" dominant-baseline="central">z_k=1, d_k=0</text>
+
+                            <!-- Node 4 (1,1) - Mode 4 (Pastel Purple) -->
+                            <circle cx="400" cy="310" r="35" fill="#ffffff" stroke="#000000" stroke-width="2.5" filter="url(#shadow)" />
+                            <circle cx="400" cy="295" r="10" fill="#8e24aa" stroke="#ffffff" stroke-width="1.5" />
+                            <text x="400" y="295" fill="#ffffff" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" dominant-baseline="central">4</text>
+                            <text x="400" y="316" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" dominant-baseline="central">(1, 1)</text>
+                            <text x="400" y="332" fill="#666666" font-family="'Segoe UI', Helvetica, sans-serif" font-size="8.5" font-weight="semibold" text-anchor="middle" dominant-baseline="central">z_k=1, d_k=1</text>
+
+                            <!-- Labels / Transition Probabilities -->
+                            <!-- Loop Labels -->
+                            <!-- p11 -->
+                            <text x="400" y="-3" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₁₁</text>
+                            <text x="400" y="-3" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₁₁</text>
+
+                            <!-- p22 -->
+                            <text x="118" y="195" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₂₂</text>
+                            <text x="118" y="195" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₂₂</text>
+
+                            <!-- p33 -->
+                            <text x="682" y="195" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₃₃</text>
+                            <text x="682" y="195" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₃₃</text>
+
+                            <!-- p44 -->
+                            <text x="400" y="390" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₄₄</text>
+                            <text x="400" y="390" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₄₄</text>
+
+                            <!-- Transition Labels -->
+                            <!-- Node 1 ⇌ Node 2 -->
+                            <!-- p12 -->
+                            <text x="330" y="152" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₁₂</text>
+                            <text x="330" y="152" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₁₂</text>
+                            <!-- p21 -->
+                            <text x="275" y="102" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₂₁</text>
+                            <text x="275" y="102" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₂₁</text>
+
+                            <!-- Node 1 ⇌ Node 3 -->
+                            <!-- p13 -->
+                            <text x="470" y="152" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₁₃</text>
+                            <text x="470" y="152" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₁₃</text>
+                            <!-- p31 -->
+                            <text x="525" y="102" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₃₁</text>
+                            <text x="525" y="102" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₃₁</text>
+
+                            <!-- Node 2 ⇌ Node 4 -->
+                            <!-- p24 -->
+                            <text x="330" y="228" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₂₄</text>
+                            <text x="330" y="228" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₂₄</text>
+                            <!-- p42 -->
+                            <text x="275" y="278" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₄₂</text>
+                            <text x="275" y="278" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₄₂</text>
+
+                            <!-- Node 3 ⇌ Node 4 -->
+                            <!-- p34 -->
+                            <text x="470" y="228" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₃₄</text>
+                            <text x="470" y="228" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₃₄</text>
+                            <!-- p43 -->
+                            <text x="525" y="278" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₄₃</text>
+                            <text x="525" y="278" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₄₃</text>
+
+                            <!-- Node 1 ⇌ Node 4 (Vertical) -->
+                            <!-- p41 -->
+                            <text x="280" y="190" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₄₁</text>
+                            <text x="280" y="190" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₄₁</text>
+                            <!-- p14 -->
+                            <text x="520" y="190" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₁₄</text>
+                            <text x="520" y="190" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₁₄</text>
+
+                            <!-- Node 2 ⇌ Node 3 (Horizontal) -->
+                            <!-- p23 -->
+                            <text x="400" y="238" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₂₃</text>
+                            <text x="400" y="238" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₂₃</text>
+                            <!-- p32 -->
+                            <text x="400" y="142" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₃₂</text>
+                            <text x="400" y="142" fill="#000000" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">p₃₂</text>
+                        </svg>
+                    </div>
+                </center>
+            </div>
+
+        </section>
+
+
+
+        
+                <section>
+            
+            <div class="slide-title">
+                <h2>Example MJLS</h2>
+            </div>
+            <p>&nbsp;</p>
+            <div class="slide-content">
+                <center>
+          Define the Lyapunov function
+             
+<p class="lightup">
+               $$
+                   V(\chi_k)=\chi_k^\trp P(i,s) \chi_k,\quad z_k=i,d_k=s
+               $$
+               </p>
+              The system is MSS iff
+               $$
+                \mathbb{E}[\Delta V] < 0
+               $$
+             
+                </center>
+            </div>
+
+        </section>
+
+
+
+            
+                <section>
+            
+            <div class="slide-title">
+                <h2>Example MJLS</h2>
+            </div>
+            
+            <div class="slide-content">
+                <center>
+          Define the Lyapunov function
+             
+<p class="lightup">
+               $$
+                   V(\chi_k)=\chi_k^\trp P(i,s) \chi_k,\quad z_k=i,d_k=s
+               $$
+               </p>
+              The system is MSS iff
+              <p class="">
+               $$
+               \sum_s \pi_{rs}(\mathcal{A}-\mathcal{B}K(i,r)E(i,s))^\trp \underbrace{\Bigl(\sum_j p_{ij}P(j,s)\Bigr)}_{\bar{P}(i,s)}(\stairs)-P(i,r)\prec 0
+               $$
+               </p>
+             
+                </center>
+            </div>
+
+        </section>
+
+
+
+                        <section>
+            
+            <div class="slide-title">
+                <h2>Example MJLS for NCS</h2>
+            </div>
+            
+            <div class="slide-content">
+                <center>
+                    <img src="../images/mjls_ncs_pendulo.png" width="700">
+             
+                </center>
+            </div>
+
+        </section>
+
+         
+        
+
+          
+
+
+            <section>
+            
+				<div class="slide-content">
+					<center>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					<h2>The End!</h2>
+				</center>
+				</div>
+
+			</section>
+                
+			</div>
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../init.js"></script>
+	</body>
+</html>
