@@ -1,4 +1,4 @@
-\chapter{State Observers and The Kalman Filter}
+\chapter{Observers and Kalman Filtering}
 
 \section{State Estimation and Luenberger Observers}
 In the previous chapter, we designed state feedback controllers under the assumption that the full state vector $x(t)$ is directly measurable. In practical applications, however, this assumption rarely holds. Measuring every state variable can be cost-prohibitive, technically challenging due to sensor physical limitations, or corrupted by high-frequency noise. Instead, we typically only have access to a vector of control inputs $u(t)$ and a vector of measured outputs $y(t) \in \R^p$, where $p < n$.
