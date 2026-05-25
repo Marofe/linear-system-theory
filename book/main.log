@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.20)  24 MAY 2026 23:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.20)  24 MAY 2026 23:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1200,7 +1200,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [33]
-Overfull \hbox (4.60094pt too wide) detected at line 149
+Overfull \hbox (7.64261pt too wide) detected at line 149
 []
  []
 
@@ -1454,7 +1454,7 @@ s/engma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam1
 0.pfb><C:/Users/engma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
 /symbols/msam7.pfb><C:/Users/engma/AppData/Local/Programs/MiKTeX/fonts/type1/pu
 blic/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (58 pages, 815263 bytes).
+Output written on main.pdf (58 pages, 815996 bytes).
 PDF statistics:
  1355 PDF objects out of 1440 (max. 8388607)
  527 named destinations out of 1000 (max. 500000)
