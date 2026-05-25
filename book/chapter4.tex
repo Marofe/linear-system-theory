@@ -26,7 +26,7 @@ whenever the initial state satisfies:
 \| x_0 \| < \delta .
 \end{equation}
 \end{mydefinition}
-This definition ensures that states starting close to the origin remain bounded within an $\epsilon$-ball for all future time.
+This definition ensures that states starting close to the origin remain bounded within an $\epsilon$-ball for all future time, as geometrically illustrated in Figure \ref{fig:stability_lyap_balls}.
 
 \begin{figure}[H]
     \centering
@@ -47,6 +47,7 @@ The equilibrium point $x = 0$ is asymptotically stable if:
     whenever the initial state satisfies $\| x_0 \| < \eta$.
 \end{enumerate}
 \end{mydefinition}
+This asymptotic convergence behavior is illustrated geometrically in Figure \ref{fig:stability_asymptotic_lyap}, and its time-domain state trajectories are plotted in Figure \ref{fig:stability_asymptotic}.
 
 \begin{figure}[H]
     \centering
@@ -69,6 +70,8 @@ The equilibrium point $x = 0$ is exponentially stable if there exist constants $
 \| x(t) \| \le \beta \| x_0 \| e^{-\alpha t} \quad \text{for all } t \ge 0 .
 \end{equation}
 \end{mydefinition}
+
+An exponentially stable response bounded by a decaying exponential envelope is shown in Figure \ref{fig:stability_exponential}.
 
 \begin{figure}[H]
     \centering
@@ -146,6 +149,7 @@ Consider the unforced discrete-time LTI system:
     x_{k+1} = A x_k, \quad x(0) = x_0 . \label{eq:stable_dt}
 \end{equation}
 The system is asymptotically stable if and only if all eigenvalues of $A$ lie in the open unit circle of the complex plane, i.e., $|\lambda_i| < 1$ for all $i=1,\dots,n$. Such matrices are called \textbf{Schur} matrices.
+The stable complex plane regions for continuous-time and discrete-time systems are compared in Figure \ref{fig:estabilidade_discreta}.
 
 \begin{figure}[H]
     \centering
@@ -179,6 +183,7 @@ Let the dynamic matrix $A(t)$ belong to a polytope of matrices defined by the co
 \begin{equation}
 A(t) \in \text{Co}\{A_1, \dots, A_M\} = \left\{ \sum_{i=1}^M \alpha_i(t) A_i \ \middle| \ \sum_{i=1}^M \alpha_i(t) = 1, \ \alpha_i(t) \ge 0 \right\} .
 \end{equation}
+This convex matrix polytope is geometrically represented in Figure \ref{fig:politopo}.
 
 \begin{figure}[H]
     \centering
@@ -210,6 +215,8 @@ Because $A(t) = \sum_{i=1}^M \alpha_i(t) A_i$ is a convex combination:
 &= \sum_{i=1}^M \alpha_i(t) \left( A_i^\trp P + P A_i \right) .
 \end{align}
 Since $\alpha_i(t) \ge 0$ and $\sum \alpha_i = 1$, if each vertex matrix satisfies the LMI $A_i^\trp P + P A_i \prec 0$, then their convex sum is guaranteed to be strictly negative definite. This reduces an infinite-dimensional stability problem to checking a finite set of $M$ LMIs at the vertices of the polytope, which can be solved numerically in milliseconds using semi-definite programming (SDP) solvers!
+
+The parameter variations over time are illustrated within the matrix polytope in Figure \ref{fig:politopo_time_varying}.
 
 \begin{figure}[H]
     \centering

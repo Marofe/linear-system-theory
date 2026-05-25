@@ -27,6 +27,7 @@ By Parseval's theorem, this frequency-domain definition is mathematically equiva
 \begin{equation}
 z^{(i)}(t) = C_z e^{A t} B_w e_i .
 \end{equation}
+The impulse response energy channels are represented in Figure \ref{fig:impulse_response_diagram}, while their trajectories are shown in Figure \ref{fig:impulse_response_continuous}.
 
 \begin{figure}[H]
     \centering
@@ -38,6 +39,8 @@ The squared $H_2$ norm is the sum of the $L_2$ norms of the output channels:
 \begin{equation}
 \| G \|_2^2 = \sum_{i=1}^m \int_0^\infty \| z^{(i)}(t) \|^2 dt = \int_0^\infty \tr\left( \left( C_z e^{A t} B_w \right)^\trp \left( C_z e^{A t} B_w \right) \right) dt .
 \end{equation}
+
+The state trajectory responses to continuous impulse disturbances are shown in Figure \ref{fig:impulse_response_continuous}.
 
 \begin{figure}[H]
     \centering

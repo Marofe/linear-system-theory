@@ -11,6 +11,7 @@ A digital controller samples the state vector $x(t)$ at discrete time instants $
 \begin{equation}
     u(t) = u_k = -K x(t_k) \quad \text{for } t \in [t_k, t_{k+1}) . \label{eq:sd_zoh}
 \end{equation}
+This hybrid sampled-data setup is shown in Figure \ref{fig:sampled_data_system}.
 
 \begin{figure}[H]
     \centering
@@ -81,6 +82,7 @@ For stability, we require this quadratic form to be negative definite, which yie
 
 \section{Piecewise-Linear Lyapunov Functional Approach}
 To reduce conservatism in the stability analysis of sampled-data systems, we can employ a \textbf{Piecewise-Linear Lyapunov Functional} (or parameterization) approach. Instead of a simple affine time-varying matrix $P(\tau)$, the interval $[0, h]$ is partitioned into $n_\phi$ sub-intervals, and a piecewise-linear matrix function $P(\tau)$ is constructed, as conceptually shown in Figures \ref{fig:piecewise_linear_concept}.
+Specifically, this piecewise-linear approach is illustrated in Figures \ref{fig:piecewise_linear_approx} and \ref{fig:piecewise_linear_subintervals} (collectively shown in Figure \ref{fig:piecewise_linear_concept}).
 
 \begin{figure}[H]
     \centering
@@ -104,6 +106,7 @@ To reduce conservatism in the stability analysis of sampled-data systems, we can
 By choosing a mesh of points within the sampling interval, we can define $P(\tau)$ to be linear on each sub-interval. This allows the stability conditions to be formulated as LMIs at each of the sub-interval endpoints. As the number of divisions $n_\phi$ increases, the piecewise-linear function can approximate any smooth time-varying Lyapunov matrix arbitrarily well.
 
 Typical numerical examples demonstrating this approach under $n_\phi = 1$ and $n_\phi = 2$ are illustrated in Figure \ref{fig:piecewise_linear_examples}.
+The trajectories of $P(\tau)$ under one and two divisions are shown in Figures \ref{fig:nphi_1} and \ref{fig:nphi_2} (collectively shown in Figure \ref{fig:piecewise_linear_examples}).
 
 \begin{figure}[H]
     \centering
@@ -126,6 +129,8 @@ Typical numerical examples demonstrating this approach under $n_\phi = 1$ and $n
 
 \section{Numerical Solution via Multi-Vertex Parameterization}
 Directly solving the DLMI \eqref{eq:sd_dlmi} is challenging because it must hold for infinitely many points $\tau \in [0, h_k]$, and it is nonlinear due to the product $P(\tau)BK$.
+
+The polytopic convex hull geometry is shown in Figure \ref{fig:politopo}.
 
 \begin{figure}[H]
     \centering

@@ -20,6 +20,8 @@ We design a full-order linear filter (estimator) that has the structure of a Lue
 \end{align}
 where $L \in \R^{n \times p}$ is the filter gain matrix to be designed.
 
+The robust state estimation error system is shown in Figure \ref{fig:robust_state_observer}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=9.5cm]{robust_state_observer.png}
@@ -49,6 +51,8 @@ where the closed-loop filter matrices are:
 \begin{equation}
 A_{cl,f} = A - L C_y, \quad B_{cl,f} = B_w - L D_{yw}, \quad C_{cl,f} = C_z .
 \end{equation}
+
+The noise-attenuation performance bounds from w to e are shown in Figure \ref{fig:robust_state_observer_disturb}.
 
 \begin{figure}[H]
     \centering

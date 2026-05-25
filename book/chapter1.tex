@@ -27,6 +27,7 @@ where:
     \item $D \in \R^{p \times m}$ is the direct transmission (feedthrough) matrix.
 \end{itemize}
 \end{mydefinition}
+We can represent the continuous-time LTI state-space equations using the block diagram shown in Figure \ref{fig:modelo_ss}.
 
 \begin{figure}[H]
     \centering
@@ -43,6 +44,7 @@ In digital implementations, systems are governed by discrete-time dynamics repre
 \end{align}
 where $k \in \mathbb{Z}_{\ge 0}$ denotes the discrete sample index, $A_d$ is the discrete dynamic matrix, and $B_d$ is the discrete input matrix.
 \end{mydefinition}
+Symmetrically, the discrete-time LTI state-space equations are represented in block diagram form in Figure \ref{fig:modelo_ss_discreto}.
 
 \begin{figure}[H]
     \centering
@@ -191,7 +193,7 @@ e^{At} = I + At + \frac{1}{2!} A^2 t^2 + \frac{1}{3!} A^3 t^3 + \dots = \sum_{k=
 \end{equation}
 \end{mydefinition}
 
-Calculating the matrix exponential numerically is a highly non-trivial task. In their landmark paper \textit{"Nineteen Dubious Ways to Compute the Exponential of a Matrix"} (SIAM Review, 1978 and 2003 updates), Cleve Moler and Charles Van Loan explored the mathematical and numerical properties of 19 different methods (including series approximation, ODE solvers, polynomial methods, and matrix decomposition), highlighting issues of numerical stability, stiffness, and floating-point errors.
+Calculating the matrix exponential numerically is a highly non-trivial task. In their landmark paper \textit{"Nineteen Dubious Ways to Compute the Exponential of a Matrix"} (SIAM Review, 1978 and 2003 updates), Cleve Moler and Charles Van Loan explored the mathematical and numerical properties of 19 different methods (including series approximation, ODE solvers, polynomial methods, and matrix decomposition), highlighting issues of numerical stability, stiffness, and floating-point errors. Moler and Van Loan explored these numerical challenges in their original 1978 paper (Figure \ref{fig:dubious_1978}) and the 2003 retrospective update (Figure \ref{fig:dubious_2003}), collectively shown in Figure \ref{fig:dubious_papers}.
 
 \begin{figure}[H]
     \centering

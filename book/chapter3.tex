@@ -11,6 +11,7 @@ To establish these concepts mathematically, we start by solving the discrete-tim
 \begin{equation}
 x_{k+1} = A x_k + B u_k, \quad x(0) = x_0 .
 \end{equation}
+The discrete-time state-space dynamics can be visualized schematically in Figure \ref{fig:ss_discrete_ch3}.
 
 \begin{figure}[H]
     \centering
@@ -39,7 +40,7 @@ By defining the \textbf{Controllability Matrix} of order $k$:
 \begin{equation}
 \mathcal{C}_k = \begin{bmatrix} B & AB & A^2B & \cdots & A^{k-1}B \end{bmatrix} ,
 \end{equation}
-we see that a target state $x_k$ is reachable from $x_0$ if and only if the vector $x_k - A^k x_0$ lies in the column space (range) of $\mathcal{C}_k$.
+we see that a target state $x_k$ is reachable from $x_0$ if and only if the vector $x_k - A^k x_0$ lies in the column space (range) of $\mathcal{C}_k$, a geometric relationship illustrated in Figure \ref{fig:controlabilidade2}.
 
 \begin{figure}[H]
     \centering
@@ -53,6 +54,7 @@ we see that a target state $x_k$ is reachable from $x_0$ if and only if the vect
 \begin{mydefinition}{Controllability}
 A continuous-time system $\dot{x} = Ax + Bu$ is controllable if, for any initial state $x(0) = x_0$ and any target state $x_f$, there exists a finite time $t_f > 0$ and a piecewise continuous control input $u(t)$ over $t \in [0, t_f]$ that drives the state from $x_0$ to $x_f$ at $t = t_f$.
 \end{mydefinition}
+This transition between arbitrary states in state-space is conceptually diagrammed in Figure \ref{fig:controlabilidade}.
 
 \begin{figure}[H]
     \centering
@@ -69,6 +71,7 @@ An LTI continuous-time system $(A, B)$ is controllable if and only if the contro
 \end{equation}
 has full row rank, i.e., $\text{rank}(\mathcal{C}) = n$.
 \end{mytheorem}
+Continuous-time controllability is conceptually shown as state trajectories moving through space in Figure \ref{fig:controlabilidade_continuo}.
 
 \begin{figure}[H]
     \centering
@@ -120,6 +123,7 @@ which is the unique positive definite solution to the continuous-time \textbf{Ly
 \begin{equation}
 A W_c + W_c A^\trp + B B^\trp = 0 .
 \end{equation}
+The infinite-horizon Controllability Gramian characterizes the ellipsoids of reachable directions, as plotted in Figure \ref{fig:reachability_directions}.
 
 \begin{figure}[H]
     \centering
@@ -133,6 +137,7 @@ A W_c + W_c A^\trp + B B^\trp = 0 .
 \begin{mydefinition}{Observability}
 A continuous-time system $\dot{x} = Ax + Bu, y = Cx + Du$ is observable if, for any initial state $x(0) = x_0$, there exists a finite time $t_f > 0$ such that the knowledge of the input $u(t)$ and output $y(t)$ over the interval $[0, t_f]$ uniquely determines $x_0$.
 \end{mydefinition}
+This estimation process is conceptually illustrated in Figure \ref{fig:observabilidade}, showing state reconstruction from input-output records.
 
 \begin{figure}[H]
     \centering

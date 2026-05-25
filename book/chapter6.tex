@@ -12,6 +12,7 @@ Consider the continuous-time LTI system:
 \end{align}
 
 A naive attempt to estimate $x(t)$ would be to simulate the plant model directly: $\dot{\hat{x}} = A \hat{x} + B u$. However, any initial state mismatch ($x(0) \neq \hat{x}(0)$) or model inaccuracy would cause the estimate to drift over time. 
+The step-by-step structural evolution of the observer is illustrated in Figures \ref{fig:naive_estimator}, \ref{fig:correction_feedback}, and \ref{fig:closed_loop_observer} (collectively shown in Figure \ref{fig:observer_evolution}).
 
 \begin{figure}[H]
     \centering
@@ -43,7 +44,7 @@ To prevent this drift, David Luenberger proposed feeding back the measurement er
 \begin{equation}
     \dot{\hat{x}}(t) = A \hat{x}(t) + B u(t) + L \left( y(t) - C \hat{x}(t) - D u(t) \right) , \label{eq:luenberger_obs}
 \end{equation}
-where $L \in \R^{n \times p}$ is the observer gain matrix.
+where $L \in \R^{n \times p}$ is the observer gain matrix. The completed Luenberger observer structure is shown in Figure \ref{fig:state_observer}.
 
 \begin{figure}[H]
     \centering
@@ -65,6 +66,7 @@ To analyze how the error behaves over time, we differentiate \eqref{eq:obs_error
     &= (A - L C) e(t) . \label{eq:obs_error_dynamics}
 \end{align}
 The error dynamics are governed by the autonomous system matrix $A - L C$. If $A - L C$ is Hurwitz, the estimation error will converge to zero asymptotically: $\lim_{t \to \infty} e(t) = 0$, regardless of the initial mismatch $e(0)$ and the control input $u(t)$.
+The continuous-time observer implementation and its error trajectories are shown in Figures \ref{fig:observer_continuous} and \ref{fig:observer_example} (collectively shown in Figure \ref{fig:observer_cont_sim}).
 
 \begin{figure}[H]
     \centering
@@ -146,6 +148,8 @@ In practice, a common rule of thumb is to design the observer poles to be $2$ to
 \section{The Kalman Filter}
 The Luenberger observer is deterministic: it assumes perfect model parameters and noise-free measurements. In reality, control systems are subjected to stochastic process disturbances (e.g., wind gusts on an aircraft) and sensor measurement noise.
 
+The closed-loop loop structure under LQR control and Kalman filtering is shown in Figure \ref{fig:state_observer_kf}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{state_observer_kf.png}
@@ -154,6 +158,8 @@ The Luenberger observer is deterministic: it assumes perfect model parameters an
 \end{figure}
 
 The \textbf{Kalman Filter}, introduced by Rudolf E. Kálmán in 1960, is the mathematically optimal estimator for linear systems subjected to Gaussian white noise.
+
+Rudolf E. Kalman and his landmark 1960 optimal filtering paper are shown in Figures \ref{fig:Rudolf_Kalman} and \ref{fig:paper_1960_kf} (collectively shown in Figure \ref{fig:kalman_history}).
 
 \begin{figure}[H]
     \centering
@@ -181,6 +187,8 @@ Consider the discrete-time stochastic LTI system:
     y_k &= C x_k + v_k . \label{eq:kf_output}
 \end{align}
 
+This stochastic system structure is shown in Figure \ref{fig:modelo_ss_discreto_estocastico}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{modelo_ss_discreto_estocastico.png}
@@ -202,7 +210,7 @@ We assume that $w_k$ and $v_k$ are zero-mean, mutually independent white Gaussia
 where $W = W^\trp \ge 0$, $V = V^\trp \succ 0$, and $\delta_{kj}$ is the Kronecker delta.
 
 \subsection{Gaussian Distributions}
-The process and measurement noise are modeled as Gaussian random variables. The scalar probability density functions under different means $\mu$ and standard deviations $\sigma$ are plotted in Figure \ref{fig:gaussiana_escalar}, while the multidimensional Gaussian distribution is illustrated in Figure \ref{fig:2d_gaussian}.
+The process and measurement noise are modeled as Gaussian random variables. The scalar probability density functions under different means $\mu$ and standard deviations $\sigma$ are plotted in Figures \ref{fig:gauss_1}, \ref{fig:gauss_2}, and \ref{fig:gauss_3} (collectively shown in Figure \ref{fig:gaussiana_escalar}), while the multidimensional Gaussian distribution is illustrated in Figure \ref{fig:2d_gaussian}.
 
 \begin{figure}[H]
     \centering

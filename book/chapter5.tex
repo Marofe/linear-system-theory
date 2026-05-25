@@ -5,7 +5,7 @@ State feedback is the cornerstone of modern control theory. Under the assumption
 \begin{equation}
     u(t) = -K x(t) + r(t) , \label{eq:sf_law}
 \end{equation}
-where $K \in \R^{m \times n}$ is the state feedback gain matrix and $r(t) \in \R^m$ is the reference input. 
+where $K \in \R^{m \times n}$ is the state feedback gain matrix and $r(t) \in \R^m$ is the reference input. We can represent the state feedback control loop using the block diagram in Figure \ref{fig:state_feedback}.
 
 \begin{figure}[H]
     \centering
@@ -102,7 +102,7 @@ We seek an optimal control input $u^*(t)$ that minimizes the infinite-horizon qu
 \end{equation}
 where:
 - $Q = Q^\trp \ge 0$ is the state weighting matrix, penalizing deviations of the states.
-- $R = R^\trp > 0$ is the control weighting matrix, penalizing control effort.
+- $R = R^\trp > 0$ is the control weighting matrix, penalizing control effort. The LQR optimization trade-off between tracking speed and control effort is conceptually illustrated in Figure \ref{fig:controle_otimo}.
 
 \begin{figure}[H]
     \centering
@@ -189,6 +189,7 @@ Since $R \succ 0$, $K x(t) = 0$, meaning the control input $u(t) = -K x(t) = 0$.
 By detectability of $(A, Q^{1/2})$, any state trajectory that satisfies $Q^{1/2} x(t) = 0$ for all $t$ under $\dot{x} = Ax$ must converge to zero: $\lim_{t\to\infty} x(t) = 0$.
 Thus, the only invariant set where $\dot{V}(x) = 0$ is the origin $x=0$, proving asymptotic stability of $A - BK$.
 \end{proof}
+The quadratic cost profile $V(x) = x^\trp P x$ forms a convex potential well in the state space, as shown in Figure \ref{fig:lqr_cost_profile}.
 
 \begin{figure}[H]
     \centering
@@ -208,6 +209,7 @@ We wish to minimize the discrete infinite-horizon cost functional:
     J = \sum_{k=0}^\infty \left( x_k^\trp Q x_k + u_k^\trp R u_k \right) , \label{eq:lqr_dt_cost}
 \end{equation}
 with $Q = Q^\trp \ge 0$ and $R = R^\trp \succ 0$.
+The discrete LQR optimization trajectory planning and constraints are conceptually illustrated in Figures \ref{fig:opt_trajectory}, \ref{fig:opt_states}, and \ref{fig:opt_controls} (collectively shown in Figure \ref{fig:discrete_opt_concept}), while the sequence of optimal inputs driving the state trajectories is plotted in Figure \ref{fig:controle_otimo4}.
 
 \begin{figure}[H]
     \centering
@@ -252,6 +254,7 @@ The Principle of Optimality allows us to split the sum and write the recursive \
 \begin{equation}
     V_k(x_k) = \min_{u_k} \left\{ x_k^\trp Q x_k + u_k^\trp R u_k + V_{k+1}(x_{k+1}) \right\} . \label{eq:bellman}
 \end{equation}
+This recursive sub-path optimization process is shown in Figures \ref{fig:bellman_path1}, \ref{fig:bellman_path2}, and \ref{fig:bellman_path3} (collectively shown in Figure \ref{fig:bellman_principle}).
 
 \begin{figure}[H]
     \centering
@@ -292,6 +295,7 @@ Expanding the terms inside the minimization brackets:
     \mathcal{J}_k(u_k) &= x_k^\trp Q x_k + u_k^\trp R u_k + (x_k^\trp A^\trp + u_k^\trp B^\trp) P_{k+1} (A x_k + B u_k) \nonumber \\
 &= x_k^\trp (Q + A^\trp P_{k+1} A) x_k + 2 u_k^\trp B^\trp P_{k+1} A x_k + u_k^\trp (R + B^\trp P_{k+1} B) u_k .
 \end{align}
+The stage cost and cost-to-go structures in the Bellman equation are illustrated in Figures \ref{fig:custo_estagio} and \ref{fig:custo_to_go} (collectively shown in Figure \ref{fig:bellman_costs}).
 
 \begin{figure}[H]
     \centering
@@ -346,6 +350,7 @@ When the system matrices $A$ and $B$ are subject to polytopic uncertainty:
 \begin{equation}
 [A(t) \quad B(t)] \in \text{Co}\{[A_1 \quad B_1], \dots, [A_M \quad B_M]\} .
 \end{equation}
+These different classes of Lyapunov functions are shown geometrically in Figures \ref{fig:lyap_dep}, \ref{fig:lyap_const}, and \ref{fig:lyap_affine} (collectively shown in Figure \ref{fig:lyap_spaces}).
 
 \begin{figure}[H]
     \centering
@@ -417,6 +422,7 @@ This transformation is a cornerstone of robust control. It shifts the numerical 
 
 \section{Case Study: Inverted Pendulum State Feedback Control}
 To demonstrate state feedback design in practice, consider the classic inverted pendulum on a cart system. The system's mechanical schematic and control loops are shown in Figures \ref{fig:pendulo_planta} and \ref{fig:pendulo_sf}.
+Specifically, the physical forces and kinematic coordinates are shown in Figures \ref{fig:pendulo_forces} and \ref{fig:pendulo_kinematics}, while the linearized parameters and state feedback structure are illustrated in Figures \ref{fig:pendulo_linearized} and \ref{fig:pendulo_sf_structure}.
 
 \begin{figure}[H]
     \centering
@@ -460,6 +466,7 @@ Using the state-space matrices of the linearized pendulum, we can perform pole p
 
 \section{Homework: Discrete-Time Polytopic LQR Design}
 To consolidate these optimal and robust control concepts, consider the inverted pendulum plant represented as a discrete-time uncertain polytopic system $(A, B)(\alpha)$.
+The model of the inverted pendulum is shown in Figure \ref{fig:homework_pendulum}.
 
 \begin{figure}[H]
     \centering

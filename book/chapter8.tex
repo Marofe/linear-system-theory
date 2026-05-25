@@ -17,6 +17,8 @@ In the frequency domain, the $H_\infty$ norm of the transfer function $G(s) = C_
 \end{equation}
 where $\sigma_{\max}(\cdot)$ denotes the maximum singular value of the matrix.
 
+The peak frequency amplification defining the H-infinity norm is shown in Figure \ref{fig:hinf_norm} for continuous systems.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=9.5cm]{hinf_norm.png}
@@ -111,6 +113,8 @@ The discrete LTI system is asymptotically stable and satisfies $\| G \|_\infty <
     \begin{bmatrix} A^\trp P A - P & A^\trp P B_w & C_z^\trp \\ B_w^\trp P A & B_w^\trp P B_w - \gamma I & D_{zw}^\trp \\ C_z & D_{zw} & -\gamma I \end{bmatrix} \prec 0 . \label{eq:brl_dt_lmi}
 \end{equation}
 \end{mytheorem}
+
+The discrete-time H-infinity norm peak gain is shown in Figure \ref{fig:hinf_norm_discrete}.
 
 \begin{figure}[H]
     \centering
