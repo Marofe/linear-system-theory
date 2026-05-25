@@ -17,6 +17,13 @@ In the frequency domain, the $H_\infty$ norm of the transfer function $G(s) = C_
 \end{equation}
 where $\sigma_{\max}(\cdot)$ denotes the maximum singular value of the matrix.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9.5cm]{hinf_norm.png}
+    \caption{H-infinity norm defined as the peak singular value over all frequencies.}
+    \label{fig:hinf_norm}
+\end{figure}
+
 In the time domain, the $H_\infty$ norm corresponds to the \textbf{induced $L_2$-to-$L_2$ norm} of the system. Let $L_2$ be the space of square-integrable signals:
 \begin{equation}
 \| w \|_{L_2} = \left( \int_0^\infty \| w(t) \|^2 dt \right)^{1/2} < \infty ,
@@ -104,6 +111,13 @@ The discrete LTI system is asymptotically stable and satisfies $\| G \|_\infty <
     \begin{bmatrix} A^\trp P A - P & A^\trp P B_w & C_z^\trp \\ B_w^\trp P A & B_w^\trp P B_w - \gamma I & D_{zw}^\trp \\ C_z & D_{zw} & -\gamma I \end{bmatrix} \prec 0 . \label{eq:brl_dt_lmi}
 \end{equation}
 \end{mytheorem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9.5cm]{hinf_norm_discrete.png}
+    \caption{Discrete-time H-infinity norm maximum singular value frequency plot.}
+    \label{fig:hinf_norm_discrete}
+\end{figure}
 
 \section{Robust H-infinity State Feedback Synthesis}
 We now design a state feedback gain $K \in \R^{m \times n}$ for the system:

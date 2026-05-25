@@ -11,6 +11,13 @@ A digital controller samples the state vector $x(t)$ at discrete time instants $
 \begin{equation}
     u(t) = u_k = -K x(t_k) \quad \text{for } t \in [t_k, t_{k+1}) , \label{eq:sd_zoh}
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9.5cm]{sampled-data-system.png}
+    \caption{Digital control loop of a continuous physical plant with sampling and Zero-Order Hold.}
+    \label{fig:sampled_data_system}
+\end{figure}
 Substituting \eqref{eq:sd_zoh} into \eqref{eq:sd_plant} yields the hybrid closed-loop system:
 \begin{equation}
     \dot{x}(t) = A x(t) - B K x(t_k) \quad \text{for } t \in [t_k, t_{k+1}) , \label{eq:sd_cl}
@@ -72,8 +79,60 @@ For stability, we require this quadratic form to be negative definite, which yie
     \begin{bmatrix} A^\trp P(\tau) + P(\tau) A + \dot{P}(\tau) & -P(\tau) B K \\ -K^\trp B^\trp P(\tau) & 0 \end{bmatrix} \prec 0, \quad \forall \tau \in [0, h_k] , \label{eq:sd_dlmi}
 \end{equation}
 
+\section{Piecewise-Linear Lyapunov Functional Approach}
+To reduce conservatism in the stability analysis of sampled-data systems, we can employ a \textbf{Piecewise-Linear Lyapunov Functional} (or parameterization) approach. Instead of a simple affine time-varying matrix $P(\tau)$, the interval $[0, h]$ is partitioned into $n_\phi$ sub-intervals, and a piecewise-linear matrix function $P(\tau)$ is constructed, as conceptually shown in Figures \ref{fig:piecewise_linear_concept}.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{piecewise_linear.png}
+        \caption{Piecewise-linear approximation of the time-varying Lyapunov matrix $P(\tau)$.}
+        \label{fig:piecewise_linear_approx}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{piecewise_linear2.png}
+        \caption{Partitioning of the sampling interval $[0, h]$ into sub-intervals.}
+        \label{fig:piecewise_linear_subintervals}
+    \end{minipage}
+    \caption{Piecewise-linear approximation concepts for time-varying Lyapunov functionals.}
+    \label{fig:piecewise_linear_concept}
+\end{figure}
+
+By choosing a mesh of points within the sampling interval, we can define $P(\tau)$ to be linear on each sub-interval. This allows the stability conditions to be formulated as LMIs at each of the sub-interval endpoints. As the number of divisions $n_\phi$ increases, the piecewise-linear function can approximate any smooth time-varying Lyapunov matrix arbitrarily well.
+
+Typical numerical examples demonstrating this approach under $n_\phi = 1$ and $n_\phi = 2$ are illustrated in Figure \ref{fig:piecewise_linear_examples}.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{piecewise_linear_nphi_1.png}
+        \caption{Lyapunov matrix trajectory with a single division ($n_\phi = 1$).}
+        \label{fig:nphi_1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{piecewise_linear_nphi_2.png}
+        \caption{Lyapunov matrix trajectory with two divisions ($n_\phi = 2$).}
+        \label{fig:nphi_2}
+    \end{minipage}
+    \caption{Trajectory of $P(\tau)$ under different sub-interval partition divisions.}
+    \label{fig:piecewise_linear_examples}
+\end{figure}
+
 \section{Numerical Solution via Multi-Vertex Parameterization}
 Directly solving the DLMI \eqref{eq:sd_dlmi} is challenging because it must hold for infinitely many points $\tau \in [0, h_k]$, and it is nonlinear due to the product $P(\tau)BK$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5.5cm]{politopo.png}
+    \caption{Polytopic uncertainty convex hull geometry.}
+    \label{fig:politopo}
+\end{figure}
 
 To render it solvable, we parameterize $P(\tau)$ as an affine function of $\tau$:
 \begin{equation}

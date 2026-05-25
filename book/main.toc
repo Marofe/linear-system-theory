@@ -1,86 +1,93 @@
 \contentsline {chapter}{\numberline {1}Introduction and Foundations}{4}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Introduction to Dynamical Systems}{4}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Linearization of Multi-Input Multi-Output (MIMO) Systems}{5}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Linear Algebra Review}{6}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Matrix Multiplications}{6}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Special Matrices}{6}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Trace and Determinant Operators}{7}{subsection.1.3.3}%
-\contentsline {subsection}{\numberline {1.3.4}Eigenvalues and Spectral Decomposition}{7}{subsection.1.3.4}%
-\contentsline {section}{\numberline {1.4}Solution of Continuous-Time LTI State-Space Models}{7}{section.1.4}%
-\contentsline {section}{\numberline {1.5}From Ordinary Differential Equations to State-Space Representations}{8}{section.1.5}%
-\contentsline {chapter}{\numberline {2}Similarity and Jordan Forms}{10}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Dual Representation of State-Space Models}{10}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Similarity Transformations}{10}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Properties of Similarity Transformations}{11}{subsection.2.2.1}%
-\contentsline {section}{\numberline {2.3}Transformation to Diagonal and Real Modal Canonical Forms}{11}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Diagonalization}{11}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Real Modal Form for Complex Conjugate Eigenvalues}{12}{subsection.2.3.2}%
-\contentsline {section}{\numberline {2.4}The Cayley-Hamilton Theorem \& Briot-Ruffini division}{12}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Briot-Ruffini Division for Matrix Functions}{12}{subsection.2.4.1}%
-\contentsline {section}{\numberline {2.5}Jordan Canonical Forms \& Generalized Eigenvectors}{13}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Algebraic and Geometric Multiplicity}{13}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}The Jordan Block and Generalized Eigenvectors}{13}{subsection.2.5.2}%
-\contentsline {subsection}{\numberline {2.5.3}Matrix Exponential of a Jordan Block}{14}{subsection.2.5.3}%
-\contentsline {chapter}{\numberline {3}Controllability and Observability}{15}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Introduction and Discrete-Time Formulations}{15}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Controllability of Continuous-Time LTI Systems}{16}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}The Kalman Controllability Rank Condition}{16}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}The Controllability Gramian}{17}{subsection.3.2.2}%
-\contentsline {section}{\numberline {3.3}Observability of Continuous-Time LTI Systems}{17}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}The Kalman Observability Rank Condition}{18}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}The Observability Gramian}{18}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}The Principle of Duality}{18}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Kalman Canonical Decomposition}{18}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Stability Analysis}{20}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction and Stability Definitions}{20}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Lyapunov Stability Analysis in Continuous-Time}{21}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Continuous-Time Lyapunov Equation}{21}{subsection.4.2.1}%
-\contentsline {section}{\numberline {4.3}Lyapunov Stability Analysis in Discrete-Time}{22}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Discrete-Time Lyapunov (Stein) Equation}{22}{subsection.4.3.1}%
-\contentsline {section}{\numberline {4.4}Polytopic Uncertainty and Quadratic Stability}{23}{section.4.4}%
-\contentsline {chapter}{\numberline {5}State Feedback and LQR}{24}{chapter.5}%
-\contentsline {section}{\numberline {5.1}State Feedback and Pole Placement}{24}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Ackermann's Formula}{25}{subsection.5.1.1}%
-\contentsline {section}{\numberline {5.2}Continuous-Time Linear Quadratic Regulator (LQR)}{26}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Derivation via the Hamiltonian and Variational Calculus}{26}{subsection.5.2.1}%
-\contentsline {section}{\numberline {5.3}Discrete-Time Linear Quadratic Regulator}{28}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Derivation via Dynamic Programming and the Bellman Equation}{28}{subsection.5.3.1}%
-\contentsline {section}{\numberline {5.4}Robust State Feedback Synthesis via LMIs}{29}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Observers and Kalman Filtering}{31}{chapter.6}%
-\contentsline {section}{\numberline {6.1}State Estimation and Luenberger Observers}{31}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Observer Error Dynamics}{31}{subsection.6.1.1}%
-\contentsline {section}{\numberline {6.2}The Separation Principle}{32}{section.6.2}%
-\contentsline {section}{\numberline {6.3}The Kalman Filter}{33}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}State and Covariance Definitions}{34}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Prediction Phase (Time Update)}{34}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Correction Phase (Measurement Update)}{34}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Derivation of the Optimal Kalman Gain}{35}{subsection.6.3.4}%
-\contentsline {subsection}{\numberline {6.3.5}Summary of the Kalman Filter Algorithm}{36}{subsection.6.3.5}%
-\contentsline {chapter}{\numberline {7}Robust H2 Control}{37}{chapter.7}%
-\contentsline {section}{\numberline {7.1}The H2 Norm of LTI Systems}{37}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}Frequency-Domain and Time-Domain Definitions}{37}{subsection.7.1.1}%
-\contentsline {section}{\numberline {7.2}LMI Formulation of the H2 Norm}{38}{section.7.2}%
-\contentsline {section}{\numberline {7.3}H2 State Feedback Controller Design}{39}{section.7.3}%
-\contentsline {chapter}{\numberline {8}Robust H-infinity Control}{41}{chapter.8}%
-\contentsline {section}{\numberline {8.1}The H-infinity Norm of LTI Systems}{41}{section.8.1}%
-\contentsline {subsection}{\numberline {8.1.1}Frequency-Domain and Time-Domain Definitions}{41}{subsection.8.1.1}%
-\contentsline {section}{\numberline {8.2}The Bounded Real Lemma (BRL)}{42}{section.8.2}%
-\contentsline {subsection}{\numberline {8.2.1}Discrete-Time Bounded Real Lemma}{43}{subsection.8.2.1}%
-\contentsline {section}{\numberline {8.3}Robust H-infinity State Feedback Synthesis}{43}{section.8.3}%
-\contentsline {chapter}{\numberline {9}Robust Filtering}{45}{chapter.9}%
-\contentsline {section}{\numberline {9.1}The Robust State Estimation and Filtering Problem}{45}{section.9.1}%
-\contentsline {subsection}{\numberline {9.1.1}Estimation Error Dynamics}{45}{subsection.9.1.1}%
-\contentsline {section}{\numberline {9.2}Robust H-infinity Filter Design via LMI}{46}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}Linearization of the H-infinity Filtering BMI}{46}{subsection.9.2.1}%
-\contentsline {section}{\numberline {9.3}Robust H2 Filter Design via LMI}{47}{section.9.3}%
-\contentsline {subsection}{\numberline {9.3.1}Multiobjective H2/Hinf Filtering}{48}{subsection.9.3.1}%
-\contentsline {chapter}{\numberline {10}Sampled-Data Control}{49}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Introduction to Sampled-Data Systems}{49}{section.10.1}%
-\contentsline {section}{\numberline {10.2}Lyapunov Stability Analysis via Looped Functionals}{49}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Differential LMI (DLMI) Formulation}{50}{section.10.3}%
-\contentsline {section}{\numberline {10.4}Numerical Solution via Multi-Vertex Parameterization}{51}{section.10.4}%
-\contentsline {chapter}{\numberline {11}Markov Jump Systems}{52}{chapter.11}%
-\contentsline {section}{\numberline {11.1}Introduction to Switched and Markov Jump Systems}{52}{section.11.1}%
-\contentsline {section}{\numberline {11.2}Mean Square Stability (MSS)}{52}{section.11.2}%
-\contentsline {section}{\numberline {11.3}Optimal Control of MJLS (MJLS-LQR)}{54}{section.11.3}%
-\contentsline {section}{\numberline {11.4}Application: Networked Control Systems (NCS)}{55}{section.11.4}%
+\contentsline {section}{\numberline {1.3}Linear Algebra Review}{7}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Matrix Multiplications}{7}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Special Matrices}{8}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Trace and Determinant Operators}{8}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Eigenvalues and Spectral Decomposition}{8}{subsection.1.3.4}%
+\contentsline {section}{\numberline {1.4}Solution of Continuous-Time LTI State-Space Models}{9}{section.1.4}%
+\contentsline {section}{\numberline {1.5}From Ordinary Differential Equations to State-Space Representations}{9}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Similarity and Jordan Forms}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Dual Representation of State-Space Models}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Similarity Transformations}{11}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Properties of Similarity Transformations}{12}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Transformation to Diagonal and Real Modal Canonical Forms}{12}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Diagonalization}{12}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Real Modal Form for Complex Conjugate Eigenvalues}{13}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}The Cayley-Hamilton Theorem \& Briot-Ruffini division}{13}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Briot-Ruffini Division for Matrix Functions}{13}{subsection.2.4.1}%
+\contentsline {section}{\numberline {2.5}Jordan Canonical Forms \& Generalized Eigenvectors}{14}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Algebraic and Geometric Multiplicity}{14}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}The Jordan Block and Generalized Eigenvectors}{14}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Matrix Exponential of a Jordan Block}{15}{subsection.2.5.3}%
+\contentsline {chapter}{\numberline {3}Controllability and Observability}{16}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduction and Discrete-Time Formulations}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Controllability of Continuous-Time LTI Systems}{17}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}The Kalman Controllability Rank Condition}{18}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}The Controllability Gramian}{19}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Observability of Continuous-Time LTI Systems}{20}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}The Kalman Observability Rank Condition}{21}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}The Observability Gramian}{21}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}The Principle of Duality}{21}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Kalman Canonical Decomposition}{21}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Physical Example: Uncontrollable Op-Amp Circuit}{22}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Stability Analysis}{24}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction and Stability Definitions}{24}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Lyapunov Stability Analysis in Continuous-Time}{27}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Continuous-Time Lyapunov Equation}{27}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}Lyapunov Stability Analysis in Discrete-Time}{28}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Discrete-Time Lyapunov (Stein) Equation}{29}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Polytopic Uncertainty and Quadratic Stability}{29}{section.4.4}%
+\contentsline {chapter}{\numberline {5}State Feedback and LQR}{32}{chapter.5}%
+\contentsline {section}{\numberline {5.1}State Feedback and Pole Placement}{32}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Ackermann's Formula}{33}{subsection.5.1.1}%
+\contentsline {section}{\numberline {5.2}Continuous-Time Linear Quadratic Regulator (LQR)}{34}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Derivation via the Hamiltonian and Variational Calculus}{35}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Discrete-Time Linear Quadratic Regulator}{37}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Derivation via Dynamic Programming and the Bellman Equation}{38}{subsection.5.3.1}%
+\contentsline {section}{\numberline {5.4}Robust State Feedback Synthesis via LMIs}{40}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Case Study: Inverted Pendulum State Feedback Control}{41}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Homework: Discrete-Time Polytopic LQR Design}{42}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Observers and Kalman Filtering}{43}{chapter.6}%
+\contentsline {section}{\numberline {6.1}State Estimation and Luenberger Observers}{43}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Observer Error Dynamics}{44}{subsection.6.1.1}%
+\contentsline {section}{\numberline {6.2}The Separation Principle}{45}{section.6.2}%
+\contentsline {section}{\numberline {6.3}The Kalman Filter}{46}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Gaussian Distributions}{48}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}State and Covariance Definitions}{49}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Prediction Phase (Time Update)}{49}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4}Correction Phase (Measurement Update)}{50}{subsection.6.3.4}%
+\contentsline {subsection}{\numberline {6.3.5}Derivation of the Optimal Kalman Gain}{50}{subsection.6.3.5}%
+\contentsline {subsection}{\numberline {6.3.6}Summary of the Kalman Filter Algorithm}{51}{subsection.6.3.6}%
+\contentsline {section}{\numberline {6.4}Homework: State Observer for a Physical System}{51}{section.6.4}%
+\contentsline {chapter}{\numberline {7}Robust H2 Control}{52}{chapter.7}%
+\contentsline {section}{\numberline {7.1}The H2 Norm of LTI Systems}{52}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Frequency-Domain and Time-Domain Definitions}{52}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}LMI Formulation of the H2 Norm}{53}{section.7.2}%
+\contentsline {section}{\numberline {7.3}H2 State Feedback Controller Design}{54}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Discrete-Time H2 Norm Formulation}{56}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Robust H-infinity Control}{57}{chapter.8}%
+\contentsline {section}{\numberline {8.1}The H-infinity Norm of LTI Systems}{57}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Frequency-Domain and Time-Domain Definitions}{57}{subsection.8.1.1}%
+\contentsline {section}{\numberline {8.2}The Bounded Real Lemma (BRL)}{58}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Discrete-Time Bounded Real Lemma}{59}{subsection.8.2.1}%
+\contentsline {section}{\numberline {8.3}Robust H-infinity State Feedback Synthesis}{60}{section.8.3}%
+\contentsline {chapter}{\numberline {9}Robust Filtering}{62}{chapter.9}%
+\contentsline {section}{\numberline {9.1}The Robust State Estimation and Filtering Problem}{62}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Estimation Error Dynamics}{63}{subsection.9.1.1}%
+\contentsline {section}{\numberline {9.2}Robust H-infinity Filter Design via LMI}{64}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Linearization of the H-infinity Filtering BMI}{64}{subsection.9.2.1}%
+\contentsline {section}{\numberline {9.3}Robust H2 Filter Design via LMI}{65}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Multiobjective H2/Hinf Filtering}{66}{subsection.9.3.1}%
+\contentsline {chapter}{\numberline {10}Sampled-Data Control}{67}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Introduction to Sampled-Data Systems}{67}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Lyapunov Stability Analysis via Looped Functionals}{68}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Differential LMI (DLMI) Formulation}{68}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Piecewise-Linear Lyapunov Functional Approach}{69}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Numerical Solution via Multi-Vertex Parameterization}{70}{section.10.5}%
+\contentsline {chapter}{\numberline {11}Markov Jump Systems}{72}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Introduction to Switched and Markov Jump Systems}{72}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Mean Square Stability (MSS)}{72}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Optimal Control of MJLS (MJLS-LQR)}{74}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Application: Networked Control Systems (NCS)}{75}{section.11.4}%

@@ -12,11 +12,45 @@ Consider the continuous-time LTI system:
 \end{align}
 
 A naive attempt to estimate $x(t)$ would be to simulate the plant model directly: $\dot{\hat{x}} = A \hat{x} + B u$. However, any initial state mismatch ($x(0) \neq \hat{x}(0)$) or model inaccuracy would cause the estimate to drift over time. 
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{state_observer2.png}
+        \caption{Naive open-loop estimator structure.}
+        \label{fig:naive_estimator}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{state_observer3.png}
+        \caption{Introducing correction feedback block.}
+        \label{fig:correction_feedback}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{state_observer4.png}
+        \caption{Final closed-loop observer dynamics.}
+        \label{fig:closed_loop_observer}
+    \end{minipage}
+    \caption{Step-by-step structural evolution of a state observer from open-loop simulation to closed-loop estimation.}
+    \label{fig:observer_evolution}
+\end{figure}
+
 To prevent this drift, David Luenberger proposed feeding back the measurement error (the difference between the actual output $y(t)$ and the estimated output $\hat{y}(t) = C \hat{x}(t) + D u(t)$) to correct the state estimates:
 \begin{equation}
     \dot{\hat{x}}(t) = A \hat{x}(t) + B u(t) + L \left( y(t) - C \hat{x}(t) - D u(t) \right) , \label{eq:luenberger_obs}
 \end{equation}
 where $L \in \R^{n \times p}$ is the observer gain matrix.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{state_observer.png}
+    \caption{Luenberger state observer block diagram.}
+    \label{fig:state_observer}
+\end{figure}
 
 \subsection{Observer Error Dynamics}
 Let us define the estimation error vector as:
@@ -31,6 +65,26 @@ To analyze how the error behaves over time, we differentiate \eqref{eq:obs_error
     &= (A - L C) e(t) , \label{eq:obs_error_dynamics}
 \end{align}
 The error dynamics are governed by the autonomous system matrix $A - L C$. If $A - L C$ is Hurwitz, the estimation error will converge to zero asymptotically: $\lim_{t \to \infty} e(t) = 0$, regardless of the initial mismatch $e(0)$ and the control input $u(t)$.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{state_observer_continuous.png}
+        \caption{Continuous-time implementation of Luenberger observer.}
+        \label{fig:observer_continuous}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{state_observer_example.png}
+        \caption{Observer estimation error trajectories during initial transient.}
+        \label{fig:observer_example}
+    \end{minipage}
+    \caption{Continuous-time state observer structure and numerical simulation trajectories.}
+    \label{fig:observer_cont_sim}
+\end{figure}
+
 
 \begin{mytheorem}{Arbitrary Observer Pole Placement}
 The eigenvalues of the observer matrix $A - L C$ can be placed at arbitrary, symmetric locations in the complex plane by selecting an appropriate observer gain matrix $L$ if and only if the system pair $(A, C)$ is observable.
@@ -92,13 +146,48 @@ In practice, a common rule of thumb is to design the observer poles to be $2$ to
 \section{The Kalman Filter}
 The Luenberger observer is deterministic: it assumes perfect model parameters and noise-free measurements. In reality, control systems are subjected to stochastic process disturbances (e.g., wind gusts on an aircraft) and sensor measurement noise.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{state_observer_kf.png}
+    \caption{Kalman filter state estimation and feedback loop structure.}
+    \label{fig:state_observer_kf}
+\end{figure}
+
 The \textbf{Kalman Filter}, introduced by Rudolf E. Kálmán in 1960, is the mathematically optimal estimator for linear systems subjected to Gaussian white noise.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=3.5cm]{Rudolf_Kalman.jpg}
+        \caption{Rudolf E. Kálmán (1930--2016).}
+        \label{fig:Rudolf_Kalman}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=5.5cm]{paper_1960_kf.png}
+        \caption{Kalman's landmark 1960 paper published in ASME Trans.}
+        \label{fig:paper_1960_kf}
+    \end{minipage}
+    \caption{Historical founder and publication of the Kalman Filter.}
+    \label{fig:kalman_history}
+\end{figure}
+
 
 Consider the discrete-time stochastic LTI system:
 \begin{align}
     x_{k+1} &= A x_k + B u_k + w_k \label{eq:kf_state} \\
     y_k &= C x_k + v_k , \label{eq:kf_output}
 \end{align}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{modelo_ss_discreto_estocastico.png}
+    \caption{Discrete-time stochastic state-space block diagram showing process and measurement noise injection.}
+    \label{fig:modelo_ss_discreto_estocastico}
+\end{figure}
+
 where:
 - $w_k \in \R^n$ is the \textbf{process noise}, representing random unmodeled disturbances.
 - $v_k \in \R^p$ is the \textbf{measurement noise}, representing sensor inaccuracies.
@@ -111,6 +200,43 @@ We assume that $w_k$ and $v_k$ are zero-mean, mutually independent white Gaussia
 \mathbb{E}[w_k w_j^\trp] = W \delta_{kj}, \quad \mathbb{E}[v_k v_j^\trp] = V \delta_{kj}, \quad \mathbb{E}[w_k v_j^\trp] = 0 ,
 \end{equation}
 where $W = W^\trp \ge 0$, $V = V^\trp \succ 0$, and $\delta_{kj}$ is the Kronecker delta.
+
+\subsection{Gaussian Distributions}
+The process and measurement noise are modeled as Gaussian random variables. The scalar probability density functions under different means $\mu$ and standard deviations $\sigma$ are plotted in Figure \ref{fig:gaussiana_escalar}, while the multidimensional Gaussian distribution is illustrated in Figure \ref{fig:2d_gaussian}.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{gaussiana_escalar.png}
+        \caption{$\mu=0$, $\sigma=1$.}
+        \label{fig:gauss_1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{gaussiana_escalar2.png}
+        \caption{$\mu=2$, $\sigma=1$.}
+        \label{fig:gauss_2}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{gaussiana_escalar3.png}
+        \caption{$\mu=0$, $\sigma=2$.}
+        \label{fig:gauss_3}
+    \end{minipage}
+    \caption{Scalar Gaussian probability density functions under various parameters.}
+    \label{fig:gaussiana_escalar}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{2d_gaussian.png}
+    \caption{Probability density surface of a two-dimensional multivariate Gaussian distribution.}
+    \label{fig:2d_gaussian}
+\end{figure}
+
 
 \subsection{State and Covariance Definitions}
 The Kalman filter maintains the conditional mean and covariance of the state. We define:
@@ -236,3 +362,15 @@ Under the assumptions of stabilizability of $(A, B)$ and detectability of $(A, C
 P = A P A^\trp - A P C^\trp (C P C^\trp + V)^{-1} C P A^\top + W ,
 \end{equation}
 yielding a constant optimal filter gain $K = P C^\trp (C P C^\trp + V)^{-1}$. This steady-state estimator is identical in structure to a discrete Luenberger observer, but its gain is optimally tuned to balance process disturbances and sensor noise.
+
+\section{Homework: State Observer for a Physical System}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{pendulum.png}
+    \caption{State estimation task on an inverted pendulum system.}
+    \label{fig:homework_observer_pendulum}
+  \end{figure}
+  
+  \begin{exercise}
+  Select a physical system of your interest (e.g., the inverted pendulum shown in Figure \ref{fig:homework_observer_pendulum}, a quadcopter, or a bioreactor). Design a Luenberger observer in continuous-time and verify that the observer poles are faster than the closed-loop controller poles. Under initial state mismatches, plot the estimated states alongside the actual states to demonstrate convergence of the estimation error.
+  \end{exercise}

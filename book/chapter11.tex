@@ -38,6 +38,28 @@ The autonomous Markov Jump Linear System $x_{k+1} = A(\theta_k) x_k$ is Mean Squ
 
 Evaluating MSS directly is challenging due to the coupling between the continuous state $x_k$ and the discrete Markov chain state $\theta_k$. Fortunately, we can characterize MSS using a set of coupled Lyapunov equations.
 
+To illustrate how the switching behavior itself can induce instability even if all individual modes are stable, consider the numerical experiment in Figures \ref{fig:mjls_no_switching} and \ref{fig:mjls_switching_instability}.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{mjls_example1.png}
+        \caption{Stable trajectories when the system operates in a single mode without switching.}
+        \label{fig:mjls_no_switching}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{mjls_instability.png}
+        \caption{Unstable, diverging trajectories when switching occurs between two individually stable modes.}
+        \label{fig:mjls_switching_instability}
+    \end{minipage}
+    \caption{Classic counter-intuitive example showing how switching dynamics can cause instability in switched systems.}
+    \label{fig:mjls_instability_demo}
+\end{figure}
+
+
 \begin{mytheorem}{Lyapunov MSS Characterization}
 The autonomous MJLS $x_{k+1} = A_i x_k$ is Mean Square Stable if and only if there exist $N$ symmetric positive definite matrices $P_1, P_2, \dots, P_N \succ 0$ satisfying the coupled Lyapunov inequalities:
 \begin{equation}

@@ -20,6 +20,13 @@ We design a full-order linear filter (estimator) that has the structure of a Lue
 \end{align}
 where $L \in \R^{n \times p}$ is the filter gain matrix to be designed.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9.5cm]{robust_state_observer.png}
+    \caption{Robust state estimation filter block diagram under uncertainty.}
+    \label{fig:robust_state_observer}
+\end{figure}
+
 \subsection{Estimation Error Dynamics}
 Let us define the state estimation error $e_x(t) = x(t) - \hat{x}(t)$ and the signal estimation error $e_z(t) = z(t) - \hat{z}(t)$. Differentiating the state error yields:
 \begin{align}
@@ -42,6 +49,13 @@ where the closed-loop filter matrices are:
 \begin{equation}
 A_{cl,f} = A - L C_y, \quad B_{cl,f} = B_w - L D_{yw}, \quad C_{cl,f} = C_z ,
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9.5cm]{robust_state_observer_disturb.png}
+    \caption{Robust estimation filter loop with external noise and disturbance signals.}
+    \label{fig:robust_state_observer_disturb}
+\end{figure}
 
 \section{Robust H-infinity Filter Design via LMI}
 We first consider the $H_\infty$ performance criterion, which minimizes the worst-case disturbance amplification from the noise $w$ to the estimation error $e_z$:

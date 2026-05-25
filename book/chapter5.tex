@@ -7,6 +7,13 @@ State feedback is the cornerstone of modern control theory. Under the assumption
 \end{equation}
 where $K \in \R^{m \times n}$ is the state feedback gain matrix and $r(t) \in \R^m$ is the reference input. 
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{state_feedback.png}
+    \caption{State feedback control loop block diagram.}
+    \label{fig:state_feedback}
+\end{figure} 
+
 Applying the control law \eqref{eq:sf_law} to the open-loop continuous-time system $\dot{x} = A x + B u$ yields the closed-loop system:
 \begin{equation}
     \dot{x}(t) = (A - B K) x(t) + B r(t) , \label{eq:cl_sf}
@@ -97,6 +104,13 @@ where:
 - $Q = Q^\trp \ge 0$ is the state weighting matrix, penalizing deviations of the states.
 - $R = R^\trp > 0$ is the control weighting matrix, penalizing control effort.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.5cm]{controle_otimo.png}
+    \caption{The LQR optimization trade-off between tracking speed and control effort.}
+    \label{fig:controle_otimo}
+\end{figure}
+
 \subsection{Derivation via the Hamiltonian and Variational Calculus}
 To minimize $J$ subject to the state dynamic constraint $\dot{x} = Ax + Bu$, we formulate the Hamiltonian function:
 \begin{equation}
@@ -176,6 +190,14 @@ By detectability of $(A, Q^{1/2})$, any state trajectory that satisfies $Q^{1/2}
 Thus, the only invariant set where $\dot{V}(x) = 0$ is the origin $x=0$, proving asymptotic stability of $A - BK$.
 \end{proof}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{LQR_cost.png}
+    \caption{The LQR infinite-horizon cost function profile in the state space.}
+    \label{fig:lqr_cost_profile}
+\end{figure}
+
+
 \section{Discrete-Time Linear Quadratic Regulator}
 For discrete-time systems, the optimization problem is formulated over a discrete sum. Let the system be:
 \begin{equation}
@@ -187,6 +209,40 @@ We wish to minimize the discrete infinite-horizon cost functional:
 \end{equation}
 with $Q = Q^\trp \ge 0$ and $R = R^\trp \succ 0$.
 
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{controle_otimo.png}
+        \caption{Optimal trajectory optimization formulation.}
+        \label{fig:opt_trajectory}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{controle_otimo2.png}
+        \caption{State evolution and terminal state constraints.}
+        \label{fig:opt_states}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{controle_otimo3.png}
+        \caption{Control action search space constraints.}
+        \label{fig:opt_controls}
+    \end{minipage}
+    \caption{Discrete-time optimal control trajectory planning concept and constraints.}
+    \label{fig:discrete_opt_concept}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{controle_otimo4.png}
+    \caption{Sequence of optimal control inputs driving states toward the terminal manifold.}
+    \label{fig:controle_otimo4}
+\end{figure}
+
+
 \subsection{Derivation via Dynamic Programming and the Bellman Equation}
 We derive the discrete optimal controller using Bellman's Principle of Optimality. Let $V_k(x_k)$ represent the optimal cost-to-go from step $k$ to infinity starting at state $x_k$:
 \begin{equation}
@@ -196,6 +252,33 @@ The Principle of Optimality allows us to split the sum and write the recursive \
 \begin{equation}
     V_k(x_k) = \min_{u_k} \left\{ x_k^\trp Q x_k + u_k^\trp R u_k + V_{k+1}(x_{k+1}) \right\} , \label{eq:bellman}
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{controle_otimo_bellman.png}
+        \caption{Complete trajectory optimization path.}
+        \label{fig:bellman_path1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{controle_otimo_bellman2.png}
+        \caption{Optimal sub-path formulation starting from step $k$.}
+        \label{fig:bellman_path2}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{controle_otimo_bellman3.png}
+        \caption{Bellman recursive sub-optimization partition.}
+        \label{fig:bellman_path3}
+    \end{minipage}
+    \caption{Graphical explanation of Bellman's Principle of Optimality for discrete-time systems.}
+    \label{fig:bellman_principle}
+\end{figure}
+
 We propose that the optimal cost-to-go is quadratic in the state:
 \begin{equation}
 V_{k+1}(x_{k+1}) = x_{k+1}^\trp P_{k+1} x_{k+1} ,
@@ -209,6 +292,26 @@ Expanding the terms inside the minimization brackets:
     \mathcal{J}_k(u_k) &= x_k^\trp Q x_k + u_k^\trp R u_k + (x_k^\trp A^\trp + u_k^\trp B^\trp) P_{k+1} (A x_k + B u_k) \nonumber \\
 &= x_k^\trp (Q + A^\trp P_{k+1} A) x_k + 2 u_k^\trp B^\trp P_{k+1} A x_k + u_k^\trp (R + B^\trp P_{k+1} B) u_k ,
 \end{align}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{custo_estagio.png}
+        \caption{Stage cost representation (instantaneous penalty).}
+        \label{fig:custo_estagio}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{custo_to_go.png}
+        \caption{Optimal cost-to-go function representation (accumulated future cost).}
+        \label{fig:custo_to_go}
+    \end{minipage}
+    \caption{Stage cost vs. cost-to-go visual structures in the Bellman equation.}
+    \label{fig:bellman_costs}
+\end{figure}
+
 Since $R \succ 0$ and $P_{k+1} \succ 0$, the matrix $R + B^\trp P_{k+1} B$ is strictly positive definite. The function $\mathcal{J}_k(u_k)$ is strictly convex in $u_k$. The global minimum is found by setting the derivative with respect to $u_k$ to zero:
 \begin{equation}
 \frac{\partial \mathcal{J}_k}{\partial u_k} = 2 (R + B^\trp P_{k+1} B) u_k + 2 B^\trp P_{k+1} A x_k = 0 ,
@@ -243,6 +346,33 @@ When the system matrices $A$ and $B$ are subject to polytopic uncertainty:
 \begin{equation}
 [A(t) \quad B(t)] \in \text{Co}\{[A_1 \quad B_1], \dots, [A_M \quad B_M]\} ,
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{espaco_Palpha_funcoes.png}
+        \caption{Parameter-dependent Lyapunov function space.}
+        \label{fig:lyap_dep}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{espaco_Pcte_funcoes.png}
+        \caption{Common quadratic (constant $P$) Lyapunov space.}
+        \label{fig:lyap_const}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{espaco_Pafim_funcoes.png}
+        \caption{Affine Lyapunov function parameter space.}
+        \label{fig:lyap_affine}
+    \end{minipage}
+    \caption{Geometric representations of parameter spaces for different classes of Lyapunov stability functions in uncertain systems.}
+    \label{fig:lyap_spaces}
+\end{figure}
+
 the closed-loop matrix under state feedback $u = -K x$ is $A(t) - B(t)K$. For robust quadratic stability, we seek a single symmetric positive definite matrix $P \succ 0$ and a single feedback gain $K$ such that:
 \begin{equation}
     (A_i - B_i K)^\trp P + P (A_i - B_i K) \prec 0, \quad \forall i = 1, \dots, M , \label{eq:robust_sf_bmi}
@@ -284,3 +414,60 @@ Once a solution pair $(W, Y)$ is found, the robust state feedback gain is recons
 \end{equation}
 \end{mytheorem}
 This transformation is a cornerstone of robust control. It shifts the numerical complexity from non-convex bilinear optimizations to highly efficient, convex semi-definite programming (SDP), which can be solved globally in polynomial time.
+
+\section{Case Study: Inverted Pendulum State Feedback Control}
+To demonstrate state feedback design in practice, consider the classic inverted pendulum on a cart system. The system's mechanical schematic and control loops are shown in Figures \ref{fig:pendulo_planta} and \ref{fig:pendulo_sf}.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pendulo_invertido_planta.png}
+        \caption{Physical forces acting on the cart and pendulum.}
+        \label{fig:pendulo_forces}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pendulo_invertido_planta2.png}
+        \caption{Kinematic relationships and coordinates.}
+        \label{fig:pendulo_kinematics}
+    \end{minipage}
+    \caption{Physical schematics of the inverted pendulum system.}
+    \label{fig:pendulo_planta}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pendulo_invertido_planta3.png}
+        \caption{Linearized state space equations and parameter values.}
+        \label{fig:pendulo_linearized}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pendulo_invertido_planta_statefeedback.png}
+        \caption{State feedback loop structure with reference signal.}
+        \label{fig:pendulo_sf_structure}
+    \end{minipage}
+    \caption{Linearized models and state-feedback configurations.}
+    \label{fig:pendulo_sf}
+\end{figure}
+
+Using the state-space matrices of the linearized pendulum, we can perform pole placement or design an optimal LQR controller. The full state-feedback gains ensure that the cart stabilizes at its reference position while balancing the pendulum vertically in its unstable upright equilibrium.
+
+\section{Homework: Discrete-Time Polytopic LQR Design}
+To consolidate these optimal and robust control concepts, consider the inverted pendulum plant represented as a discrete-time uncertain polytopic system $(A, B)(\alpha)$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{pendulum.png}
+    \caption{Dynamic model of the inverted pendulum for numerical synthesis.}
+    \label{fig:homework_pendulum}
+\end{figure}
+
+\begin{exercise}
+Design a discrete-time LQR controller for the nominal inverted pendulum. Next, assume a $\pm 20\%$ parametric uncertainty in the mass of the pendulum, formulating a polytopic uncertain model with 2 vertex matrices. Using MATLAB with YALMIP and SeDuMi, solve the robust LMI synthesis problem to find a single stabilizing state feedback gain $K = Y W^{-1}$. Compare the robust closed-loop transient responses against the nominal LQR design under parameter variations.
+\end{exercise}

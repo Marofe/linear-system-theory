@@ -1,7 +1,14 @@
 \chapter{Stability Analysis}
 
 \section{Introduction and Stability Definitions}
-Stability is the most critical requirement of any dynamical system. In control engineering, a system is stable if its state remains close to an equilibrium point under small perturbations. Symmetrically, it is unstable if the states diverge under tiny disturbances.
+Stability is the most critical requirement of any dynamical system. In control engineering, a system is stable if its state remains close to an equilibrium point under small perturbations, as conceptually shown in Figure \ref{fig:stability}. Symmetrically, it is unstable if the states diverge under tiny disturbances.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6cm]{stability.png}
+    \caption{Conceptual potential well representation of Lyapunov stability.}
+    \label{fig:stability}
+\end{figure}
 
 Consider the autonomous LTI continuous-time system:
 \begin{equation}
@@ -21,6 +28,14 @@ whenever the initial state satisfies:
 \end{mydefinition}
 This definition ensures that states starting close to the origin remain bounded within an $\epsilon$-ball for all future time.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.5cm]{stability_bibo.png}
+    \caption{Geometric definition of Lyapunov stability, showing that trajectories starting inside a $\delta$-ball remain inside an $\epsilon$-ball for all $t \ge 0$.}
+    \label{fig:stability_lyap_balls}
+\end{figure}
+
+
 \begin{mydefinition}{Asymptotic Stability}
 The equilibrium point $x = 0$ is asymptotically stable if:
 \begin{enumerate}
@@ -33,12 +48,34 @@ The equilibrium point $x = 0$ is asymptotically stable if:
 \end{enumerate}
 \end{mydefinition}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.5cm]{stability_assymptotic_lyap.png}
+    \caption{Geometric definition of asymptotic stability, where trajectories not only remain bounded but eventually converge to the origin.}
+    \label{fig:stability_asymptotic_lyap}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6cm]{stability_asymptotic.png}
+    \caption{State trajectories of an asymptotically stable system converging to the origin.}
+    \label{fig:stability_asymptotic}
+\end{figure}
+
 \begin{mydefinition}{Exponential Stability}
 The equilibrium point $x = 0$ is exponentially stable if there exist constants $\alpha > 0$ (decay rate) and $\beta \ge 1$ such that:
 \begin{equation}
 \| x(t) \| \le \beta \| x_0 \| e^{-\alpha t} \quad \text{for all } t \ge 0 .
 \end{equation}
 \end{mydefinition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{stability_exponential.png}
+    \caption{State trajectory of an exponentially stable system bounded by a decaying exponential envelope.}
+    \label{fig:stability_exponential}
+\end{figure}
 For LTI systems, asymptotic stability and exponential stability are mathematically equivalent. Symmetrically, a system is stable if and only if all eigenvalues of the dynamic matrix $A$ lie in the open Left-Half of the Complex Plane (LHP), i.e., $\text{Re}(\lambda_i) < 0$ for all $i=1,\dots,n$. Such matrices are called \textbf{Hurwitz} matrices.
 
 \section{Lyapunov Stability Analysis in Continuous-Time}
@@ -110,6 +147,14 @@ Consider the unforced discrete-time LTI system:
 \end{equation}
 The system is asymptotically stable if and only if all eigenvalues of $A$ lie in the open unit circle of the complex plane, i.e., $|\lambda_i| < 1$ for all $i=1,\dots,n$. Such matrices are called \textbf{Schur} matrices.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{estabilidade_discreta.png}
+    \caption{Comparison of stability regions: LHP in the $s$-plane for continuous-time systems vs. inside the unit circle in the $z$-plane for discrete-time systems.}
+    \label{fig:estabilidade_discreta}
+\end{figure}
+
+
 \subsection{Discrete-Time Lyapunov (Stein) Equation}
 Using the quadratic Lyapunov candidate $V(x_k) = x_k^\trp P x_k$ with $P \succ 0$, we require the energy difference between successive samples to be strictly negative:
 \begin{align}
@@ -134,6 +179,14 @@ Let the dynamic matrix $A(t)$ belong to a polytope of matrices defined by the co
 \begin{equation}
 A(t) \in \text{Co}\{A_1, \dots, A_M\} = \left\{ \sum_{i=1}^M \alpha_i(t) A_i \ \middle| \ \sum_{i=1}^M \alpha_i(t) = 1, \ \alpha_i(t) \ge 0 \right\} ,
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6cm]{politopo.png}
+    \caption{Polytopic uncertainty region where the dynamic matrix $A(\alpha)$ is a convex combination of vertex matrices $A_i$.}
+    \label{fig:politopo}
+\end{figure}
+
 Evaluating the stability of the time-varying system $\dot{x}(t) = A(t) x(t)$ for infinitely many possible values of $\alpha_i(t)$ is impossible. However, we can establish stability using a \textbf{Common Quadratic Lyapunov Function}.
 
 \begin{mydefinition}{Quadratic Stability}
@@ -157,4 +210,12 @@ Because $A(t) = \sum_{i=1}^M \alpha_i(t) A_i$ is a convex combination:
 &= \sum_{i=1}^M \alpha_i(t) \left( A_i^\trp P + P A_i \right) ,
 \end{align}
 Since $\alpha_i(t) \ge 0$ and $\sum \alpha_i = 1$, if each vertex matrix satisfies the LMI $A_i^\trp P + P A_i \prec 0$, then their convex sum is guaranteed to be strictly negative definite. This reduces an infinite-dimensional stability problem to checking a finite set of $M$ LMIs at the vertices of the polytope, which can be solved numerically in milliseconds using semi-definite programming (SDP) solvers!
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.5cm]{politopo_time_varying.png}
+    \caption{Time-varying polytopic system trajectory, illustrating the dynamic variation of the system matrix $A(\alpha(t))$ within the convex polytope.}
+    \label{fig:politopo_time_varying}
+\end{figure}
+
 \end{proof}

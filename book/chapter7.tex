@@ -27,10 +27,24 @@ By Parseval's theorem, this frequency-domain definition is mathematically equiva
 \begin{equation}
 z^{(i)}(t) = C_z e^{A t} B_w e_i ,
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{impulse_response_diagram.png}
+    \caption{Visual representation of H2 norm channel impulse response evaluation.}
+    \label{fig:impulse_response_diagram}
+\end{figure}
 The squared $H_2$ norm is the sum of the $L_2$ norms of the output channels:
 \begin{equation}
 \| G \|_2^2 = \sum_{i=1}^m \int_0^\infty \| z^{(i)}(t) \|^2 dt = \int_0^\infty \tr\left( \left( C_z e^{A t} B_w \right)^\trp \left( C_z e^{A t} B_w \right) \right) dt ,
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7.5cm]{impulse_response_continuous.png}
+    \caption{State trajectory responses to impulse disturbances in continuous time.}
+    \label{fig:impulse_response_continuous}
+\end{figure}
 Using the cyclic property of the trace ($\tr(XY) = \tr(YX)$), we can write this in two dual ways:
 \begin{align}
     \| G \|_2^2 &= \tr\left( B_w^\trp \left( \int_0^\infty e^{A^\trp t} C_z^\trp C_z e^{A t} dt \right) B_w \right) \label{eq:h2_obs_form} \\
@@ -152,3 +166,29 @@ K^* = Y^* (W^*)^{-1} .
 \end{mytheorem}
 
 This LMI formulation is extremely powerful. If the matrices $A$ and $B_u$ belong to a polytopic uncertainty set, we can robustly guarantee $\| G_{cl} \|_2^2 < \gamma$ for the entire polytope by solving \eqref{eq:h2_sf_lmi1} and \eqref{eq:h2_sf_lmi2} simultaneously at each vertex using the single, common decision variables $W$, $Y$, and $Z$!
+
+\section{Discrete-Time H2 Norm Formulation}
+For discrete-time LTI systems:
+\begin{align}
+    x_{k+1} &= A x_k + B_w w_k \\
+    z_k &= C_z x_k ,
+\end{align}
+the $H_2$ norm is also defined through the impulse response energy, but in discrete steps. The discrete-time impulse response trajectories are shown in Figure \ref{fig:impulse_response_discrete}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8.5cm]{impulse_response_discrete.png}
+    \caption{Discrete-time impulse response trajectories of system channels.}
+    \label{fig:impulse_response_discrete}
+\end{figure}
+
+The squared discrete-time $H_2$ norm is computed as:
+\begin{equation}
+\| G \|_2^2 = \sum_{k=0}^\infty \tr\left( g_k^\trp g_k \right) = \tr(B_w^\trp P_o B_w) = \tr(C_z P_c C_z^\trp) ,
+\end{equation}
+where the discrete observability and controllability Gramians satisfy the discrete-time Lyapunov (Stein) equations:
+\begin{align}
+    A^\trp P_o A - P_o + C_z^\trp C_z &= 0 \\
+    A P_c A^\trp - P_c + B_w B_w^\trp &= 0 .
+\end{align}
+

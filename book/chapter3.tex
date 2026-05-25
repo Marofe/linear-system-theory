@@ -11,6 +11,14 @@ To establish these concepts mathematically, we start by solving the discrete-tim
 \begin{equation}
 x_{k+1} = A x_k + B u_k, \quad x(0) = x_0 ,
 \end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{modelo_ss_discreto.png}
+    \caption{Discrete-time state-space representation layout.}
+    \label{fig:ss_discrete_ch3}
+\end{figure}
+
 Evaluating this equation recursively for successive time indices yields:
 \begin{align}
     x_1 &= A x_0 + B u_0 \nonumber \\
@@ -33,10 +41,25 @@ By defining the \textbf{Controllability Matrix} of order $k$:
 \end{equation}
 we see that a target state $x_k$ is reachable from $x_0$ if and only if the vector $x_k - A^k x_0$ lies in the column space (range) of $\mathcal{C}_k$.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{controlabilidade2.png}
+    \caption{State reachability in discrete-time, showing that reachable states must lie in the range of the controllability matrix.}
+    \label{fig:controlabilidade2}
+\end{figure}
+
+
 \section{Controllability of Continuous-Time LTI Systems}
 \begin{mydefinition}{Controllability}
 A continuous-time system $\dot{x} = Ax + Bu$ is controllable if, for any initial state $x(0) = x_0$ and any target state $x_f$, there exists a finite time $t_f > 0$ and a piecewise continuous control input $u(t)$ over $t \in [0, t_f]$ that drives the state from $x_0$ to $x_f$ at $t = t_f$.
 \end{mydefinition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6cm]{controlabilidade.png}
+    \caption{Conceptual block diagram of controllability showing transitions between arbitrary states in state-space.}
+    \label{fig:controlabilidade}
+\end{figure}
 
 \subsection{The Kalman Controllability Rank Condition}
 \begin{mytheorem}{Kalman Controllability Condition}
@@ -46,6 +69,13 @@ An LTI continuous-time system $(A, B)$ is controllable if and only if the contro
 \end{equation}
 has full row rank, i.e., $\text{rank}(\mathcal{C}) = n$.
 \end{mytheorem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{controlabilidade_continuo.png}
+    \caption{Continuous-time state-space controllability concept and state transitions.}
+    \label{fig:controlabilidade_continuo}
+\end{figure}
 
 \begin{proof}
 The proof relies on the Cayley-Hamilton Theorem. Recall that the state transition solution is:
@@ -91,10 +121,25 @@ which is the unique positive definite solution to the continuous-time \textbf{Ly
 A W_c + W_c A^\trp + B B^\trp = 0 ,
 \end{equation}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{reachability_directions.png}
+    \caption{Visualization of reachability ellipsoids and subspaces in state-space.}
+    \label{fig:reachability_directions}
+\end{figure}
+
+
 \section{Observability of Continuous-Time LTI Systems}
 \begin{mydefinition}{Observability}
 A continuous-time system $\dot{x} = Ax + Bu, y = Cx + Du$ is observable if, for any initial state $x(0) = x_0$, there exists a finite time $t_f > 0$ such that the knowledge of the input $u(t)$ and output $y(t)$ over the interval $[0, t_f]$ uniquely determines $x_0$.
 \end{mydefinition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.5cm]{observabilidade.png}
+    \caption{Conceptual block diagram of observability showing state reconstruction from input-output records.}
+    \label{fig:observabilidade}
+\end{figure}
 
 Since the input $u(t)$ is known, we can subtract its effect from the output $y(t)$ without loss of generality. We thus analyze the unforced system:
 \begin{equation}
@@ -164,3 +209,21 @@ This decomposition demonstrates that the transfer function of the system only re
 G(s) = C(sI - A)^{-1} B + D = C_{co}(sI - A_{11})^{-1} B_{co} + D ,
 \end{equation}
 A state-space realization is said to be \textbf{minimal} if and only if the system is both fully controllable and fully observable.
+
+\section{Physical Example: Uncontrollable Op-Amp Circuit}
+To illustrate these abstract structural properties in a concrete physical system, consider the active Op-Amp circuit shown in Figure \ref{fig:ampOp_circuit}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{ampOp_sistema_non_controllable.png}
+    \caption{Active Op-Amp circuit schematic featuring uncontrollable dynamics.}
+    \label{fig:ampOp_circuit}
+\end{figure}
+
+Assuming the voltages across the capacitors $C_1$ and $C_2$ are the state variables $x = [v_{C1}, v_{C2}]^\trp$, we can write the state-space equations using nodal analysis. By analyzing the network under identical RC branch parameters, we find that the input voltage $u(t)$ affects both state variables in a symmetric manner that prevents independent control of each state. 
+
+Specifically, if the bridge branches are perfectly matched, one of the modes becomes completely decoupled from the input terminal. The controllability matrix loses rank, yielding:
+\begin{equation}
+\text{rank}(\mathcal{C}) < 2 ,
+\end{equation}
+which proves that the system is uncontrollable. This demonstrates how physical symmetries in circuit layout or component values can directly lead to structural uncontrollability.
