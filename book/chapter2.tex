@@ -135,7 +135,7 @@ When a matrix $A$ has repeated eigenvalues, it may not possess $n$ linearly inde
 For any eigenvalue, $1 \le q_i \le n_i$. If $q_i < n_i$ for any eigenvalue, the matrix is defective.
 
 \subsection{The Jordan Block and Generalized Eigenvectors}
-A defective matrix is transformed into a block-diagonal matrix where each diagonal element is a **Jordan Block**.
+A defective matrix is transformed into a block-diagonal matrix where each diagonal element is a \textbf{Jordan Block}.
 \begin{mydefinition}{Jordan Block}
 A Jordan block of order $k$ associated with eigenvalue $\lambda$ is a $k \times k$ upper-triangular matrix of the form:
 \begin{equation}
@@ -148,14 +148,14 @@ A Jordan block of order $k$ associated with eigenvalue $\lambda$ is a $k \times 
     \end{bmatrix}
 \end{equation}
 \end{mydefinition}
-To construct the similarity transformation matrix $T$ for a Jordan Block, we must calculate **generalized eigenvectors**.
+To construct the similarity transformation matrix $T$ for a Jordan Block, we must calculate \textbf{generalized eigenvectors}.
 For a Jordan block of size $k$ with eigenvalue $\lambda$:
 \begin{enumerate}
     \item The first vector $v_1$ is a standard eigenvector satisfying:
     \begin{equation}
         (A - \lambda I) v_1 = 0
     \end{equation}
-    \item The subsequent generalized eigenvectors $v_2, \dots, v_k$ are calculated recursively, forming a **Jordan Chain**:
+    \item The subsequent generalized eigenvectors $v_2, \dots, v_k$ are calculated recursively, forming a \textbf{Jordan Chain}:
     \begin{align}
         (A - \lambda I) v_2 &= v_1 \\
         (A - \lambda I) v_3 &= v_2 \\

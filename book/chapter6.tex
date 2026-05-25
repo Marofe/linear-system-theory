@@ -3,7 +3,7 @@
 \section{State Estimation and Luenberger Observers}
 In the previous chapter, we designed state feedback controllers under the assumption that the full state vector $x(t)$ is directly measurable. In practical applications, however, this assumption rarely holds. Measuring every state variable can be cost-prohibitive, technically challenging due to sensor physical limitations, or corrupted by high-frequency noise. Instead, we typically only have access to a vector of control inputs $u(t)$ and a vector of measured outputs $y(t) \in \R^p$, where $p < n$.
 
-To overcome this, we design a dynamic system called a **state observer** (or estimator) that runs in real-time in the control computer. The observer processes the inputs $u(t)$ and outputs $y(t)$ to generate an estimate of the state vector, denoted by $\hat{x}(t) \in \R^n$.
+To overcome this, we design a dynamic system called a \textbf{state observer} (or estimator) that runs in real-time in the control computer. The observer processes the inputs $u(t)$ and outputs $y(t)$ to generate an estimate of the state vector, denoted by $\hat{x}(t) \in \R^n$.
 
 Consider the continuous-time LTI system:
 \begin{align}
@@ -51,7 +51,7 @@ We now combine the state feedback controller and the Luenberger observer. Since 
 \begin{equation}
     u(t) = -K \hat{x}(t) + r(t) \label{eq:sf_obs_law}
 \end{equation}
-This combined controller-observer structure is called an **output feedback controller**. Since the controller relies on estimates and the estimator relies on the control input, they are coupled. We must prove that this coupled system remains stable and that the controller and observer gains can be designed independently.
+This combined controller-observer structure is called an \textbf{output feedback controller}. Since the controller relies on estimates and the estimator relies on the control input, they are coupled. We must prove that this coupled system remains stable and that the controller and observer gains can be designed independently.
 
 \begin{mytheorem}{The Separation Principle}
 For the LTI system \eqref{eq:obs_plant_state}--\eqref{eq:obs_plant_output} under the estimator-based control law \eqref{eq:sf_obs_law}, the closed-loop eigenvalues are exactly the union of the controller eigenvalues (eigenvalues of $A - B K$) and the observer eigenvalues (eigenvalues of $A - L C$).
@@ -84,7 +84,7 @@ Because the matrix is block upper-triangular, its determinant is the product of 
 \begin{equation}
     \det \left( s I - (A - B K) \right) \det \left( s I - (A - L C) \right) = 0
 \end{equation}
-This proves that the closed-loop poles are precisely the poles of $A - B K$ together with the poles of $A - L C$. The design of the controller and the design of the observer are completely **separated**! We can design $K$ to meet transient specifications assuming full state feedback, and design $L$ to ensure the estimation error converges rapidly, without any risk of coupled instability.
+This proves that the closed-loop poles are precisely the poles of $A - B K$ together with the poles of $A - L C$. The design of the controller and the design of the observer are completely \textbf{separated}! We can design $K$ to meet transient specifications assuming full state feedback, and design $L$ to ensure the estimation error converges rapidly, without any risk of coupled instability.
 \end{proof}
 
 In practice, a common rule of thumb is to design the observer poles to be $2$ to $10$ times faster (more negative) than the controller poles. This ensures that the state estimates converge rapidly, providing accurate information to the controller during transients.
@@ -92,7 +92,7 @@ In practice, a common rule of thumb is to design the observer poles to be $2$ to
 \section{The Kalman Filter}
 The Luenberger observer is deterministic: it assumes perfect model parameters and noise-free measurements. In reality, control systems are subjected to stochastic process disturbances (e.g., wind gusts on an aircraft) and sensor measurement noise.
 
-The **Kalman Filter**, introduced by Rudolf E. Kálmán in 1960, is the mathematically optimal estimator for linear systems subjected to Gaussian white noise.
+The \textbf{Kalman Filter}, introduced by Rudolf E. Kálmán in 1960, is the mathematically optimal estimator for linear systems subjected to Gaussian white noise.
 
 Consider the discrete-time stochastic LTI system:
 \begin{align}
@@ -100,8 +100,8 @@ Consider the discrete-time stochastic LTI system:
     y_k &= C x_k + v_k \label{eq:kf_output}
 \end{align}
 where:
-- $w_k \in \R^n$ is the **process noise**, representing random unmodeled disturbances.
-- $v_k \in \R^p$ is the **measurement noise**, representing sensor inaccuracies.
+- $w_k \in \R^n$ is the \textbf{process noise}, representing random unmodeled disturbances.
+- $v_k \in \R^p$ is the \textbf{measurement noise}, representing sensor inaccuracies.
 
 We assume that $w_k$ and $v_k$ are zero-mean, mutually independent white Gaussian random processes with known covariance matrices:
 \begin{equation}
@@ -114,18 +114,18 @@ where $W = W^\trp \ge 0$, $V = V^\trp \succ 0$, and $\delta_{kj}$ is the Kroneck
 
 \subsection{State and Covariance Definitions}
 The Kalman filter maintains the conditional mean and covariance of the state. We define:
-- $\hat{x}_{k|k-1}$: The **a priori** state estimate at step $k$, given all measurements up to step $k-1$.
-- $\hat{x}_{k|k}$: The **a posteriori** state estimate at step $k$, given all measurements up to step $k$.
-- $P_{k|k-1}$: The **a priori** estimation error covariance matrix:
+- $\hat{x}_{k|k-1}$: The \textbf{a priori} state estimate at step $k$, given all measurements up to step $k-1$.
+- $\hat{x}_{k|k}$: The \textbf{a posteriori} state estimate at step $k$, given all measurements up to step $k$.
+- $P_{k|k-1}$: The \textbf{a priori} estimation error covariance matrix:
   \begin{equation}
       P_{k|k-1} = \mathbb{E}\left[ (x_k - \hat{x}_{k|k-1})(x_k - \hat{x}_{k|k-1})^\trp \right]
   \end{equation}
-- $P_{k|k}$: The **a posteriori** estimation error covariance matrix:
+- $P_{k|k}$: The \textbf{a posteriori} estimation error covariance matrix:
   \begin{equation}
       P_{k|k} = \mathbb{E}\left[ (x_k - \hat{x}_{k|k})(x_k - \hat{x}_{k|k})^\trp \right]
   \end{equation}
 
-The filter operates in two alternating phases: **Prediction (Time Update)** and **Correction (Measurement Update)**.
+The filter operates in two alternating phases: \textbf{Prediction (Time Update)} and \textbf{Correction (Measurement Update)}.
 
 \subsection{Prediction Phase (Time Update)}
 In the prediction phase, the filter projects the state and covariance ahead in time using the system dynamics.
@@ -158,7 +158,7 @@ When a new measurement $y_k$ becomes available, we correct our prediction using 
 \begin{equation}
     \hat{x}_{k|k} = \hat{x}_{k|k-1} + K_k \left( y_k - C \hat{x}_{k|k-1} \right) \label{eq:kf_corr_state}
 \end{equation}
-where $K_k \in \R^{n \times p}$ is the **Kalman Gain** to be determined.
+where $K_k \in \R^{n \times p}$ is the \textbf{Kalman Gain} to be determined.
 
 To find the optimal gain $K_k$, we analyze the a posteriori error $e_{k|k} = x_k - \hat{x}_{k|k}$:
 \begin{align}
@@ -176,7 +176,7 @@ Since the sensor noise $v_k$ is uncorrelated with the a priori error $e_{k|k-1}$
 \begin{equation}
     P_{k|k} = (I - K_k C) P_{k|k-1} (I - K_k C)^\trp + K_k V K_k^\trp \label{eq:kf_joseph_form}
 \end{equation}
-Equation \eqref{eq:kf_joseph_form} is known as the **Joseph Form** of the covariance update, which is numerically stable and holds for any choice of gain $K_k$.
+Equation \eqref{eq:kf_joseph_form} is known as the \textbf{Joseph Form} of the covariance update, which is numerically stable and holds for any choice of gain $K_k$.
 
 \subsection{Derivation of the Optimal Kalman Gain}
 The optimal Kalman gain $K_k$ is defined as the gain that minimizes the total mean-squared estimation error, which is the sum of the variances of the state estimation errors. This is mathematically represented by the trace of the covariance matrix $P_{k|k}$:
@@ -195,7 +195,7 @@ To find the minimum, we take the matrix derivative with respect to $K_k$ and set
 \begin{equation}
     \frac{\partial \tr(P_{k|k})}{\partial K_k} = -2 P_{k|k-1} C^\trp + 2 K_k \left( C P_{k|k-1} C^\trp + V \right) = 0
 \end{equation}
-Solving for $K_k$ yields the **optimal Kalman Gain**:
+Solving for $K_k$ yields the \textbf{optimal Kalman Gain}:
 \begin{equation}
     K_k = P_{k|k-1} C^\trp \left( C P_{k|k-1} C^\trp + V \right)^{-1} \label{eq:kf_optimal_gain}
 \end{equation}

@@ -32,7 +32,7 @@ In this coordinate system, the closed-loop matrix becomes:
 The eigenvalues of the closed-loop system are the union of the eigenvalues of $A_c - B_c K_c$ and the eigenvalues of $A_{uc}$. Since the uncontrollable eigenvalues (eigenvalues of $A_{uc}$) are unaffected by the feedback gain $K$, arbitrary pole placement is impossible. However, the closed-loop system can still be stabilized if and only if all eigenvalues of $A_{uc}$ are stable (Hurwitz in continuous-time or Schur in discrete-time). This weaker property is called \textbf{stabilizability}.
 
 \subsection{Ackermann's Formula}
-For single-input single-output (SISO) systems ($u(t) \in \R^1$), a direct closed-form formula for computing the state feedback gain $K$ is known as **Ackermann's Formula**.
+For single-input single-output (SISO) systems ($u(t) \in \R^1$), a direct closed-form formula for computing the state feedback gain $K$ is known as \textbf{Ackermann's Formula}.
 
 Let the desired closed-loop characteristic polynomial be:
 \begin{equation}
@@ -83,7 +83,7 @@ This completes the derivation of Ackermann's formula.
 \section{Continuous-Time Linear Quadratic Regulator (LQR)}
 While pole placement allows arbitrary placement of eigenvalues, it does not provide guidance on *where* to place them. Moving poles far into the left-half plane stabilizes the states quickly but demands massive control effort (actuator saturation). Conversely, placing poles close to the imaginary axis saves control energy but results in slow, oscillatory transient response.
 
-The **Linear Quadratic Regulator (LQR)** resolves this fundamental trade-off by casting controller design as an optimization problem.
+The \textbf{Linear Quadratic Regulator (LQR)} resolves this fundamental trade-off by casting controller design as an optimization problem.
 
 Consider the continuous-time LTI system:
 \begin{equation}
@@ -138,7 +138,7 @@ Dividing by 2 and moving all terms to one side:
 \begin{equation}
     \left( A^\trp P + P A - P B R^{-1} B^\trp P + Q \right) x(t) = 0
 \end{equation}
-For this relation to hold for all possible state trajectories $x(t)$, the matrix term in parentheses must vanish. This yields the continuous-time **Algebraic Riccati Equation (ARE)**:
+For this relation to hold for all possible state trajectories $x(t)$, the matrix term in parentheses must vanish. This yields the continuous-time \textbf{Algebraic Riccati Equation (ARE)}:
 \begin{equation}
     A^\trp P + P A - P B R^{-1} B^\trp P + Q = 0 \label{eq:lqr_are}
 \end{equation}
@@ -192,7 +192,7 @@ We derive the discrete optimal controller using Bellman's Principle of Optimalit
 \begin{equation}
     V_k(x_k) = \min_{u_k, u_{k+1}, \dots} \sum_{j=k}^\infty \left( x_j^\trp Q x_j + u_j^\trp R u_j \right)
 \end{equation}
-The Principle of Optimality allows us to split the sum and write the recursive **Bellman Equation**:
+The Principle of Optimality allows us to split the sum and write the recursive \textbf{Bellman Equation}:
 \begin{equation}
     V_k(x_k) = \min_{u_k} \left\{ x_k^\trp Q x_k + u_k^\trp R u_k + V_{k+1}(x_{k+1}) \right\} \label{eq:bellman}
 \end{equation}
@@ -227,7 +227,7 @@ For this to hold for all $x_k$, we obtain the backward difference Riccati equati
 \begin{equation}
     P_k = A^\trp P_{k+1} A - A^\trp P_{k+1} B (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A + Q
 \end{equation}
-For the infinite-horizon problem, the matrix converges to a steady-state value $\lim_{k\to-\infty} P_k = P$, yielding the **Discrete Algebraic Riccati Equation (DARE)**:
+For the infinite-horizon problem, the matrix converges to a steady-state value $\lim_{k\to-\infty} P_k = P$, yielding the \textbf{Discrete Algebraic Riccati Equation (DARE)}:
 \begin{equation}
     P = A^\trp P A - A^\trp P B (R + B^\trp P B)^{-1} B^\trp P A + Q \label{eq:lqr_dare}
 \end{equation}
@@ -247,9 +247,9 @@ the closed-loop matrix under state feedback $u = -K x$ is $A(t) - B(t)K$. For ro
 \begin{equation}
     (A_i - B_i K)^\trp P + P (A_i - B_i K) \prec 0, \quad \forall i = 1, \dots, M \label{eq:robust_sf_bmi}
 \end{equation}
-The inequality \eqref{eq:robust_sf_bmi} is a **Bilinear Matrix Inequality (BMI)** because it contains bilinear terms involving the products of the decision variables $P$ and $K$ (e.g., $P B_i K$). BMIs are non-convex and notoriously difficult to solve numerically.
+The inequality \eqref{eq:robust_sf_bmi} is a \textbf{Bilinear Matrix Inequality (BMI)} because it contains bilinear terms involving the products of the decision variables $P$ and $K$ (e.g., $P B_i K$). BMIs are non-convex and notoriously difficult to solve numerically.
 
-To transform this BMI into a solvable **Linear Matrix Inequality (LMI)**, we perform a congruence transformation and change of variables:
+To transform this BMI into a solvable \textbf{Linear Matrix Inequality (LMI)}, we perform a congruence transformation and change of variables:
 \begin{enumerate}
     \item Define $W = P^{-1} \succ 0$.
     \item Pre- and post-multiply the inequality \eqref{eq:robust_sf_bmi} by $W$:

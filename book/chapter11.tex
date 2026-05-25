@@ -2,11 +2,11 @@
 
 \section{Introduction to Switched and Markov Jump Systems}
 In previous chapters, we analyzed systems whose dynamics are governed by a single, constant state-space representation. However, many physical and engineering systems exhibit abrupt changes in their structure or parameters. Examples include:
-- **Fault-tolerant systems**: Sudden component failures change the control paths.
-- **Flight control**: Aircraft shifting between different subsonic and supersonic regimes.
-- **Networked Control Systems (NCS)**: Random packet dropouts and communication delays lead to switching network topologies.
+- \textbf{Fault-tolerant systems}: Sudden component failures change the control paths.
+- \textbf{Flight control}: Aircraft shifting between different subsonic and supersonic regimes.
+- \textbf{Networked Control Systems (NCS)}: Random packet dropouts and communication delays lead to switching network topologies.
 
-A powerful mathematical framework for modeling such phenomena is the **Markov Jump Linear System (MJLS)**. An MJLS is a switched linear system where the switching between different operating modes is governed by a stochastic process called a Markov chain.
+A powerful mathematical framework for modeling such phenomena is the \textbf{Markov Jump Linear System (MJLS)}. An MJLS is a switched linear system where the switching between different operating modes is governed by a stochastic process called a Markov chain.
 
 Consider the discrete-time stochastic switched linear system:
 \begin{equation}
@@ -27,7 +27,7 @@ When the system is in mode $\theta_k = i$, the dynamics are governed by the matr
 
 \section{Mean Square Stability (MSS)}
 In deterministic switched systems, stability can be highly counter-intuitive: switching between multiple stable subsystems can result in instability, and conversely, switching between unstable systems can achieve stability.
-In the stochastic setting, we must define stability in a statistical sense. The most common and useful notion for MJLS is **Mean Square Stability (MSS)**.
+In the stochastic setting, we must define stability in a statistical sense. The most common and useful notion for MJLS is \textbf{Mean Square Stability (MSS)}.
 
 \begin{mydefinition}{Mean Square Stability}
 The autonomous Markov Jump Linear System $x_{k+1} = A(\theta_k) x_k$ is Mean Square Stable (MSS) if, for any initial state $x_0 \in \R^n$ and initial mode probability distribution $\theta_0$, the state covariance converges to zero:
@@ -105,7 +105,7 @@ Because the plant dynamics switch, the optimal controller must be mode-dependent
 \begin{equation}
     u_k^* = -K_i x_k \quad \text{when } \theta_k = i
 \end{equation}
-Using dynamic programming, the mode-dependent feedback gains $K_i$ and the optimal cost-to-go matrices $P_i$ are found by solving the **Coupled Discrete Algebraic Riccati Equations (CDARE)**.
+Using dynamic programming, the mode-dependent feedback gains $K_i$ and the optimal cost-to-go matrices $P_i$ are found by solving the \textbf{Coupled Discrete Algebraic Riccati Equations (CDARE)}.
 
 \begin{mytheorem}{Optimal MJLS-LQR Controller}
 If the MJLS is stabilizable and detectable in the mean square sense, then:
@@ -129,7 +129,7 @@ If the MJLS is stabilizable and detectable in the mean square sense, then:
 The operator $\mathcal{E}_i(P)$ couples the Riccati equations: to solve for $P_i$ in one mode, we must know the solution $P_j$ in all other reachable modes. This is a fundamental difference from independent mode-by-mode design and ensures that the controller accounts for future switching.
 
 \section{Application: Networked Control Systems (NCS)}
-A critical application of MJLS is the modeling and control of **Networked Control Systems (NCS)**. In an NCS, the control loop is closed through a digital communication network. Transmission delays and packet dropouts occur randomly due to network traffic congestion and wireless interference.
+A critical application of MJLS is the modeling and control of \textbf{Networked Control Systems (NCS)}. In an NCS, the control loop is closed through a digital communication network. Transmission delays and packet dropouts occur randomly due to network traffic congestion and wireless interference.
 
 \begin{figure}[H]
     \centering
@@ -139,8 +139,8 @@ A critical application of MJLS is the modeling and control of **Networked Contro
 \end{figure}
 
 As shown in Figure~\ref{fig:mjls_ncs}, we model the lossy channel as a Markov chain with two modes $\theta_k \in \{1, 2\}$:
-- **Mode 1 (Transmission Success)**: The packet is transmitted successfully. The controller updates the input: $u_k = -K x_k$. The dynamics are governed by the closed-loop matrix $A_1 = A - BK$.
-- **Mode 2 (Transmission Failure)**: The packet is dropped. The ZOH holds the previous control signal constant: $u_k = u_{k-1}$. The system is unforced or operates under a delayed feedback loop, yielding $A_2 = A$.
+- \textbf{Mode 1 (Transmission Success)}: The packet is transmitted successfully. The controller updates the input: $u_k = -K x_k$. The dynamics are governed by the closed-loop matrix $A_1 = A - BK$.
+- \textbf{Mode 2 (Transmission Failure)}: The packet is dropped. The ZOH holds the previous control signal constant: $u_k = u_{k-1}$. The system is unforced or operates under a delayed feedback loop, yielding $A_2 = A$.
 
 The switching between these modes is governed by a Markov chain, where the transition probabilities represent the reliability of the communication channel.
 

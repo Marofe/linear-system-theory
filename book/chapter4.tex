@@ -39,7 +39,7 @@ The equilibrium point $x = 0$ is exponentially stable if there exist constants $
     \| x(t) \| \le \beta \| x_0 \| e^{-\alpha t} \quad \text{for all } t \ge 0
 \end{equation}
 \end{mydefinition}
-For LTI systems, asymptotic stability and exponential stability are mathematically equivalent. Symmetrically, a system is stable if and only if all eigenvalues of the dynamic matrix $A$ lie in the open Left-Half of the Complex Plane (LHP), i.e., $\text{Re}(\lambda_i) < 0$ for all $i=1,\dots,n$. Such matrices are called **Hurwitz** matrices.
+For LTI systems, asymptotic stability and exponential stability are mathematically equivalent. Symmetrically, a system is stable if and only if all eigenvalues of the dynamic matrix $A$ lie in the open Left-Half of the Complex Plane (LHP), i.e., $\text{Re}(\lambda_i) < 0$ for all $i=1,\dots,n$. Such matrices are called \textbf{Hurwitz} matrices.
 
 \section{Lyapunov Stability Analysis in Continuous-Time}
 Aleksandr Lyapunov published his seminal work in 1892, presenting what is now known as Lyapunov's Direct Method. The core idea is to define a generalized scalar "energy" function of the state space and demonstrate that this energy strictly decreases along the state trajectories.
@@ -61,7 +61,7 @@ For asymptotic stability, we require the energy to strictly decrease along all t
 \begin{equation}
     A^\trp P + P A \prec 0
 \end{equation}
-Defining this negative definite term as $-Q$ for a chosen symmetric positive definite matrix $Q \succ 0$ yields the continuous-time **Lyapunov Matrix Equation**:
+Defining this negative definite term as $-Q$ for a chosen symmetric positive definite matrix $Q \succ 0$ yields the continuous-time \textbf{Lyapunov Matrix Equation}:
 \begin{equation}
     A^\trp P + P A + Q = 0 \label{eq:lyap_eq}
 \end{equation}
@@ -108,7 +108,7 @@ Consider the unforced discrete-time LTI system:
 \begin{equation}
     x_{k+1} = A x_k, \quad x(0) = x_0 \label{eq:stable_dt}
 \end{equation}
-The system is asymptotically stable if and only if all eigenvalues of $A$ lie in the open unit circle of the complex plane, i.e., $|\lambda_i| < 1$ for all $i=1,\dots,n$. Such matrices are called **Schur** matrices.
+The system is asymptotically stable if and only if all eigenvalues of $A$ lie in the open unit circle of the complex plane, i.e., $|\lambda_i| < 1$ for all $i=1,\dots,n$. Such matrices are called \textbf{Schur} matrices.
 
 \subsection{Discrete-Time Lyapunov (Stein) Equation}
 Using the quadratic Lyapunov candidate $V(x_k) = x_k^\trp P x_k$ with $P \succ 0$, we require the energy difference between successive samples to be strictly negative:
@@ -118,7 +118,7 @@ Using the quadratic Lyapunov candidate $V(x_k) = x_k^\trp P x_k$ with $P \succ 0
     &= (A x_k)^\trp P (A x_k) - x_k^\trp P x_k \nonumber \\
     &= x_k^\trp (A^\trp P A - P) x_k < 0
 \end{align}
-Defining this negative definite term as $-Q$ for a chosen symmetric $Q \succ 0$ yields the **Stein (Discrete Lyapunov) Equation**:
+Defining this negative definite term as $-Q$ for a chosen symmetric $Q \succ 0$ yields the \textbf{Stein (Discrete Lyapunov) Equation}:
 \begin{equation}
     A^\trp P A - P + Q = 0 \label{eq:stein_eq}
 \end{equation}
@@ -128,13 +128,13 @@ The matrix $A$ is Schur (stable) if and only if, for any symmetric positive defi
 \end{mytheorem}
 
 \section{Polytopic Uncertainty and Quadratic Stability}
-In physical systems, matrices $A$ are often not perfectly known due to modeling errors or operating variations. A powerful model for such uncertainty is the **Polytopic Uncertainty Model**.
+In physical systems, matrices $A$ are often not perfectly known due to modeling errors or operating variations. A powerful model for such uncertainty is the \textbf{Polytopic Uncertainty Model}.
 
 Let the dynamic matrix $A(t)$ belong to a polytope of matrices defined by the convex hull of $M$ vertex matrices $\{A_1, A_2, \dots, A_M\}$:
 \begin{equation}
     A(t) \in \text{Co}\{A_1, \dots, A_M\} = \left\{ \sum_{i=1}^M \alpha_i(t) A_i \ \middle| \ \sum_{i=1}^M \alpha_i(t) = 1, \ \alpha_i(t) \ge 0 \right\}
 \end{equation}
-Evaluating the stability of the time-varying system $\dot{x}(t) = A(t) x(t)$ for infinitely many possible values of $\alpha_i(t)$ is impossible. However, we can establish stability using a **Common Quadratic Lyapunov Function**.
+Evaluating the stability of the time-varying system $\dot{x}(t) = A(t) x(t)$ for infinitely many possible values of $\alpha_i(t)$ is impossible. However, we can establish stability using a \textbf{Common Quadratic Lyapunov Function}.
 
 \begin{mydefinition}{Quadratic Stability}
 The uncertain system $\dot{x}(t) = A(t) x(t)$ is quadratically stable if there exists a single, common symmetric positive definite matrix $P \succ 0$ such that:
@@ -144,7 +144,7 @@ The uncertain system $\dot{x}(t) = A(t) x(t)$ is quadratically stable if there e
 \end{mydefinition}
 
 \begin{mytheorem}{LMI Vertex Stability Condition}
-The uncertain system is quadratically stable if and only if there exists a single symmetric matrix $P$ satisfying the system of **Linear Matrix Inequalities (LMIs)**:
+The uncertain system is quadratically stable if and only if there exists a single symmetric matrix $P$ satisfying the system of \textbf{Linear Matrix Inequalities (LMIs)}:
 \begin{align}
     P &\succ 0 \\
     A_i^\trp P + P A_i &\prec 0, \quad \forall i = 1, \dots, M

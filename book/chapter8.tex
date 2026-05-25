@@ -17,7 +17,7 @@ In the frequency domain, the $H_\infty$ norm of the transfer function $G(s) = C_
 \end{equation}
 where $\sigma_{\max}(\cdot)$ denotes the maximum singular value of the matrix.
 
-In the time domain, the $H_\infty$ norm corresponds to the **induced $L_2$-to-$L_2$ norm** of the system. Let $L_2$ be the space of square-integrable signals:
+In the time domain, the $H_\infty$ norm corresponds to the \textbf{induced $L_2$-to-$L_2$ norm} of the system. Let $L_2$ be the space of square-integrable signals:
 \begin{equation}
     \| w \|_{L_2} = \left( \int_0^\infty \| w(t) \|^2 dt \right)^{1/2} < \infty
 \end{equation}
@@ -31,7 +31,7 @@ This indicates the worst-case disturbance amplification ratio. For any disturban
 \end{equation}
 
 \section{The Bounded Real Lemma (BRL)}
-Evaluating the $H_\infty$ norm using the frequency-domain definition \eqref{eq:hinf_freq} requires sweeping across all frequencies, which is computationally cumbersome. The **Bounded Real Lemma (BRL)** provides a state-space characterization of the $H_\infty$ norm, formulating the inequality $\| G \|_\infty < \gamma$ as a single Linear Matrix Inequality.
+Evaluating the $H_\infty$ norm using the frequency-domain definition \eqref{eq:hinf_freq} requires sweeping across all frequencies, which is computationally cumbersome. The \textbf{Bounded Real Lemma (BRL)} provides a state-space characterization of the $H_\infty$ norm, formulating the inequality $\| G \|_\infty < \gamma$ as a single Linear Matrix Inequality.
 
 \begin{mytheorem}{Continuous-Time Bounded Real Lemma}
 The LTI system \eqref{eq:hinf_state}--\eqref{eq:hinf_output} is asymptotically stable and satisfies $\| G \|_\infty < \gamma$ if and only if there exists a symmetric positive definite matrix $P \in \R^{n \times n}$ satisfying:

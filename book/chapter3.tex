@@ -70,7 +70,7 @@ For the state $x(t_f)$ to be driven to any arbitrary vector in $\R^n$, the range
 \end{proof}
 
 \subsection{The Controllability Gramian}
-A more numerically robust method to evaluate and characterize controllability is using the **Controllability Gramian**.
+A more numerically robust method to evaluate and characterize controllability is using the \textbf{Controllability Gramian}.
 \begin{mydefinition}{Controllability Gramian}
 For a system $(A, B)$, the Controllability Gramian over interval $[0, t]$ is defined as the symmetric matrix:
 \begin{equation}
@@ -86,7 +86,7 @@ When $A$ is stable (all eigenvalues have negative real parts), we can evaluate t
 \begin{equation}
     W_c(\infty) = \int_0^\infty e^{A\tau} B B^\trp e^{A^\trp\tau} d\tau
 \end{equation}
-which is the unique positive definite solution to the continuous-time **Lyapunov Equation**:
+which is the unique positive definite solution to the continuous-time \textbf{Lyapunov Equation}:
 \begin{equation}
     A W_c + W_c A^\trp + B B^\trp = 0
 \end{equation}
@@ -142,7 +142,7 @@ Let $n_c$ be the dimension of the controllable subspace (the rank of $\mathcal{C
 \end{equation}
 This partition reveals that the uncontrollable states ($x_{uc}$) are completely decoupled from the input, and their dynamics are solely governed by $A_{uc}$.
 
-By combining controllability and observability decompositions, any LTI system can be transformed into the **Kalman Canonical Decomposition**, separating the state vector into four distinct subspaces:
+By combining controllability and observability decompositions, any LTI system can be transformed into the \textbf{Kalman Canonical Decomposition}, separating the state vector into four distinct subspaces:
 \begin{enumerate}
     \item $x_{co}$: Controllable and Observable states.
     \item $x_{c\bar{o}}$: Controllable and Unobservable states.
@@ -163,4 +163,4 @@ This decomposition demonstrates that the transfer function of the system only re
 \begin{equation}
     G(s) = C(sI - A)^{-1} B + D = C_{co}(sI - A_{11})^{-1} B_{co} + D
 \end{equation}
-A state-space realization is said to be **minimal** if and only if the system is both fully controllable and fully observable.
+A state-space realization is said to be \textbf{minimal} if and only if the system is both fully controllable and fully observable.

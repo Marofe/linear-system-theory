@@ -3,7 +3,7 @@
 \section{The Robust State Estimation and Filtering Problem}
 In previous chapters, we designed state observers under the assumption of perfect plant models and known noise statistics. However, in real-world systems, the plant parameters (e.g., mass, stiffness, resistance) are subject to variations, and the spectral densities of the environmental noise are rarely known with precision.
 
-Under such conditions, a standard Kalman filter can lose its optimality or even diverge. To address this, **robust filtering** designs estimators that guarantee a bound on the estimation error energy, regardless of parameter variations and the exact nature of the noise, by utilizing $H_2$ and $H_\infty$ performance bounds.
+Under such conditions, a standard Kalman filter can lose its optimality or even diverge. To address this, \textbf{robust filtering} designs estimators that guarantee a bound on the estimation error energy, regardless of parameter variations and the exact nature of the noise, by utilizing $H_2$ and $H_\infty$ performance bounds.
 
 Consider the continuous-time LTI system under parameter uncertainty:
 \begin{align}
@@ -127,7 +127,7 @@ The optimal robust $H_2$ filter gain is reconstructed as:
 \end{mytheorem}
 
 \subsection{Multiobjective H2/Hinf Filtering}
-In many practical scenarios, we want to balance the worst-case disturbance rejection ($H_\infty$) and average-case white noise regulation ($H_2$). This is known as **multiobjective filtering**. Because both problems share the exact same optimization variable $P$ and change of variables $F = P L$, we can solve them simultaneously with a single shared Lyapunov matrix $P$, yielding a filter gain $L = P^{-1}F$ that satisfies both criteria:
+In many practical scenarios, we want to balance the worst-case disturbance rejection ($H_\infty$) and average-case white noise regulation ($H_2$). This is known as \textbf{multiobjective filtering}. Because both problems share the exact same optimization variable $P$ and change of variables $F = P L$, we can solve them simultaneously with a single shared Lyapunov matrix $P$, yielding a filter gain $L = P^{-1}F$ that satisfies both criteria:
 \begin{equation}
     \min_{P, F, Z} \alpha \gamma_f + (1-\alpha) \gamma_2 \quad \text{subject to } \text{\eqref{eq:filt_hinf_lmi}, \eqref{eq:filt_h2_lmi1}, \eqref{eq:filt_h2_lmi2}}
 \end{equation}

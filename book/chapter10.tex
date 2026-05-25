@@ -1,13 +1,13 @@
 \chapter{Robust Control of Sampled-Data Systems via DLMI}
 
 \section{Introduction to Sampled-Data Systems}
-Physical systems (such as aircraft, chemical reactors, and electrical grids) are continuous-time dynamical processes governed by differential equations. However, modern controllers are implemented on digital computers, microcontrollers, or distributed networks. The coupling of a continuous plant with a discrete digital controller results in a **sampled-data system**, which is hybrid in nature.
+Physical systems (such as aircraft, chemical reactors, and electrical grids) are continuous-time dynamical processes governed by differential equations. However, modern controllers are implemented on digital computers, microcontrollers, or distributed networks. The coupling of a continuous plant with a discrete digital controller results in a \textbf{sampled-data system}, which is hybrid in nature.
 
 Consider the continuous-time LTI plant dynamics:
 \begin{equation}
     \dot{x}(t) = A x(t) + B u(t) \label{eq:sd_plant}
 \end{equation}
-A digital controller samples the state vector $x(t)$ at discrete time instants $t_k$, computes the control input vector $u_k = -K x(t_k)$ using a state feedback gain $K$, and holds this control signal constant between sampling instants using a **Zero-Order Hold (ZOH)**:
+A digital controller samples the state vector $x(t)$ at discrete time instants $t_k$, computes the control input vector $u_k = -K x(t_k)$ using a state feedback gain $K$, and holds this control signal constant between sampling instants using a \textbf{Zero-Order Hold (ZOH)}:
 \begin{equation}
     u(t) = u_k = -K x(t_k) \quad \text{for } t \in [t_k, t_{k+1}) \label{eq:sd_zoh}
 \end{equation}
@@ -24,7 +24,7 @@ The presence of the term $x(t_k)$ makes the closed-loop system time-varying and 
 \section{Lyapunov Stability Analysis via Looped Functionals}
 To analyze stability under variable sampling intervals, a standard quadratic Lyapunov function candidate $V(x(t)) = x(t)^\trp P x(t)$ with a constant $P \succ 0$ is highly conservative. It would require the energy to decrease monotonically at *every* continuous time instant $t$, which is unnecessary. We only require the energy to decrease from one sampling instant to the next, i.e., $V(x(t_{k+1})) < V(x(t_k))$.
 
-To achieve this, we employ the **Looped Lyapunov Functional** approach.
+To achieve this, we employ the \textbf{Looped Lyapunov Functional} approach.
 
 Let us define a functional of the form:
 \begin{equation}
@@ -67,7 +67,7 @@ Substituting the dynamics $\dot{x}(t) = A x(t) - B K x(t_k)$ and defining the au
 \begin{equation}
     \dot{V}(t) = \eta(t)^\trp \begin{bmatrix} A^\trp P(\tau) + P(\tau) A + \dot{P}(\tau) & -P(\tau) B K \\ -K^\trp B^\trp P(\tau) & 0 \end{bmatrix} \eta(t)
 \end{equation}
-For stability, we require this quadratic form to be negative definite, which yields the **Differential Linear Matrix Inequality (DLMI)**:
+For stability, we require this quadratic form to be negative definite, which yields the \textbf{Differential Linear Matrix Inequality (DLMI)}:
 \begin{equation}
     \begin{bmatrix} A^\trp P(\tau) + P(\tau) A + \dot{P}(\tau) & -P(\tau) B K \\ -K^\trp B^\trp P(\tau) & 0 \end{bmatrix} \prec 0, \quad \forall \tau \in [0, h_k] \label{eq:sd_dlmi}
 \end{equation}
