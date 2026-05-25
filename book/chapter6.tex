@@ -8,7 +8,7 @@ To overcome this, we design a dynamic system called a \textbf{state observer} (o
 Consider the continuous-time LTI system:
 \begin{align}
     \dot{x}(t) &= A x(t) + B u(t) \label{eq:obs_plant_state} \\
-    y(t) &= C x(t) + D u(t) , \label{eq:obs_plant_output}
+    y(t) &= C x(t) + D u(t) . \label{eq:obs_plant_output}
 \end{align}
 
 A naive attempt to estimate $x(t)$ would be to simulate the plant model directly: $\dot{\hat{x}} = A \hat{x} + B u$. However, any initial state mismatch ($x(0) \neq \hat{x}(0)$) or model inaccuracy would cause the estimate to drift over time. 
@@ -55,14 +55,14 @@ where $L \in \R^{n \times p}$ is the observer gain matrix.
 \subsection{Observer Error Dynamics}
 Let us define the estimation error vector as:
 \begin{equation}
-    e(t) = x(t) - \hat{x}(t) , \label{eq:obs_error_def}
+    e(t) = x(t) - \hat{x}(t) . \label{eq:obs_error_def}
 \end{equation}
 To analyze how the error behaves over time, we differentiate \eqref{eq:obs_error_def}:
 \begin{align}
     \dot{e}(t) &= \dot{x}(t) - \dot{\hat{x}}(t) \nonumber \\
     &= (A x + B u) - \left( A \hat{x} + B u + L (C x + D u - C \hat{x} - D u) \right) \nonumber \\
     &= A (x - \hat{x}) - L C (x - \hat{x}) \nonumber \\
-    &= (A - L C) e(t) , \label{eq:obs_error_dynamics}
+    &= (A - L C) e(t) . \label{eq:obs_error_dynamics}
 \end{align}
 The error dynamics are governed by the autonomous system matrix $A - L C$. If $A - L C$ is Hurwitz, the estimation error will converge to zero asymptotically: $\lim_{t \to \infty} e(t) = 0$, regardless of the initial mismatch $e(0)$ and the control input $u(t)$.
 
@@ -103,7 +103,7 @@ where $\mathcal{O}_{dual}$ is the controllability matrix of the dual system (whi
 \section{The Separation Principle}
 We now combine the state feedback controller and the Luenberger observer. Since we do not have direct access to $x(t)$, we feed back the estimated state $\hat{x}(t)$ instead:
 \begin{equation}
-    u(t) = -K \hat{x}(t) + r(t) , \label{eq:sf_obs_law}
+    u(t) = -K \hat{x}(t) + r(t) . \label{eq:sf_obs_law}
 \end{equation}
 This combined controller-observer structure is called an \textbf{output feedback controller}. Since the controller relies on estimates and the estimator relies on the control input, they are coupled. We must prove that this coupled system remains stable and that the controller and observer gains can be designed independently.
 
@@ -115,28 +115,28 @@ For the LTI system \eqref{eq:obs_plant_state}--\eqref{eq:obs_plant_output} under
 Let us choose the state vector of the augmented system to be $x_{aug}(t) = \begin{bmatrix} x(t)^\trp & e(t)^\trp \end{bmatrix}^\trp$. We express the closed-loop dynamics in these coordinates.
 First, substitute $\hat{x} = x - e$ into the control law \eqref{eq:sf_obs_law}:
 \begin{equation}
-u(t) = -K (x(t) - e(t)) + r(t) = -K x(t) + K e(t) + r(t) ,
+u(t) = -K (x(t) - e(t)) + r(t) = -K x(t) + K e(t) + r(t) .
 \end{equation}
 Substitute this into the plant state equation:
 \begin{align}
     \dot{x}(t) &= A x(t) + B \left( -K x(t) + K e(t) + r(t) \right) \nonumber \\
-    &= (A - B K) x(t) + B K e(t) + B r(t) , \label{eq:sep_x}
+    &= (A - B K) x(t) + B K e(t) + B r(t) . \label{eq:sep_x}
 \end{align}
 The error dynamics remain unaffected by the control input, as shown in \eqref{eq:obs_error_dynamics}:
 \begin{equation}
-    \dot{e}(t) = (A - L C) e(t) , \label{eq:sep_e}
+    \dot{e}(t) = (A - L C) e(t) . \label{eq:sep_e}
 \end{equation}
 Combining \eqref{eq:sep_x} and \eqref{eq:sep_e} into a single state-space system yields:
 \begin{equation}
-    \begin{bmatrix} \dot{x}(t) \\ \dot{e}(t) \end{bmatrix} = \begin{bmatrix} A - B K & B K \\ 0 & A - L C \end{bmatrix} \begin{bmatrix} x(t) \\ e(t) \end{bmatrix} + \begin{bmatrix} B \\ 0 \end{bmatrix} r(t) , \label{eq:sep_augmented}
+    \begin{bmatrix} \dot{x}(t) \\ \dot{e}(t) \end{bmatrix} = \begin{bmatrix} A - B K & B K \\ 0 & A - L C \end{bmatrix} \begin{bmatrix} x(t) \\ e(t) \end{bmatrix} + \begin{bmatrix} B \\ 0 \end{bmatrix} r(t) . \label{eq:sep_augmented}
 \end{equation}
 To find the closed-loop poles, we compute the characteristic polynomial of the augmented system matrix:
 \begin{equation}
-\det \left( s I - \begin{bmatrix} A - B K & B K \\ 0 & A - L C \end{bmatrix} \right) = 0 ,
+\det \left( s I - \begin{bmatrix} A - B K & B K \\ 0 & A - L C \end{bmatrix} \right) = 0 .
 \end{equation}
 Because the matrix is block upper-triangular, its determinant is the product of the determinants of the diagonal blocks:
 \begin{equation}
-\det \left( s I - (A - B K) \right) \det \left( s I - (A - L C) \right) = 0 ,
+\det \left( s I - (A - B K) \right) \det \left( s I - (A - L C) \right) = 0 .
 \end{equation}
 This proves that the closed-loop poles are precisely the poles of $A - B K$ together with the poles of $A - L C$. The design of the controller and the design of the observer are completely \textbf{separated}! We can design $K$ to meet transient specifications assuming full state feedback, and design $L$ to ensure the estimation error converges rapidly, without any risk of coupled instability.
 \end{proof}
@@ -178,7 +178,7 @@ The \textbf{Kalman Filter}, introduced by Rudolf E. Kálmán in 1960, is the mat
 Consider the discrete-time stochastic LTI system:
 \begin{align}
     x_{k+1} &= A x_k + B u_k + w_k \label{eq:kf_state} \\
-    y_k &= C x_k + v_k , \label{eq:kf_output}
+    y_k &= C x_k + v_k . \label{eq:kf_output}
 \end{align}
 
 \begin{figure}[H]
@@ -244,11 +244,11 @@ The Kalman filter maintains the conditional mean and covariance of the state. We
 - $\hat{x}_{k|k}$: The \textbf{a posteriori} state estimate at step $k$, given all measurements up to step $k$.
 - $P_{k|k-1}$: The \textbf{a priori} estimation error covariance matrix:
   \begin{equation}
-P_{k|k-1} = \mathbb{E}\left[ (x_k - \hat{x}_{k|k-1})(x_k - \hat{x}_{k|k-1})^\trp \right] ,
+P_{k|k-1} = \mathbb{E}\left[ (x_k - \hat{x}_{k|k-1})(x_k - \hat{x}_{k|k-1})^\trp \right] .
   \end{equation}
 - $P_{k|k}$: The \textbf{a posteriori} estimation error covariance matrix:
   \begin{equation}
-P_{k|k} = \mathbb{E}\left[ (x_k - \hat{x}_{k|k})(x_k - \hat{x}_{k|k})^\trp \right] ,
+P_{k|k} = \mathbb{E}\left[ (x_k - \hat{x}_{k|k})(x_k - \hat{x}_{k|k})^\trp \right] .
   \end{equation}
 
 The filter operates in two alternating phases: \textbf{Prediction (Time Update)} and \textbf{Correction (Measurement Update)}.
@@ -265,13 +265,13 @@ In the prediction phase, the filter projects the state and covariance ahead in t
     Let us define the a priori error $e_{k|k-1} = x_k - \hat{x}_{k|k-1}$. Substituting the dynamics \eqref{eq:kf_state} and prediction \eqref{eq:kf_pred_state}:
     \begin{align}
         e_{k|k-1} &= (A x_{k-1} + B u_{k-1} + w_{k-1}) - (A \hat{x}_{k-1|k-1} + B u_{k-1}) \nonumber \\
-&= A e_{k-1|k-1} + w_{k-1} ,
+&= A e_{k-1|k-1} + w_{k-1} .
     \end{align}
     The a priori covariance is:
     \begin{align}
         P_{k|k-1} &= \mathbb{E}[e_{k|k-1} e_{k|k-1}^\trp] \nonumber \\
         &= \mathbb{E}\left[ (A e_{k-1|k-1} + w_{k-1})(A e_{k-1|k-1} + w_{k-1})^\trp \right] \nonumber \\
-&= A \mathbb{E}[e_{k-1|k-1} e_{k-1|k-1}^\trp] A^\trp + \mathbb{E}[w_{k-1} w_{k-1}^\trp] + A \mathbb{E}[e_{k-1|k-1} w_{k-1}^\trp] + \mathbb{E}[w_{k-1} e_{k-1|k-1}^\trp] A^\trp ,
+&= A \mathbb{E}[e_{k-1|k-1} e_{k-1|k-1}^\trp] A^\trp + \mathbb{E}[w_{k-1} w_{k-1}^\trp] + A \mathbb{E}[e_{k-1|k-1} w_{k-1}^\trp] + \mathbb{E}[w_{k-1} e_{k-1|k-1}^\trp] A^\trp .
     \end{align}
     Since the process noise $w_{k-1}$ is white and uncorrelated with the past error $e_{k-1|k-1}$, the cross terms vanish. This simplifies to:
     \begin{equation}
@@ -289,51 +289,51 @@ where $K_k \in \R^{n \times p}$ is the \textbf{Kalman Gain} to be determined.
 To find the optimal gain $K_k$, we analyze the a posteriori error $e_{k|k} = x_k - \hat{x}_{k|k}$:
 \begin{align}
     e_{k|k} &= x_k - \left( \hat{x}_{k|k-1} + K_k (C x_k + v_k - C \hat{x}_{k|k-1}) \right) \nonumber \\
-&= (I - K_k C) e_{k|k-1} - K_k v_k ,
+&= (I - K_k C) e_{k|k-1} - K_k v_k .
 \end{align}
 The a posteriori covariance is:
 \begin{align}
     P_{k|k} &= \mathbb{E}[e_{k|k} e_{k|k}^\trp] \nonumber \\
     &= \mathbb{E}\left[ \left( (I - K_k C) e_{k|k-1} - K_k v_k \right) \left( (I - K_k C) e_{k|k-1} - K_k v_k \right)^\trp \right] \nonumber \\
     &= (I - K_k C) \mathbb{E}[e_{k|k-1} e_{k|k-1}^\trp] (I - K_k C)^\trp + K_k \mathbb{E}[v_k v_k^\trp] K_k^\trp \nonumber \\
-&\quad - (I - K_k C) \mathbb{E}[e_{k|k-1} v_k^\trp] K_k^\trp - K_k \mathbb{E}[v_k e_{k|k-1}^\trp] (I - K_k C)^\trp ,
+&\quad - (I - K_k C) \mathbb{E}[e_{k|k-1} v_k^\trp] K_k^\trp - K_k \mathbb{E}[v_k e_{k|k-1}^\trp] (I - K_k C)^\trp .
 \end{align}
 Since the sensor noise $v_k$ is uncorrelated with the a priori error $e_{k|k-1}$, the cross terms vanish:
 \begin{equation}
-    P_{k|k} = (I - K_k C) P_{k|k-1} (I - K_k C)^\trp + K_k V K_k^\trp , \label{eq:kf_joseph_form}
+    P_{k|k} = (I - K_k C) P_{k|k-1} (I - K_k C)^\trp + K_k V K_k^\trp . \label{eq:kf_joseph_form}
 \end{equation}
 Equation \eqref{eq:kf_joseph_form} is known as the \textbf{Joseph Form} of the covariance update, which is numerically stable and holds for any choice of gain $K_k$.
 
 \subsection{Derivation of the Optimal Kalman Gain}
 The optimal Kalman gain $K_k$ is defined as the gain that minimizes the total mean-squared estimation error, which is the sum of the variances of the state estimation errors. This is mathematically represented by the trace of the covariance matrix $P_{k|k}$:
 \begin{equation}
-\min_{K_k} \tr(P_{k|k}) ,
+\min_{K_k} \tr(P_{k|k}) .
 \end{equation}
 Expanding \eqref{eq:kf_joseph_form}:
 \begin{equation}
-P_{k|k} = P_{k|k-1} - K_k C P_{k|k-1} - P_{k|k-1} C^\trp K_k^\trp + K_k \left( C P_{k|k-1} C^\trp + V \right) K_k^\trp ,
+P_{k|k} = P_{k|k-1} - K_k C P_{k|k-1} - P_{k|k-1} C^\trp K_k^\trp + K_k \left( C P_{k|k-1} C^\trp + V \right) K_k^\trp .
 \end{equation}
 Taking the trace of both sides and using the cyclic properties of the trace (e.g., $\tr(A) = \tr(A^\trp)$):
 \begin{equation}
-\tr(P_{k|k}) = \tr(P_{k|k-1}) - 2 \tr(K_k C P_{k|k-1}) + \tr\left( K_k (C P_{k|k-1} C^\trp + V) K_k^\trp \right) ,
+\tr(P_{k|k}) = \tr(P_{k|k-1}) - 2 \tr(K_k C P_{k|k-1}) + \tr\left( K_k (C P_{k|k-1} C^\trp + V) K_k^\trp \right) .
 \end{equation}
 To find the minimum, we take the matrix derivative with respect to $K_k$ and set it to zero:
 \begin{equation}
-\frac{\partial \tr(P_{k|k})}{\partial K_k} = -2 P_{k|k-1} C^\trp + 2 K_k \left( C P_{k|k-1} C^\trp + V \right) = 0 ,
+\frac{\partial \tr(P_{k|k})}{\partial K_k} = -2 P_{k|k-1} C^\trp + 2 K_k \left( C P_{k|k-1} C^\trp + V \right) = 0 .
 \end{equation}
 Solving for $K_k$ yields the \textbf{optimal Kalman Gain}:
 \begin{equation}
-    K_k = P_{k|k-1} C^\trp \left( C P_{k|k-1} C^\trp + V \right)^{-1} , \label{eq:kf_optimal_gain}
+    K_k = P_{k|k-1} C^\trp \left( C P_{k|k-1} C^\trp + V \right)^{-1} . \label{eq:kf_optimal_gain}
 \end{equation}
 
 Substituting this optimal gain back into the Joseph form \eqref{eq:kf_joseph_form} simplifies the expression for the a posteriori covariance:
 \begin{align}
     P_{k|k} &= (I - K_k C) P_{k|k-1} (I - K_k C)^\trp + K_k V K_k^\trp \nonumber \\
-&= P_{k|k-1} - K_k C P_{k|k-1} - P_{k|k-1} C^\trp K_k^\trp + K_k (C P_{k|k-1} C^\trp + V) K_k^\trp ,
+&= P_{k|k-1} - K_k C P_{k|k-1} - P_{k|k-1} C^\trp K_k^\trp + K_k (C P_{k|k-1} C^\trp + V) K_k^\trp .
 \end{align}
 Using $K_k (C P_{k|k-1} C^\trp + V) = P_{k|k-1} C^\trp$, the last two terms cancel:
 \begin{equation}
-    P_{k|k} = (I - K_k C) P_{k|k-1} , \label{eq:kf_corr_cov}
+    P_{k|k} = (I - K_k C) P_{k|k-1} . \label{eq:kf_corr_cov}
 \end{equation}
 
 \subsection{Summary of the Kalman Filter Algorithm}

@@ -16,11 +16,11 @@ where $K \in \R^{m \times n}$ is the state feedback gain matrix and $r(t) \in \R
 
 Applying the control law \eqref{eq:sf_law} to the open-loop continuous-time system $\dot{x} = A x + B u$ yields the closed-loop system:
 \begin{equation}
-    \dot{x}(t) = (A - B K) x(t) + B r(t) , \label{eq:cl_sf}
+    \dot{x}(t) = (A - B K) x(t) + B r(t) . \label{eq:cl_sf}
 \end{equation}
 Symmetrically, for discrete-time systems $x_{k+1} = A x_k + B u_k$, the closed-loop state equation becomes:
 \begin{equation}
-    x_{k+1} = (A - B K) x_k + B r_k , \label{eq:cl_sf_dt}
+    x_{k+1} = (A - B K) x_k + B r_k . \label{eq:cl_sf_dt}
 \end{equation}
 The primary objective of state feedback is to choose $K$ such that the closed-loop system matrix $A_{cl} = A - B K$ possesses desirable dynamic characteristics, represented by a specified set of eigenvalues (poles).
 
@@ -30,11 +30,11 @@ The eigenvalues of the closed-loop matrix $A - B K$ can be placed at arbitrary, 
 
 If the system is not controllable, it can be decomposed into controllable and uncontrollable subsystems via the Kalman decomposition:
 \begin{equation}
-\bar{A} = T A T^{-1} = \begin{bmatrix} A_c & A_{12} \\ 0 & A_{uc} \end{bmatrix}, \quad \bar{B} = T B = \begin{bmatrix} B_c \\ 0 \end{bmatrix} ,
+\bar{A} = T A T^{-1} = \begin{bmatrix} A_c & A_{12} \\ 0 & A_{uc} \end{bmatrix}, \quad \bar{B} = T B = \begin{bmatrix} B_c \\ 0 \end{bmatrix} .
 \end{equation}
 In this coordinate system, the closed-loop matrix becomes:
 \begin{equation}
-\bar{A} - \bar{B} \bar{K} = \begin{bmatrix} A_c - B_c K_c & A_{12} - B_c K_{uc} \\ 0 & A_{uc} \end{bmatrix} ,
+\bar{A} - \bar{B} \bar{K} = \begin{bmatrix} A_c - B_c K_c & A_{12} - B_c K_{uc} \\ 0 & A_{uc} \end{bmatrix} .
 \end{equation}
 The eigenvalues of the closed-loop system are the union of the eigenvalues of $A_c - B_c K_c$ and the eigenvalues of $A_{uc}$. Since the uncontrollable eigenvalues (eigenvalues of $A_{uc}$) are unaffected by the feedback gain $K$, arbitrary pole placement is impossible. However, the closed-loop system can still be stabilized if and only if all eigenvalues of $A_{uc}$ are stable (Hurwitz in continuous-time or Schur in discrete-time). This weaker property is called \textbf{stabilizability}.
 
@@ -43,7 +43,7 @@ For single-input single-output (SISO) systems ($u(t) \in \R^1$), a direct closed
 
 Let the desired closed-loop characteristic polynomial be:
 \begin{equation}
-\alpha_{cl}(s) = s^n + \alpha_{n-1} s^{n-1} + \dots + \alpha_1 s + \alpha_0 ,
+\alpha_{cl}(s) = s^n + \alpha_{n-1} s^{n-1} + \dots + \alpha_1 s + \alpha_0 .
 \end{equation}
 We wish the closed-loop matrix $A_{cl} = A - B K$ to satisfy its own characteristic equation, meaning $\alpha_{cl}(A - B K) = 0$ by the Cayley-Hamilton theorem.
 
@@ -65,24 +65,24 @@ Let us analyze the powers of the closed-loop matrix $A_{cl} = A - BK$:
     A_{cl}^2 &= (A - BK)^2 = A^2 - ABK - BKA_{cl} \nonumber \\
     A_{cl}^3 &= A^3 - A^2BK - ABKA_{cl} - BKA_{cl}^2 \nonumber \\
     &\vdots \nonumber \\
-A_{cl}^n &= A^n - A^{n-1}BK - A^{n-2}BKA_{cl} - \dots - BKA_{cl}^{n-1} ,
+A_{cl}^n &= A^n - A^{n-1}BK - A^{n-2}BKA_{cl} - \dots - BKA_{cl}^{n-1} .
 \end{align}
 Now, evaluate the desired closed-loop characteristic polynomial at the matrix $A$:
 \begin{align}
     \alpha_{cl}(A) &= A^n + \alpha_{n-1} A^{n-1} + \dots + \alpha_1 A + \alpha_0 I \nonumber \\
-&= A_{cl}^n + \alpha_{n-1} A_{cl}^{n-1} + \dots + \alpha_1 A_{cl} + \alpha_0 I + \sum_{j=1}^n A^{n-j} B K A_{cl}^{j-1} ,
+&= A_{cl}^n + \alpha_{n-1} A_{cl}^{n-1} + \dots + \alpha_1 A_{cl} + \alpha_0 I + \sum_{j=1}^n A^{n-j} B K A_{cl}^{j-1} .
 \end{align}
 By the Cayley-Hamilton theorem, $\alpha_{cl}(A_{cl}) = A_{cl}^n + \alpha_{n-1} A_{cl}^{n-1} + \dots + \alpha_1 A_{cl} + \alpha_0 I = 0$. Therefore, the expression simplifies to:
 \begin{equation}
-\alpha_{cl}(A) = \sum_{j=1}^n A^{n-j} B K A_{cl}^{j-1} = \begin{bmatrix} B & AB & \dots & A^{n-1}B \end{bmatrix} \begin{bmatrix} K A_{cl}^{n-1} \\ K A_{cl}^{n-2} \\ \vdots \\ K \end{bmatrix} ,
+\alpha_{cl}(A) = \sum_{j=1}^n A^{n-j} B K A_{cl}^{j-1} = \begin{bmatrix} B & AB & \dots & A^{n-1}B \end{bmatrix} \begin{bmatrix} K A_{cl}^{n-1} \\ K A_{cl}^{n-2} \\ \vdots \\ K \end{bmatrix} .
 \end{equation}
 We recognize the controllability matrix $\mathcal{C}$ on the right-hand side. Multiplying by $\mathcal{C}^{-1}$ from the left yields:
 \begin{equation}
-\mathcal{C}^{-1} \alpha_{cl}(A) = \begin{bmatrix} K A_{cl}^{n-1} \\ K A_{cl}^{n-2} \\ \vdots \\ K \end{bmatrix} ,
+\mathcal{C}^{-1} \alpha_{cl}(A) = \begin{bmatrix} K A_{cl}^{n-1} \\ K A_{cl}^{n-2} \\ \vdots \\ K \end{bmatrix} .
 \end{equation}
 To isolate $K$, we extract the bottom row of this matrix equation. Multiplying by the row vector $\begin{bmatrix} 0 & 0 & \dots & 1 \end{bmatrix}$ selects the last row, which is exactly $K$:
 \begin{equation}
-K = \begin{bmatrix} 0 & 0 & \dots & 0 & 1 \end{bmatrix} \mathcal{C}^{-1} \alpha_{cl}(A) ,
+K = \begin{bmatrix} 0 & 0 & \dots & 0 & 1 \end{bmatrix} \mathcal{C}^{-1} \alpha_{cl}(A) .
 \end{equation}
 This completes the derivation of Ackermann's formula.
 \end{proof}
@@ -94,7 +94,7 @@ The \textbf{Linear Quadratic Regulator (LQR)} resolves this fundamental trade-of
 
 Consider the continuous-time LTI system:
 \begin{equation}
-\dot{x}(t) = A x(t) + B u(t), \quad x(0) = x_0 ,
+\dot{x}(t) = A x(t) + B u(t), \quad x(0) = x_0 .
 \end{equation}
 We seek an optimal control input $u^*(t)$ that minimizes the infinite-horizon quadratic cost functional:
 \begin{equation}
@@ -142,23 +142,23 @@ where $P(t)$ is a symmetric matrix. For the infinite-horizon problem, the system
 
 Differentiating \eqref{eq:lqr_sweep} with respect to time yields:
 \begin{equation}
-\dot{\lambda} = 2 P \dot{x} ,
+\dot{\lambda} = 2 P \dot{x} .
 \end{equation}
 Substituting the state equation \eqref{eq:lqr_state} and the co-state equation \eqref{eq:lqr_costate} into this relation gives:
 \begin{equation}
--2 Q x - A^\trp (2 P x) = 2 P \left( A x - \frac{1}{2} B R^{-1} B^\trp (2 P x) \right) ,
+-2 Q x - A^\trp (2 P x) = 2 P \left( A x - \frac{1}{2} B R^{-1} B^\trp (2 P x) \right) .
 \end{equation}
 Dividing by 2 and moving all terms to one side:
 \begin{equation}
-\left( A^\trp P + P A - P B R^{-1} B^\trp P + Q \right) x(t) = 0 ,
+\left( A^\trp P + P A - P B R^{-1} B^\trp P + Q \right) x(t) = 0 .
 \end{equation}
 For this relation to hold for all possible state trajectories $x(t)$, the matrix term in parentheses must vanish. This yields the continuous-time \textbf{Algebraic Riccati Equation (ARE)}:
 \begin{equation}
-    A^\trp P + P A - P B R^{-1} B^\trp P + Q = 0 , \label{eq:lqr_are}
+    A^\trp P + P A - P B R^{-1} B^\trp P + Q = 0 . \label{eq:lqr_are}
 \end{equation}
 Substituting $\lambda(t) = 2 P x(t)$ back into the optimality condition \eqref{eq:lqr_opt_u} yields the optimal state feedback law:
 \begin{equation}
-    u^*(t) = -K x(t), \quad K = R^{-1} B^\trp P , \label{eq:lqr_gain}
+    u^*(t) = -K x(t), \quad K = R^{-1} B^\trp P . \label{eq:lqr_gain}
 \end{equation}
 
 \begin{mytheorem}{Infinite-Horizon LQR Stability}
@@ -174,16 +174,16 @@ Let $P \succ 0$ satisfy the ARE \eqref{eq:lqr_are}. We can rewrite the ARE by ad
 \begin{align}
     A^\trp P + P A - P B R^{-1} B^\trp P + Q &= 0 \nonumber \\
     (A - B R^{-1} B^\trp P)^\trp P + P (A - B R^{-1} B^\trp P) + P B R^{-1} B^\trp P + Q &= 0 \nonumber \\
-    (A - B K)^\trp P + P (A - B K) &= -(Q + K^\trp R K) , \label{eq:are_rewritten}
+    (A - B K)^\trp P + P (A - B K) &= -(Q + K^\trp R K) . \label{eq:are_rewritten}
 \end{align}
 Let us define a quadratic Lyapunov function candidate $V(x) = x^\trp P x$. Differentiating $V(x)$ along the closed-loop system trajectories $\dot{x} = (A - B K) x$ yields:
 \begin{equation}
-\dot{V}(x) = x^\trp \left( (A - B K)^\trp P + P (A - B K) \right) x = -x^\trp (Q + K^\trp R K) x ,
+\dot{V}(x) = x^\trp \left( (A - B K)^\trp P + P (A - B K) \right) x = -x^\trp (Q + K^\trp R K) x .
 \end{equation}
 Since $Q \ge 0$ and $R > 0$, the matrix $Q + K^\trp R K \ge 0$, which implies $\dot{V}(x) \le 0$. By Lyapunov's stability theory, the closed-loop system is stable in the sense of Lyapunov. To establish asymptotic stability, we invoke LaSalle's Invariance Principle or detectability of $(A, Q^{1/2})$.
 Suppose there exists a non-zero trajectory $x(t)$ such that $\dot{V}(x(t)) = 0$ for all $t$. This requires:
 \begin{equation}
-x(t)^\trp Q x(t) = 0 \quad \text{and} \quad x(t)^\trp K^\trp R K x(t) = 0 ,
+x(t)^\trp Q x(t) = 0 \quad \text{and} \quad x(t)^\trp K^\trp R K x(t) = 0 .
 \end{equation}
 Since $R \succ 0$, $K x(t) = 0$, meaning the control input $u(t) = -K x(t) = 0$. The dynamics reduce to the unforced system $\dot{x} = A x$. Furthermore, $x(t)^\trp Q x(t) = 0$ implies $Q^{1/2} x(t) = 0$.
 By detectability of $(A, Q^{1/2})$, any state trajectory that satisfies $Q^{1/2} x(t) = 0$ for all $t$ under $\dot{x} = Ax$ must converge to zero: $\lim_{t\to\infty} x(t) = 0$.
@@ -201,7 +201,7 @@ Thus, the only invariant set where $\dot{V}(x) = 0$ is the origin $x=0$, proving
 \section{Discrete-Time Linear Quadratic Regulator}
 For discrete-time systems, the optimization problem is formulated over a discrete sum. Let the system be:
 \begin{equation}
-x_{k+1} = A x_k + B u_k, \quad x_0 \text{ given} ,
+x_{k+1} = A x_k + B u_k, \quad x_0 \text{ given} .
 \end{equation}
 We wish to minimize the discrete infinite-horizon cost functional:
 \begin{equation}
@@ -246,11 +246,11 @@ with $Q = Q^\trp \ge 0$ and $R = R^\trp \succ 0$.
 \subsection{Derivation via Dynamic Programming and the Bellman Equation}
 We derive the discrete optimal controller using Bellman's Principle of Optimality. Let $V_k(x_k)$ represent the optimal cost-to-go from step $k$ to infinity starting at state $x_k$:
 \begin{equation}
-V_k(x_k) = \min_{u_k, u_{k+1}, \dots} \sum_{j=k}^\infty \left( x_j^\trp Q x_j + u_j^\trp R u_j \right) ,
+V_k(x_k) = \min_{u_k, u_{k+1}, \dots} \sum_{j=k}^\infty \left( x_j^\trp Q x_j + u_j^\trp R u_j \right) .
 \end{equation}
 The Principle of Optimality allows us to split the sum and write the recursive \textbf{Bellman Equation}:
 \begin{equation}
-    V_k(x_k) = \min_{u_k} \left\{ x_k^\trp Q x_k + u_k^\trp R u_k + V_{k+1}(x_{k+1}) \right\} , \label{eq:bellman}
+    V_k(x_k) = \min_{u_k} \left\{ x_k^\trp Q x_k + u_k^\trp R u_k + V_{k+1}(x_{k+1}) \right\} . \label{eq:bellman}
 \end{equation}
 
 \begin{figure}[H]
@@ -285,12 +285,12 @@ V_{k+1}(x_{k+1}) = x_{k+1}^\trp P_{k+1} x_{k+1} ,
 \end{equation}
 where $P_{k+1} \succ 0$ is a symmetric matrix. Substituting the system dynamics $x_{k+1} = A x_k + B u_k$ into the Bellman equation \eqref{eq:bellman}:
 \begin{equation}
-V_k(x_k) = \min_{u_k} \left\{ x_k^\trp Q x_k + u_k^\trp R u_k + (A x_k + B u_k)^\trp P_{k+1} (A x_k + B u_k) \right\} ,
+V_k(x_k) = \min_{u_k} \left\{ x_k^\trp Q x_k + u_k^\trp R u_k + (A x_k + B u_k)^\trp P_{k+1} (A x_k + B u_k) \right\} .
 \end{equation}
 Expanding the terms inside the minimization brackets:
 \begin{align}
     \mathcal{J}_k(u_k) &= x_k^\trp Q x_k + u_k^\trp R u_k + (x_k^\trp A^\trp + u_k^\trp B^\trp) P_{k+1} (A x_k + B u_k) \nonumber \\
-&= x_k^\trp (Q + A^\trp P_{k+1} A) x_k + 2 u_k^\trp B^\trp P_{k+1} A x_k + u_k^\trp (R + B^\trp P_{k+1} B) u_k ,
+&= x_k^\trp (Q + A^\trp P_{k+1} A) x_k + 2 u_k^\trp B^\trp P_{k+1} A x_k + u_k^\trp (R + B^\trp P_{k+1} B) u_k .
 \end{align}
 
 \begin{figure}[H]
@@ -314,29 +314,29 @@ Expanding the terms inside the minimization brackets:
 
 Since $R \succ 0$ and $P_{k+1} \succ 0$, the matrix $R + B^\trp P_{k+1} B$ is strictly positive definite. The function $\mathcal{J}_k(u_k)$ is strictly convex in $u_k$. The global minimum is found by setting the derivative with respect to $u_k$ to zero:
 \begin{equation}
-\frac{\partial \mathcal{J}_k}{\partial u_k} = 2 (R + B^\trp P_{k+1} B) u_k + 2 B^\trp P_{k+1} A x_k = 0 ,
+\frac{\partial \mathcal{J}_k}{\partial u_k} = 2 (R + B^\trp P_{k+1} B) u_k + 2 B^\trp P_{k+1} A x_k = 0 .
 \end{equation}
 Solving for $u_k$ yields the optimal control law:
 \begin{equation}
-    u_k^* = -K_k x_k, \quad K_k = (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A , \label{eq:lqr_dt_gain}
+    u_k^* = -K_k x_k, \quad K_k = (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A . \label{eq:lqr_dt_gain}
 \end{equation}
 Now, substitute $u_k^*$ back into the cost function to determine the updated cost-to-go $V_k(x_k) = x_k^\trp P_k x_k$:
 \begin{align}
     x_k^\trp P_k x_k &= x_k^\trp (Q + A^\trp P_{k+1} A) x_k - 2 x_k^\trp A^\trp P_{k+1} B (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A x_k \nonumber \\
     &\quad + x_k^\trp A^\trp P_{k+1} B (R + B^\trp P_{k+1} B)^{-1} (R + B^\trp P_{k+1} B) (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A x_k \nonumber \\
-&= x_k^\trp \left( A^\trp P_{k+1} A - A^\trp P_{k+1} B (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A + Q \right) x_k ,
+&= x_k^\trp \left( A^\trp P_{k+1} A - A^\trp P_{k+1} B (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A + Q \right) x_k .
 \end{align}
 For this to hold for all $x_k$, we obtain the backward difference Riccati equation:
 \begin{equation}
-P_k = A^\trp P_{k+1} A - A^\trp P_{k+1} B (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A + Q ,
+P_k = A^\trp P_{k+1} A - A^\trp P_{k+1} B (R + B^\trp P_{k+1} B)^{-1} B^\trp P_{k+1} A + Q .
 \end{equation}
 For the infinite-horizon problem, the matrix converges to a steady-state value $\lim_{k\to-\infty} P_k = P$, yielding the \textbf{Discrete Algebraic Riccati Equation (DARE)}:
 \begin{equation}
-    P = A^\trp P A - A^\trp P B (R + B^\trp P B)^{-1} B^\trp P A + Q , \label{eq:lqr_dare}
+    P = A^\trp P A - A^\trp P B (R + B^\trp P B)^{-1} B^\trp P A + Q . \label{eq:lqr_dare}
 \end{equation}
 The optimal steady-state state feedback gain is:
 \begin{equation}
-    K = (R + B^\trp P B)^{-1} B^\trp P A , \label{eq:lqr_dt_optimal_gain}
+    K = (R + B^\trp P B)^{-1} B^\trp P A . \label{eq:lqr_dt_optimal_gain}
 \end{equation}
 
 Similar to the continuous-time case, if $(A, B)$ is stabilizable and $(A, Q^{1/2})$ is detectable, the DARE \eqref{eq:lqr_are} has a unique positive definite solution $P \succ 0$, and the closed-loop matrix $A - B K$ is strictly Schur (stable).
@@ -344,7 +344,7 @@ Similar to the continuous-time case, if $(A, B)$ is stabilizable and $(A, Q^{1/2
 \section{Robust State Feedback Synthesis via LMIs}
 When the system matrices $A$ and $B$ are subject to polytopic uncertainty:
 \begin{equation}
-[A(t) \quad B(t)] \in \text{Co}\{[A_1 \quad B_1], \dots, [A_M \quad B_M]\} ,
+[A(t) \quad B(t)] \in \text{Co}\{[A_1 \quad B_1], \dots, [A_M \quad B_M]\} .
 \end{equation}
 
 \begin{figure}[H]
@@ -375,7 +375,7 @@ When the system matrices $A$ and $B$ are subject to polytopic uncertainty:
 
 the closed-loop matrix under state feedback $u = -K x$ is $A(t) - B(t)K$. For robust quadratic stability, we seek a single symmetric positive definite matrix $P \succ 0$ and a single feedback gain $K$ such that:
 \begin{equation}
-    (A_i - B_i K)^\trp P + P (A_i - B_i K) \prec 0, \quad \forall i = 1, \dots, M , \label{eq:robust_sf_bmi}
+    (A_i - B_i K)^\trp P + P (A_i - B_i K) \prec 0, \quad \forall i = 1, \dots, M . \label{eq:robust_sf_bmi}
 \end{equation}
 The inequality \eqref{eq:robust_sf_bmi} is a \textbf{Bilinear Matrix Inequality (BMI)} because it contains bilinear terms involving the products of the decision variables $P$ and $K$ (e.g., $P B_i K$). BMIs are non-convex and notoriously difficult to solve numerically.
 
@@ -384,15 +384,15 @@ To transform this BMI into a solvable \textbf{Linear Matrix Inequality (LMI)}, w
     \item Define $W = P^{-1} \succ 0$.
     \item Pre- and post-multiply the inequality \eqref{eq:robust_sf_bmi} by $W$:
     \begin{equation}
-W (A_i - B_i K)^\trp P W + W P (A_i - B_i K) W \prec 0 ,
+W (A_i - B_i K)^\trp P W + W P (A_i - B_i K) W \prec 0 .
     \end{equation}
     Since $WP = I$, this simplifies to:
     \begin{equation}
-W A_i^\trp - W K^\trp B_i^\top + A_i W - B_i K W \prec 0 ,
+W A_i^\trp - W K^\trp B_i^\top + A_i W - B_i K W \prec 0 .
     \end{equation}
     \item Define the new auxiliary variable:
     \begin{equation}
-Y = K W \in \R^{m \times n} \implies Y^\trp = W K^\trp ,
+Y = K W \in \R^{m \times n} \implies Y^\trp = W K^\trp .
     \end{equation}
     Substituting $Y$ and $Y^\trp$ into the inequality yields:
     \begin{equation}
@@ -406,7 +406,7 @@ This leads directly to the robust state-feedback synthesis theorem.
 The polytopic uncertain system is robustly quadratically stabilizable via a constant state feedback gain $K$ if there exist a symmetric matrix $W \in \R^{n \times n}$ and a matrix $Y \in \R^{m \times n}$ satisfying the LMI system:
 \begin{align}
     W &\succ 0 \label{eq:lmi_w} \\
-    A_i W + W A_i^\trp - B_i Y - Y^\trp B_i^\trp &\prec 0, \quad \forall i = 1, \dots, M , \label{eq:lmi_vertex}
+    A_i W + W A_i^\trp - B_i Y - Y^\trp B_i^\trp &\prec 0, \quad \forall i = 1, \dots, M . \label{eq:lmi_vertex}
 \end{align}
 Once a solution pair $(W, Y)$ is found, the robust state feedback gain is reconstructed as:
 \begin{equation}

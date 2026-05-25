@@ -70,11 +70,11 @@ where $f: \R^n \times \R^m \to \R^n$ and $h: \R^n \times \R^m \to \R^p$ are cont
 
 Let $(x_e, u_e)$ be a chosen operating (equilibrium) point satisfying the algebraic relation:
 \begin{equation}
-f(x_e, u_e) = 0 ,
+f(x_e, u_e) = 0 .
 \end{equation}
 We define the small deviation variables representing local perturbations about this equilibrium point:
 \begin{equation}
-\delta x(t) = x(t) - x_e, \quad \delta u(t) = u(t) - u_e, \quad \delta y(t) = y(t) - h(x_e, u_e) ,
+\delta x(t) = x(t) - x_e, \quad \delta u(t) = u(t) - u_e, \quad \delta y(t) = y(t) - h(x_e, u_e) .
 \end{equation}
 This local approximation is conceptually illustrated in Figure \ref{fig:linearizacao}, where a nonlinear curve is locally approximated by its tangent line.
 
@@ -87,7 +87,7 @@ This local approximation is conceptually illustrated in Figure \ref{fig:lineariz
 Applying a multivariate Taylor series expansion to $f(x, u)$ and $h(x, u)$ about $(x_e, u_e)$ yields:
 \begin{align}
     f(x, u) &\approx f(x_e, u_e) + \left. \frac{\partial f}{\partial x} \right|_{(x_e, u_e)} (x - x_e) + \left. \frac{\partial f}{\partial u} \right|_{(x_e, u_e)} (u - u_e) + \text{H.O.T.} \\
-h(x, u) &\approx h(x_e, u_e) + \left. \frac{\partial h}{\partial x} \right|_{(x_e, u_e)} (x - x_e) + \left. \frac{\partial h}{\partial u} \right|_{(x_e, u_e)} (u - u_e) + \text{H.O.T.} ,
+h(x, u) &\approx h(x_e, u_e) + \left. \frac{\partial h}{\partial x} \right|_{(x_e, u_e)} (x - x_e) + \left. \frac{\partial h}{\partial u} \right|_{(x_e, u_e)} (u - u_e) + \text{H.O.T.} .
 \end{align}
 Neglecting the Higher-Order Terms (H.O.T.) and substituting the deviation variables gives:
 \begin{align}
@@ -115,7 +115,7 @@ where $A, B, C, D$ are the Jacobian matrices evaluated at the equilibrium point:
         \frac{\partial h_1}{\partial u_1} & \cdots & \frac{\partial h_1}{\partial u_m} \\
         \vdots & \ddots & \vdots \\
         \frac{\partial h_p}{\partial u_1} & \cdots & \frac{\partial h_p}{\partial u_m}
-\end{bmatrix}_{(x_e, u_e)} ,
+\end{bmatrix}_{(x_e, u_e)} .
 \end{align}
 This linearization enables engineers to apply the vast body of linear systems tools to locally stabilize and control inherently nonlinear systems.
 
@@ -149,12 +149,12 @@ R(\theta) = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta 
 \begin{itemize}
     \item \textbf{Trace}: The trace of a square matrix $A \in \R^{n \times n}$ is the sum of its diagonal entries, which also equals the sum of its eigenvalues:
     \begin{equation}
-\tr[A] = \sum_{i=1}^n a_{ii} = \sum_{i=1}^n \lambda_i ,
+\tr[A] = \sum_{i=1}^n a_{ii} = \sum_{i=1}^n \lambda_i .
     \end{equation}
     The trace is linear, $\tr[\alpha A + \beta B] = \alpha\tr[A] + \beta\tr[B]$, and cyclic, $\tr[AB] = \tr[BA]$.
     \item \textbf{Determinant}: The determinant is the product of its eigenvalues:
     \begin{equation}
-\det[A] = \prod_{i=1}^n \lambda_i ,
+\det[A] = \prod_{i=1}^n \lambda_i .
     \end{equation}
     It satisfies the multiplicative property: $\det[AB] = \det[A]\det[B]$.
 \end{itemize}
@@ -162,11 +162,11 @@ R(\theta) = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta 
 \subsection{Eigenvalues and Spectral Decomposition}
 For a square matrix $A \in \R^{n \times n}$, a non-zero vector $v \in \mathbb{C}^n$ is an eigenvector corresponding to eigenvalue $\lambda \in \mathbb{C}$ if:
 \begin{equation}
-A v = \lambda v ,
+A v = \lambda v .
 \end{equation}
 If $A$ is diagonalizable, it possesses $n$ linearly independent eigenvectors. Letting $V = [v_1 \dots v_n]$ be the modal matrix and $\Lambda = \diag(\lambda_1 \dots \lambda_n)$ the diagonal eigenvalue matrix, we have the \textbf{spectral decomposition}:
 \begin{equation}
-A = V \Lambda V^{-1} ,
+A = V \Lambda V^{-1} .
 \end{equation}
 This decomposition provides powerful computational simplifications:
 \begin{itemize}
@@ -178,11 +178,11 @@ This decomposition provides powerful computational simplifications:
 \section{Solution of Continuous-Time LTI State-Space Models}
 Consider the unforced (autonomous) LTI state-space equation:
 \begin{equation}
-\dot{x}(t) = A x(t), \quad x(0) = x_0 ,
+\dot{x}(t) = A x(t), \quad x(0) = x_0 .
 \end{equation}
 By analogy with scalar differential equations, the solution is written in terms of the \textbf{matrix exponential}:
 \begin{equation}
-x(t) = e^{At} x_0 ,
+x(t) = e^{At} x_0 .
 \end{equation}
 \begin{mydefinition}{Matrix Exponential}
 For any square matrix $A \in \R^{n \times n}$ and scalar $t$, the matrix exponential is defined by the globally convergent power series:
@@ -218,11 +218,11 @@ An $n$-th order linear ordinary differential equation can be transformed into an
 
 Consider the scalar differential equation without input derivatives:
 \begin{equation}
-y^{(n)}(t) + a_{n-1} y^{(n-1)}(t) + \dots + a_1 \dot{y}(t) + a_0 y(t) = u(t) ,
+y^{(n)}(t) + a_{n-1} y^{(n-1)}(t) + \dots + a_1 \dot{y}(t) + a_0 y(t) = u(t) .
 \end{equation}
 To define a state-space model, we define the state variables as the output and its first $n-1$ derivatives:
 \begin{equation}
-x_1 = y(t), \quad x_2 = \dot{y}(t), \quad x_3 = \ddot{y}(t), \quad \dots \quad x_n = y^{(n-1)}(t) ,
+x_1 = y(t), \quad x_2 = \dot{y}(t), \quad x_3 = \ddot{y}(t), \quad \dots \quad x_n = y^{(n-1)}(t) .
 \end{equation}
 Differentiating these state variables yields the relations:
 \begin{align}
@@ -230,7 +230,7 @@ Differentiating these state variables yields the relations:
     \dot{x}_2 &= x_3 \\
     \vdots \\
     \dot{x}_{n-1} &= x_n \\
-\dot{x}_n &= y^{(n)}(t) = -a_0 x_1 - a_1 x_2 - \dots - a_{n-1} x_n + u(t) ,
+\dot{x}_n &= y^{(n)}(t) = -a_0 x_1 - a_1 x_2 - \dots - a_{n-1} x_n + u(t) .
 \end{align}
 Expressing these relations in matrix-vector form gives the \textbf{Controllability Canonical Form}:
 \begin{equation}
@@ -240,10 +240,10 @@ Expressing these relations in matrix-vector form gives the \textbf{Controllabili
         \vdots & \vdots & \vdots & \ddots & \vdots \\
         0 & 0 & 0 & \cdots & 1 \\
         -a_0 & -a_1 & -a_2 & \cdots & -a_{n-1}
-\end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_{n-1} \\ x_n \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \\ 1 \end{bmatrix} u(t) ,
+\end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_{n-1} \\ x_n \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \\ 1 \end{bmatrix} u(t) .
 \end{equation}
 The output measurement equation is:
 \begin{equation}
-y(t) = \begin{bmatrix} 1 & 0 & 0 & \cdots & 0 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_{n-1} \\ x_n \end{bmatrix} ,
+y(t) = \begin{bmatrix} 1 & 0 & 0 & \cdots & 0 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_{n-1} \\ x_n \end{bmatrix} .
 \end{equation}
 This standard representation is extremely powerful for feedback controller design, as the coefficients of the system's characteristic polynomial appear directly in the last row of the dynamic matrix.

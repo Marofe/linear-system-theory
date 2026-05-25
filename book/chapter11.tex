@@ -16,11 +16,11 @@ where $\theta_k$ is a discrete-time Markov chain taking values in a finite set o
 
 The transition dynamics of the Markov chain are defined by the transition probability matrix $\mathcal{P} \in \R^{N \times N}$, whose elements are:
 \begin{equation}
-p_{ij} = \mathbb{P}\left(\theta_{k+1} = j \ \middle| \ \theta_k = i\right), \quad \forall i, j \in \mathcal{S} ,
+p_{ij} = \mathbb{P}\left(\theta_{k+1} = j \ \middle| \ \theta_k = i\right), \quad \forall i, j \in \mathcal{S} .
 \end{equation}
 The transition probabilities satisfy:
 \begin{equation}
-p_{ij} \ge 0 \quad \text{and} \quad \sum_{j=1}^N p_{ij} = 1, \quad \forall i \in \mathcal{S} ,
+p_{ij} \ge 0 \quad \text{and} \quad \sum_{j=1}^N p_{ij} = 1, \quad \forall i \in \mathcal{S} .
 \end{equation}
 
 When the system is in mode $\theta_k = i$, the dynamics are governed by the matrices $A(\theta_k) = A_i$ and $B(\theta_k) = B_i$.
@@ -70,48 +70,48 @@ The autonomous MJLS $x_{k+1} = A_i x_k$ is Mean Square Stable if and only if the
 \begin{proof}
 We prove the sufficiency ($\Leftarrow$) of this theorem. Assume there exist positive definite matrices $P_i \succ 0$ satisfying the coupled inequalities \eqref{eq:mjls_coupled_lyap}. We propose a mode-dependent Lyapunov function:
 \begin{equation}
-V(x_k, \theta_k) = x_k^\trp P(\theta_k) x_k \ge 0, \quad \text{where } P(\theta_k) = P_i \text{ when } \theta_k = i ,
+V(x_k, \theta_k) = x_k^\trp P(\theta_k) x_k \ge 0, \quad \text{where } P(\theta_k) = P_i \text{ when } \theta_k = i .
 \end{equation}
 We analyze the conditional expectation of $V(x_{k+1}, \theta_{k+1})$ given the state $x_k$ and mode $\theta_k = i$:
 \begin{equation}
-\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] = \mathbb{E}\left[ x_{k+1}^\trp P(\theta_{k+1}) x_{k+1} \ \middle| \ x_k, \theta_k = i \right] ,
+\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] = \mathbb{E}\left[ x_{k+1}^\trp P(\theta_{k+1}) x_{k+1} \ \middle| \ x_k, \theta_k = i \right] .
 \end{equation}
 Substituting the state dynamics $x_{k+1} = A_i x_k$:
 \begin{align}
     \mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] &= \mathbb{E}\left[ x_k^\trp A_i^\trp P(\theta_{k+1}) A_i x_k \ \middle| \ x_k, \theta_k = i \right] \nonumber \\
-&= x_k^\trp A_i^\trp \mathbb{E}\left[ P(\theta_{k+1}) \ \middle| \ \theta_k = i \right] A_i x_k ,
+&= x_k^\trp A_i^\trp \mathbb{E}\left[ P(\theta_{k+1}) \ \middle| \ \theta_k = i \right] A_i x_k .
 \end{align}
 The conditional expectation of the matrix $P(\theta_{k+1})$ is the sum of the matrices weighted by the transition probabilities:
 \begin{equation}
-\mathbb{E}\left[ P(\theta_{k+1}) \ \middle| \ \theta_k = i \right] = \sum_{j=1}^N p_{ij} P_j ,
+\mathbb{E}\left[ P(\theta_{k+1}) \ \middle| \ \theta_k = i \right] = \sum_{j=1}^N p_{ij} P_j .
 \end{equation}
 Thus, we have:
 \begin{equation}
-\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] = x_k^\trp \left( A_i^\trp \left( \sum_{j=1}^N p_{ij} P_j \right) A_i \right) x_k ,
+\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] = x_k^\trp \left( A_i^\trp \left( \sum_{j=1}^N p_{ij} P_j \right) A_i \right) x_k .
 \end{equation}
 Subtracting $V(x_k, i) = x_k^\trp P_i x_k$ yields the expected variation:
 \begin{equation}
-\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] - V(x_k, i) = x_k^\trp \left( \sum_{j=1}^N p_{ij} A_i^\trp P_j A_i - P_i \right) x_k ,
+\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] - V(x_k, i) = x_k^\trp \left( \sum_{j=1}^N p_{ij} A_i^\trp P_j A_i - P_i \right) x_k .
 \end{equation}
 Since the coupled inequalities \eqref{eq:mjls_coupled_lyap} are strictly negative definite, there exists a scalar $\epsilon > 0$ such that:
 \begin{equation}
-\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] - V(x_k, i) \le -\epsilon \| x_k \|^2 ,
+\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] - V(x_k, i) \le -\epsilon \| x_k \|^2 .
 \end{equation}
 Taking the total expectation across all possible trajectories:
 \begin{equation}
-\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \right] - \mathbb{E}\left[ V(x_k, \theta_k) \right] \le -\epsilon \mathbb{E}\left[ \| x_k \|^2 \right] ,
+\mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \right] - \mathbb{E}\left[ V(x_k, \theta_k) \right] \le -\epsilon \mathbb{E}\left[ \| x_k \|^2 \right] .
 \end{equation}
 Summing this inequality from $k = 0$ to $M$:
 \begin{equation}
-\mathbb{E}\left[ V(x_{M+1}, \theta_{M+1}) \right] - \mathbb{E}\left[ V(x_0, \theta_0) \right] \le -\epsilon \sum_{k=0}^M \mathbb{E}\left[ \| x_k \|^2 \right] ,
+\mathbb{E}\left[ V(x_{M+1}, \theta_{M+1}) \right] - \mathbb{E}\left[ V(x_0, \theta_0) \right] \le -\epsilon \sum_{k=0}^M \mathbb{E}\left[ \| x_k \|^2 \right] .
 \end{equation}
 Rearranging and noting that $V(x, \theta) \ge 0$:
 \begin{equation}
-\sum_{k=0}^M \mathbb{E}\left[ \| x_k \|^2 \right] \le \frac{1}{\epsilon} \mathbb{E}\left[ V(x_0, \theta_0) \right] ,
+\sum_{k=0}^M \mathbb{E}\left[ \| x_k \|^2 \right] \le \frac{1}{\epsilon} \mathbb{E}\left[ V(x_0, \theta_0) \right] .
 \end{equation}
 Taking the limit as $M \to \infty$, the infinite sum is bounded, which implies:
 \begin{equation}
-\lim_{k \to \infty} \mathbb{E}\left[ \| x_k \|^2 \right] = 0 ,
+\lim_{k \to \infty} \mathbb{E}\left[ \| x_k \|^2 \right] = 0 .
 \end{equation}
 This establishes Mean Square Stability.
 \end{proof}
@@ -125,7 +125,7 @@ where $Q(i) = Q_i \ge 0$ and $R(i) = R_i \succ 0$ are the state and control weig
 
 Because the plant dynamics switch, the optimal controller must be mode-dependent:
 \begin{equation}
-u_k^* = -K_i x_k \quad \text{when } \theta_k = i ,
+u_k^* = -K_i x_k \quad \text{when } \theta_k = i .
 \end{equation}
 Using dynamic programming, the mode-dependent feedback gains $K_i$ and the optimal cost-to-go matrices $P_i$ are found by solving the \textbf{Coupled Discrete Algebraic Riccati Equations (CDARE)}.
 
@@ -143,7 +143,7 @@ If the MJLS is stabilizable and detectable in the mean square sense, then:
     possess unique symmetric positive definite solutions $P_1, P_2, \dots, P_N \succ 0$.
     \item The optimal state feedback gain for mode $i \in \mathcal{S}$ is:
     \begin{equation}
-        K_i = \left( R_i + B_i^\trp \mathcal{E}_i(P) B_i \right)^{-1} B_i^\trp \mathcal{E}_i(P) A_i , \label{eq:mjls_opt_k}
+        K_i = \left( R_i + B_i^\trp \mathcal{E}_i(P) B_i \right)^{-1} B_i^\trp \mathcal{E}_i(P) A_i . \label{eq:mjls_opt_k}
     \end{equation}
     \item The resulting closed-loop system is Mean Square Stable.
 \end{enumerate}

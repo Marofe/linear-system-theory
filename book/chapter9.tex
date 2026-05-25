@@ -33,11 +33,11 @@ Let us define the state estimation error $e_x(t) = x(t) - \hat{x}(t)$ and the si
     \dot{e}_x(t) &= \dot{x}(t) - \dot{\hat{x}}(t) \nonumber \\
     &= (A x + B_w w) - \left( A \hat{x} + L (C_y x + D_{yw} w - C_y \hat{x}) \right) \nonumber \\
     &= (A - L C_y) (x - \hat{x}) + (B_w - L D_{yw}) w \nonumber \\
-    &= (A - L C_y) e_x(t) + (B_w - L D_{yw}) w(t) , \label{eq:filt_error_dynamics}
+    &= (A - L C_y) e_x(t) + (B_w - L D_{yw}) w(t) . \label{eq:filt_error_dynamics}
 \end{align}
 The signal estimation error is:
 \begin{equation}
-    e_z(t) = C_z x(t) - C_z \hat{x}(t) = C_z e_x(t) , \label{eq:filt_output_error}
+    e_z(t) = C_z x(t) - C_z \hat{x}(t) = C_z e_x(t) . \label{eq:filt_output_error}
 \end{equation}
 
 Thus, the error system $G_{ew}(s)$ from the disturbance $w$ to the estimation error $e_z$ is governed by the state-space equations:
@@ -47,7 +47,7 @@ e_z(t) &= C_{cl,f} e_x(t) ,
 \end{align}
 where the closed-loop filter matrices are:
 \begin{equation}
-A_{cl,f} = A - L C_y, \quad B_{cl,f} = B_w - L D_{yw}, \quad C_{cl,f} = C_z ,
+A_{cl,f} = A - L C_y, \quad B_{cl,f} = B_w - L D_{yw}, \quad C_{cl,f} = C_z .
 \end{equation}
 
 \begin{figure}[H]
@@ -60,12 +60,12 @@ A_{cl,f} = A - L C_y, \quad B_{cl,f} = B_w - L D_{yw}, \quad C_{cl,f} = C_z ,
 \section{Robust H-infinity Filter Design via LMI}
 We first consider the $H_\infty$ performance criterion, which minimizes the worst-case disturbance amplification from the noise $w$ to the estimation error $e_z$:
 \begin{equation}
-\| G_{ew} \|_\infty = \sup_{w \neq 0, w \in L_2} \frac{\| e_z \|_{L_2}}{\| w \|_{L_2}} < \gamma_f ,
+\| G_{ew} \|_\infty = \sup_{w \neq 0, w \in L_2} \frac{\| e_z \|_{L_2}}{\| w \|_{L_2}} < \gamma_f .
 \end{equation}
 
 Applying the Bounded Real Lemma (Theorem 8.2) to the error system, the filter error dynamics are asymptotically stable and $\| G_{ew} \|_\infty < \gamma_f$ if and only if there exists a symmetric positive definite matrix $P \in \R^{n \times n}$ such that:
 \begin{equation}
-    \begin{bmatrix} (A - L C_y)^\trp P + P (A - L C_y) & P (B_w - L D_{yw}) & C_z^\trp \\ (B_w - L D_{yw})^\trp P & -\gamma_f I & 0 \\ C_z & 0 & -\gamma_f I \end{bmatrix} \prec 0 , \label{eq:filt_hinf_bmi}
+    \begin{bmatrix} (A - L C_y)^\trp P + P (A - L C_y) & P (B_w - L D_{yw}) & C_z^\trp \\ (B_w - L D_{yw})^\trp P & -\gamma_f I & 0 \\ C_z & 0 & -\gamma_f I \end{bmatrix} \prec 0 . \label{eq:filt_hinf_bmi}
 \end{equation}
 This inequality is a Bilinear Matrix Inequality because of the terms $P L C_y$ and $P L D_{yw}$.
 
@@ -74,22 +74,22 @@ In the state feedback design, we linearized the BMI by defining $W = P^{-1}$ and
 
 Instead, we perform a different, highly elegant linearization: we directly define a new decision variable:
 \begin{equation}
-    F = P L \in \R^{n \times p} , \label{eq:filt_change_var}
+    F = P L \in \R^{n \times p} . \label{eq:filt_change_var}
 \end{equation}
 Since $P \succ 0$ is positive definite, it is invertible. Once $P$ and $F$ are found, we can reconstruct the filter gain uniquely as:
 \begin{equation}
-    L = P^{-1} F , \label{eq:filt_reconstruct_gain}
+    L = P^{-1} F . \label{eq:filt_reconstruct_gain}
 \end{equation}
 
 Substituting $F = P L$ into the terms of \eqref{eq:filt_hinf_bmi}:
 \begin{align}
     P (A - L C_y) &= P A - (PL) C_y = P A - F C_y \\
-P (B_w - L D_{yw}) &= P B_w - (PL) D_{yw} = P B_w - F D_{yw} ,
+P (B_w - L D_{yw}) &= P B_w - (PL) D_{yw} = P B_w - F D_{yw} .
 \end{align}
 The transposed terms are:
 \begin{align}
     (A - L C_y)^\trp P &= A^\trp P - C_y^\trp F^\trp \\
-(B_w - L D_{yw})^\trp P &= B_w^\trp P - D_{yw}^\trp F^\trp ,
+(B_w - L D_{yw})^\trp P &= B_w^\trp P - D_{yw}^\trp F^\trp .
 \end{align}
 
 Substituting these expressions directly into \eqref{eq:filt_hinf_bmi} yields a standard convex LMI.
@@ -97,11 +97,11 @@ Substituting these expressions directly into \eqref{eq:filt_hinf_bmi} yields a s
 \begin{mytheorem}{Robust H-infinity Filter LMI Synthesis}
 The robust $H_\infty$ filtering design problem is solved by the following convex semidefinite program:
 \begin{equation}
-\min_{P, F} \gamma_f \quad \text{subject to} ,
+\min_{P, F} \gamma_f \quad \text{subject to} .
 \end{equation}
 \begin{align}
     P &\succ 0 \\
-    \begin{bmatrix} A^\trp P + P A - C_y^\trp F^\trp - F C_y & P B_w - F D_{yw} & C_z^\trp \\ B_w^\trp P - D_{yw}^\trp F^\trp & -\gamma_f I & 0 \\ C_z & 0 & -\gamma_f I \end{bmatrix} &\prec 0 , \label{eq:filt_hinf_lmi}
+    \begin{bmatrix} A^\trp P + P A - C_y^\trp F^\trp - F C_y & P B_w - F D_{yw} & C_z^\trp \\ B_w^\trp P - D_{yw}^\trp F^\trp & -\gamma_f I & 0 \\ C_z & 0 & -\gamma_f I \end{bmatrix} &\prec 0 . \label{eq:filt_hinf_lmi}
 \end{align}
 The optimal robust filter gain is reconstructed as:
 \begin{equation}
@@ -112,13 +112,13 @@ L^* = (P^*)^{-1} F^* .
 \section{Robust H2 Filter Design via LMI}
 We now consider the $H_2$ performance criterion, which minimizes the estimation error energy when the system is driven by white Gaussian noise:
 \begin{equation}
-\| G_{ew} \|_2^2 < \gamma_2 ,
+\| G_{ew} \|_2^2 < \gamma_2 .
 \end{equation}
 Using the observability-based Gramian characterization of the $H_2$ norm, the error system is asymptotically stable and satisfies $\| G_{ew} \|_2^2 < \gamma_2$ if there exist $P \succ 0$ and a symmetric matrix $Z \in \R^{m \times m}$ such that:
 \begin{align}
     \begin{bmatrix} (A - L C_y)^\trp P + P (A - L C_y) & C_z^\trp \\ C_z & -I \end{bmatrix} &\prec 0 \label{eq:filt_h2_bmi_1} \\
     \begin{bmatrix} Z & (B_w - L D_{yw})^\trp P \\ P (B_w - L D_{yw}) & P \end{bmatrix} &\succ 0 \label{eq:filt_h2_bmi_2} \\
-\tr(Z) &< \gamma_2 ,
+\tr(Z) &< \gamma_2 .
 \end{align}
 
 Using the exact same change of variables $F = P L$, these inequalities become convex LMIs.
@@ -126,13 +126,13 @@ Using the exact same change of variables $F = P L$, these inequalities become co
 \begin{mytheorem}{Robust H2 Filter LMI Synthesis}
 The robust $H_2$ filtering design problem is solved by the following convex semidefinite program:
 \begin{equation}
-\min_{P, F, Z} \gamma_2 \quad \text{subject to} ,
+\min_{P, F, Z} \gamma_2 \quad \text{subject to} .
 \end{equation}
 \begin{align}
     P &\succ 0 \\
     \begin{bmatrix} A^\trp P + P A - C_y^\trp F^\trp - F C_y & C_z^\trp \\ C_z & -I \end{bmatrix} &\prec 0 \label{eq:filt_h2_lmi1} \\
     \begin{bmatrix} Z & B_w^\trp P - D_{yw}^\trp F^\trp \\ P B_w - F D_{yw} & P \end{bmatrix} &\succ 0 \label{eq:filt_h2_lmi2} \\
-\tr(Z) &< \gamma_2 ,
+\tr(Z) &< \gamma_2 .
 \end{align}
 The optimal robust $H_2$ filter gain is reconstructed as:
 \begin{equation}

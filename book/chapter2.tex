@@ -6,29 +6,29 @@ Before exploring state transformations, it is important to note that the state-s
 Consider a state-space model:
 \begin{align}
     \dot{x}(t) &= A x(t) + B u(t) \\
-y(t) &= C x(t) + D u(t) ,
+y(t) &= C x(t) + D u(t) .
 \end{align}
 Its dual state-space representation is defined as:
 \begin{align}
     \dot{\tilde{x}}(t) &= A^\trp \tilde{x}(t) + C^\trp u(t) \\
-y(t) &= B^\trp \tilde{x}(t) + D u(t) ,
+y(t) &= B^\trp \tilde{x}(t) + D u(t) .
 \end{align}
 The dual system swaps the role of input and output matrices ($B \leftrightarrow C^\trp$) and transposes the state transition dynamics. As we will see, duality is a mathematical cornerstone when linking controllability with observability, and controller design with observer design.
 
 \section{Similarity Transformations}
 A similarity transformation changes the coordinate system of the state space without altering the input-output behavior of the system. Let $T \in \R^{n \times n}$ be a non-singular (invertible) matrix, and define a new state vector $\tilde{x}(t)$ by the relation:
 \begin{equation}
-x(t) = T \tilde{x}(t) \iff \tilde{x}(t) = T^{-1} x(t) ,
+x(t) = T \tilde{x}(t) \iff \tilde{x}(t) = T^{-1} x(t) .
 \end{equation}
 Substituting this relation into the original LTI state-space equations yields:
 \begin{align}
     T \dot{\tilde{x}}(t) &= A T \tilde{x}(t) + B u(t) \nonumber \\
     \dot{\tilde{x}}(t) &= T^{-1} A T \tilde{x}(t) + T^{-1} B u(t) \\
-y(t) &= C T \tilde{x}(t) + D u(t) ,
+y(t) &= C T \tilde{x}(t) + D u(t) .
 \end{align}
 Thus, the system in the new coordinates is represented by the similar matrices:
 \begin{equation}
-\tilde{A} = T^{-1} A T, \quad \tilde{B} = T^{-1} B, \quad \tilde{C} = C T, \quad \tilde{D} = D ,
+\tilde{A} = T^{-1} A T, \quad \tilde{B} = T^{-1} B, \quad \tilde{C} = C T, \quad \tilde{D} = D .
 \end{equation}
 
 \subsection{Properties of Similarity Transformations}
@@ -52,7 +52,7 @@ We provide the step-by-step mathematical proofs:
     \begin{align}
         \det(sI - \tilde{A}) &= \det(sI - T^{-1}AT) = \det(sT^{-1}IT - T^{-1}AT) \nonumber \\
         &= \det(T^{-1}(sI - A)T) = \det(T^{-1}) \det(sI - A) \det(T) \nonumber \\
-&= \frac{1}{\det(T)} \det(sI - A) \det(T) = \det(sI - A) ,
+&= \frac{1}{\det(T)} \det(sI - A) \det(T) = \det(sI - A) .
     \end{align}
     Since the characteristic polynomials are identical, their roots (the eigenvalues) are identical.
     \item \textbf{Transfer Function}:
@@ -71,25 +71,25 @@ We provide the step-by-step mathematical proofs:
 \subsection{Diagonalization}
 If a matrix $A \in \R^{n \times n}$ has $n$ linearly independent eigenvectors $v_1, \dots, v_n$, we can construct the non-singular modal matrix $T = [v_1 \dots v_n]$. The similarity transformation yields a diagonal dynamic matrix:
 \begin{equation}
-\tilde{A} = T^{-1} A T = \Lambda = \diag(\lambda_1, \lambda_2, \dots, \lambda_n) ,
+\tilde{A} = T^{-1} A T = \Lambda = \diag(\lambda_1, \lambda_2, \dots, \lambda_n) .
 \end{equation}
 In this coordinate system, the state variables are completely uncoupled, and the state trajectories evolve independently:
 \begin{equation}
-\tilde{x}_i(t) = e^{\lambda_i t} \tilde{x}_i(0) ,
+\tilde{x}_i(t) = e^{\lambda_i t} \tilde{x}_i(0) .
 \end{equation}
 
 \subsection{Real Modal Form for Complex Conjugate Eigenvalues}
 If $A$ has complex conjugate eigenvalues $\lambda_{1,2} = \alpha \pm j \beta$, the corresponding eigenvectors $v_{1,2} = u \pm j w$ are also complex conjugates. To avoid working with complex-valued state-space matrices, we can use the transformation matrix:
 \begin{equation}
-T = \begin{bmatrix} \text{Re}(v_1) & \text{Im}(v_1) \end{bmatrix} = \begin{bmatrix} u & w \end{bmatrix} ,
+T = \begin{bmatrix} \text{Re}(v_1) & \text{Im}(v_1) \end{bmatrix} = \begin{bmatrix} u & w \end{bmatrix} .
 \end{equation}
 The resulting similar matrix is in the real Jordan (modal) form:
 \begin{equation}
-\tilde{A} = T^{-1} A T = \begin{bmatrix} \alpha & -\beta \\ \beta & \alpha \end{bmatrix} ,
+\tilde{A} = T^{-1} A T = \begin{bmatrix} \alpha & -\beta \\ \beta & \alpha \end{bmatrix} .
 \end{equation}
 The matrix exponential for this block can be computed analytically, yielding a combined exponential decay and sinusoidal oscillation:
 \begin{equation}
-\exp\left( \begin{bmatrix} \alpha & -\beta \\ \beta & \alpha \end{bmatrix} t \right) = e^{\alpha t} \begin{bmatrix} \cos(\beta t) & -\sin(\beta t) \\ \sin(\beta t) & \cos(\beta t) \end{bmatrix} ,
+\exp\left( \begin{bmatrix} \alpha & -\beta \\ \beta & \alpha \end{bmatrix} t \right) = e^{\alpha t} \begin{bmatrix} \cos(\beta t) & -\sin(\beta t) \\ \sin(\beta t) & \cos(\beta t) \end{bmatrix} .
 \end{equation}
 
 \section{The Cayley-Hamilton Theorem \& Briot-Ruffini division}
@@ -109,15 +109,15 @@ e^{\lambda t} = \Delta(\lambda) q(\lambda, t) + r(\lambda, t) ,
 \end{equation}
 where the remainder $r(\lambda, t)$ has degree at most $n-1$:
 \begin{equation}
-r(\lambda, t) = \sum_{i=0}^{n-1} \rho_i(t) \lambda^i = \rho_0(t) + \rho_1(t) \lambda + \dots + \rho_{n-1}(t) \lambda^{n-1} ,
+r(\lambda, t) = \sum_{i=0}^{n-1} \rho_i(t) \lambda^i = \rho_0(t) + \rho_1(t) \lambda + \dots + \rho_{n-1}(t) \lambda^{n-1} .
 \end{equation}
 Evaluating this relation at the eigenvalues $\lambda_j$ of $A$ (which are the roots of $\Delta(\lambda) = 0$) gives a system of algebraic equations to solve for the coefficients $\rho_i(t)$:
 \begin{equation}
-e^{\lambda_j t} = r(\lambda_j, t) = \sum_{i=0}^{n-1} \rho_i(t) \lambda_j^i, \quad j=1,\dots,n ,
+e^{\lambda_j t} = r(\lambda_j, t) = \sum_{i=0}^{n-1} \rho_i(t) \lambda_j^i, \quad j=1,\dots,n .
 \end{equation}
 By the Cayley-Hamilton Theorem, evaluating the polynomial division at the matrix $A$ yields $\Delta(A) = 0$, leaving:
 \begin{equation}
-e^{At} = r(A, t) = \rho_0(t) I + \rho_1(t) A + \dots + \rho_{n-1}(t) A^{n-1} ,
+e^{At} = r(A, t) = \rho_0(t) I + \rho_1(t) A + \dots + \rho_{n-1}(t) A^{n-1} .
 \end{equation}
 This formula reduces the computation of the matrix exponential of an $n \times n$ matrix to the calculation of $n$ scalar coefficients and a finite sum of matrix powers!
 
@@ -153,7 +153,7 @@ For a Jordan block of size $k$ with eigenvalue $\lambda$:
 \begin{enumerate}
     \item The first vector $v_1$ is a standard eigenvector satisfying:
     \begin{equation}
-(A - \lambda I) v_1 = 0 ,
+(A - \lambda I) v_1 = 0 .
     \end{equation}
     \item The subsequent generalized eigenvectors $v_2, \dots, v_k$ are calculated recursively, forming a \textbf{Jordan Chain}:
     \begin{align}
@@ -173,15 +173,15 @@ A Jordan block $J_k(\lambda)$ can be split into a diagonal matrix and a nilpoten
         \vdots & \vdots & \ddots & \ddots & \vdots \\
         0 & 0 & 0 & 0 & 1 \\
         0 & 0 & 0 & 0 & 0
-\end{bmatrix} ,
+\end{bmatrix} .
 \end{equation}
 Since $\lambda I_k$ and $N_k$ commute ($\lambda I_k N_k = N_k \lambda I_k$), we can split the matrix exponential:
 \begin{equation}
-e^{J_k(\lambda) t} = e^{\lambda I_k t} e^{N_k t} = e^{\lambda t} e^{N_k t} ,
+e^{J_k(\lambda) t} = e^{\lambda I_k t} e^{N_k t} = e^{\lambda t} e^{N_k t} .
 \end{equation}
 Because $N_k$ is a nilpotent matrix of order $k$ (meaning $N_k^k = 0$), the infinite series for $e^{N_k t}$ terminates after $k$ terms:
 \begin{equation}
-e^{N_k t} = I + N_k t + \frac{1}{2!} N_k^2 t^2 + \dots + \frac{1}{(k-1)!} N_k^{k-1} t^{k-1} ,
+e^{N_k t} = I + N_k t + \frac{1}{2!} N_k^2 t^2 + \dots + \frac{1}{(k-1)!} N_k^{k-1} t^{k-1} .
 \end{equation}
 Evaluating this sum yields the analytical matrix exponential for a Jordan Block:
 \begin{equation}
@@ -191,6 +191,6 @@ Evaluating this sum yields the analytical matrix exponential for a Jordan Block:
         \vdots & \vdots & \ddots & \ddots & \vdots \\
         0 & 0 & 0 & 1 & t \\
         0 & 0 & 0 & 0 & 1
-\end{bmatrix} ,
+\end{bmatrix} .
 \end{equation}
 This derivation reveals that repeated eigenvalues with geometric multiplicity 1 introduce algebraic polynomial terms $t, t^2, \dots$ multiplying the natural exponential modes $e^{\lambda t}$ in the time domain, which has significant implications for system stability.
