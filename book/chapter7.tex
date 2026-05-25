@@ -1,0 +1,154 @@
+\chapter{Robust H2 Control via LMI}
+
+\section{The H2 Norm of LTI Systems}
+In modern control system design, we often need to evaluate how external disturbances affect system outputs. The $H_2$ norm is a fundamental performance metric that measures the "size" of a system's output response when subjected to impulsive inputs or white noise disturbances. Typical applications include minimizing control effort, regulating state deviations, and mitigating thermal noise in circuits.
+
+Consider the stable, continuous-time LTI system:
+\begin{align}
+    \dot{x}(t) &= A x(t) + B_w w(t) \label{eq:h2_state} \\
+    z(t) &= C_z x(t) + D_{zw} w(t) \label{eq:h2_output}
+\end{align}
+where $x(t) \in \R^n$ is the state vector, $w(t) \in \R^m$ is the disturbance input vector, and $z(t) \in \R^r$ is the controlled output (or performance vector). 
+
+For the $H_2$ norm to be finite, the transfer function matrix $G(s) = C_z (sI - A)^{-1} B_w + D_{zw}$ must be strictly proper, which requires:
+\begin{equation}
+    D_{zw} = 0
+\end{equation}
+If $D_{zw} \neq 0$, the high-frequency gain of the system does not roll off to zero, and the system would pass high-frequency white noise with infinite energy, leading to an infinite $H_2$ norm. Thus, we restrict our attention to systems where $z(t) = C_z x(t)$.
+
+\subsection{Frequency-Domain and Time-Domain Definitions}
+In the frequency domain, the $H_2$ norm of the system $G(s) = C_z (sI - A)^{-1} B_w$ is defined as the root-mean-square of the frequency response over all frequencies:
+\begin{equation}
+    \| G \|_2 = \left( \frac{1}{2\pi} \int_{-\infty}^{\infty} \tr\left( G(j\omega) G(j\omega)^* \right) d\omega \right)^{1/2} \label{eq:h2_freq}
+\end{equation}
+where $G(j\omega)^*$ is the conjugate transpose of $G(j\omega)$.
+
+By Parseval's theorem, this frequency-domain definition is mathematically equivalent to the total energy of the system's impulse response in the time domain. Let $z^{(i)}(t)$ be the output response of the system starting from zero initial states when the $i$-th input is an impulse: $w(t) = \delta(t) e_i$, where $e_i$ is the $i$-th standard basis vector. The impulse response is:
+\begin{equation}
+    z^{(i)}(t) = C_z e^{A t} B_w e_i
+\end{equation}
+The squared $H_2$ norm is the sum of the $L_2$ norms of the output channels:
+\begin{equation}
+    \| G \|_2^2 = \sum_{i=1}^m \int_0^\infty \| z^{(i)}(t) \|^2 dt = \int_0^\infty \tr\left( \left( C_z e^{A t} B_w \right)^\trp \left( C_z e^{A t} B_w \right) \right) dt
+\end{equation}
+Using the cyclic property of the trace ($\tr(XY) = \tr(YX)$), we can write this in two dual ways:
+\begin{align}
+    \| G \|_2^2 &= \tr\left( B_w^\trp \left( \int_0^\infty e^{A^\trp t} C_z^\trp C_z e^{A t} dt \right) B_w \right) \label{eq:h2_obs_form} \\
+    \| G \|_2^2 &= \tr\left( C_z \left( \int_0^\infty e^{A t} B_w B_w^\trp e^{A^\trp t} dt \right) C_z^\trp \right) \label{eq:h2_cont_form}
+\end{align}
+
+We recognize the integrals inside the parentheses as the **Observability Gramian** $P_o$ and **Controllability Gramian** $P_c$, which satisfy the Lyapunov equations:
+\begin{align}
+    A^\trp P_o + P_o A + C_z^\trp C_z &= 0 \label{eq:h2_lyap_po} \\
+    A P_c + P_c A^\trp + B_w B_w^\trp &= 0 \label{eq:h2_lyap_pc}
+\end{align}
+Thus, the $H_2$ norm can be computed directly from these Gramians:
+\begin{equation}
+    \| G \|_2^2 = \tr(B_w^\trp P_o B_w) = \tr(C_z P_c C_z^\trp) \label{eq:h2_gramian_val}
+\end{equation}
+
+\section{LMI Formulation of the H2 Norm}
+To design controllers that optimize the $H_2$ norm under uncertainty, we represent the condition $\| G \|_2^2 < \gamma$ (where $\gamma > 0$ is a scalar performance bound) as a set of Linear Matrix Inequalities.
+
+We utilize the controllability-based Gramian representation \eqref{eq:h2_cont_form}.
+
+\begin{mytheorem}{LMI H2 Performance Condition}
+The LTI system \eqref{eq:h2_state}--\eqref{eq:h2_output} (with $D_{zw}=0$) is asymptotically stable and satisfies $\| G \|_2^2 < \gamma$ if and only if there exist a symmetric positive definite matrix $W \in \R^{n \times n}$ and a symmetric matrix $Z \in \R^{r \times r}$ satisfying:
+\begin{align}
+    A W + W A^\trp + B_w B_w^\trp &\prec 0 \label{eq:h2_lmi_lyap} \\
+    \begin{bmatrix} Z & C_z W \\ W C_z^\trp & W \end{bmatrix} &\succ 0 \label{eq:h2_lmi_schur} \\
+    \tr(Z) &< \gamma \label{eq:h2_lmi_trace}
+\end{align}
+\end{mytheorem}
+
+\begin{proof}
+Let $A$ be stable. The Lyapunov inequality \eqref{eq:h2_lmi_lyap} implies that the controllability Gramian $P_c$ satisfies:
+\begin{equation}
+    P_c \prec W
+\end{equation}
+Since $P_c \prec W$, we can bound the output covariance:
+\begin{equation}
+    C_z P_c C_z^\trp \prec C_z W C_z^\trp
+\end{equation}
+Taking the trace yields:
+\begin{equation}
+    \| G \|_2^2 = \tr(C_z P_c C_z^\trp) < \tr(C_z W C_z^\trp)
+\end{equation}
+Next, we apply the Schur complement to the block matrix inequality \eqref{eq:h2_lmi_schur}. The inequality is equivalent to:
+\begin{equation}
+    W \succ 0 \quad \text{and} \quad Z - C_z W W^{-1} W C_z^\trp \succ 0
+\end{equation}
+This simplifies directly to:
+\begin{equation}
+    Z \succ C_z W C_z^\trp
+\end{equation}
+Taking the trace of this relation:
+\begin{equation}
+    \tr(Z) > \tr(C_z W C_z^\trp)
+\end{equation}
+Thus, if we enforce $\tr(Z) < \gamma$ in \eqref{eq:h2_lmi_trace}, we guarantee:
+\begin{equation}
+    \| G \|_2^2 < \tr(C_z W C_z^\trp) < \tr(Z) < \gamma
+\end{equation}
+which proves the theorem.
+\end{proof}
+
+\section{H2 State Feedback Controller Design}
+We now apply this LMI formulation to design an optimal robust state feedback controller. Consider the system:
+\begin{align}
+    \dot{x}(t) &= A x(t) + B_u u(t) + B_w w(t) \\
+    z(t) &= C_z x(t) + D_{zu} u(t)
+\end{align}
+where $u(t)$ is the control input. We wish to design a state feedback gain $K \in \R^{m \times n}$ such that the control law:
+\begin{equation}
+    u(t) = -K x(t)
+\end{equation}
+stabilizes the closed-loop system and minimizes the $H_2$ norm of the closed-loop transfer function $G_{cl}(s)$ from $w$ to $z$.
+
+The closed-loop dynamics are:
+\begin{align}
+    \dot{x}(t) &= (A - B_u K) x(t) + B_w w(t) \\
+    z(t) &= (C_z - D_{zu} K) x(t)
+\end{align}
+Applying the $H_2$ LMI theorem, the closed-loop system is stable and satisfies $\| G_{cl} \|_2^2 < \gamma$ if there exist $W \succ 0$ and $Z = Z^\trp$ such that:
+\begin{align}
+    (A - B_u K) W + W (A - B_u K)^\trp + B_w B_w^\trp &\prec 0 \label{eq:h2_bmi_1} \\
+    \begin{bmatrix} Z & (C_z - D_{zu} K) W \\ W (C_z - D_{zu} K)^\trp & W \end{bmatrix} &\succ 0 \label{eq:h2_bmi_2} \\
+    \tr(Z) &< \gamma
+\end{align}
+These inequalities are Bilinear Matrix Inequalities because of the products $KW$ in both expressions.
+
+To linearize the system, we introduce the auxiliary variable:
+\begin{equation}
+    Y = K W \in \R^{m \times n} \implies Y^\trp = W K^\trp
+\end{equation}
+Substituting $Y$ and $Y^\trp$ into \eqref{eq:h2_bmi_1} and \eqref{eq:h2_bmi_2} gives:
+\begin{align}
+    (A - B_u K) W + W (A - B_u K)^\trp &= A W - B_u (KW) + W A^\trp - (W K^\trp) B_u^\trp \nonumber \\
+    &= A W + W A^\trp - B_u Y - Y^\trp B_u^\trp
+\end{align}
+and:
+\begin{equation}
+    (C_z - D_{zu} K) W = C_z W - D_{zu} Y
+\end{equation}
+
+This leads directly to the $H_2$ state-feedback synthesis theorem.
+
+\begin{mytheorem}{H2 State Feedback LMI Synthesis}
+The optimal $H_2$ state feedback design problem is solved by the following convex semidefinite program:
+\begin{equation}
+    \min_{W, Y, Z} \gamma \quad \text{subject to}
+\end{equation}
+\begin{align}
+    W &\succ 0 \\
+    A W + W A^\trp - B_u Y - Y^\trp B_u^\trp + B_w B_w^\trp &\prec 0 \label{eq:h2_sf_lmi1} \\
+    \begin{bmatrix} Z & C_z W - D_{zu} Y \\ W C_z^\trp - Y^\trp D_{zu}^\trp & W \end{bmatrix} &\succ 0 \label{eq:h2_sf_lmi2} \\
+    \tr(Z) &< \gamma
+\end{align}
+The optimal robust feedback gain is reconstructed as:
+\begin{equation}
+    K^* = Y^* (W^*)^{-1}
+\end{equation}
+\end{mytheorem}
+
+This LMI formulation is extremely powerful. If the matrices $A$ and $B_u$ belong to a polytopic uncertainty set, we can robustly guarantee $\| G_{cl} \|_2^2 < \gamma$ for the entire polytope by solving \eqref{eq:h2_sf_lmi1} and \eqref{eq:h2_sf_lmi2} simultaneously at each vertex using the single, common decision variables $W$, $Y$, and $Z$!

@@ -1,0 +1,107 @@
+\documentclass[11pt,oneside]{book}
+
+% Core Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+
+% Page Geometry
+\geometry{
+    a4paper,
+    total={160mm,240mm},
+    left=25mm,
+    top=25mm,
+}
+
+% Path to external slide images
+\graphicspath{{../images/}}
+
+% Custom Math Macros (Matching init.js and course conventions)
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\trp}{\intercal}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\Diag}{\operatorname{Diag}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\stairs}{\star}
+
+% Premium tcolorbox setups for styled slide 'lightups'
+\newtcolorbox{mydefinition}[1]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=Definition: #1,
+    arc=4mm,
+    boxrule=1mm
+}
+
+\newtcolorbox{mytheorem}[1]{
+    colback=green!5!white,
+    colframe=green!60!black,
+    fonttitle=\bfseries,
+    title=Theorem: #1,
+    arc=4mm,
+    boxrule=1mm
+}
+
+\newtcolorbox{myexample}[1]{
+    colback=orange!5!white,
+    colframe=orange!80!black,
+    fonttitle=\bfseries,
+    title=Example: #1,
+    arc=4mm,
+    boxrule=1mm
+}
+
+% Header/Footer configuration
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% Title Page Information
+\title{
+    \vspace{-2cm}
+    \includegraphics[width=4cm]{sel.png} \\[1cm]
+    \Huge \bfseries Theory of Linear Systems \\
+    \Large \textbf{SEL5911 - Graduate Course Textbook} \\[0.5cm]
+    \large São Carlos School of Engineering (EESC) \\
+    University of São Paulo (USP)
+}
+\author{
+    \textbf{Prof. Dr. Marcos Rogério Fernandes} \\
+    Department of Electrical and Computer Engineering (SEL)
+}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+% --- Chapter Inputs ---
+\input{chapter1.tex}
+\input{chapter2.tex}
+\input{chapter3.tex}
+\input{chapter4.tex}
+\input{chapter5.tex}
+\input{chapter6.tex}
+\input{chapter7.tex}
+\input{chapter8.tex}
+\input{chapter9.tex}
+\input{chapter10.tex}
+\input{chapter11.tex}
+
+\end{document}

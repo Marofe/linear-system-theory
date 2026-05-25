@@ -1,0 +1,160 @@
+\chapter{Robust H-infinity Control via LMI}
+
+\section{The H-infinity Norm of LTI Systems}
+In practical engineering systems, mathematical models are never perfect. Parameter variations, unmodeled high-frequency dynamics, and physical wear introduce unstructured perturbations. The $H_\infty$ norm is the key mathematical tool in robust control theory used to quantify a system's worst-case performance and guarantee robust stability in the presence of these model uncertainties.
+
+Consider the stable, continuous-time LTI system:
+\begin{align}
+    \dot{x}(t) &= A x(t) + B_w w(t) \label{eq:hinf_state} \\
+    z(t) &= C_z x(t) + D_{zw} w(t) \label{eq:hinf_output}
+\end{align}
+where $w(t) \in \R^m$ represents worst-case external disturbances, and $z(t) \in \R^r$ is the controlled output performance vector.
+
+\subsection{Frequency-Domain and Time-Domain Definitions}
+In the frequency domain, the $H_\infty$ norm of the transfer function $G(s) = C_z (sI - A)^{-1} B_w + D_{zw}$ is defined as the peak gain (or maximum singular value) of the system over all frequencies:
+\begin{equation}
+    \| G \|_\infty = \sup_{\omega \in \R} \sigma_{\max}\left( G(j\omega) \right) \label{eq:hinf_freq}
+\end{equation}
+where $\sigma_{\max}(\cdot)$ denotes the maximum singular value of the matrix.
+
+In the time domain, the $H_\infty$ norm corresponds to the **induced $L_2$-to-$L_2$ norm** of the system. Let $L_2$ be the space of square-integrable signals:
+\begin{equation}
+    \| w \|_{L_2} = \left( \int_0^\infty \| w(t) \|^2 dt \right)^{1/2} < \infty
+\end{equation}
+Assuming zero initial conditions ($x(0) = 0$), the $H_\infty$ norm is defined as:
+\begin{equation}
+    \| G \|_\infty = \sup_{w \neq 0, w \in L_2} \frac{\| z \|_{L_2}}{\| w \|_{L_2}} = \sup_{w \neq 0, w \in L_2} \frac{\left( \int_0^\infty \| z(t) \|^2 dt \right)^{1/2}}{\left( \int_0^\infty \| w(t) \|^2 dt \right)^{1/2}} \label{eq:hinf_time}
+\end{equation}
+This indicates the worst-case disturbance amplification ratio. For any disturbance signal $w(t)$, the output energy is guaranteed to satisfy:
+\begin{equation}
+    \| z \|_{L_2} \le \| G \|_\infty \| w \|_{L_2}
+\end{equation}
+
+\section{The Bounded Real Lemma (BRL)}
+Evaluating the $H_\infty$ norm using the frequency-domain definition \eqref{eq:hinf_freq} requires sweeping across all frequencies, which is computationally cumbersome. The **Bounded Real Lemma (BRL)** provides a state-space characterization of the $H_\infty$ norm, formulating the inequality $\| G \|_\infty < \gamma$ as a single Linear Matrix Inequality.
+
+\begin{mytheorem}{Continuous-Time Bounded Real Lemma}
+The LTI system \eqref{eq:hinf_state}--\eqref{eq:hinf_output} is asymptotically stable and satisfies $\| G \|_\infty < \gamma$ if and only if there exists a symmetric positive definite matrix $P \in \R^{n \times n}$ satisfying:
+\begin{equation}
+    \begin{bmatrix} A^\trp P + P A & P B_w & C_z^\trp \\ B_w^\trp P & -\gamma I & D_{zw}^\trp \\ C_z & D_{zw} & -\gamma I \end{bmatrix} \prec 0 \label{eq:brl_lmi}
+\end{equation}
+\end{mytheorem}
+
+\begin{proof}
+We prove the sufficiency ($\Leftarrow$) of the BRL. Assume there exists $P \succ 0$ satisfying the LMI \eqref{eq:brl_lmi}. We define a quadratic Lyapunov (or storage) function:
+\begin{equation}
+    V(x(t)) = x(t)^\trp P x(t) \ge 0
+\end{equation}
+Differentiating $V(x(t))$ along the system trajectories $\dot{x} = A x + B_w w$ yields:
+\begin{align}
+    \dot{V}(x) &= \dot{x}^\trp P x + x^\trp P \dot{x} \nonumber \\
+    &= (A x + B_w w)^\trp P x + x^\trp P (A x + B_w w) \nonumber \\
+    &= x^\trp (A^\trp P + P A) x + 2 x^\trp P B_w w \label{eq:brl_vdot}
+\end{align}
+To establish $\| G \|_\infty < \gamma$, we seek to show that for any non-zero disturbance $w(t) \in L_2$ under $x(0) = 0$, we have:
+\begin{equation}
+    \| z \|_{L_2}^2 < \gamma^2 \| w \|_{L_2}^2 \implies \int_0^\infty \left( \| z(t) \|^2 - \gamma^2 \| w(t) \|^2 \right) dt < 0
+\end{equation}
+Let us define the Hamiltonian-like dissipation term:
+\begin{equation}
+    \mathcal{D}(x, w) = \dot{V}(x) + \frac{1}{\gamma} \| z(t) \|^2 - \gamma \| w(t) \|^2 \label{eq:brl_dissipation}
+\end{equation}
+Substitute $z(t) = C_z x(t) + D_{zw} w(t)$ and $\dot{V}(x)$ from \eqref{eq:brl_vdot} into \eqref{eq:brl_dissipation}:
+\begin{align}
+    \mathcal{D}(x, w) &= x^\trp (A^\trp P + P A) x + 2 x^\trp P B_w w \nonumber \\
+    &\quad + \frac{1}{\gamma} (C_z x + D_{zw} w)^\trp (C_z x + D_{zw} w) - \gamma w^\trp w
+\end{align}
+We can write this quadratic form compactly as:
+\begin{equation}
+    \mathcal{D}(x, w) = \begin{bmatrix} x \\ w \end{bmatrix}^\trp \begin{bmatrix} A^\trp P + P A + \frac{1}{\gamma} C_z^\trp C_z & P B_w + \frac{1}{\gamma} C_z^\trp D_{zw} \\ B_w^\trp P + \frac{1}{\gamma} D_{zw}^\trp C_z & \frac{1}{\gamma} D_{zw}^\trp D_{zw} - \gamma I \end{bmatrix} \begin{bmatrix} x \\ w \end{bmatrix}
+\end{equation}
+For the system to satisfy the dissipation inequality $\mathcal{D}(x, w) < 0$ for all $\begin{bmatrix} x^\trp & w^\trp \end{bmatrix}^\trp \neq 0$, the central matrix must be strictly negative definite:
+\begin{equation}
+    \begin{bmatrix} A^\trp P + P A + \frac{1}{\gamma} C_z^\trp C_z & P B_w + \frac{1}{\gamma} C_z^\trp D_{zw} \\ B_w^\trp P + \frac{1}{\gamma} D_{zw}^\trp C_z & \frac{1}{\gamma} D_{zw}^\trp D_{zw} - \gamma I \end{bmatrix} \prec 0 \label{eq:brl_proof_schur_pre}
+\end{equation}
+We can rewrite this matrix by separating the terms involving $C_z$ and $D_{zw}$:
+\begin{equation}
+    \begin{bmatrix} A^\trp P + P A & P B_w \\ B_w^\trp P & -\gamma I \end{bmatrix} + \frac{1}{\gamma} \begin{bmatrix} C_z^\trp \\ D_{zw}^\trp \end{bmatrix} \begin{bmatrix} C_z & D_{zw} \end{bmatrix} \prec 0
+\end{equation}
+Applying the Schur complement to this expression immediately yields the BRL LMI:
+\begin{equation}
+    \begin{bmatrix} A^\trp P + P A & P B_w & C_z^\trp \\ B_w^\trp P & -\gamma I & D_{zw}^\trp \\ C_z & D_{zw} & -\gamma I \end{bmatrix} \prec 0
+\end{equation}
+Now, integrating $\mathcal{D}(x, w) < 0$ from $t = 0$ to $t = \infty$:
+\begin{equation}
+    \int_0^\infty \dot{V}(x(t)) dt + \frac{1}{\gamma} \int_0^\infty \| z(t) \|^2 dt - \gamma \int_0^\infty \| w(t) \|^2 dt < 0
+\end{equation}
+Since $x(0) = 0$ and the system is stable ($\lim_{t\to\infty} x(t) = 0$), the first term evaluates to:
+\begin{equation}
+    \int_0^\infty \dot{V}(x(t)) dt = V(x(\infty)) - V(x(0)) = 0
+\end{equation}
+Thus, we have:
+\begin{equation}
+    \frac{1}{\gamma} \| z \|_{L_2}^2 - \gamma \| w \|_{L_2}^2 < 0 \implies \| z \|_{L_2}^2 < \gamma^2 \| w \|_{L_2}^2
+\end{equation}
+This completes the proof of sufficiency.
+\end{proof}
+
+\subsection{Discrete-Time Bounded Real Lemma}
+For discrete-time systems $x_{k+1} = A x_k + B w_k$, $z_k = C_z x_k + D_{zw} w_k$, the discrete-time BRL characterizes the performance $\| G \|_\infty < \gamma$ using the following LMI.
+
+\begin{mytheorem}{Discrete-Time Bounded Real Lemma}
+The discrete LTI system is asymptotically stable and satisfies $\| G \|_\infty < \gamma$ if and only if there exists a symmetric positive definite matrix $P \in \R^{n \times n}$ satisfying:
+\begin{equation}
+    \begin{bmatrix} A^\trp P A - P & A^\trp P B_w & C_z^\trp \\ B_w^\trp P A & B_w^\trp P B_w - \gamma I & D_{zw}^\trp \\ C_z & D_{zw} & -\gamma I \end{bmatrix} \prec 0 \label{eq:brl_dt_lmi}
+\end{equation}
+\end{mytheorem}
+
+\section{Robust H-infinity State Feedback Synthesis}
+We now design a state feedback gain $K \in \R^{m \times n}$ for the system:
+\begin{align}
+    \dot{x}(t) &= A x(t) + B_u u(t) + B_w w(t) \\
+    z(t) &= C_z x(t) + D_{zu} u(t)
+\end{align}
+such that the closed-loop system under the control law $u(t) = -K x(t)$ is stable and satisfies $\| G_{cl} \|_\infty < \gamma$. We assume $D_{zw} = 0$ to focus on the essential LMI structure.
+
+The closed-loop dynamics are:
+\begin{align}
+    \dot{x}(t) &= (A - B_u K) x(t) + B_w w(t) \\
+    z(t) &= (C_z - D_{zu} K) x(t)
+\end{align}
+Applying the continuous-time BRL \eqref{eq:brl_lmi} with $D_{zw} = 0$, the closed loop satisfies $\| G_{cl} \|_\infty < \gamma$ if there exists $P \succ 0$ satisfying:
+\begin{equation}
+    \begin{bmatrix} (A - B_u K)^\trp P + P (A - B_u K) & P B_w & (C_z - D_{zu} K)^\trp \\ B_w^\trp P & -\gamma I & 0 \\ C_z - D_{zu} K & 0 & -\gamma I \end{bmatrix} \prec 0 \label{eq:hinf_bmi}
+\end{equation}
+This is a BMI due to the products of the decision variables $P$ and $K$.
+
+To linearize the inequality, we perform a congruence transformation:
+\begin{enumerate}
+    \item Define $W = P^{-1} \succ 0$.
+    \item Pre- and post-multiply \eqref{eq:hinf_bmi} by the block diagonal matrix $\text{diag}(W, I, I)$:
+    \begin{equation}
+        \begin{bmatrix} W & 0 & 0 \\ 0 & I & 0 \\ 0 & 0 & I \end{bmatrix} \begin{bmatrix} (A - B_u K)^\trp P + P (A - B_u K) & P B_w & (C_z - D_{zu} K)^\trp \\ B_w^\trp P & -\gamma I & 0 \\ C_z - D_{zu} K & 0 & -\gamma I \end{bmatrix} \begin{bmatrix} W & 0 & 0 \\ 0 & I & 0 \\ 0 & 0 & I \end{bmatrix} \prec 0
+    \end{equation}
+    This simplifies to:
+    \begin{equation}
+        \begin{bmatrix} W (A - B_u K)^\trp + (A - B_u K) W & B_w & W (C_z - D_{zu} K)^\trp \\ B_w^\trp & -\gamma I & 0 \\ (C_z - D_{zu} K) W & 0 & -\gamma I \end{bmatrix} \prec 0
+    \end{equation}
+    \item Define the auxiliary variable $Y = K W$, which yields:
+    \begin{equation}
+        \begin{bmatrix} A W + W A^\trp - B_u Y - Y^\trp B_u^\trp & B_w & W C_z^\trp - Y^\trp D_{zu}^\trp \\ B_w^\trp & -\gamma I & 0 \\ C_z W - D_{zu} Y & 0 & -\gamma I \end{bmatrix} \prec 0
+    \end{equation}
+\end{enumerate}
+
+This leads directly to the robust $H_\infty$ synthesis theorem.
+
+\begin{mytheorem}{H-infinity State Feedback LMI Synthesis}
+The robust $H_\infty$ state feedback gain $K$ that minimizes the worst-case disturbance amplification $\gamma$ is solved by the following convex semidefinite program:
+\begin{equation}
+    \min_{W, Y} \gamma \quad \text{subject to}
+\end{equation}
+\begin{align}
+    W &\succ 0 \\
+    \begin{bmatrix} A W + W A^\trp - B_u Y - Y^\trp B_u^\trp & B_w & W C_z^\trp - Y^\trp D_{zu}^\trp \\ B_w^\trp & -\gamma I & 0 \\ C_z W - D_{zu} Y & 0 & -\gamma I \end{bmatrix} &\prec 0 \label{eq:hinf_sf_lmi}
+\end{align}
+The optimal feedback gain is reconstructed as:
+\begin{equation}
+    K^* = Y^* (W^*)^{-1}
+\end{equation}
+\end{mytheorem}
+If the system matrices $[A \quad B_u]$ are subject to polytopic uncertainty, we can solve the LMI \eqref{eq:hinf_sf_lmi} simultaneously at all vertices using the single common variables $W$ and $Y$. This guarantees robust stability and a guaranteed $H_\infty$ attenuation bound $\gamma$ for all plants in the uncertainty polytope.

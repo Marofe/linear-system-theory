@@ -1,0 +1,166 @@
+\chapter{Controllability and Observability}
+
+\section{Introduction and Discrete-Time Formulations}
+Controllability and observability are fundamental structural properties of dynamical systems first formalized by Rudolf E. Kálmán in 1960. They answer two primary questions:
+\begin{enumerate}
+    \item \textbf{Controllability}: Can we use control inputs to drive the system states to any desired configuration in finite time?
+    \item \textbf{Observability}: Can we determine the internal state trajectories of the system solely by measuring the output signals over a finite time window?
+\end{enumerate}
+
+To establish these concepts mathematically, we start by solving the discrete-time LTI state-space dynamic equation:
+\begin{equation}
+    x_{k+1} = A x_k + B u_k, \quad x(0) = x_0
+\end{equation}
+Evaluating this equation recursively for successive time indices yields:
+\begin{align}
+    x_1 &= A x_0 + B u_0 \nonumber \\
+    x_2 &= A x_1 + B u_1 = A(A x_0 + B u_0) + B u_1 = A^2 x_0 + A B u_0 + B u_1 \nonumber \\
+    x_3 &= A^3 x_0 + A^2 B u_0 + A B u_1 + B u_2 \\
+    &\vdots \nonumber \\
+    x_k &= A^k x_0 + \sum_{j=0}^{k-1} A^{k-j-1} B u_j, \quad k \in \mathbb{Z}_{\ge 1} \label{eq:discrete_sol}
+\end{align}
+Rearranging Equation \eqref{eq:discrete_sol} to isolate the initial state's natural response gives:
+\begin{equation}
+    x_k - A^k x_0 = \sum_{j=0}^{k-1} A^{k-j-1} B u_j
+\end{equation}
+Expressing this sum as a matrix-vector product yields the fundamental relationship:
+\begin{equation}
+    x_k - A^k x_0 = \begin{bmatrix} B & AB & A^2B & \cdots & A^{k-1}B \end{bmatrix} \begin{bmatrix} u_{k-1} \\ u_{k-2} \\ \vdots \\ u_0 \end{bmatrix}
+\end{equation}
+By defining the \textbf{Controllability Matrix} of order $k$:
+\begin{equation}
+    \mathcal{C}_k = \begin{bmatrix} B & AB & A^2B & \cdots & A^{k-1}B \end{bmatrix}
+\end{equation}
+we see that a target state $x_k$ is reachable from $x_0$ if and only if the vector $x_k - A^k x_0$ lies in the column space (range) of $\mathcal{C}_k$.
+
+\section{Controllability of Continuous-Time LTI Systems}
+\begin{mydefinition}{Controllability}
+A continuous-time system $\dot{x} = Ax + Bu$ is controllable if, for any initial state $x(0) = x_0$ and any target state $x_f$, there exists a finite time $t_f > 0$ and a piecewise continuous control input $u(t)$ over $t \in [0, t_f]$ that drives the state from $x_0$ to $x_f$ at $t = t_f$.
+\end{mydefinition}
+
+\subsection{The Kalman Controllability Rank Condition}
+\begin{mytheorem}{Kalman Controllability Condition}
+An LTI continuous-time system $(A, B)$ is controllable if and only if the controllability matrix:
+\begin{equation}
+    \mathcal{C} = \begin{bmatrix} B & AB & A^2B & \cdots & A^{n-1}B \end{bmatrix} \in \R^{n \times nm}
+\end{equation}
+has full row rank, i.e., $\text{rank}(\mathcal{C}) = n$.
+\end{mytheorem}
+
+\begin{proof}
+The proof relies on the Cayley-Hamilton Theorem. Recall that the state transition solution is:
+\begin{equation}
+    x(t) = e^{At} x_0 + \int_0^t e^{A(t-\tau)} B u(\tau) d\tau
+\end{equation}
+We expand the matrix exponential inside the integral using the power series:
+\begin{equation}
+    e^{A(t-\tau)} = \sum_{k=0}^\infty \frac{(t-\tau)^k}{k!} A^k
+\end{equation}
+By the Cayley-Hamilton Theorem, any power of $A$ of order $n$ or higher ($A^k$ for $k \ge n$) can be written as a linear combination of lower powers $\{I, A, \dots, A^{n-1}\}$. Thus, the matrix exponential can be simplified to:
+\begin{equation}
+    e^{A(t-\tau)} = \sum_{j=0}^{n-1} \alpha_j(t-\tau) A^j
+\end{equation}
+Substituting this finite sum into the state equation yields:
+\begin{align}
+    x(t_f) - e^{At_f} x_0 &= \int_0^{t_f} \sum_{j=0}^{n-1} \alpha_j(t_f-\tau) A^j B u(\tau) d\tau \nonumber \\
+    &= \sum_{j=0}^{n-1} A^j B \int_0^{t_f} \alpha_j(t_f-\tau) u(\tau) d\tau \nonumber \\
+    &= \begin{bmatrix} B & AB & \cdots & A^{n-1}B \end{bmatrix} \begin{bmatrix} \int_0^{t_f} \alpha_0(t_f-\tau) u(\tau) d\tau \\ \vdots \\ \int_0^{t_f} \alpha_{n-1}(t_f-\tau) u(\tau) d\tau \end{bmatrix}
+\end{align}
+For the state $x(t_f)$ to be driven to any arbitrary vector in $\R^n$, the range of the controllability matrix $\mathcal{C}$ must span the entire space $\R^n$. This requires that $\mathcal{C}$ has $n$ linearly independent columns, i.e., $\text{rank}(\mathcal{C}) = n$.
+\end{proof}
+
+\subsection{The Controllability Gramian}
+A more numerically robust method to evaluate and characterize controllability is using the **Controllability Gramian**.
+\begin{mydefinition}{Controllability Gramian}
+For a system $(A, B)$, the Controllability Gramian over interval $[0, t]$ is defined as the symmetric matrix:
+\begin{equation}
+    W_c(t) = \int_0^t e^{A\tau} B B^\trp e^{A^\trp\tau} d\tau \in \R^{n \times n}
+\end{equation}
+\end{mydefinition}
+The system $(A, B)$ is controllable if and only if $W_c(t)$ is positive definite ($W_c(t) \succ 0$) for any $t > 0$. If $W_c(t) \succ 0$, the minimum-energy control input that drives the system from $x_0$ to $x_f$ at $t = t_f$ is given analytically by:
+\begin{equation}
+    u(t) = B^\trp e^{A^\trp(t_f-t)} W_c(t_f)^{-1} (x_f - e^{At_f}x_0)
+\end{equation}
+
+When $A$ is stable (all eigenvalues have negative real parts), we can evaluate the infinite-horizon controllability Gramian:
+\begin{equation}
+    W_c(\infty) = \int_0^\infty e^{A\tau} B B^\trp e^{A^\trp\tau} d\tau
+\end{equation}
+which is the unique positive definite solution to the continuous-time **Lyapunov Equation**:
+\begin{equation}
+    A W_c + W_c A^\trp + B B^\trp = 0
+\end{equation}
+
+\section{Observability of Continuous-Time LTI Systems}
+\begin{mydefinition}{Observability}
+A continuous-time system $\dot{x} = Ax + Bu, y = Cx + Du$ is observable if, for any initial state $x(0) = x_0$, there exists a finite time $t_f > 0$ such that the knowledge of the input $u(t)$ and output $y(t)$ over the interval $[0, t_f]$ uniquely determines $x_0$.
+\end{mydefinition}
+
+Since the input $u(t)$ is known, we can subtract its effect from the output $y(t)$ without loss of generality. We thus analyze the unforced system:
+\begin{equation}
+    \dot{x}(t) = A x(t), \quad y(t) = C x(t)
+\end{equation}
+which yields the output:
+\begin{equation}
+    y(t) = C e^{At} x_0
+\end{equation}
+
+\subsection{The Kalman Observability Rank Condition}
+\begin{mytheorem}{Kalman Observability Condition}
+An LTI continuous-time system $(A, C)$ is observable if and only if the observability matrix:
+\begin{equation}
+    \mathcal{O} = \begin{bmatrix} C \\ CA \\ CA^2 \\ \vdots \\ CA^{n-1} \end{bmatrix} \in \R^{np \times n}
+\end{equation}
+has full column rank, i.e., $\text{rank}(\mathcal{O}) = n$.
+\end{mytheorem}
+
+\subsection{The Observability Gramian}
+\begin{mydefinition}{Observability Gramian}
+The Observability Gramian over the interval $[0, t]$ is the symmetric matrix:
+\begin{equation}
+    W_o(t) = \int_0^t e^{A^\trp\tau} C^\trp C e^{A\tau} d\tau \in \R^{n \times n}
+\end{equation}
+\end{mydefinition}
+The system is observable if and only if $W_o(t) \succ 0$ for any $t > 0$. If $A$ is stable, the infinite-horizon observability Gramian $W_o(\infty)$ is the unique positive definite solution to the Lyapunov Equation:
+\begin{equation}
+    A^\trp W_o + W_o A + C^\trp C = 0
+\end{equation}
+
+\section{The Principle of Duality}
+There is a precise mathematical symmetry linking controllability and observability.
+\begin{mytheorem}{Duality Principle}
+The pair $(A, B)$ is controllable if and only if the dual pair $(A^\trp, B^\trp)$ is observable. Symmetrically, $(A, C)$ is observable if and only if the dual pair $(A^\trp, C^\trp)$ is controllable.
+\end{mytheorem}
+This principle allows any control synthesis technique (like pole placement or optimal LQR control) to be mapped directly to an equivalent estimation synthesis technique (like state observer or Kalman filter design) simply by transposing the matrices.
+
+\section{Kalman Canonical Decomposition}
+If a system is not fully controllable or observable, it can be decomposed into controllable and uncontrollable, observable and unobservable subspaces.
+
+Let $n_c$ be the dimension of the controllable subspace (the rank of $\mathcal{C}$). We construct a similarity transformation $T$ whose first $n_c$ columns form a basis for the range of $\mathcal{C}$. In these transformed coordinates, the similar matrices have the structured partition:
+\begin{equation}
+    \tilde{A} = T^{-1}AT = \begin{bmatrix} A_c & A_{12} \\ 0 & A_{uc} \end{bmatrix}, \quad \tilde{B} = T^{-1}B = \begin{bmatrix} B_c \\ 0 \end{bmatrix}
+\end{equation}
+This partition reveals that the uncontrollable states ($x_{uc}$) are completely decoupled from the input, and their dynamics are solely governed by $A_{uc}$.
+
+By combining controllability and observability decompositions, any LTI system can be transformed into the **Kalman Canonical Decomposition**, separating the state vector into four distinct subspaces:
+\begin{enumerate}
+    \item $x_{co}$: Controllable and Observable states.
+    \item $x_{c\bar{o}}$: Controllable and Unobservable states.
+    \item $x_{\bar{c}o}$: Uncontrollable and Observable states.
+    \item $x_{\bar{c}\bar{o}}$: Uncontrollable and Unobservable states.
+\end{enumerate}
+In these coordinates, the state dynamics are partitioned as:
+\begin{align}
+    \begin{bmatrix} \dot{x}_{co} \\ \dot{x}_{c\bar{o}} \\ \dot{x}_{\bar{c}o} \\ \dot{x}_{\bar{c}\bar{o}} \end{bmatrix} &= \begin{bmatrix}
+        A_{11} & 0 & A_{13} & 0 \\
+        A_{21} & A_{22} & A_{23} & A_{24} \\
+        0 & 0 & A_{33} & 0 \\
+        0 & 0 & A_{43} & A_{44}
+    \end{bmatrix} \begin{bmatrix} x_{co} \\ x_{c\bar{o}} \\ x_{\bar{c}o} \\ x_{\bar{c}\bar{o}} \end{bmatrix} + \begin{bmatrix} B_{co} \\ B_{c\bar{o}} \\ 0 \\ 0 \end{bmatrix} u(t) \\
+    y(t) &= \begin{bmatrix} C_{co} & 0 & C_{\bar{c}o} & 0 \end{bmatrix} x(t) + D u(t)
+\end{align}
+This decomposition demonstrates that the transfer function of the system only represents the controllable and observable subspace:
+\begin{equation}
+    G(s) = C(sI - A)^{-1} B + D = C_{co}(sI - A_{11})^{-1} B_{co} + D
+\end{equation}
+A state-space realization is said to be **minimal** if and only if the system is both fully controllable and fully observable.

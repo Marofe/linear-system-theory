@@ -1,0 +1,161 @@
+\chapter{Markov Jump Linear Systems}
+
+\section{Introduction to Switched and Markov Jump Systems}
+In previous chapters, we analyzed systems whose dynamics are governed by a single, constant state-space representation. However, many physical and engineering systems exhibit abrupt changes in their structure or parameters. Examples include:
+- **Fault-tolerant systems**: Sudden component failures change the control paths.
+- **Flight control**: Aircraft shifting between different subsonic and supersonic regimes.
+- **Networked Control Systems (NCS)**: Random packet dropouts and communication delays lead to switching network topologies.
+
+A powerful mathematical framework for modeling such phenomena is the **Markov Jump Linear System (MJLS)**. An MJLS is a switched linear system where the switching between different operating modes is governed by a stochastic process called a Markov chain.
+
+Consider the discrete-time stochastic switched linear system:
+\begin{equation}
+    x_{k+1} = A(\theta_k) x_k + B(\theta_k) u_k \label{eq:mjls_system}
+\end{equation}
+where $\theta_k$ is a discrete-time Markov chain taking values in a finite set of operating modes (or states) $\mathcal{S} = \{1, 2, \dots, N\}$.
+
+The transition dynamics of the Markov chain are defined by the transition probability matrix $\mathcal{P} \in \R^{N \times N}$, whose elements are:
+\begin{equation}
+    p_{ij} = \mathbb{P}\left(\theta_{k+1} = j \ \middle| \ \theta_k = i\right), \quad \forall i, j \in \mathcal{S}
+\end{equation}
+The transition probabilities satisfy:
+\begin{equation}
+    p_{ij} \ge 0 \quad \text{and} \quad \sum_{j=1}^N p_{ij} = 1, \quad \forall i \in \mathcal{S}
+\end{equation}
+
+When the system is in mode $\theta_k = i$, the dynamics are governed by the matrices $A(\theta_k) = A_i$ and $B(\theta_k) = B_i$.
+
+\section{Mean Square Stability (MSS)}
+In deterministic switched systems, stability can be highly counter-intuitive: switching between multiple stable subsystems can result in instability, and conversely, switching between unstable systems can achieve stability.
+In the stochastic setting, we must define stability in a statistical sense. The most common and useful notion for MJLS is **Mean Square Stability (MSS)**.
+
+\begin{mydefinition}{Mean Square Stability}
+The autonomous Markov Jump Linear System $x_{k+1} = A(\theta_k) x_k$ is Mean Square Stable (MSS) if, for any initial state $x_0 \in \R^n$ and initial mode probability distribution $\theta_0$, the state covariance converges to zero:
+\begin{equation}
+    \lim_{k \to \infty} \mathbb{E}\left[ \| x_k \|^2 \right] = 0
+\end{equation}
+\end{mydefinition}
+
+Evaluating MSS directly is challenging due to the coupling between the continuous state $x_k$ and the discrete Markov chain state $\theta_k$. Fortunately, we can characterize MSS using a set of coupled Lyapunov equations.
+
+\begin{mytheorem}{Lyapunov MSS Characterization}
+The autonomous MJLS $x_{k+1} = A_i x_k$ is Mean Square Stable if and only if there exist $N$ symmetric positive definite matrices $P_1, P_2, \dots, P_N \succ 0$ satisfying the coupled Lyapunov inequalities:
+\begin{equation}
+    \sum_{j=1}^N p_{ij} A_i^\trp P_j A_i - P_i \prec 0, \quad \forall i \in \mathcal{S} \label{eq:mjls_coupled_lyap}
+\end{equation}
+\end{mytheorem}
+
+\begin{proof}
+We prove the sufficiency ($\Leftarrow$) of this theorem. Assume there exist positive definite matrices $P_i \succ 0$ satisfying the coupled inequalities \eqref{eq:mjls_coupled_lyap}. We propose a mode-dependent Lyapunov function:
+\begin{equation}
+    V(x_k, \theta_k) = x_k^\trp P(\theta_k) x_k \ge 0, \quad \text{where } P(\theta_k) = P_i \text{ when } \theta_k = i
+\end{equation}
+We analyze the conditional expectation of $V(x_{k+1}, \theta_{k+1})$ given the state $x_k$ and mode $\theta_k = i$:
+\begin{equation}
+    \mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] = \mathbb{E}\left[ x_{k+1}^\trp P(\theta_{k+1}) x_{k+1} \ \middle| \ x_k, \theta_k = i \right]
+\end{equation}
+Substituting the state dynamics $x_{k+1} = A_i x_k$:
+\begin{align}
+    \mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] &= \mathbb{E}\left[ x_k^\trp A_i^\trp P(\theta_{k+1}) A_i x_k \ \middle| \ x_k, \theta_k = i \right] \nonumber \\
+    &= x_k^\trp A_i^\trp \mathbb{E}\left[ P(\theta_{k+1}) \ \middle| \ \theta_k = i \right] A_i x_k
+\end{align}
+The conditional expectation of the matrix $P(\theta_{k+1})$ is the sum of the matrices weighted by the transition probabilities:
+\begin{equation}
+    \mathbb{E}\left[ P(\theta_{k+1}) \ \middle| \ \theta_k = i \right] = \sum_{j=1}^N p_{ij} P_j
+\end{equation}
+Thus, we have:
+\begin{equation}
+    \mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] = x_k^\trp \left( A_i^\trp \left( \sum_{j=1}^N p_{ij} P_j \right) A_i \right) x_k
+\end{equation}
+Subtracting $V(x_k, i) = x_k^\trp P_i x_k$ yields the expected variation:
+\begin{equation}
+    \mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] - V(x_k, i) = x_k^\trp \left( \sum_{j=1}^N p_{ij} A_i^\trp P_j A_i - P_i \right) x_k
+\end{equation}
+Since the coupled inequalities \eqref{eq:mjls_coupled_lyap} are strictly negative definite, there exists a scalar $\epsilon > 0$ such that:
+\begin{equation}
+    \mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \ \middle| \ x_k, \theta_k = i \right] - V(x_k, i) \le -\epsilon \| x_k \|^2
+\end{equation}
+Taking the total expectation across all possible trajectories:
+\begin{equation}
+    \mathbb{E}\left[ V(x_{k+1}, \theta_{k+1}) \right] - \mathbb{E}\left[ V(x_k, \theta_k) \right] \le -\epsilon \mathbb{E}\left[ \| x_k \|^2 \right]
+\end{equation}
+Summing this inequality from $k = 0$ to $M$:
+\begin{equation}
+    \mathbb{E}\left[ V(x_{M+1}, \theta_{M+1}) \right] - \mathbb{E}\left[ V(x_0, \theta_0) \right] \le -\epsilon \sum_{k=0}^M \mathbb{E}\left[ \| x_k \|^2 \right]
+\end{equation}
+Rearranging and noting that $V(x, \theta) \ge 0$:
+\begin{equation}
+    \sum_{k=0}^M \mathbb{E}\left[ \| x_k \|^2 \right] \le \frac{1}{\epsilon} \mathbb{E}\left[ V(x_0, \theta_0) \right]
+\end{equation}
+Taking the limit as $M \to \infty$, the infinite sum is bounded, which implies:
+\begin{equation}
+    \lim_{k \to \infty} \mathbb{E}\left[ \| x_k \|^2 \right] = 0
+\end{equation}
+This establishes Mean Square Stability.
+\end{proof}
+
+\section{Optimal Control of MJLS (MJLS-LQR)}
+We now design an optimal state feedback controller for the system \eqref{eq:mjls_system} to minimize the infinite-horizon quadratic cost function:
+\begin{equation}
+    J = \mathbb{E}\left[ \sum_{k=0}^\infty \left( x_k^\trp Q(\theta_k) x_k + u_k^\trp R(\theta_k) u_k \right) \right]
+\end{equation}
+where $Q(i) = Q_i \ge 0$ and $R(i) = R_i \succ 0$ are the state and control weighting matrices for each mode $i \in \mathcal{S}$.
+
+Because the plant dynamics switch, the optimal controller must be mode-dependent:
+\begin{equation}
+    u_k^* = -K_i x_k \quad \text{when } \theta_k = i
+\end{equation}
+Using dynamic programming, the mode-dependent feedback gains $K_i$ and the optimal cost-to-go matrices $P_i$ are found by solving the **Coupled Discrete Algebraic Riccati Equations (CDARE)**.
+
+\begin{mytheorem}{Optimal MJLS-LQR Controller}
+If the MJLS is stabilizable and detectable in the mean square sense, then:
+\begin{enumerate}
+    \item The Coupled Discrete Algebraic Riccati Equations:
+    \begin{equation}
+        P_i = A_i^\trp \mathcal{E}_i(P) A_i - A_i^\trp \mathcal{E}_i(P) B_i \left( R_i + B_i^\trp \mathcal{E}_i(P) B_i \right)^{-1} B_i^\trp \mathcal{E}_i(P) A_i + Q_i \label{eq:mjls_cdare}
+    \end{equation}
+    where:
+    \begin{equation}
+        \mathcal{E}_i(P) = \sum_{j=1}^N p_{ij} P_j \label{eq:mjls_operator}
+    \end{equation}
+    possess unique symmetric positive definite solutions $P_1, P_2, \dots, P_N \succ 0$.
+    \item The optimal state feedback gain for mode $i \in \mathcal{S}$ is:
+    \begin{equation}
+        K_i = \left( R_i + B_i^\trp \mathcal{E}_i(P) B_i \right)^{-1} B_i^\trp \mathcal{E}_i(P) A_i \label{eq:mjls_opt_k}
+    \end{equation}
+    \item The resulting closed-loop system is Mean Square Stable.
+\end{enumerate}
+\end{mytheorem}
+The operator $\mathcal{E}_i(P)$ couples the Riccati equations: to solve for $P_i$ in one mode, we must know the solution $P_j$ in all other reachable modes. This is a fundamental difference from independent mode-by-mode design and ensures that the controller accounts for future switching.
+
+\section{Application: Networked Control Systems (NCS)}
+A critical application of MJLS is the modeling and control of **Networked Control Systems (NCS)**. In an NCS, the control loop is closed through a digital communication network. Transmission delays and packet dropouts occur randomly due to network traffic congestion and wireless interference.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{mjls_ncs_pendulo.png}
+    \caption{A Networked Control System setup: controlling an inverted pendulum where the control signal is transmitted over a lossy communication network subject to random packet dropouts.}
+    \label{fig:mjls_ncs}
+\end{figure}
+
+As shown in Figure~\ref{fig:mjls_ncs}, we model the lossy channel as a Markov chain with two modes $\theta_k \in \{1, 2\}$:
+- **Mode 1 (Transmission Success)**: The packet is transmitted successfully. The controller updates the input: $u_k = -K x_k$. The dynamics are governed by the closed-loop matrix $A_1 = A - BK$.
+- **Mode 2 (Transmission Failure)**: The packet is dropped. The ZOH holds the previous control signal constant: $u_k = u_{k-1}$. The system is unforced or operates under a delayed feedback loop, yielding $A_2 = A$.
+
+The switching between these modes is governed by a Markov chain, where the transition probabilities represent the reliability of the communication channel.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{mjls_example2.png}
+    \caption{Simulated state trajectories $x_1(k)$ and $x_2(k)$ of a Mean Square Stable MJLS under Markovian switching, showing convergence to the origin despite constant mode changes.}
+    \label{fig:mjls_traj}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{mjls_example2_switching.png}
+    \caption{The active operating mode $\theta_k \in \{1, 2, 3, 4\}$ of the system during the simulation, showing fast, random switching governed by the transition probability matrix.}
+    \label{fig:mjls_switching}
+\end{figure}
+
+Figures~\ref{fig:mjls_traj} and \ref{fig:mjls_switching} demonstrate the simulation of a 4-mode MJLS. Although individual modes may be highly oscillatory or unstable on their own, the coupled Markov feedback design guarantees that the joint state trajectory converges asymptotically to the origin in the mean square sense, illustrating the robustness and mathematical elegance of the MJLS framework.

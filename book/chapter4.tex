@@ -1,0 +1,160 @@
+\chapter{Stability of Linear Systems}
+
+\section{Introduction and Stability Definitions}
+Stability is the most critical requirement of any dynamical system. In control engineering, a system is stable if its state remains close to an equilibrium point under small perturbations. Symmetrically, it is unstable if the states diverge under tiny disturbances.
+
+Consider the autonomous LTI continuous-time system:
+\begin{equation}
+    \dot{x}(t) = A x(t), \quad x(0) = x_0 \label{eq:stable_ct}
+\end{equation}
+We define the origin $x=0$ as the equilibrium point, satisfying $A(0) = 0$. If an equilibrium point of interest $x_e$ is non-zero, we can always shift the coordinate system to place the equilibrium at the origin by defining $w = x - x_e$, yielding the homogenous form $\dot{w} = Aw$.
+
+\begin{mydefinition}{Lyapunov Stability}
+The equilibrium point $x = 0$ of system \eqref{eq:stable_ct} is stable (in the sense of Lyapunov) if, for every $\epsilon > 0$, there exists a $\delta(\epsilon) > 0$ such that:
+\begin{equation}
+    \| x(t) \| < \epsilon \quad \text{for all } t \ge 0
+\end{equation}
+whenever the initial state satisfies:
+\begin{equation}
+    \| x_0 \| < \delta
+\end{equation}
+\end{mydefinition}
+This definition ensures that states starting close to the origin remain bounded within an $\epsilon$-ball for all future time.
+
+\begin{mydefinition}{Asymptotic Stability}
+The equilibrium point $x = 0$ is asymptotically stable if:
+\begin{enumerate}
+    \item It is stable in the sense of Lyapunov.
+    \item There exists an $\eta > 0$ such that the state converges to the origin asymptotically:
+    \begin{equation}
+        \lim_{t \to \infty} x(t) = 0
+    \end{equation}
+    whenever the initial state satisfies $\| x_0 \| < \eta$.
+\end{enumerate}
+\end{mydefinition}
+
+\begin{mydefinition}{Exponential Stability}
+The equilibrium point $x = 0$ is exponentially stable if there exist constants $\alpha > 0$ (decay rate) and $\beta \ge 1$ such that:
+\begin{equation}
+    \| x(t) \| \le \beta \| x_0 \| e^{-\alpha t} \quad \text{for all } t \ge 0
+\end{equation}
+\end{mydefinition}
+For LTI systems, asymptotic stability and exponential stability are mathematically equivalent. Symmetrically, a system is stable if and only if all eigenvalues of the dynamic matrix $A$ lie in the open Left-Half of the Complex Plane (LHP), i.e., $\text{Re}(\lambda_i) < 0$ for all $i=1,\dots,n$. Such matrices are called **Hurwitz** matrices.
+
+\section{Lyapunov Stability Analysis in Continuous-Time}
+Aleksandr Lyapunov published his seminal work in 1892, presenting what is now known as Lyapunov's Direct Method. The core idea is to define a generalized scalar "energy" function of the state space and demonstrate that this energy strictly decreases along the state trajectories.
+
+\subsection{Continuous-Time Lyapunov Equation}
+For an LTI system $\dot{x} = Ax$, we propose a quadratic Lyapunov function candidate:
+\begin{equation}
+    V(x) = x^\trp P x \label{eq:lyap_candidate}
+\end{equation}
+where $P \in \R^{n \times n}$ is a symmetric positive definite matrix ($P = P^\trp \succ 0$), meaning $V(x) > 0$ for all $x \neq 0$ and $V(0) = 0$.
+
+Differentiating $V(x(t))$ along the system trajectories yields:
+\begin{align}
+    \dot{V}(x) &= \dot{x}^\trp P x + x^\trp P \dot{x} \nonumber \\
+    &= (Ax + Bu)^\trp P x + x^\trp P (Ax + Bu) \nonumber \\
+    &= x^\trp (A^\trp P + P A) x, \quad \text{for } u(t) = 0
+\end{align}
+For asymptotic stability, we require the energy to strictly decrease along all trajectories, i.e., $\dot{V}(x) < 0$ for all $x \neq 0$. This holds if and only if the matrix term inside is negative definite:
+\begin{equation}
+    A^\trp P + P A \prec 0
+\end{equation}
+Defining this negative definite term as $-Q$ for a chosen symmetric positive definite matrix $Q \succ 0$ yields the continuous-time **Lyapunov Matrix Equation**:
+\begin{equation}
+    A^\trp P + P A + Q = 0 \label{eq:lyap_eq}
+\end{equation}
+
+\begin{mytheorem}{Continuous-Time Lyapunov Stability}
+The matrix $A$ is Hurwitz (stable) if and only if, for any symmetric positive definite matrix $Q \succ 0$, there exists a unique symmetric positive definite matrix $P \succ 0$ satisfying the Lyapunov equation \eqref{eq:lyap_eq}.
+\end{mytheorem}
+
+\begin{proof}
+We prove both directions of the theorem:
+\begin{enumerate}
+    \item \textbf{Sufficiency ($\Leftarrow$)}: Assume there exist $P \succ 0, Q \succ 0$ satisfying \eqref{eq:lyap_eq}. Let $\lambda$ be an eigenvalue of $A$ with corresponding eigenvector $v \neq 0$, so $Av = \lambda v$.
+    Taking the conjugate transpose yields $v^* A^\trp = \lambda^* v^*$.
+    Premultiplying \eqref{eq:lyap_eq} by $v^*$ and postmultiplying by $v$ gives:
+    \begin{align}
+        v^* (A^\trp P + P A + Q) v &= 0 \nonumber \\
+        v^* A^\trp P v + v^* P A v + v^* Q v &= 0 \nonumber \\
+        \lambda^* v^* P v + \lambda v^* P v + v^* Q v &= 0 \nonumber \\
+        2 \text{Re}(\lambda) (v^* P v) &= -v^* Q v
+    \end{align}
+    Since $P \succ 0$ and $Q \succ 0$, we have $v^* P v > 0$ and $v^* Q v > 0$. This implies:
+    \begin{equation}
+        \text{Re}(\lambda) = -\frac{v^* Q v}{2 v^* P v} < 0
+    \end{equation}
+    Thus, all eigenvalues of $A$ have strictly negative real parts, proving stability.
+    \item \textbf{Necessity ($\Rightarrow$)}: Assume $A$ is stable. We propose the analytical solution:
+    \begin{equation}
+        P = \int_0^\infty e^{A^\trp \tau} Q e^{A \tau} d\tau
+    \end{equation}
+    Since $A$ is stable, $e^{A\tau} \to 0$ exponentially as $\tau \to \infty$, guaranteeing that the integral converges. Since $Q \succ 0$, it is straightforward that $P \succ 0$.
+    To verify that $P$ satisfies the Lyapunov equation, we substitute it:
+    \begin{align}
+        A^\trp P + P A &= A^\trp \left( \int_0^\infty e^{A^\trp \tau} Q e^{A \tau} d\tau \right) + \left( \int_0^\infty e^{A^\trp \tau} Q e^{A \tau} d\tau \right) A \nonumber \\
+        &= \int_0^\infty \left( A^\trp e^{A^\trp \tau} Q e^{A \tau} + e^{A^\trp \tau} Q e^{A \tau} A \right) d\tau \nonumber \\
+        &= \int_0^\infty \frac{d}{d\tau} \left( e^{A^\trp \tau} Q e^{A \tau} \right) d\tau \nonumber \\
+        &= \left. e^{A^\trp \tau} Q e^{A \tau} \right|_0^\infty = 0 - Q = -Q
+    \end{align}
+    This proves that $P$ is indeed the unique positive definite solution.
+\end{enumerate}
+\end{proof}
+
+\section{Lyapunov Stability Analysis in Discrete-Time}
+Consider the unforced discrete-time LTI system:
+\begin{equation}
+    x_{k+1} = A x_k, \quad x(0) = x_0 \label{eq:stable_dt}
+\end{equation}
+The system is asymptotically stable if and only if all eigenvalues of $A$ lie in the open unit circle of the complex plane, i.e., $|\lambda_i| < 1$ for all $i=1,\dots,n$. Such matrices are called **Schur** matrices.
+
+\subsection{Discrete-Time Lyapunov (Stein) Equation}
+Using the quadratic Lyapunov candidate $V(x_k) = x_k^\trp P x_k$ with $P \succ 0$, we require the energy difference between successive samples to be strictly negative:
+\begin{align}
+    \Delta V(x_k) &= V(x_{k+1}) - V(x_k) \nonumber \\
+    &= x_{k+1}^\trp P x_{k+1} - x_k^\trp P x_k \nonumber \\
+    &= (A x_k)^\trp P (A x_k) - x_k^\trp P x_k \nonumber \\
+    &= x_k^\trp (A^\trp P A - P) x_k < 0
+\end{align}
+Defining this negative definite term as $-Q$ for a chosen symmetric $Q \succ 0$ yields the **Stein (Discrete Lyapunov) Equation**:
+\begin{equation}
+    A^\trp P A - P + Q = 0 \label{eq:stein_eq}
+\end{equation}
+
+\begin{mytheorem}{Discrete-Time Lyapunov Stability}
+The matrix $A$ is Schur (stable) if and only if, for any symmetric positive definite matrix $Q \succ 0$, there exists a unique symmetric positive definite matrix $P \succ 0$ satisfying the Stein equation \eqref{eq:stein_eq}.
+\end{mytheorem}
+
+\section{Polytopic Uncertainty and Quadratic Stability}
+In physical systems, matrices $A$ are often not perfectly known due to modeling errors or operating variations. A powerful model for such uncertainty is the **Polytopic Uncertainty Model**.
+
+Let the dynamic matrix $A(t)$ belong to a polytope of matrices defined by the convex hull of $M$ vertex matrices $\{A_1, A_2, \dots, A_M\}$:
+\begin{equation}
+    A(t) \in \text{Co}\{A_1, \dots, A_M\} = \left\{ \sum_{i=1}^M \alpha_i(t) A_i \ \middle| \ \sum_{i=1}^M \alpha_i(t) = 1, \ \alpha_i(t) \ge 0 \right\}
+\end{equation}
+Evaluating the stability of the time-varying system $\dot{x}(t) = A(t) x(t)$ for infinitely many possible values of $\alpha_i(t)$ is impossible. However, we can establish stability using a **Common Quadratic Lyapunov Function**.
+
+\begin{mydefinition}{Quadratic Stability}
+The uncertain system $\dot{x}(t) = A(t) x(t)$ is quadratically stable if there exists a single, common symmetric positive definite matrix $P \succ 0$ such that:
+\begin{equation}
+    A(t)^\trp P + P A(t) \prec 0 \quad \text{for all possible } A(t)
+\end{equation}
+\end{mydefinition}
+
+\begin{mytheorem}{LMI Vertex Stability Condition}
+The uncertain system is quadratically stable if and only if there exists a single symmetric matrix $P$ satisfying the system of **Linear Matrix Inequalities (LMIs)**:
+\begin{align}
+    P &\succ 0 \\
+    A_i^\trp P + P A_i &\prec 0, \quad \forall i = 1, \dots, M
+\end{align}
+\end{mytheorem}
+\begin{proof}
+Because $A(t) = \sum_{i=1}^M \alpha_i(t) A_i$ is a convex combination:
+\begin{align}
+    A(t)^\trp P + P A(t) &= \left( \sum_{i=1}^M \alpha_i(t) A_i \right)^\trp P + P \left( \sum_{i=1}^M \alpha_i(t) A_i \right) \nonumber \\
+    &= \sum_{i=1}^M \alpha_i(t) \left( A_i^\trp P + P A_i \right)
+\end{align}
+Since $\alpha_i(t) \ge 0$ and $\sum \alpha_i = 1$, if each vertex matrix satisfies the LMI $A_i^\trp P + P A_i \prec 0$, then their convex sum is guaranteed to be strictly negative definite. This reduces an infinite-dimensional stability problem to checking a finite set of $M$ LMIs at the vertices of the polytope, which can be solved numerically in milliseconds using semi-definite programming (SDP) solvers!
+\end{proof}
