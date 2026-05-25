@@ -5,19 +5,19 @@ Physical systems (such as aircraft, chemical reactors, and electrical grids) are
 
 Consider the continuous-time LTI plant dynamics:
 \begin{equation}
-    \dot{x}(t) = A x(t) + B u(t) .\label{eq:sd_plant}
+    \dot{x}(t) = A x(t) + B u(t) , \label{eq:sd_plant}
 \end{equation}
 A digital controller samples the state vector $x(t)$ at discrete time instants $t_k$, computes the control input vector $u_k = -K x(t_k)$ using a state feedback gain $K$, and holds this control signal constant between sampling instants using a \textbf{Zero-Order Hold (ZOH)}:
 \begin{equation}
-    u(t) = u_k = -K x(t_k) \quad \text{for } t \in [t_k, t_{k+1}) .\label{eq:sd_zoh}
+    u(t) = u_k = -K x(t_k) \quad \text{for } t \in [t_k, t_{k+1}) , \label{eq:sd_zoh}
 \end{equation}
 Substituting \eqref{eq:sd_zoh} into \eqref{eq:sd_plant} yields the hybrid closed-loop system:
 \begin{equation}
-    \dot{x}(t) = A x(t) - B K x(t_k) \quad \text{for } t \in [t_k, t_{k+1}) .\label{eq:sd_cl}
+    \dot{x}(t) = A x(t) - B K x(t_k) \quad \text{for } t \in [t_k, t_{k+1}) , \label{eq:sd_cl}
 \end{equation}
 The sampling interval is denoted by $h_k = t_{k+1} - t_k > 0$. In general, the sampling intervals can be time-varying due to digital network delays, packet drops, or OS scheduling jitter:
 \begin{equation}
-h_k \in [h_{\min}, h_{\max}] .
+h_k \in [h_{\min}, h_{\max}] ,
 \end{equation}
 The presence of the term $x(t_k)$ makes the closed-loop system time-varying and infinite-dimensional, rendering standard continuous Lyapunov stability analysis ($A_{cl}^\trp P + P A_{cl} \prec 0$) inapplicable.
 
@@ -28,48 +28,48 @@ To achieve this, we employ the \textbf{Looped Lyapunov Functional} approach.
 
 Let us define a functional of the form:
 \begin{equation}
-    V(t) = x(t)^\trp P x(t) + \mathcal{V}_0(t), \quad t \in [t_k, t_{k+1}) .\label{eq:sd_looped_lyap}
+    V(t) = x(t)^\trp P x(t) + \mathcal{V}_0(t), \quad t \in [t_k, t_{k+1}) , \label{eq:sd_looped_lyap}
 \end{equation}
 where $\mathcal{V}_0(t)$ is a time-dependent looped term satisfying the boundary conditions:
 \begin{equation}
-    \mathcal{V}_0(t_k) = \mathcal{V}_0(t_{k+1}) = 0 .\label{eq:sd_boundary}
+    \mathcal{V}_0(t_k) = \mathcal{V}_0(t_{k+1}) = 0 , \label{eq:sd_boundary}
 \end{equation}
 Because of the boundary conditions \eqref{eq:sd_boundary}, evaluating \eqref{eq:sd_looped_lyap} at the sampling instants yields:
 \begin{equation}
-V(t_k) = x(t_k)^\trp P x(t_k) \quad \text{and} \quad V(t_{k+1}) = x(t_{k+1})^\trp P x(t_{k+1}) .
+V(t_k) = x(t_k)^\trp P x(t_k) \quad \text{and} \quad V(t_{k+1}) = x(t_{k+1})^\trp P x(t_{k+1}) ,
 \end{equation}
 If we can guarantee that the derivative of the functional is strictly negative throughout the sampling interval:
 \begin{equation}
-\dot{V}(t) = \frac{d}{dt} \left( x(t)^\trp P x(t) + \mathcal{V}_0(t) \right) < 0 \quad \text{for all } t \in [t_k, t_{k+1}) .
+\dot{V}(t) = \frac{d}{dt} \left( x(t)^\trp P x(t) + \mathcal{V}_0(t) \right) < 0 \quad \text{for all } t \in [t_k, t_{k+1}) ,
 \end{equation}
 then integrating this derivative from $t_k$ to $t_{k+1}$ guarantees:
 \begin{equation}
-V(t_{k+1}) - V(t_k) = x(t_{k+1})^\trp P x(t_{k+1}) - x(t_k)^\trp P x(t_k) < 0 .
+V(t_{k+1}) - V(t_k) = x(t_{k+1})^\trp P x(t_{k+1}) - x(t_k)^\trp P x(t_k) < 0 ,
 \end{equation}
 This establishes asymptotic stability at the sampling instants, which implies continuous-time stability because the states cannot escape (blow up) within a finite sampling interval.
 
 \section{Differential LMI (DLMI) Formulation}
 A powerful way to represent the looped Lyapunov functional is to allow the Lyapunov matrix to be time-varying within each sampling interval. Let $\tau(t) = t - t_k \in [0, h_k]$ represent the elapsed time since the last sample. We propose a time-dependent Lyapunov candidate:
 \begin{equation}
-V(x(t), \tau(t)) = x(t)^\trp P(\tau) x(t) .
+V(x(t), \tau(t)) = x(t)^\trp P(\tau) x(t) ,
 \end{equation}
 where $P(\tau) = P(\tau)^\trp \succ 0$ is a continuously differentiable matrix function satisfying the boundary conditions:
 \begin{equation}
-P(0) = P(h_k) = P_0 \succ 0 .
+P(0) = P(h_k) = P_0 \succ 0 ,
 \end{equation}
 Differentiating $V(x(t), \tau(t))$ along the trajectories of \eqref{eq:sd_cl} gives:
 \begin{equation}
-\dot{V}(t) = \dot{x}(t)^\trp P(\tau) x(t) + x(t)^\trp P(\tau) \dot{x}(t) + x(t)^\trp \dot{P}(\tau) x(t) .
+\dot{V}(t) = \dot{x}(t)^\trp P(\tau) x(t) + x(t)^\trp P(\tau) \dot{x}(t) + x(t)^\trp \dot{P}(\tau) x(t) ,
 \end{equation}
 where $\dot{P}(\tau) = \frac{dP(\tau)}{d\tau}$.
 
 Substituting the dynamics $\dot{x}(t) = A x(t) - B K x(t_k)$ and defining the augmented state vector $\eta(t) = \begin{bmatrix} x(t)^\trp & x(t_k)^\trp \end{bmatrix}^\trp$, we can write $\dot{V}(t)$ as:
 \begin{equation}
-\dot{V}(t) = \eta(t)^\trp \begin{bmatrix} A^\trp P(\tau) + P(\tau) A + \dot{P}(\tau) & -P(\tau) B K \\ -K^\trp B^\trp P(\tau) & 0 \end{bmatrix} \eta(t) .
+\dot{V}(t) = \eta(t)^\trp \begin{bmatrix} A^\trp P(\tau) + P(\tau) A + \dot{P}(\tau) & -P(\tau) B K \\ -K^\trp B^\trp P(\tau) & 0 \end{bmatrix} \eta(t) ,
 \end{equation}
 For stability, we require this quadratic form to be negative definite, which yields the \textbf{Differential Linear Matrix Inequality (DLMI)}:
 \begin{equation}
-    \begin{bmatrix} A^\trp P(\tau) + P(\tau) A + \dot{P}(\tau) & -P(\tau) B K \\ -K^\trp B^\trp P(\tau) & 0 \end{bmatrix} \prec 0, \quad \forall \tau \in [0, h_k] .\label{eq:sd_dlmi}
+    \begin{bmatrix} A^\trp P(\tau) + P(\tau) A + \dot{P}(\tau) & -P(\tau) B K \\ -K^\trp B^\trp P(\tau) & 0 \end{bmatrix} \prec 0, \quad \forall \tau \in [0, h_k] , \label{eq:sd_dlmi}
 \end{equation}
 
 \section{Numerical Solution via Multi-Vertex Parameterization}
@@ -77,13 +77,13 @@ Directly solving the DLMI \eqref{eq:sd_dlmi} is challenging because it must hold
 
 To render it solvable, we parameterize $P(\tau)$ as an affine function of $\tau$:
 \begin{equation}
-    P(\tau) = \left( 1 - \frac{\tau}{h_k} \right) P_1 + \frac{\tau}{h_k} P_2 .\label{eq:sd_p_param}
+    P(\tau) = \left( 1 - \frac{\tau}{h_k} \right) P_1 + \frac{\tau}{h_k} P_2 , \label{eq:sd_p_param}
 \end{equation}
 where $P_1 \succ 0$ and $P_2 \succ 0$ are symmetric positive definite matrices.
 
 Taking the derivative of \eqref{eq:sd_p_param} with respect to $\tau$ yields a constant matrix:
 \begin{equation}
-\dot{P}(\tau) = \frac{P_2 - P_1}{h_k} .
+\dot{P}(\tau) = \frac{P_2 - P_1}{h_k} ,
 \end{equation}
 Because the DLMI is affine in $\tau$, it is guaranteed to hold for all $\tau \in [0, h_k]$ if and only if it holds at the boundary vertices $\tau = 0$ and $\tau = h_k$. This reduces the infinite-dimensional DLMI to a finite set of LMIs.
 
@@ -99,11 +99,11 @@ This yields a set of standard, convex LMIs evaluated at the vertices.
 The sampled-data hybrid system \eqref{eq:sd_cl} is stable for any variable sampling interval $h_k \in [0, h]$ if there exist symmetric matrices $W_1 \succ 0$, $W_2 \succ 0$, and a matrix $Y \in \R^{m \times n}$ satisfying the LMI system:
 \begin{align}
     \begin{bmatrix} W_1 A^\trp + A W_1 - \frac{W_2 - W_1}{h} & -B Y \\ -Y^\trp B^\trp & 0 \end{bmatrix} &\prec 0 \label{eq:sd_vertex1} \\
-    \begin{bmatrix} W_2 A^\trp + A W_2 - \frac{W_2 - W_1}{h} & -B Y \\ -Y^\trp B^\trp & 0 \end{bmatrix} &\prec 0 .\label{eq:sd_vertex2}
+    \begin{bmatrix} W_2 A^\trp + A W_2 - \frac{W_2 - W_1}{h} & -B Y \\ -Y^\trp B^\trp & 0 \end{bmatrix} &\prec 0 , \label{eq:sd_vertex2}
 \end{align}
 The robust digital feedback gain is reconstructed as:
 \begin{equation}
-    K = Y W_1^{-1} .\label{eq:sd_k_reconstruct}
+    K = Y W_1^{-1} . \label{eq:sd_k_reconstruct}
 \end{equation}
 \end{mytheorem}
 By evaluating these conditions at the limits of the sampling interval, we can use standard SDP solvers to synthesize digital controllers that are guaranteed to remain stable under time-varying, uncertain sampling rates, providing a crucial bridge between continuous physics and digital control.
